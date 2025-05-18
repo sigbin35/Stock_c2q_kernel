@@ -48,8 +48,11 @@
 #include <linux/sched.h>
 #include <linux/rculist.h>
 
+<<<<<<< HEAD
 #include <linux/sec_debug.h>
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern struct bug_entry __start___bug_table[], __stop___bug_table[];
 
 static inline unsigned long bug_addr(const struct bug_entry *bug)
@@ -190,8 +193,11 @@ enum bug_trap_type report_bug(unsigned long bugaddr, struct pt_regs *regs)
 		return BUG_TRAP_TYPE_WARN;
 	}
 
+<<<<<<< HEAD
 	sec_debug_store_bug_string(file, line);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	printk(KERN_DEFAULT CUT_HERE);
 
 	if (file)

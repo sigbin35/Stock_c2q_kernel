@@ -281,5 +281,8 @@ static inline void tick_nohz_task_switch(void)
 		__tick_nohz_task_switch();
 }
 
+<<<<<<< HEAD
 ktime_t *get_next_event_cpu(unsigned int cpu);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

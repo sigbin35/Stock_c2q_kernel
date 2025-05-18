@@ -884,6 +884,7 @@ config NETFILTER_XT_TARGET_IDLETIMER
 
 	  To compile it as a module, choose M here.  If unsure, say N.
 
+<<<<<<< HEAD
 config NETFILTER_XT_TARGET_HARDIDLETIMER
 	tristate  "HARDIDLETIMER target support"
 	depends on NETFILTER_ADVANCED
@@ -898,6 +899,8 @@ config NETFILTER_XT_TARGET_HARDIDLETIMER
 
 	  To compile it as a module, choose M here.  If unsure, say N.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config NETFILTER_XT_TARGET_LED
 	tristate '"LED" target support'
 	depends on LEDS_CLASS && LEDS_TRIGGERS
@@ -1432,8 +1435,11 @@ config NETFILTER_XT_MATCH_OWNER
 	based on who created the socket: the user or group. It is also
 	possible to check whether a socket actually exists.
 
+<<<<<<< HEAD
 	Conflicts with '"quota, tag, uid" match'
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config NETFILTER_XT_MATCH_POLICY
 	tristate 'IPsec "policy" match support'
 	depends on XFRM
@@ -1467,6 +1473,7 @@ config NETFILTER_XT_MATCH_PKTTYPE
 
 	  To compile it as a module, choose M here.  If unsure, say N.
 
+<<<<<<< HEAD
 config NETFILTER_XT_MATCH_QTAGUID
 	bool '"quota, tag, owner" match and stats support'
         depends on NETFILTER_XT_MATCH_SOCKET
@@ -1483,6 +1490,8 @@ config NETFILTER_XT_MATCH_QTAGUID
 
 	  If unsure, say `N'.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config NETFILTER_XT_MATCH_QUOTA
 	tristate '"quota" match support'
 	depends on NETFILTER_ADVANCED
@@ -1493,6 +1502,7 @@ config NETFILTER_XT_MATCH_QUOTA
 	  If you want to compile it as a module, say M here and read
 	  <file:Documentation/kbuild/modules.txt>.  If unsure, say `N'.
 
+<<<<<<< HEAD
 config NETFILTER_XT_MATCH_QUOTA2
 	tristate '"quota2" match support'
 	depends on NETFILTER_ADVANCED
@@ -1516,6 +1526,8 @@ config NETFILTER_XT_MATCH_QUOTA2_LOG
 
 	  If unsure, say `N'.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config NETFILTER_XT_MATCH_RATEEST
 	tristate '"rateest" match support'
 	depends on NETFILTER_ADVANCED

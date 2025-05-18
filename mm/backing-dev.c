@@ -148,6 +148,7 @@ static ssize_t read_ahead_kb_store(struct device *dev,
 	struct backing_dev_info *bdi = dev_get_drvdata(dev);
 	unsigned long read_ahead_kb;
 	ssize_t ret;
+<<<<<<< HEAD
 	static const char temp[] = "temporary ";
 
 	if (strncmp(buf, temp, sizeof(temp) - 1) != 0)
@@ -157,6 +158,10 @@ static ssize_t read_ahead_kb_store(struct device *dev,
 
 	ret = kstrtoul(buf, 10, &read_ahead_kb);
 
+=======
+
+	ret = kstrtoul(buf, 10, &read_ahead_kb);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret < 0)
 		return ret;
 
@@ -228,6 +233,7 @@ static ssize_t stable_pages_required_show(struct device *dev,
 }
 static DEVICE_ATTR_RO(stable_pages_required);
 
+<<<<<<< HEAD
 static ssize_t bdp_debug_show(struct device *dev,
 					  struct device_attribute *attr,
 					  char *page)
@@ -293,13 +299,18 @@ static ssize_t max_bdp_debug_show(struct device *dev,
 }
 static DEVICE_ATTR_RO(max_bdp_debug);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct attribute *bdi_dev_attrs[] = {
 	&dev_attr_read_ahead_kb.attr,
 	&dev_attr_min_ratio.attr,
 	&dev_attr_max_ratio.attr,
 	&dev_attr_stable_pages_required.attr,
+<<<<<<< HEAD
 	&dev_attr_bdp_debug.attr,
 	&dev_attr_max_bdp_debug.attr,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NULL,
 };
 ATTRIBUTE_GROUPS(bdi_dev);
@@ -924,10 +935,13 @@ static int bdi_init(struct backing_dev_info *bdi)
 	INIT_LIST_HEAD(&bdi->wb_list);
 	init_waitqueue_head(&bdi->wb_waitq);
 
+<<<<<<< HEAD
 	bdi->last_thresh = 0;
 	bdi->last_nr_dirty = 0;
 	bdi->paused_total = 0;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = cgwb_bdi_init(bdi);
 
 	return ret;
@@ -950,6 +964,7 @@ struct backing_dev_info *bdi_alloc_node(gfp_t gfp_mask, int node_id)
 }
 EXPORT_SYMBOL(bdi_alloc_node);
 
+<<<<<<< HEAD
 struct backing_dev_info *sec_bdi_alloc_node(gfp_t gfp_mask, int node_id)
 {
 	struct sec_backing_dev_info *sec_bdi;
@@ -969,6 +984,8 @@ struct backing_dev_info *sec_bdi_alloc_node(gfp_t gfp_mask, int node_id)
 }
 EXPORT_SYMBOL(sec_bdi_alloc_node);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int bdi_register_va(struct backing_dev_info *bdi, const char *fmt, va_list args)
 {
 	struct device *dev;
@@ -1063,6 +1080,7 @@ static void release_bdi(struct kref *ref)
 	WARN_ON_ONCE(bdi->dev);
 	wb_exit(&bdi->wb);
 	cgwb_bdi_exit(bdi);
+<<<<<<< HEAD
 
 	if (bdi->capabilities & BDI_CAP_SEC_DEBUG) {
 		struct sec_backing_dev_info *sec_bdi = SEC_BDI(bdi);
@@ -1071,6 +1089,9 @@ static void release_bdi(struct kref *ref)
 	} else {
 		kfree(bdi);
 	}
+=======
+	kfree(bdi);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 void bdi_put(struct backing_dev_info *bdi)

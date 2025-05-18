@@ -429,6 +429,7 @@ int kvm_hvc_call_handler(struct kvm_vcpu *vcpu)
 				break;
 			}
 			break;
+<<<<<<< HEAD
 		case ARM_SMCCC_ARCH_WORKAROUND_3:
 			switch (kvm_arm_get_spectre_bhb_state()) {
 			case SPECTRE_VULNERABLE:
@@ -441,6 +442,8 @@ int kvm_hvc_call_handler(struct kvm_vcpu *vcpu)
 				break;
 			}
 			break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 		break;
 	default:

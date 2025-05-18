@@ -4,6 +4,10 @@
 /* Simple interface for creating and stopping kernel threads without mess. */
 #include <linux/err.h>
 #include <linux/sched.h>
+<<<<<<< HEAD
+=======
+#include <linux/cgroup.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 __printf(4, 5)
 struct task_struct *kthread_create_on_node(int (*threadfn)(void *data),
@@ -197,8 +201,11 @@ bool kthread_cancel_delayed_work_sync(struct kthread_delayed_work *work);
 
 void kthread_destroy_worker(struct kthread_worker *worker);
 
+<<<<<<< HEAD
 struct cgroup_subsys_state;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_BLK_CGROUP
 void kthread_associate_blkcg(struct cgroup_subsys_state *css);
 struct cgroup_subsys_state *kthread_blkcg(void);

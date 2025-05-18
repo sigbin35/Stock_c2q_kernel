@@ -3785,8 +3785,11 @@ retry:
 				.vma = vma,
 				.address = haddr,
 				.flags = flags,
+<<<<<<< HEAD
 				.vma_flags = vma->vm_flags,
 				.vma_page_prot = vma->vm_page_prot,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				/*
 				 * Hard to debug if it ends up being
 				 * used by a callee that assumes

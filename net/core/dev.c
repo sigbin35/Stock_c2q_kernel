@@ -145,8 +145,11 @@
 #include <linux/sctp.h>
 #include <net/udp_tunnel.h>
 #include <linux/net_namespace.h>
+<<<<<<< HEAD
 #include <linux/tcp.h>
 #include <net/tcp.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include "net-sysfs.h"
 
@@ -2856,6 +2859,11 @@ static u16 skb_tx_hash(const struct net_device *dev,
 
 	if (skb_rx_queue_recorded(skb)) {
 		hash = skb_get_rx_queue(skb);
+<<<<<<< HEAD
+=======
+		if (hash >= qoffset)
+			hash -= qoffset;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		while (unlikely(hash >= qcount))
 			hash -= qcount;
 		return hash + qoffset;
@@ -3327,10 +3335,13 @@ static struct sk_buff *validate_xmit_skb(struct sk_buff *skb, struct net_device 
 	if (netif_needs_gso(skb, features)) {
 		struct sk_buff *segs;
 
+<<<<<<< HEAD
 		__be16 src_port = tcp_hdr(skb)->source;
 		__be16 dest_port = tcp_hdr(skb)->dest;
 
 		trace_print_skb_gso(skb, src_port, dest_port);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		segs = skb_gso_segment(skb, features);
 		if (IS_ERR(segs)) {
 			goto out_kfree_skb;
@@ -3938,7 +3949,12 @@ EXPORT_SYMBOL(netdev_max_backlog);
 
 int netdev_tstamp_prequeue __read_mostly = 1;
 int netdev_budget __read_mostly = 300;
+<<<<<<< HEAD
 unsigned int __read_mostly netdev_budget_usecs = 2000;
+=======
+/* Must be at least 2 jiffes to guarantee 1 jiffy timeout */
+unsigned int __read_mostly netdev_budget_usecs = 2 * USEC_PER_SEC / HZ;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int weight_p __read_mostly = 64;           /* old backlog weight */
 int dev_weight_rx_bias __read_mostly = 1;  /* bias for backlog weight */
 int dev_weight_tx_bias __read_mostly = 1;  /* bias for output_queue quota */
@@ -5315,7 +5331,10 @@ static int napi_gro_complete(struct sk_buff *skb)
 	}
 
 out:
+<<<<<<< HEAD
 	__this_cpu_add(softnet_data.gro_coalesced, NAPI_GRO_CB(skb)->count > 1);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return netif_receive_skb_internal(skb);
 }
 
@@ -5366,7 +5385,10 @@ static struct list_head *gro_list_prepare(struct napi_struct *napi,
 		unsigned long diffs;
 
 		NAPI_GRO_CB(p)->flush = 0;
+<<<<<<< HEAD
 		NAPI_GRO_CB(p)->flush_id = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (hash != skb_get_hash_raw(p)) {
 			NAPI_GRO_CB(p)->same_flow = 0;
@@ -5480,6 +5502,10 @@ static enum gro_result dev_gro_receive(struct napi_struct *napi, struct sk_buff 
 		NAPI_GRO_CB(skb)->encap_mark = 0;
 		NAPI_GRO_CB(skb)->recursion_counter = 0;
 		NAPI_GRO_CB(skb)->is_fou = 0;
+<<<<<<< HEAD
+=======
+		NAPI_GRO_CB(skb)->is_atomic = 1;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		NAPI_GRO_CB(skb)->gro_remcsum_start = 0;
 
 		/* Setup for GRO checksum validation */
@@ -5788,6 +5814,7 @@ static void net_rps_send_ipi(struct softnet_data *remsd)
 	while (remsd) {
 		struct softnet_data *next = remsd->rps_ipi_next;
 
+<<<<<<< HEAD
 		if (cpu_online(remsd->cpu)) {
 			smp_call_function_single_async(remsd->cpu, &remsd->csd);
 		} else {
@@ -5796,6 +5823,10 @@ static void net_rps_send_ipi(struct softnet_data *remsd)
 			remsd->backlog.state = 0;
 			rps_unlock(remsd);
 		}
+=======
+		if (cpu_online(remsd->cpu))
+			smp_call_function_single_async(remsd->cpu, &remsd->csd);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		remsd = next;
 	}
 #endif
@@ -5855,7 +5886,12 @@ static int process_backlog(struct napi_struct *napi, int quota)
 			rcu_read_unlock();
 			input_queue_head_incr(sd);
 			if (++work >= quota)
+<<<<<<< HEAD
 				goto state_changed;
+=======
+				return work;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 
 		local_irq_disable();
@@ -5879,10 +5915,13 @@ static int process_backlog(struct napi_struct *napi, int quota)
 		local_irq_enable();
 	}
 
+<<<<<<< HEAD
 state_changed:
 	napi_gro_flush(napi, false);
 	sd->current_napi = NULL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return work;
 }
 
@@ -5978,12 +6017,18 @@ bool napi_complete_done(struct napi_struct *n, int work_done)
 				      HRTIMER_MODE_REL_PINNED);
 	}
 	if (unlikely(!list_empty(&n->poll_list))) {
+<<<<<<< HEAD
 		struct softnet_data *sd = this_cpu_ptr(&softnet_data);
 
 		/* If n->poll_list is not empty, we need to mask irqs */
 		local_irq_save(flags);
 		list_del_init(&n->poll_list);
 		sd->current_napi = NULL;
+=======
+		/* If n->poll_list is not empty, we need to mask irqs */
+		local_irq_save(flags);
+		list_del_init(&n->poll_list);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		local_irq_restore(flags);
 	}
 
@@ -6261,6 +6306,7 @@ void netif_napi_del(struct napi_struct *napi)
 }
 EXPORT_SYMBOL(netif_napi_del);
 
+<<<<<<< HEAD
 struct napi_struct *get_current_napi_context(void)
 {
 	struct softnet_data *sd = this_cpu_ptr(&softnet_data);
@@ -6269,6 +6315,8 @@ struct napi_struct *get_current_napi_context(void)
 }
 EXPORT_SYMBOL(get_current_napi_context);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int napi_poll(struct napi_struct *n, struct list_head *repoll)
 {
 	void *have;
@@ -6288,9 +6336,12 @@ static int napi_poll(struct napi_struct *n, struct list_head *repoll)
 	 */
 	work = 0;
 	if (test_bit(NAPI_STATE_SCHED, &n->state)) {
+<<<<<<< HEAD
 		struct softnet_data *sd = this_cpu_ptr(&softnet_data);
 
 		sd->current_napi = n;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		work = n->poll(n, weight);
 		trace_napi_poll(n, work, weight);
 	}
@@ -7666,11 +7717,15 @@ int __dev_change_flags(struct net_device *dev, unsigned int flags)
 
 	dev->flags = (flags & (IFF_DEBUG | IFF_NOTRAILERS | IFF_NOARP |
 			       IFF_DYNAMIC | IFF_MULTICAST | IFF_PORTSEL |
+<<<<<<< HEAD
 			       IFF_AUTOMEDIA
 #ifdef CONFIG_MPTCP
 					 | IFF_NOMULTIPATH | IFF_MPBACKUP
 #endif
 )) |
+=======
+			       IFF_AUTOMEDIA)) |
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		     (dev->flags & (IFF_UP | IFF_VOLATILE | IFF_PROMISC |
 				    IFF_ALLMULTI));
 

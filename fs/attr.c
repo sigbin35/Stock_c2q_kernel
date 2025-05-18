@@ -17,7 +17,10 @@
 #include <linux/security.h>
 #include <linux/evm.h>
 #include <linux/ima.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static bool chown_ok(const struct inode *inode, kuid_t uid)
 {
@@ -224,7 +227,11 @@ EXPORT_SYMBOL(setattr_copy);
  * the file open for write, as there can be no conflicting delegation in
  * that case.
  */
+<<<<<<< HEAD
 int notify_change2(struct vfsmount *mnt, struct dentry * dentry, struct iattr * attr, struct inode **delegated_inode)
+=======
+int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **delegated_inode)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct inode *inode = dentry->d_inode;
 	umode_t mode = inode->i_mode;
@@ -248,7 +255,11 @@ int notify_change2(struct vfsmount *mnt, struct dentry * dentry, struct iattr * 
 			return -EPERM;
 
 		if (!inode_owner_or_capable(inode)) {
+<<<<<<< HEAD
 			error = inode_permission2(mnt, inode, MAY_WRITE);
+=======
+			error = inode_permission(inode, MAY_WRITE);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (error)
 				return error;
 		}
@@ -331,26 +342,36 @@ int notify_change2(struct vfsmount *mnt, struct dentry * dentry, struct iattr * 
 	if (error)
 		return error;
 
+<<<<<<< HEAD
 	if (mnt && inode->i_op->setattr2)
 		error = inode->i_op->setattr2(mnt, dentry, attr);
 	else if (inode->i_op->setattr)
+=======
+	if (inode->i_op->setattr)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		error = inode->i_op->setattr(dentry, attr);
 	else
 		error = simple_setattr(dentry, attr);
 
 	if (!error) {
 		fsnotify_change(dentry, ia_valid);
+<<<<<<< HEAD
 		five_inode_post_setattr(current, dentry);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ima_inode_post_setattr(dentry);
 		evm_inode_post_setattr(dentry, ia_valid);
 	}
 
 	return error;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(notify_change2);
 
 int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **delegated_inode)
 {
 	return notify_change2(NULL, dentry, attr, delegated_inode);
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 EXPORT_SYMBOL(notify_change);

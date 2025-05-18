@@ -357,6 +357,10 @@ tcindex_set_parms(struct net *net, struct tcf_proto *tp, unsigned long base,
 
 		if (tcindex_alloc_perfect_hash(net, cp) < 0)
 			goto errout;
+<<<<<<< HEAD
+=======
+		cp->alloc_hash = cp->hash;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		for (i = 0; i < min(cp->hash, p->hash); i++)
 			cp->perfect[i].res = p->perfect[i].res;
 		balloc = 1;

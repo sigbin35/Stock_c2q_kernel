@@ -144,6 +144,7 @@ struct ftrace_likely_data {
 #define __visible
 #endif
 
+<<<<<<< HEAD
 #ifndef __nocfi
 #define __nocfi
 #endif
@@ -152,6 +153,8 @@ struct ftrace_likely_data {
 # define __noscs
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Assume alignment of return value.
  */
@@ -214,6 +217,10 @@ struct ftrace_likely_data {
  */
 #define __pure			__attribute__((pure))
 #define __aligned(x)		__attribute__((aligned(x)))
+<<<<<<< HEAD
+=======
+#define __aligned_largest	__attribute__((aligned))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define __printf(a, b)		__attribute__((format(printf, a, b)))
 #define __scanf(a, b)		__attribute__((format(scanf, a, b)))
 #define __maybe_unused		__attribute__((unused))
@@ -263,6 +270,7 @@ struct ftrace_likely_data {
 # define __gnu_inline
 #endif
 
+<<<<<<< HEAD
 #ifndef __norecordmcount
 #define __norecordmcount
 #endif
@@ -271,6 +279,8 @@ struct ftrace_likely_data {
 #define __nocfi
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Force always-inline if the user requests it so via the .config.
  * GCC does not warn about unused static inline functions for

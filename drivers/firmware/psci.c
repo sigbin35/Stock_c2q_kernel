@@ -88,7 +88,10 @@ static u32 psci_function_id[PSCI_FN_MAX];
 				PSCI_1_0_EXT_POWER_STATE_TYPE_MASK)
 
 static u32 psci_cpu_suspend_feature;
+<<<<<<< HEAD
 static bool psci_system_reset2_supported;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline bool psci_has_ext_power_state(void)
 {
@@ -254,6 +257,7 @@ static int get_set_conduit_method(struct device_node *np)
 
 static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
 {
+<<<<<<< HEAD
 	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
 	    psci_system_reset2_supported) {
 		/*
@@ -265,6 +269,9 @@ static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
 	} else {
 		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
 	}
+=======
+	invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void psci_sys_poweroff(void)
@@ -279,9 +286,14 @@ static int __init psci_features(u32 psci_func_id)
 }
 
 #ifdef CONFIG_CPU_IDLE
+<<<<<<< HEAD
 static __maybe_unused DEFINE_PER_CPU_READ_MOSTLY(u32 *, psci_power_state);
 
 #ifdef CONFIG_DT_IDLE_STATES
+=======
+static DEFINE_PER_CPU_READ_MOSTLY(u32 *, psci_power_state);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int psci_dt_cpu_init_idle(struct device_node *cpu_node, int cpu)
 {
 	int i, ret, count = 0;
@@ -334,10 +346,13 @@ free_mem:
 	kfree(psci_states);
 	return ret;
 }
+<<<<<<< HEAD
 #else
 static int psci_dt_cpu_init_idle(struct device_node *cpu_node, int cpu)
 { return 0; }
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_ACPI
 #include <acpi/processor.h>
@@ -413,6 +428,7 @@ int psci_cpu_init_idle(unsigned int cpu)
 	return ret;
 }
 
+<<<<<<< HEAD
 static int psci_suspend_finisher(unsigned long state_id)
 {
 	return psci_ops.cpu_suspend(state_id,
@@ -422,10 +438,25 @@ int psci_cpu_suspend_enter(unsigned long state_id)
 {
 	int ret;
 
+=======
+static int psci_suspend_finisher(unsigned long index)
+{
+	u32 *state = __this_cpu_read(psci_power_state);
+
+	return psci_ops.cpu_suspend(state[index - 1],
+				    __pa_symbol(cpu_resume));
+}
+
+int psci_cpu_suspend_enter(unsigned long index)
+{
+	int ret;
+	u32 *state = __this_cpu_read(psci_power_state);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * idle state index 0 corresponds to wfi, should never be called
 	 * from the cpu_suspend operations
 	 */
+<<<<<<< HEAD
 	if (WARN_ON_ONCE(!state_id))
 		return -EINVAL;
 
@@ -433,6 +464,15 @@ int psci_cpu_suspend_enter(unsigned long state_id)
 		ret = psci_ops.cpu_suspend(state_id, 0);
 	else
 		ret = cpu_suspend(state_id, psci_suspend_finisher);
+=======
+	if (WARN_ON_ONCE(!index))
+		return -EINVAL;
+
+	if (!psci_power_state_loses_context(state[index - 1]))
+		ret = psci_ops.cpu_suspend(state[index - 1], 0);
+	else
+		ret = cpu_suspend(index, psci_suspend_finisher);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -464,6 +504,7 @@ static const struct platform_suspend_ops psci_suspend_ops = {
 	.enter          = psci_system_suspend_enter,
 };
 
+<<<<<<< HEAD
 static void __init psci_init_system_reset2(void)
 {
 	int ret;
@@ -474,6 +515,8 @@ static void __init psci_init_system_reset2(void)
 		psci_system_reset2_supported = true;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void __init psci_init_system_suspend(void)
 {
 	int ret;
@@ -611,7 +654,10 @@ static int __init psci_probe(void)
 		psci_init_smccc();
 		psci_init_cpu_suspend();
 		psci_init_system_suspend();
+<<<<<<< HEAD
 		psci_init_system_reset2();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return 0;

@@ -12,7 +12,10 @@
 #include "ext4.h"
 #include "xattr.h"
 #include "truncate.h"
+<<<<<<< HEAD
 #include <trace/events/android_fs.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define EXT4_XATTR_SYSTEM_DATA	"data"
 #define EXT4_MIN_INLINE_DATA_SIZE	((sizeof(__le32) * EXT4_N_BLOCKS))
@@ -506,6 +509,7 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
 		return -EAGAIN;
 	}
 
+<<<<<<< HEAD
 	if (trace_android_fs_dataread_start_enabled()) {
 		char *path, pathbuf[MAX_TRACE_PATHBUF_LEN];
 
@@ -517,6 +521,8 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
 						path, current->comm);
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Current inline data can only exist in the 1st page,
 	 * So for all the other pages, just set them uptodate.
@@ -528,8 +534,11 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
 		SetPageUptodate(page);
 	}
 
+<<<<<<< HEAD
 	trace_android_fs_dataread_end(inode, page_offset(page), PAGE_SIZE);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	up_read(&EXT4_I(inode)->xattr_sem);
 
 	unlock_page(page);
@@ -1421,7 +1430,11 @@ int htree_inlinedir_to_tree(struct file *dir_file,
 			}
 		}
 
+<<<<<<< HEAD
 		ext4fs_dirhash(dir, de->name, de->name_len, hinfo);
+=======
+		ext4fs_dirhash(de->name, de->name_len, hinfo);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if ((hinfo->hash < start_hash) ||
 		    ((hinfo->hash == start_hash) &&
 		     (hinfo->minor_hash < start_minor_hash)))

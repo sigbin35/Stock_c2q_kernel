@@ -107,14 +107,22 @@
 		regulators {
 			vdd_arm: buck1 {
 				regulator-name = "vdd_arm";
+<<<<<<< HEAD
 				regulator-min-microvolt = <730000>;
+=======
+				regulator-min-microvolt = <925000>;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				regulator-max-microvolt = <1380000>;
 				regulator-always-on;
 			};
 
 			vdd_soc: buck2 {
 				regulator-name = "vdd_soc";
+<<<<<<< HEAD
 				regulator-min-microvolt = <730000>;
+=======
+				regulator-min-microvolt = <1150000>;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				regulator-max-microvolt = <1380000>;
 				regulator-always-on;
 			};

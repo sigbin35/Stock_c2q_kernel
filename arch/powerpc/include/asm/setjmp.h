@@ -12,7 +12,14 @@
 
 #define JMP_BUF_LEN    23
 
+<<<<<<< HEAD
 extern long setjmp(long *);
 extern void longjmp(long *, long);
+=======
+typedef long jmp_buf[JMP_BUF_LEN];
+
+extern int setjmp(jmp_buf env) __attribute__((returns_twice));
+extern void longjmp(jmp_buf env, int val) __attribute__((noreturn));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif /* _ASM_POWERPC_SETJMP_H */

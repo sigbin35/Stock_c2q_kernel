@@ -24,4 +24,7 @@ order.
 .. include:: bigalloc.rst
 .. include:: inlinedata.rst
 .. include:: eainode.rst
+<<<<<<< HEAD
 .. include:: verity.rst
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

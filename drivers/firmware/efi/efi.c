@@ -572,7 +572,11 @@ int __init efi_config_parse_tables(void *config_tables, int count, int sz,
 		}
 	}
 
+<<<<<<< HEAD
 	if (efi_enabled(EFI_MEMMAP))
+=======
+	if (!IS_ENABLED(CONFIG_X86_32) && efi_enabled(EFI_MEMMAP))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		efi_memattr_init();
 
 	efi_tpm_eventlog_init();

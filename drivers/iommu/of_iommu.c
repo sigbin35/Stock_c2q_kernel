@@ -103,6 +103,7 @@ static int of_iommu_xlate(struct device *dev,
 	int err;
 
 	ops = iommu_ops_from_fwnode(fwnode);
+<<<<<<< HEAD
 	/*
 	 * Return -EPROBE_DEFER for the platform devices which are dependent
 	 * on the SMMU driver registration. Deferring from here helps in adding
@@ -111,6 +112,8 @@ static int of_iommu_xlate(struct device *dev,
 	if (!dev_is_pci(dev) && of_device_is_available(iommu_spec->np) && !ops)
 		return -EPROBE_DEFER;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if ((ops && !ops->of_xlate) ||
 	    !of_device_is_available(iommu_spec->np))
 		return NO_IOMMU;
@@ -222,6 +225,7 @@ const struct iommu_ops *of_iommu_configure(struct device *dev,
 
 	return ops;
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_ARM_SMMU_SELFTEST
 int of_iommu_fill_fwspec(struct device *dev, struct of_phandle_args *iommu_spec)
@@ -234,3 +238,5 @@ int of_iommu_fill_fwspec(struct device *dev, struct of_phandle_args *iommu_spec)
 	return 0;
 }
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

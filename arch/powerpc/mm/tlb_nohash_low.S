@@ -402,7 +402,11 @@ _GLOBAL(set_context)
  * extern void loadcam_entry(unsigned int index)
  *
  * Load TLBCAM[index] entry in to the L2 CAM MMU
+<<<<<<< HEAD
  * Must preserve r7, r8, r9, and r10
+=======
+ * Must preserve r7, r8, r9, r10 and r11
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 _GLOBAL(loadcam_entry)
 	mflr	r5
@@ -438,6 +442,13 @@ END_MMU_FTR_SECTION_IFSET(MMU_FTR_BIG_PHYS)
  */
 _GLOBAL(loadcam_multi)
 	mflr	r8
+<<<<<<< HEAD
+=======
+	/* Don't switch to AS=1 if already there */
+	mfmsr	r11
+	andi.	r11,r11,MSR_IS
+	bne	10f
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*
 	 * Set up temporary TLB entry that is the same as what we're
@@ -463,6 +474,10 @@ _GLOBAL(loadcam_multi)
 	mtmsr	r6
 	isync
 
+<<<<<<< HEAD
+=======
+10:
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mr	r9,r3
 	add	r10,r3,r4
 2:	bl	loadcam_entry
@@ -471,6 +486,13 @@ _GLOBAL(loadcam_multi)
 	mr	r3,r9
 	blt	2b
 
+<<<<<<< HEAD
+=======
+	/* Don't return to AS=0 if we were in AS=1 at function start */
+	andi.	r11,r11,MSR_IS
+	bne	3f
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Return to AS=0 and clear the temporary entry */
 	mfmsr	r6
 	rlwinm.	r6,r6,0,~(MSR_IS|MSR_DS)
@@ -486,6 +508,10 @@ _GLOBAL(loadcam_multi)
 	tlbwe
 	isync
 
+<<<<<<< HEAD
+=======
+3:
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mtlr	r8
 	blr
 #endif

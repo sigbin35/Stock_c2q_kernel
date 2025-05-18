@@ -94,6 +94,11 @@ obj-$(CONFIG_VIDEO_QCOM_CAMSS)		+= qcom/camss/
 obj-$(CONFIG_VIDEO_QCOM_VENUS)		+= qcom/venus/
 
 obj-y					+= meson/
+<<<<<<< HEAD
 obj-y                                   += msm/
 obj-y					+= cros-ec-cec/
 obj-y					+= msm/
+=======
+
+obj-y					+= cros-ec-cec/
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

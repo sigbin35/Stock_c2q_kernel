@@ -463,9 +463,13 @@ int tpm_chip_register(struct tpm_chip *chip)
 
 	tpm_sysfs_add_device(chip);
 
+<<<<<<< HEAD
 	rc = tpm_bios_log_setup(chip);
 	if (rc != 0 && rc != -ENODEV)
 		return rc;
+=======
+	tpm_bios_log_setup(chip);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	tpm_add_ppi(chip);
 

@@ -1,9 +1,13 @@
 /*
  * Simple CPU accounting cgroup controller
  */
+<<<<<<< HEAD
 #include <linux/cpufreq_times.h>
 #include "sched.h"
 #include "walt.h"
+=======
+#include "sched.h"
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_IRQ_TIME_ACCOUNTING
 
@@ -53,18 +57,24 @@ void irqtime_account_irq(struct task_struct *curr)
 	struct irqtime *irqtime = this_cpu_ptr(&cpu_irqtime);
 	s64 delta;
 	int cpu;
+<<<<<<< HEAD
 #ifdef CONFIG_SCHED_WALT
 	u64 wallclock;
 	bool account = true;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!sched_clock_irqtime)
 		return;
 
 	cpu = smp_processor_id();
+<<<<<<< HEAD
 #ifdef CONFIG_SCHED_WALT
 	wallclock = sched_clock_cpu(cpu);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	delta = sched_clock_cpu(cpu) - irqtime->irq_start_time;
 	irqtime->irq_start_time += delta;
 
@@ -78,6 +88,7 @@ void irqtime_account_irq(struct task_struct *curr)
 		irqtime_account_delta(irqtime, delta, CPUTIME_IRQ);
 	else if (in_serving_softirq() && curr != this_cpu_ksoftirqd())
 		irqtime_account_delta(irqtime, delta, CPUTIME_SOFTIRQ);
+<<<<<<< HEAD
 #ifdef CONFIG_SCHED_WALT
 	else
 		account = false;
@@ -87,6 +98,8 @@ void irqtime_account_irq(struct task_struct *curr)
 	else if (curr != this_cpu_ksoftirqd())
 		sched_account_irqstart(cpu, curr, wallclock);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL(irqtime_account_irq);
 
@@ -146,9 +159,12 @@ void account_user_time(struct task_struct *p, u64 cputime)
 
 	/* Account for user time used */
 	acct_account_cputime(p);
+<<<<<<< HEAD
 
 	/* Account power usage for user time */
 	cpufreq_acct_update_power(p, cputime);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*
@@ -193,9 +209,12 @@ void account_system_index_time(struct task_struct *p,
 
 	/* Account for system time used */
 	acct_account_cputime(p);
+<<<<<<< HEAD
 
 	/* Account power usage for system time */
 	cpufreq_acct_update_power(p, cputime);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*

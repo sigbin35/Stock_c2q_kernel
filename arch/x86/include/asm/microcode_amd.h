@@ -41,7 +41,11 @@ struct microcode_amd {
 	unsigned int			mpb[0];
 };
 
+<<<<<<< HEAD
 #define PATCH_MAX_SIZE PAGE_SIZE
+=======
+#define PATCH_MAX_SIZE (3 * PAGE_SIZE)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_MICROCODE_AMD
 extern void __init load_ucode_amd_bsp(unsigned int family);

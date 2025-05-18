@@ -608,12 +608,23 @@ static inline pmd_t pmd_modify(pmd_t pmd, pgprot_t newprot)
 	return __pmd(val);
 }
 
+<<<<<<< HEAD
 /* mprotect needs to preserve PAT bits when updating vm_page_prot */
+=======
+/*
+ * mprotect needs to preserve PAT and encryption bits when updating
+ * vm_page_prot
+ */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define pgprot_modify pgprot_modify
 static inline pgprot_t pgprot_modify(pgprot_t oldprot, pgprot_t newprot)
 {
 	pgprotval_t preservebits = pgprot_val(oldprot) & _PAGE_CHG_MASK;
+<<<<<<< HEAD
 	pgprotval_t addbits = pgprot_val(newprot);
+=======
+	pgprotval_t addbits = pgprot_val(newprot) & ~_PAGE_CHG_MASK;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return __pgprot(preservebits | addbits);
 }
 

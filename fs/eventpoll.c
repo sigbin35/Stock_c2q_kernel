@@ -34,7 +34,10 @@
 #include <linux/mutex.h>
 #include <linux/anon_inodes.h>
 #include <linux/device.h>
+<<<<<<< HEAD
 #include <linux/freezer.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/uaccess.h>
 #include <asm/io.h>
 #include <asm/mman.h>
@@ -1383,13 +1386,21 @@ static int ep_create_wakeup_source(struct epitem *epi)
 	struct wakeup_source *ws;
 
 	if (!epi->ep->ws) {
+<<<<<<< HEAD
 		epi->ep->ws = wakeup_source_register(NULL, "eventpoll");
+=======
+		epi->ep->ws = wakeup_source_register("eventpoll");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!epi->ep->ws)
 			return -ENOMEM;
 	}
 
 	name = epi->ffd.file->f_path.dentry->d_name.name;
+<<<<<<< HEAD
 	ws = wakeup_source_register(NULL, name);
+=======
+	ws = wakeup_source_register(name);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!ws)
 		return -ENOMEM;
@@ -1451,6 +1462,7 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
 		RCU_INIT_POINTER(epi->ws, NULL);
 	}
 
+<<<<<<< HEAD
 	/* Add the current item to the list of active epoll hook for this file */
 	spin_lock(&tfile->f_lock);
 	list_add_tail_rcu(&epi->fllink, &tfile->f_ep_links);
@@ -1467,6 +1479,8 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
 	if (full_check && reverse_path_check())
 		goto error_remove_epi;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Initialize the poll table using the queue callback */
 	epq.epi = epi;
 	init_poll_funcptr(&epq.pt, ep_ptable_queue_proc);
@@ -1489,6 +1503,25 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
 	if (epi->nwait < 0)
 		goto error_unregister;
 
+<<<<<<< HEAD
+=======
+	/* Add the current item to the list of active epoll hook for this file */
+	spin_lock(&tfile->f_lock);
+	list_add_tail_rcu(&epi->fllink, &tfile->f_ep_links);
+	spin_unlock(&tfile->f_lock);
+
+	/*
+	 * Add the current item to the RB tree. All RB tree operations are
+	 * protected by "mtx", and ep_insert() is called with "mtx" held.
+	 */
+	ep_rbtree_insert(ep, epi);
+
+	/* now check if we've created too many backpaths */
+	error = -EINVAL;
+	if (full_check && reverse_path_check())
+		goto error_remove_epi;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* We have to drop the new item inside our item list to keep track of it */
 	spin_lock_irq(&ep->wq.lock);
 
@@ -1517,8 +1550,11 @@ static int ep_insert(struct eventpoll *ep, const struct epoll_event *event,
 
 	return 0;
 
+<<<<<<< HEAD
 error_unregister:
 	ep_unregister_pollwait(ep, epi);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 error_remove_epi:
 	spin_lock(&tfile->f_lock);
 	list_del_rcu(&epi->fllink);
@@ -1526,6 +1562,12 @@ error_remove_epi:
 
 	rb_erase_cached(&epi->rbn, &ep->rbr);
 
+<<<<<<< HEAD
+=======
+error_unregister:
+	ep_unregister_pollwait(ep, epi);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * We need to do this because an event could have been arrived on some
 	 * allocated wait queue. Note that we don't care about the ep->ovflist
@@ -1816,8 +1858,12 @@ fetch_events:
 			}
 
 			spin_unlock_irq(&ep->wq.lock);
+<<<<<<< HEAD
 			if (!freezable_schedule_hrtimeout_range(to, slack,
 								HRTIMER_MODE_ABS))
+=======
+			if (!schedule_hrtimeout_range(to, slack, HRTIMER_MODE_ABS))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				timed_out = 1;
 
 			spin_lock_irq(&ep->wq.lock);
@@ -1891,11 +1937,17 @@ static int ep_loop_check_proc(void *priv, void *cookie, int call_nests)
 			 * not already there, and calling reverse_path_check()
 			 * during ep_insert().
 			 */
+<<<<<<< HEAD
 			if (list_empty(&epi->ffd.file->f_tfile_llink)) {
 				if (get_file_rcu(epi->ffd.file))
 					list_add(&epi->ffd.file->f_tfile_llink,
 						 &tfile_check_list);
 			}
+=======
+			if (list_empty(&epi->ffd.file->f_tfile_llink))
+				list_add(&epi->ffd.file->f_tfile_llink,
+					 &tfile_check_list);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 	}
 	mutex_unlock(&ep->mtx);
@@ -1939,7 +1991,10 @@ static void clear_tfile_check_list(void)
 		file = list_first_entry(&tfile_check_list, struct file,
 					f_tfile_llink);
 		list_del_init(&file->f_tfile_llink);
+<<<<<<< HEAD
 		fput(file);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	INIT_LIST_HEAD(&tfile_check_list);
 }
@@ -2099,11 +2154,17 @@ SYSCALL_DEFINE4(epoll_ctl, int, epfd, int, op, int, fd,
 					clear_tfile_check_list();
 					goto error_tgt_fput;
 				}
+<<<<<<< HEAD
 			} else {
 				get_file(tf.file);
 				list_add(&tf.file->f_tfile_llink,
 							&tfile_check_list);
 			}
+=======
+			} else
+				list_add(&tf.file->f_tfile_llink,
+							&tfile_check_list);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			mutex_lock_nested(&ep->mtx, 0);
 			if (is_file_epoll(tf.file)) {
 				tep = tf.file->private_data;

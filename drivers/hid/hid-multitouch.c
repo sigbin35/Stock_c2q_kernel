@@ -841,8 +841,11 @@ static int mt_touch_input_mapping(struct hid_device *hdev, struct hid_input *hi,
 			code = BTN_0  + ((usage->hid - 1) & HID_USAGE);
 
 		hid_map_usage(hi, usage, bit, max, EV_KEY, code);
+<<<<<<< HEAD
 		if (!*bit)
 			return -1;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		input_set_capability(hi->input, EV_KEY, code);
 		return 1;
 

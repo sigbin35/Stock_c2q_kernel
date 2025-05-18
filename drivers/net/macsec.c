@@ -20,6 +20,10 @@
 #include <net/genetlink.h>
 #include <net/sock.h>
 #include <net/gro_cells.h>
+<<<<<<< HEAD
+=======
+#include <linux/if_arp.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <uapi/linux/if_macsec.h>
 
@@ -3248,6 +3252,11 @@ static int macsec_newlink(struct net *net, struct net_device *dev,
 	real_dev = __dev_get_by_index(net, nla_get_u32(tb[IFLA_LINK]));
 	if (!real_dev)
 		return -ENODEV;
+<<<<<<< HEAD
+=======
+	if (real_dev->type != ARPHRD_ETHER)
+		return -EINVAL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	dev->priv_flags |= IFF_MACSEC;
 

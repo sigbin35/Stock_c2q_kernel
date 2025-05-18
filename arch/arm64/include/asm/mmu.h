@@ -38,7 +38,11 @@ typedef struct {
  */
 #define ASID(mm)	((mm)->context.id.counter & 0xffff)
 
+<<<<<<< HEAD
 static __always_inline bool arm64_kernel_unmapped_at_el0(void)
+=======
+static inline bool arm64_kernel_unmapped_at_el0(void)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return IS_ENABLED(CONFIG_UNMAP_KERNEL_AT_EL0) &&
 	       cpus_have_const_cap(ARM64_UNMAP_KERNEL_AT_EL0);
@@ -49,12 +53,15 @@ typedef void (*bp_hardening_cb_t)(void);
 struct bp_hardening_data {
 	int			hyp_vectors_slot;
 	bp_hardening_cb_t	fn;
+<<<<<<< HEAD
 
 	/*
 	 * template_start is only used by the BHB mitigation to identify the
 	 * hyp_vectors_slot sequence.
 	 */
 	const char *template_start;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #if (defined(CONFIG_HARDEN_BRANCH_PREDICTOR) ||	\
@@ -98,6 +105,7 @@ extern void init_mem_pgprot(void);
 extern void create_pgd_mapping(struct mm_struct *mm, phys_addr_t phys,
 			       unsigned long virt, phys_addr_t size,
 			       pgprot_t prot, bool page_mappings_only);
+<<<<<<< HEAD
 extern void *fixmap_remap_fdt(phys_addr_t dt_phys, int *size, pgprot_t prot);
 extern void mark_linear_text_alias_ro(void);
 #ifdef CONFIG_MEMORY_HOTPLUG
@@ -107,6 +115,10 @@ extern void remove_pagetable(unsigned long start,
 	unsigned long end, bool direct);
 #endif
 #endif
+=======
+extern void *fixmap_remap_fdt(phys_addr_t dt_phys);
+extern void mark_linear_text_alias_ro(void);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif	/* !__ASSEMBLY__ */
 #endif

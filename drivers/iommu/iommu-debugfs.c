@@ -32,7 +32,10 @@ void iommu_debugfs_setup(void)
 {
 	if (!iommu_debugfs_dir) {
 		iommu_debugfs_dir = debugfs_create_dir("iommu", NULL);
+<<<<<<< HEAD
 		iommu_debugfs_top = iommu_debugfs_dir;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		pr_warn("\n");
 		pr_warn("*************************************************************\n");
 		pr_warn("**     NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE    **\n");

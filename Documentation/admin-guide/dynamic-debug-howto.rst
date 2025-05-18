@@ -54,9 +54,12 @@ If you make a mistake with the syntax, the write will fail thus::
 				<debugfs>/dynamic_debug/control
   -bash: echo: write error: Invalid argument
 
+<<<<<<< HEAD
 Note, for systems without 'debugfs' enabled, the control file can be
 found in ``/proc/dynamic_debug/control``.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 Viewing Dynamic Debug Behaviour
 ===============================
 

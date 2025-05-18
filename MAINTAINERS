@@ -326,12 +326,15 @@ F:	drivers/pci/*acpi*
 F:	drivers/pci/*/*acpi*
 F:	tools/power/acpi/
 
+<<<<<<< HEAD
 commit 6f40c42105d5c913cf855320ba7cfbc418314e29
 Author: Meng Jiang <mengjian@codeaurora.org>
 Date:   Mon Jan 13 18:20:15 2020 -0400
 	MAINTAINERS: add MCP25xxFD driver to support SPI to CAN
 	Signed-off-by: Meng Jiang <mengjian@codeaurora.org>
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 ACPI APEI
 M:	"Rafael J. Wysocki" <rjw@rjwysocki.net>
 M:	Len Brown <lenb@kernel.org>
@@ -5366,6 +5369,7 @@ L:	linux-edac@vger.kernel.org
 S:	Maintained
 F:	drivers/edac/ti_edac.c
 
+<<<<<<< HEAD
 EDAC-QCOM
 M:	Channagoud Kadabi <ckadabi@codeaurora.org>
 M:	Venkata Narendra Kumar Gutta <vnkgutta@codeaurora.org>
@@ -5374,6 +5378,8 @@ L:	linux-edac@vger.kernel.org
 S:	Maintained
 F:	drivers/edac/qcom_edac.c
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 EDIROL UA-101/UA-1000 DRIVER
 M:	Clemens Ladisch <clemens@ladisch.de>
 L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
@@ -6013,7 +6019,10 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tytso/fscrypt.git
 S:	Supported
 F:	fs/crypto/
 F:	include/linux/fscrypt*.h
+<<<<<<< HEAD
 F:	include/uapi/linux/fscrypt.h
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 F:	Documentation/filesystems/fscrypt.rst
 
 FSI-ATTACHED I2C DRIVER
@@ -6032,6 +6041,7 @@ S:	Maintained
 F:	fs/notify/
 F:	include/linux/fsnotify*.h
 
+<<<<<<< HEAD
 FSVERITY: READ-ONLY FILE-BASED AUTHENTICITY PROTECTION
 M:	Eric Biggers <ebiggers@kernel.org>
 M:	Theodore Y. Ts'o <tytso@mit.edu>
@@ -6044,6 +6054,8 @@ F:	include/linux/fsverity.h
 F:	include/uapi/linux/fsverity.h
 F:	Documentation/filesystems/fsverity.rst
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 FUJITSU LAPTOP EXTRAS
 M:	Jonathan Woithe <jwoithe@just42.net>
 L:	platform-driver-x86@vger.kernel.org
@@ -10312,12 +10324,15 @@ S:	Maintained
 F:	Documentation/scsi/NinjaSCSI.txt
 F:	drivers/scsi/nsp32*
 
+<<<<<<< HEAD
 NINTENDO HID DRIVER
 M:	Daniel J. Ogorchock <djogorchock@gmail.com>
 L:	linux-input@vger.kernel.org
 S:	Maintained
 F:	drivers/hid/hid-nintendo*
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 NIOS2 ARCHITECTURE
 M:	Ley Foon Tan <lftan@altera.com>
 L:	nios2-dev@lists.rocketboards.org (moderated for non-subscribers)

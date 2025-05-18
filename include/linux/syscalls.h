@@ -850,7 +850,10 @@ asmlinkage long sys_clock_adjtime(clockid_t which_clock,
 				struct timex __user *tx);
 asmlinkage long sys_syncfs(int fd);
 asmlinkage long sys_setns(int fd, int nstype);
+<<<<<<< HEAD
 asmlinkage long sys_pidfd_open(pid_t pid, unsigned int flags);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 asmlinkage long sys_sendmmsg(int fd, struct mmsghdr __user *msg,
 			     unsigned int vlen, unsigned flags);
 asmlinkage long sys_process_vm_readv(pid_t pid,
@@ -907,9 +910,12 @@ asmlinkage long sys_statx(int dfd, const char __user *path, unsigned flags,
 			  unsigned mask, struct statx __user *buffer);
 asmlinkage long sys_rseq(struct rseq __user *rseq, uint32_t rseq_len,
 			 int flags, uint32_t sig);
+<<<<<<< HEAD
 asmlinkage long sys_pidfd_send_signal(int pidfd, int sig,
 				       siginfo_t __user *info,
 				       unsigned int flags);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Architecture-specific system calls

@@ -270,6 +270,10 @@ int of_mdiobus_register(struct mii_bus *mdio, struct device_node *np)
 				rc = of_mdiobus_register_phy(mdio, child, addr);
 				if (rc && rc != -ENODEV)
 					goto unregister;
+<<<<<<< HEAD
+=======
+				break;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			}
 		}
 	}

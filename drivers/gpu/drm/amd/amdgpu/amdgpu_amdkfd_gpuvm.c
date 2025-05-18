@@ -1158,7 +1158,11 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
 		alloc_flags = 0;
 		if (!offset || !*offset)
 			return -EINVAL;
+<<<<<<< HEAD
 		user_addr = untagged_addr(*offset);
+=======
+		user_addr = *offset;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} else {
 		return -EINVAL;
 	}

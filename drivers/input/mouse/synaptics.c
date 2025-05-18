@@ -189,6 +189,10 @@ static const char * const smbus_pnp_ids[] = {
 	"SYN3052", /* HP EliteBook 840 G4 */
 	"SYN3221", /* HP 15-ay000 */
 	"SYN323d", /* HP Spectre X360 13-w013dx */
+<<<<<<< HEAD
+=======
+	"SYN3257", /* HP Envy 13-ad105ng */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NULL
 };
 

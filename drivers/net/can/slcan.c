@@ -147,7 +147,11 @@ static void slc_bump(struct slcan *sl)
 	u32 tmpid;
 	char *cmd = sl->rbuff;
 
+<<<<<<< HEAD
 	cf.can_id = 0;
+=======
+	memset(&cf, 0, sizeof(cf));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	switch (*cmd) {
 	case 'r':
@@ -186,8 +190,11 @@ static void slc_bump(struct slcan *sl)
 	else
 		return;
 
+<<<<<<< HEAD
 	*(u64 *) (&cf.data) = 0; /* clear payload */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* RTR frames may have a dlc > 0 but they never have any data bytes */
 	if (!(cf.can_id & CAN_RTR_FLAG)) {
 		for (i = 0; i < cf.can_dlc; i++) {
@@ -621,7 +628,14 @@ err_free_chan:
 	tty->disc_data = NULL;
 	clear_bit(SLF_INUSE, &sl->flags);
 	slc_free_netdev(sl->dev);
+<<<<<<< HEAD
 	free_netdev(sl->dev);
+=======
+	/* do not call free_netdev before rtnl_unlock */
+	rtnl_unlock();
+	free_netdev(sl->dev);
+	return err;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 err_exit:
 	rtnl_unlock();

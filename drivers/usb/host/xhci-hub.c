@@ -8,7 +8,11 @@
  * Some code borrowed from the Linux EHCI driver.
  */
 
+<<<<<<< HEAD
 #include <linux/gfp.h>
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/slab.h>
 #include <asm/unaligned.h>
 
@@ -1028,6 +1032,7 @@ static u32 xhci_get_port_status(struct usb_hcd *hcd,
 	return status;
 }
 
+<<<<<<< HEAD
 static void xhci_single_step_completion(struct urb *urb)
 {
 	struct completion *done = urb->context;
@@ -1173,6 +1178,8 @@ cleanup:
 	return retval;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
 		u16 wIndex, char *buf, u16 wLength)
 {
@@ -1467,6 +1474,7 @@ int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
 			/* 4.19.6 Port Test Modes (USB2 Test Mode) */
 			if (hcd->speed != HCD_USB2)
 				goto error;
+<<<<<<< HEAD
 			if (test_mode == 6) { /* TEST_SINGLE_STEP_SET_FEATURE */
 				spin_unlock_irqrestore(&xhci->lock, flags);
 				retval = xhci_ehset_single_step_set_feature(hcd,
@@ -1474,6 +1482,8 @@ int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
 				spin_lock_irqsave(&xhci->lock, flags);
 				break;
 			}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (test_mode > TEST_FORCE_EN || test_mode < TEST_J)
 				goto error;
 			retval = xhci_enter_test_mode(xhci, test_mode, wIndex,
@@ -1513,7 +1523,11 @@ int xhci_hub_control(struct usb_hcd *hcd, u16 typeReq, u16 wValue,
 				xhci_set_link_state(xhci, ports[wIndex],
 						    XDEV_RESUME);
 				spin_unlock_irqrestore(&xhci->lock, flags);
+<<<<<<< HEAD
 				usleep_range(21000, 21500);
+=======
+				msleep(USB_RESUME_TIMEOUT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				spin_lock_irqsave(&xhci->lock, flags);
 				xhci_set_link_state(xhci, ports[wIndex],
 							XDEV_U0);

@@ -181,6 +181,10 @@ static void parse_codecs(struct venus_core *core, void *data)
 	if (IS_V1(core)) {
 		core->dec_codecs &= ~HFI_VIDEO_CODEC_HEVC;
 		core->dec_codecs &= ~HFI_VIDEO_CODEC_SPARK;
+<<<<<<< HEAD
+=======
+		core->enc_codecs &= ~HFI_VIDEO_CODEC_HEVC;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 }
 

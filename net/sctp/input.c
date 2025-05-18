@@ -1088,8 +1088,12 @@ static struct sctp_association *__sctp_rcv_init_lookup(struct net *net,
 		if (!af)
 			continue;
 
+<<<<<<< HEAD
 		if (!af->from_addr_param(paddr, params.addr, sh->source, 0))
 			continue;
+=======
+		af->from_addr_param(paddr, params.addr, sh->source, 0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		asoc = __sctp_lookup_association(net, laddr, paddr, transportp);
 		if (asoc)
@@ -1125,9 +1129,12 @@ static struct sctp_association *__sctp_rcv_asconf_lookup(
 	union sctp_addr_param *param;
 	union sctp_addr paddr;
 
+<<<<<<< HEAD
 	if (ntohs(ch->length) < sizeof(*asconf) + sizeof(struct sctp_paramhdr))
 		return NULL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Skip over the ADDIP header and find the Address parameter */
 	param = (union sctp_addr_param *)(asconf + 1);
 
@@ -1135,8 +1142,12 @@ static struct sctp_association *__sctp_rcv_asconf_lookup(
 	if (unlikely(!af))
 		return NULL;
 
+<<<<<<< HEAD
 	if (!af->from_addr_param(&paddr, param, peer_port, 0))
 		return NULL;
+=======
+	af->from_addr_param(&paddr, param, peer_port, 0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return __sctp_lookup_association(net, laddr, &paddr, transportp);
 }
@@ -1207,7 +1218,11 @@ static struct sctp_association *__sctp_rcv_walk_lookup(struct net *net,
 
 		ch = (struct sctp_chunkhdr *)ch_end;
 		chunk_num++;
+<<<<<<< HEAD
 	} while (ch_end + sizeof(*ch) < skb_tail_pointer(skb));
+=======
+	} while (ch_end < skb_tail_pointer(skb));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return asoc;
 }

@@ -49,10 +49,13 @@
  */
 #define ARCH_DMA_MINALIGN	(128)
 
+<<<<<<< HEAD
 #ifdef CONFIG_KASAN_SW_TAGS
 #define ARCH_SLAB_MINALIGN	(1ULL << KASAN_SHADOW_SCALE_SHIFT)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifndef __ASSEMBLY__
 
 #include <linux/bitops.h>

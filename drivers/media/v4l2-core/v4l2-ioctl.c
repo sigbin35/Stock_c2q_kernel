@@ -1001,10 +1001,13 @@ static int check_fmt(struct file *file, enum v4l2_buf_type type)
 		if (is_vid && is_rx && ops->vidioc_g_fmt_meta_cap)
 			return 0;
 		break;
+<<<<<<< HEAD
 	case V4L2_BUF_TYPE_PRIVATE:
 		if (ops->vidioc_g_fmt_type_private)
 			return 0;
 		break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default:
 		break;
 	}
@@ -1299,6 +1302,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
 	case V4L2_META_FMT_VSP1_HGO:	descr = "R-Car VSP1 1-D Histogram"; break;
 	case V4L2_META_FMT_VSP1_HGT:	descr = "R-Car VSP1 2-D Histogram"; break;
 	case V4L2_META_FMT_UVC:		descr = "UVC payload header metadata"; break;
+<<<<<<< HEAD
 	case V4L2_PIX_FMT_NV12_UBWC:
 					descr = "NV12 UBWC"; break;
 	case V4L2_PIX_FMT_SDE_Y_CBCR_H2V2_P010_VENUS:
@@ -1383,6 +1387,8 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
 					descr = "Y/CbCr 4:2:0 TP10"; break;
 	case V4L2_PIX_FMT_SDE_Y_CBCR_H2V2_P010:
 					descr = "Y/CbCr 4:2:0 P10"; break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	default:
 		/* Compressed formats */
@@ -1426,8 +1432,11 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc *fmt)
 		case V4L2_PIX_FMT_SE401:	descr = "GSPCA SE401"; break;
 		case V4L2_PIX_FMT_S5C_UYVY_JPG:	descr = "S5C73MX interleaved UYVY/JPEG"; break;
 		case V4L2_PIX_FMT_MT21C:	descr = "Mediatek Compressed Format"; break;
+<<<<<<< HEAD
 		case V4L2_PIX_FMT_TME:
 			descr = "TME"; break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		default:
 			WARN(1, "Unknown pixelformat 0x%08x\n", fmt->pixelformat);
 			if (fmt->description[0])

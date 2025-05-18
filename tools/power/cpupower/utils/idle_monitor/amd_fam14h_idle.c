@@ -83,7 +83,11 @@ static struct pci_access *pci_acc;
 static struct pci_dev *amd_fam14h_pci_dev;
 static int nbp1_entered;
 
+<<<<<<< HEAD
 struct timespec start_time;
+=======
+static struct timespec start_time;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static unsigned long long timediff;
 
 #ifdef DEBUG

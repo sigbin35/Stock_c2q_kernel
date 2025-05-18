@@ -29,9 +29,12 @@
 
 struct inet_bind_bucket;
 struct tcp_congestion_ops;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct tcp_options_received;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Pointers to address related TCP functions

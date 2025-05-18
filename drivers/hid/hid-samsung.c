@@ -130,6 +130,7 @@ static int samsung_kbd_mouse_input_mapping(struct hid_device *hdev,
 	return 1;
 }
 
+<<<<<<< HEAD
 static int samsung_kbd_input_mapping(struct hid_device *hdev,
 	struct hid_input *hi, struct hid_field *field, struct hid_usage *usage,
 	unsigned long **bit, int *max)
@@ -482,6 +483,8 @@ static int samsung_universal_kbd_input_mapping(struct hid_device *hdev,
 	return 1;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static __u8 *samsung_report_fixup(struct hid_device *hdev, __u8 *rdesc,
 	unsigned int *rsize)
 {
@@ -499,6 +502,7 @@ static int samsung_input_mapping(struct hid_device *hdev, struct hid_input *hi,
 	if (USB_DEVICE_ID_SAMSUNG_WIRELESS_KBD_MOUSE == hdev->product)
 		ret = samsung_kbd_mouse_input_mapping(hdev,
 			hi, field, usage, bit, max);
+<<<<<<< HEAD
     else if (hdev->product == USB_DEVICE_ID_SAMSUNG_WIRELESS_KBD)
 		ret = samsung_kbd_input_mapping(hdev,
 			hi, field, usage, bit, max);
@@ -514,6 +518,8 @@ static int samsung_input_mapping(struct hid_device *hdev, struct hid_input *hi,
 	else if (hdev->product == USB_DEVICE_ID_SAMSUNG_WIRELESS_MULTI_HOGP_KBD)
 		ret = samsung_universal_kbd_input_mapping(hdev,
 			hi, field, usage, bit, max);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -552,11 +558,14 @@ err_free:
 static const struct hid_device_id samsung_devices[] = {
 	{ HID_USB_DEVICE(USB_VENDOR_ID_SAMSUNG, USB_DEVICE_ID_SAMSUNG_IR_REMOTE) },
 	{ HID_USB_DEVICE(USB_VENDOR_ID_SAMSUNG, USB_DEVICE_ID_SAMSUNG_WIRELESS_KBD_MOUSE) },
+<<<<<<< HEAD
     { HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_SAMSUNG_ELECTRONICS, USB_DEVICE_ID_SAMSUNG_WIRELESS_KBD) },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_SAMSUNG_ELECTRONICS, USB_DEVICE_ID_SAMSUNG_WIRELESS_GAMEPAD) },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_SAMSUNG_ELECTRONICS, USB_DEVICE_ID_SAMSUNG_WIRELESS_ACTIONMOUSE) },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_SAMSUNG_ELECTRONICS, USB_DEVICE_ID_SAMSUNG_WIRELESS_UNIVERSAL_KBD) },
 	{ HID_BLUETOOTH_DEVICE(USB_VENDOR_ID_SAMSUNG_ELECTRONICS, USB_DEVICE_ID_SAMSUNG_WIRELESS_MULTI_HOGP_KBD) },
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	{ }
 };
 MODULE_DEVICE_TABLE(hid, samsung_devices);

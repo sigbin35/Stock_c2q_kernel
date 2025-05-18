@@ -1460,10 +1460,13 @@ static void release_one_tty(struct work_struct *work)
 
 	put_pid(tty->pgrp);
 	put_pid(tty->session);
+<<<<<<< HEAD
 #if defined(CONFIG_TTY_FLUSH_LOCAL_ECHO)
 	if (tty->echo_delayed_work.work.func)
 		cancel_delayed_work_sync(&tty->echo_delayed_work);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	free_tty_struct(tty);
 }
 
@@ -2751,6 +2754,7 @@ void __do_SAK(struct tty_struct *tty)
 	struct task_struct *g, *p;
 	struct pid *session;
 	int		i;
+<<<<<<< HEAD
 	unsigned long flags;
 
 	if (!tty)
@@ -2759,6 +2763,12 @@ void __do_SAK(struct tty_struct *tty)
 	spin_lock_irqsave(&tty->ctrl_lock, flags);
 	session = get_pid(tty->session);
 	spin_unlock_irqrestore(&tty->ctrl_lock, flags);
+=======
+
+	if (!tty)
+		return;
+	session = tty->session;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	tty_ldisc_flush(tty);
 
@@ -2790,7 +2800,10 @@ void __do_SAK(struct tty_struct *tty)
 		task_unlock(p);
 	} while_each_thread(g, p);
 	read_unlock(&tasklist_lock);
+<<<<<<< HEAD
 	put_pid(session);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 }
 

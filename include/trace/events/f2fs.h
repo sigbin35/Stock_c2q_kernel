@@ -49,7 +49,10 @@ TRACE_DEFINE_ENUM(CP_SYNC);
 TRACE_DEFINE_ENUM(CP_RECOVERY);
 TRACE_DEFINE_ENUM(CP_DISCARD);
 TRACE_DEFINE_ENUM(CP_TRIMMED);
+<<<<<<< HEAD
 TRACE_DEFINE_ENUM(CP_PAUSE);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define show_block_type(type)						\
 	__print_symbolic(type,						\
@@ -135,14 +138,21 @@ TRACE_DEFINE_ENUM(CP_PAUSE);
 		{ CP_SYNC,	"Sync" },				\
 		{ CP_RECOVERY,	"Recovery" },				\
 		{ CP_DISCARD,	"Discard" },				\
+<<<<<<< HEAD
 		{ CP_PAUSE,	"Pause" },				\
+=======
+		{ CP_UMOUNT,	"Umount" },				\
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		{ CP_TRIMMED,	"Trimmed" })
 
 #define show_fsync_cpreason(type)					\
 	__print_symbolic(type,						\
 		{ CP_NO_NEEDED,		"no needed" },			\
 		{ CP_NON_REGULAR,	"non regular" },		\
+<<<<<<< HEAD
 		{ CP_COMPRESSED,	"compressed" },			\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		{ CP_HARDLINK,		"hardlink" },			\
 		{ CP_SB_NEED_CP,	"sb needs cp" },		\
 		{ CP_WRONG_PINO,	"wrong pino" },			\
@@ -152,6 +162,7 @@ TRACE_DEFINE_ENUM(CP_PAUSE);
 		{ CP_SPEC_LOG_NUM,	"log type is 2" },		\
 		{ CP_RECOVER_DIR,	"dir needs recovery" })
 
+<<<<<<< HEAD
 #define show_shutdown_mode(type)					\
 	__print_symbolic(type,						\
 		{ F2FS_GOING_DOWN_FULLSYNC,	"full sync" },		\
@@ -168,6 +179,8 @@ TRACE_DEFINE_ENUM(CP_PAUSE);
 struct f2fs_sb_info;
 struct f2fs_io_info;
 struct extent_info;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct victim_sel_policy;
 struct f2fs_map_blocks;
 
@@ -541,6 +554,7 @@ TRACE_EVENT(f2fs_truncate_partial_nodes,
 		__entry->err)
 );
 
+<<<<<<< HEAD
 TRACE_EVENT(f2fs_file_write_iter,
 
 	TP_PROTO(struct inode *inode, unsigned long offset,
@@ -572,6 +586,8 @@ TRACE_EVENT(f2fs_file_write_iter,
 		__entry->ret)
 );
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 TRACE_EVENT(f2fs_map_blocks,
 	TP_PROTO(struct inode *inode, struct f2fs_map_blocks *map, int ret),
 
@@ -583,9 +599,12 @@ TRACE_EVENT(f2fs_map_blocks,
 		__field(block_t,	m_lblk)
 		__field(block_t,	m_pblk)
 		__field(unsigned int,	m_len)
+<<<<<<< HEAD
 		__field(unsigned int,	m_flags)
 		__field(int,	m_seg_type)
 		__field(bool,	m_may_create)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__field(int,	ret)
 	),
 
@@ -595,22 +614,32 @@ TRACE_EVENT(f2fs_map_blocks,
 		__entry->m_lblk		= map->m_lblk;
 		__entry->m_pblk		= map->m_pblk;
 		__entry->m_len		= map->m_len;
+<<<<<<< HEAD
 		__entry->m_flags	= map->m_flags;
 		__entry->m_seg_type	= map->m_seg_type;
 		__entry->m_may_create	= map->m_may_create;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__entry->ret		= ret;
 	),
 
 	TP_printk("dev = (%d,%d), ino = %lu, file offset = %llu, "
+<<<<<<< HEAD
 		"start blkaddr = 0x%llx, len = 0x%llx, flags = %u,"
 		"seg_type = %d, may_create = %d, err = %d",
+=======
+		"start blkaddr = 0x%llx, len = 0x%llx, err = %d",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		show_dev_ino(__entry),
 		(unsigned long long)__entry->m_lblk,
 		(unsigned long long)__entry->m_pblk,
 		(unsigned long long)__entry->m_len,
+<<<<<<< HEAD
 		__entry->m_flags,
 		__entry->m_seg_type,
 		__entry->m_may_create,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__entry->ret)
 );
 
@@ -1036,8 +1065,13 @@ DECLARE_EVENT_CLASS(f2fs__submit_page_bio,
 	),
 
 	TP_fast_assign(
+<<<<<<< HEAD
 		__entry->dev		= page_file_mapping(page)->host->i_sb->s_dev;
 		__entry->ino		= page_file_mapping(page)->host->i_ino;
+=======
+		__entry->dev		= page->mapping->host->i_sb->s_dev;
+		__entry->ino		= page->mapping->host->i_ino;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__entry->index		= page->index;
 		__entry->old_blkaddr	= fio->old_blkaddr;
 		__entry->new_blkaddr	= fio->new_blkaddr;
@@ -1224,11 +1258,18 @@ DECLARE_EVENT_CLASS(f2fs__page,
 	),
 
 	TP_fast_assign(
+<<<<<<< HEAD
 		__entry->dev	= page_file_mapping(page)->host->i_sb->s_dev;
 		__entry->ino	= page_file_mapping(page)->host->i_ino;
 		__entry->type	= type;
 		__entry->dir	=
 			S_ISDIR(page_file_mapping(page)->host->i_mode);
+=======
+		__entry->dev	= page->mapping->host->i_sb->s_dev;
+		__entry->ino	= page->mapping->host->i_ino;
+		__entry->type	= type;
+		__entry->dir	= S_ISDIR(page->mapping->host->i_mode);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__entry->index	= page->index;
 		__entry->dirty	= PageDirty(page);
 		__entry->uptodate = PageUptodate(page);
@@ -1293,6 +1334,7 @@ DEFINE_EVENT(f2fs__page, f2fs_commit_inmem_page,
 	TP_ARGS(page, type)
 );
 
+<<<<<<< HEAD
 TRACE_EVENT(f2fs_filemap_fault,
 
 	TP_PROTO(struct inode *inode, pgoff_t index, unsigned long ret),
@@ -1319,6 +1361,8 @@ TRACE_EVENT(f2fs_filemap_fault,
 		__entry->ret)
 );
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 TRACE_EVENT(f2fs_writepages,
 
 	TP_PROTO(struct inode *inode, struct writeback_control *wbc, int type),
@@ -1703,6 +1747,7 @@ DEFINE_EVENT(f2fs_sync_dirty_inodes, f2fs_sync_dirty_inodes_exit,
 	TP_ARGS(sb, type, count)
 );
 
+<<<<<<< HEAD
 TRACE_EVENT(f2fs_shutdown,
 
 	TP_PROTO(struct f2fs_sb_info *sbi, unsigned int mode, int ret),
@@ -1821,6 +1866,8 @@ DEFINE_EVENT(f2fs_zip_end, f2fs_decompress_pages_end,
 	TP_ARGS(inode, cluster_idx, compressed_size, ret)
 );
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _TRACE_F2FS_H */
 
  /* This part must be outside protection */

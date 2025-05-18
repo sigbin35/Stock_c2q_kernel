@@ -690,7 +690,11 @@ static notrace void trace_event_raw_event_synth(void *__data,
 		}
 	}
 
+<<<<<<< HEAD
 	trace_event_buffer_commit(&fbuffer, sizeof(*entry) + fields_size);
+=======
+	trace_event_buffer_commit(&fbuffer);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out:
 	ring_buffer_nest_end(buffer);
 }

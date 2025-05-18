@@ -815,9 +815,17 @@ out_free_tagset:
 	if (new)
 		nvme_rdma_free_tagset(&ctrl->ctrl, ctrl->ctrl.admin_tagset);
 out_free_async_qe:
+<<<<<<< HEAD
 	nvme_rdma_free_qe(ctrl->device->dev, &ctrl->async_event_sqe,
 		sizeof(struct nvme_command), DMA_TO_DEVICE);
 	ctrl->async_event_sqe.data = NULL;
+=======
+	if (ctrl->async_event_sqe.data) {
+		nvme_rdma_free_qe(ctrl->device->dev, &ctrl->async_event_sqe,
+			sizeof(struct nvme_command), DMA_TO_DEVICE);
+		ctrl->async_event_sqe.data = NULL;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out_free_queue:
 	nvme_rdma_free_queue(&ctrl->queues[0]);
 	return error;

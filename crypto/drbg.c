@@ -100,11 +100,14 @@
 #include <crypto/drbg.h>
 #include <linux/kernel.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 #include "fips140.h"
 #define ENTROPY_BLOCK_LEN 20
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /***************************************************************
  * Backend cipher definitions available to DRBG
  ***************************************************************/
@@ -173,41 +176,57 @@ static const struct drbg_core drbg_cores[] = {
 		.statelen = 20, /* block length of cipher */
 		.blocklen_bytes = 20,
 		.cra_name = "hmac_sha1",
+<<<<<<< HEAD
 #if defined(CONFIG_CRYPTO_FIPS) && defined(CONFIG_CRYPTO_SHA1_ARM64_CE) /* FIPS_140_2 */
 		.backend_cra_name = "hmac(sha1-ce)",
 #else
 		.backend_cra_name = "hmac(sha1)",
 #endif
+=======
+		.backend_cra_name = "hmac(sha1)",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}, {
 		.flags = DRBG_HMAC | DRBG_STRENGTH256,
 		.statelen = 48, /* block length of cipher */
 		.blocklen_bytes = 48,
 		.cra_name = "hmac_sha384",
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 		.backend_cra_name = "hmac(sha384-generic)",
 #else
 		.backend_cra_name = "hmac(sha384)",
 #endif
+=======
+		.backend_cra_name = "hmac(sha384)",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}, {
 		.flags = DRBG_HMAC | DRBG_STRENGTH256,
 		.statelen = 64, /* block length of cipher */
 		.blocklen_bytes = 64,
 		.cra_name = "hmac_sha512",
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 		.backend_cra_name = "hmac(sha512-generic)",
 #else
 		.backend_cra_name = "hmac(sha512)",
 #endif
+=======
+		.backend_cra_name = "hmac(sha512)",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}, {
 		.flags = DRBG_HMAC | DRBG_STRENGTH256,
 		.statelen = 32, /* block length of cipher */
 		.blocklen_bytes = 32,
 		.cra_name = "hmac_sha256",
+<<<<<<< HEAD
 #if defined(CONFIG_CRYPTO_FIPS) && defined(CONFIG_CRYPTO_SHA2_ARM64_CE) /* FIPS_140_2 */
 		.backend_cra_name = "hmac(sha256-ce)",
 #else
 		.backend_cra_name = "hmac(sha256)",
 #endif
+=======
+		.backend_cra_name = "hmac(sha256)",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	},
 #endif /* CONFIG_CRYPTO_DRBG_HMAC */
 };
@@ -567,6 +586,7 @@ static int drbg_ctr_generate(struct drbg_state *drbg,
 	int ret;
 	int len = min_t(int, buflen, INT_MAX);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err())) {
 		pr_err("FIPS : drbg.c:%s FIPS in Error!!!\n", __func__);
@@ -574,6 +594,8 @@ static int drbg_ctr_generate(struct drbg_state *drbg,
 	}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* 10.2.1.5.2 step 2 */
 	if (addtl && !list_empty(addtl)) {
 		ret = drbg_ctr_update(drbg, addtl, 2);
@@ -689,6 +711,7 @@ static int drbg_hmac_generate(struct drbg_state *drbg,
 	struct drbg_string data;
 	LIST_HEAD(datalist);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err())) {
 		pr_err("FIPS : drbg.c:%s FIPS in Error!!!\n", __func__);
@@ -696,6 +719,8 @@ static int drbg_hmac_generate(struct drbg_state *drbg,
 	}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* 10.1.2.5 step 2 */
 	if (addtl && !list_empty(addtl)) {
 		ret = drbg_hmac_update(drbg, addtl, 1);
@@ -926,6 +951,7 @@ static int drbg_hash_hashgen(struct drbg_state *drbg,
 	struct drbg_string data;
 	LIST_HEAD(datalist);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err())) {
 		pr_err("FIPS : drbg.c:%s FIPS in Error!!!\n", __func__);
@@ -933,6 +959,8 @@ static int drbg_hash_hashgen(struct drbg_state *drbg,
 	}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* 10.1.1.4 step hashgen 2 */
 	memcpy(src, drbg->V, drbg_statelen(drbg));
 
@@ -1025,6 +1053,7 @@ static const struct drbg_state_ops drbg_hash_ops = {
  * Functions common for DRBG implementations
  ******************************************************************/
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 #define NUM_MAX_READ_COUNT 16
 static int get_blocking_random_bytes(u8 *entropy, unsigned int len)
@@ -1094,6 +1123,8 @@ static void drbg_read_entropy(struct drbg_state *drbg, u8 *entropy, unsigned int
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline int __drbg_seed(struct drbg_state *drbg, struct list_head *seed,
 			      int reseed)
 {
@@ -1120,11 +1151,15 @@ static void drbg_async_seed(struct work_struct *work)
 
 	BUG_ON(!entropylen);
 	BUG_ON(entropylen > sizeof(entropy));
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	drbg_read_entropy(drbg, entropy, entropylen);
 #else
 	get_random_bytes(entropy, entropylen);
 #endif
+=======
+	get_random_bytes(entropy, entropylen);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	drbg_string_fill(&data, entropy, entropylen);
 	list_add_tail(&data.list, &seedlist);
@@ -1166,6 +1201,7 @@ static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 {
 	int ret;
 	unsigned char entropy[((32 + 16) * 2)];
+<<<<<<< HEAD
 
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	unsigned char *p;
@@ -1173,6 +1209,8 @@ static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 	unsigned int buflen;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned int entropylen = drbg_sec_strength(drbg->core->flags);
 	struct drbg_string data1;
 	LIST_HEAD(seedlist);
@@ -1202,6 +1240,7 @@ static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 			entropylen = ((entropylen + 1) / 2) * 3;
 		BUG_ON((entropylen * 2) > sizeof(entropy));
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 		buflen = (((entropylen + ENTROPY_BLOCK_LEN - 1) / ENTROPY_BLOCK_LEN) + 1) * ENTROPY_BLOCK_LEN;
 		/* Get seed from /dev/random if available, o.w /dev/urandom */
@@ -1221,6 +1260,11 @@ static int drbg_seed(struct drbg_state *drbg, struct drbg_string *pers,
 		/* Get seed from in-kernel /dev/urandom */
 		get_random_bytes(entropy, entropylen);
 #endif
+=======
+		/* Get seed from in-kernel /dev/urandom */
+		get_random_bytes(entropy, entropylen);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!drbg->jent) {
 			drbg_string_fill(&data1, entropy, entropylen);
 			pr_devel("DRBG: (re)seeding with %u bytes of entropy\n",
@@ -1614,9 +1658,12 @@ static int drbg_instantiate(struct drbg_state *drbg, struct drbg_string *pers,
 		drbg->core = &drbg_cores[coreref];
 		drbg->pr = pr;
 		drbg->seeded = false;
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 		drbg->hw_entropy = false;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		drbg->reseed_threshold = drbg_max_requests(drbg);
 
 		ret = drbg_alloc_state(drbg);

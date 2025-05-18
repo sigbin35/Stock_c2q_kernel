@@ -31,7 +31,10 @@
 
 /* MDSCR_EL1 enabling bits */
 #define DBG_MDSCR_KDE		(1 << 13)
+<<<<<<< HEAD
 #define DBG_MDSCR_HDE		(1 << 14)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define DBG_MDSCR_MDE		(1 << 15)
 #define DBG_MDSCR_MASK		~(DBG_MDSCR_KDE | DBG_MDSCR_MDE)
 

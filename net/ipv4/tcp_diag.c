@@ -33,6 +33,7 @@ static void tcp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
 		r->idiag_rqueue = max_t(int, READ_ONCE(tp->rcv_nxt) - tp->copied_seq, 0);
 		r->idiag_wqueue = tp->write_seq - tp->snd_una;
 	}
+<<<<<<< HEAD
 
 #ifdef CONFIG_MPTCP
 	if (info)
@@ -42,6 +43,10 @@ static void tcp_diag_get_info(struct sock *sk, struct inet_diag_msg *r,
 		tcp_get_info(sk, info);
 #endif
 
+=======
+	if (info)
+		tcp_get_info(sk, info);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 #ifdef CONFIG_TCP_MD5SIG

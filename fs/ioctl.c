@@ -17,8 +17,11 @@
 #include <linux/buffer_head.h>
 #include <linux/falloc.h>
 #include <linux/sched/signal.h>
+<<<<<<< HEAD
 #include <linux/sec_param.h>
 #include <linux/slab.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include "internal.h"
 
@@ -154,7 +157,11 @@ int fiemap_check_flags(struct fiemap_extent_info *fieinfo, u32 fs_flags)
 }
 EXPORT_SYMBOL(fiemap_check_flags);
 
+<<<<<<< HEAD
 int fiemap_check_ranges(struct super_block *sb,
+=======
+static int fiemap_check_ranges(struct super_block *sb,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			       u64 start, u64 len, u64 *new_len)
 {
 	u64 maxbytes = (u64) sb->s_maxbytes;
@@ -175,7 +182,10 @@ int fiemap_check_ranges(struct super_block *sb,
 
 	return 0;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(fiemap_check_ranges);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static int ioctl_fiemap(struct file *filp, unsigned long arg)
 {

@@ -560,7 +560,10 @@ static void qla_nvme_remoteport_delete(struct nvme_fc_remote_port *rport)
 }
 
 static struct nvme_fc_port_template qla_nvme_fc_transport = {
+<<<<<<< HEAD
 	.module	= THIS_MODULE,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.localport_delete = qla_nvme_localport_delete,
 	.remoteport_delete = qla_nvme_remoteport_delete,
 	.create_queue   = qla_nvme_alloc_queue,

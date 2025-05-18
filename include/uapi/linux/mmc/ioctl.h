@@ -3,7 +3,10 @@
 #define LINUX_MMC_IOCTL_H
 
 #include <linux/types.h>
+<<<<<<< HEAD
 #include <linux/major.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct mmc_ioc_cmd {
 	/* Implies direction of data.  true = write, false = read */
@@ -65,6 +68,7 @@ struct mmc_ioc_multi_cmd {
  *	commands in array in sequence to card.
  */
 #define MMC_IOC_MULTI_CMD _IOWR(MMC_BLOCK_MAJOR, 1, struct mmc_ioc_multi_cmd)
+<<<<<<< HEAD
 
 /**
  * There are four request types that are applicable for rpmb accesses- two
@@ -120,6 +124,8 @@ struct mmc_ioc_rpmb {
  */
 #define MMC_IOC_RPMB_CMD _IOWR(MMC_BLOCK_MAJOR, 0, struct mmc_ioc_rpmb)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Since this ioctl is only meant to enhance (and not replace) normal access
  * to the mmc bus device, an upper data transfer limit of MMC_IOC_MAX_BYTES

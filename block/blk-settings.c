@@ -717,6 +717,12 @@ void disk_stack_limits(struct gendisk *disk, struct block_device *bdev,
 		printk(KERN_NOTICE "%s: Warning: Device %s is misaligned\n",
 		       top, bottom);
 	}
+<<<<<<< HEAD
+=======
+
+	t->backing_dev_info->io_pages =
+		t->limits.max_sectors >> (PAGE_SHIFT - 9);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL(disk_stack_limits);
 

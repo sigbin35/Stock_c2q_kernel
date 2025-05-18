@@ -15,7 +15,10 @@
 
 #include <linux/clk.h>
 #include <linux/dmaengine.h>
+<<<<<<< HEAD
 #include <linux/interrupt.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/module.h>
 #include <linux/of.h>
 #include <linux/pinctrl/consumer.h>

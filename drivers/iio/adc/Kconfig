@@ -567,6 +567,7 @@ config QCOM_PM8XXX_XOADC
 	  To compile this driver as a module, choose M here: the module
 	  will be called qcom-pm8xxx-xoadc.
 
+<<<<<<< HEAD
 config QCOM_SPMI_ADC5
 	tristate "Qualcomm Technologies Inc. SPMI PMIC5 ADC"
 	depends on SPMI
@@ -611,6 +612,8 @@ config QCOM_RRADC
 	  To compile this driver as a module, choose M here: the module will
 	  be called qcom-rradc.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config QCOM_SPMI_IADC
 	tristate "Qualcomm SPMI PMIC current ADC"
 	depends on SPMI

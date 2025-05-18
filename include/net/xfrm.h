@@ -740,8 +740,12 @@ struct xfrm_spi_skb_cb {
 
 #define XFRM_SPI_SKB_CB(__skb) ((struct xfrm_spi_skb_cb *)&((__skb)->cb[0]))
 
+<<<<<<< HEAD
 // [ SEC_SELINUX_PORTING_COMMON - remove AUDIT_MAC_IPSEC_EVENT audit log, it conflict with security notification
 #if 0 // #ifdef CONFIG_AUDITSYSCALL
+=======
+#ifdef CONFIG_AUDITSYSCALL
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline struct audit_buffer *xfrm_audit_start(const char *op)
 {
 	struct audit_buffer *audit_buf = NULL;
@@ -830,7 +834,10 @@ static inline void xfrm_audit_state_icvfail(struct xfrm_state *x,
 {
 }
 #endif /* CONFIG_AUDITSYSCALL */
+<<<<<<< HEAD
 // ] SEC_SELINUX_PORTING_COMMON - remove AUDIT_MAC_IPSEC_EVENT audit log, it conflict with security notification
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline void xfrm_pol_hold(struct xfrm_policy *policy)
 {

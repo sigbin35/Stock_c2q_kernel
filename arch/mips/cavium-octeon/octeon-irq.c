@@ -2199,6 +2199,12 @@ static int octeon_irq_cib_map(struct irq_domain *d,
 	}
 
 	cd = kzalloc(sizeof(*cd), GFP_KERNEL);
+<<<<<<< HEAD
+=======
+	if (!cd)
+		return -ENOMEM;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cd->host_data = host_data;
 	cd->bit = hw;
 

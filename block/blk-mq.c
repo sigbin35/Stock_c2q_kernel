@@ -102,15 +102,19 @@ static void blk_mq_check_inflight(struct blk_mq_hw_ctx *hctx,
 	 */
 	if (rq->part == mi->part)
 		mi->inflight[0]++;
+<<<<<<< HEAD
 
 	/* XXX We can safely remove this 'if condition-check' due to the
 	 * change in blk_mq_in_flight function. It will be called
 	 * only when * mi->part->partno is not 0.
 	 */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (mi->part->partno)
 		mi->inflight[1]++;
 }
 
+<<<<<<< HEAD
 static void blk_mq_check_disk_inflight(struct blk_mq_hw_ctx *hctx,
                                        struct request *rq, void *priv,
 				       bool reserved)
@@ -127,16 +131,22 @@ static void blk_mq_check_disk_inflight(struct blk_mq_hw_ctx *hctx,
 }
 
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void blk_mq_in_flight(struct request_queue *q, struct hd_struct *part,
 		      unsigned int inflight[2])
 {
 	struct mq_inflight mi = { .part = part, .inflight = inflight, };
 
 	inflight[0] = inflight[1] = 0;
+<<<<<<< HEAD
 	if (mi.part->partno)
 		blk_mq_queue_tag_busy_iter(q, blk_mq_check_inflight, &mi);
 	else
 		blk_mq_queue_tag_busy_iter(q, blk_mq_check_disk_inflight, &mi);
+=======
+	blk_mq_queue_tag_busy_iter(q, blk_mq_check_inflight, &mi);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void blk_mq_check_inflight_rw(struct blk_mq_hw_ctx *hctx,
@@ -149,6 +159,7 @@ static void blk_mq_check_inflight_rw(struct blk_mq_hw_ctx *hctx,
 		mi->inflight[rq_data_dir(rq)]++;
 }
 
+<<<<<<< HEAD
 static void blk_mq_check_disk_inflight_rw(struct blk_mq_hw_ctx *hctx,
 				          struct request *rq, void *priv,
 					  bool reserved)
@@ -159,16 +170,22 @@ static void blk_mq_check_disk_inflight_rw(struct blk_mq_hw_ctx *hctx,
 	mi->inflight[rq_data_dir(rq)]++;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void blk_mq_in_flight_rw(struct request_queue *q, struct hd_struct *part,
 			 unsigned int inflight[2])
 {
 	struct mq_inflight mi = { .part = part, .inflight = inflight, };
 
 	inflight[0] = inflight[1] = 0;
+<<<<<<< HEAD
 	if (mi.part->partno)
 		blk_mq_queue_tag_busy_iter(q, blk_mq_check_inflight_rw, &mi);
 	else
 		blk_mq_queue_tag_busy_iter(q, blk_mq_check_disk_inflight_rw, &mi);
+=======
+	blk_mq_queue_tag_busy_iter(q, blk_mq_check_inflight_rw, &mi);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 void blk_freeze_queue_start(struct request_queue *q)
@@ -615,12 +632,19 @@ static void __blk_mq_complete_request(struct request *rq)
 		rq->csd.func = __blk_mq_complete_request_remote;
 		rq->csd.info = rq;
 		rq->csd.flags = 0;
+<<<<<<< HEAD
 		if (!smp_call_function_single_async(ctx->cpu, &rq->csd))
 			goto out;
 	}
 	rq->q->softirq_done_fn(rq);
 
 out:
+=======
+		smp_call_function_single_async(ctx->cpu, &rq->csd);
+	} else {
+		rq->q->softirq_done_fn(rq);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	put_cpu();
 }
 

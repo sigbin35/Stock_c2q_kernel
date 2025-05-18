@@ -474,7 +474,11 @@ struct sctp_af {
 					 int saddr);
 	void		(*from_sk)	(union sctp_addr *,
 					 struct sock *sk);
+<<<<<<< HEAD
 	bool		(*from_addr_param) (union sctp_addr *,
+=======
+	void		(*from_addr_param) (union sctp_addr *,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					    union sctp_addr_param *,
 					    __be16 port, int iif);
 	int		(*to_addr_param) (const union sctp_addr *,

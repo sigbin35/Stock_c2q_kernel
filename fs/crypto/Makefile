@@ -1,5 +1,6 @@
 obj-$(CONFIG_FS_ENCRYPTION)	+= fscrypto.o
 
+<<<<<<< HEAD
 fscrypto-y := crypto.o \
 	      fname.o \
 	      hkdf.o \
@@ -13,3 +14,7 @@ fscrypto-$(CONFIG_BLOCK) += bio.o
 fscrypto-$(CONFIG_DDAR) += fscrypt_ddar.o
 fscrypto-$(CONFIG_FSCRYPT_SDP) += sdp/sdp_cache.o sdp/sdp_dek.o sdp/sdp_ioctl.o sdp/sdp_name.o sdp/sdp_xattr.o sdp/sdp_crypto.o
 fscrypto-$(CONFIG_FS_ENCRYPTION_INLINE_CRYPT) += inline_crypt.o
+=======
+fscrypto-y := crypto.o fname.o hooks.o keyinfo.o policy.o
+fscrypto-$(CONFIG_BLOCK) += bio.o
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

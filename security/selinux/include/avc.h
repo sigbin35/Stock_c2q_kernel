@@ -20,12 +20,15 @@
 #include "av_permissions.h"
 #include "security.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_SELINUX_DEVELOP
 extern int selinux_enforcing;
 #else
 #define selinux_enforcing 1
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * An entry in the AVC.
  */

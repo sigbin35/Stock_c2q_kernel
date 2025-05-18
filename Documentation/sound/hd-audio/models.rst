@@ -216,8 +216,11 @@ alc298-dell-aio
     ALC298 fixups on Dell AIO machines
 alc275-dell-xps
     ALC275 fixups on Dell XPS models
+<<<<<<< HEAD
 alc256-dell-xps13
     ALC256 fixups on Dell XPS13
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 lenovo-spk-noise
     Workaround for speaker noise on Lenovo machines
 lenovo-hotkey

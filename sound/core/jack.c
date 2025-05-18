@@ -33,17 +33,24 @@ struct snd_jack_kctl {
 };
 
 #ifdef CONFIG_SND_JACK_INPUT_DEV
+<<<<<<< HEAD
 static int jack_switch_types[] = {
+=======
+static int jack_switch_types[SND_JACK_SWITCH_TYPES] = {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	SW_HEADPHONE_INSERT,
 	SW_MICROPHONE_INSERT,
 	SW_LINEOUT_INSERT,
 	SW_JACK_PHYSICAL_INSERT,
 	SW_VIDEOOUT_INSERT,
 	SW_LINEIN_INSERT,
+<<<<<<< HEAD
 	SW_HPHL_OVERCURRENT,
 	SW_HPHR_OVERCURRENT,
 	SW_UNSUPPORT_INSERT,
 	SW_MICROPHONE2_INSERT,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 #endif /* CONFIG_SND_JACK_INPUT_DEV */
 
@@ -254,7 +261,11 @@ int snd_jack_new(struct snd_card *card, const char *id, int type,
 
 		jack->type = type;
 
+<<<<<<< HEAD
 		for (i = 0; i < ARRAY_SIZE(jack_switch_types); i++)
+=======
+		for (i = 0; i < SND_JACK_SWITCH_TYPES; i++)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (type & (1 << i))
 				input_set_capability(jack->input_dev, EV_SW,
 						     jack_switch_types[i]);

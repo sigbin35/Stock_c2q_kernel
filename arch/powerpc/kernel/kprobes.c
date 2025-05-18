@@ -277,6 +277,12 @@ int kprobe_handler(struct pt_regs *regs)
 	if (user_mode(regs))
 		return 0;
 
+<<<<<<< HEAD
+=======
+	if (!(regs->msr & MSR_IR) || !(regs->msr & MSR_DR))
+		return 0;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * We don't want to be preempted for the entire
 	 * duration of kprobe processing

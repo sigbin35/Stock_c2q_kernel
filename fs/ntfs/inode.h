@@ -267,7 +267,13 @@ typedef struct {
 	ATTR_TYPE type;
 } ntfs_attr;
 
+<<<<<<< HEAD
 extern int ntfs_test_inode(struct inode *vi, void *data);
+=======
+typedef int (*test_t)(struct inode *, void *);
+
+extern int ntfs_test_inode(struct inode *vi, ntfs_attr *na);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 extern struct inode *ntfs_iget(struct super_block *sb, unsigned long mft_no);
 extern struct inode *ntfs_attr_iget(struct inode *base_vi, ATTR_TYPE type,

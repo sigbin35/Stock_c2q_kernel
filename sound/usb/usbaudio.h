@@ -66,9 +66,12 @@ struct snd_usb_audio {
 					 */
 
 	struct usb_host_interface *ctrl_intf;	/* the audio control interface */
+<<<<<<< HEAD
 	struct mutex dev_lock;	/* to protect any race with disconnect */
 	int card_num;	/* cache pcm card number to use upon disconnect */
 	void (*disconnect_cb)(struct snd_usb_audio *chip);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define usb_audio_err(chip, fmt, args...) \

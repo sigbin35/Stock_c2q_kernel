@@ -61,8 +61,11 @@ struct workqueue_struct;
 struct iov_iter;
 struct fscrypt_info;
 struct fscrypt_operations;
+<<<<<<< HEAD
 struct fsverity_info;
 struct fsverity_operations;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 extern void __init inode_init(void);
 extern void __init inode_init_early(void);
@@ -666,7 +669,10 @@ struct inode {
 	};
 	atomic64_t		i_version;
 	atomic64_t		i_sequence; /* see futex */
+<<<<<<< HEAD
 	atomic64_t		i_dirty_page_count; /* temp variable to count dirty pages */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	atomic_t		i_count;
 	atomic_t		i_dio_count;
 	atomic_t		i_writecount;
@@ -692,6 +698,7 @@ struct inode {
 	struct fsnotify_mark_connector __rcu	*i_fsnotify_marks;
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_FS_ENCRYPTION
 	struct fscrypt_info	*i_crypt_info;
 #endif
@@ -700,6 +707,12 @@ struct inode {
 	struct fsverity_info	*i_verity_info;
 #endif
 
+=======
+#if IS_ENABLED(CONFIG_FS_ENCRYPTION)
+	struct fscrypt_info	*i_crypt_info;
+#endif
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	void			*i_private; /* fs or device private pointer */
 } __randomize_layout;
 
@@ -934,10 +947,13 @@ struct file {
 #endif /* #ifdef CONFIG_EPOLL */
 	struct address_space	*f_mapping;
 	errseq_t		f_wb_err;
+<<<<<<< HEAD
 
 #if defined(CONFIG_FIVE_PA_FEATURE) || defined(CONFIG_PROCA)
 	void *f_signature;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 } __randomize_layout
   __attribute__((aligned(4)));	/* lest something weird decides that 2 is OK */
 
@@ -1339,12 +1355,15 @@ extern int send_sigurg(struct fown_struct *fown);
 #define SB_ACTIVE	(1<<30)
 #define SB_NOUSER	(1<<31)
 
+<<<<<<< HEAD
 /* These flags relate to encoding and casefolding */
 #define SB_ENC_STRICT_MODE_FL	(1 << 0)
 
 #define sb_has_enc_strict_mode(sb) \
 	(sb->s_encoding_flags & SB_ENC_STRICT_MODE_FL)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  *	Umount options
  */
@@ -1406,6 +1425,7 @@ struct super_block {
 	void                    *s_security;
 #endif
 	const struct xattr_handler **s_xattr;
+<<<<<<< HEAD
 #ifdef CONFIG_FS_ENCRYPTION
 	const struct fscrypt_operations	*s_cop;
 	struct key		*s_master_keys; /* master crypto keys in use */
@@ -1416,6 +1436,10 @@ struct super_block {
 #ifdef CONFIG_UNICODE
 	struct unicode_map *s_encoding;
 	__u16 s_encoding_flags;
+=======
+#if IS_ENABLED(CONFIG_FS_ENCRYPTION)
+	const struct fscrypt_operations	*s_cop;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 	struct hlist_bl_head	s_roots;	/* alternate root dentries for NFS */
 	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
@@ -1663,6 +1687,7 @@ extern bool inode_owner_or_capable(const struct inode *inode);
  * VFS helper functions..
  */
 extern int vfs_create(struct inode *, struct dentry *, umode_t, bool);
+<<<<<<< HEAD
 extern int vfs_create2(struct vfsmount *, struct inode *, struct dentry *, umode_t, bool);
 extern int vfs_mkdir(struct inode *, struct dentry *, umode_t);
 extern int vfs_mkdir2(struct vfsmount *, struct inode *, struct dentry *, umode_t);
@@ -1678,6 +1703,15 @@ extern int vfs_unlink(struct inode *, struct dentry *, struct inode **);
 extern int vfs_unlink2(struct vfsmount *, struct inode *, struct dentry *, struct inode **);
 extern int vfs_rename(struct inode *, struct dentry *, struct inode *, struct dentry *, struct inode **, unsigned int);
 extern int vfs_rename2(struct vfsmount *, struct inode *, struct dentry *, struct inode *, struct dentry *, struct inode **, unsigned int);
+=======
+extern int vfs_mkdir(struct inode *, struct dentry *, umode_t);
+extern int vfs_mknod(struct inode *, struct dentry *, umode_t, dev_t);
+extern int vfs_symlink(struct inode *, struct dentry *, const char *);
+extern int vfs_link(struct dentry *, struct inode *, struct dentry *, struct inode **);
+extern int vfs_rmdir(struct inode *, struct dentry *);
+extern int vfs_unlink(struct inode *, struct dentry *, struct inode **);
+extern int vfs_rename(struct inode *, struct dentry *, struct inode *, struct dentry *, struct inode **, unsigned int);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern int vfs_whiteout(struct inode *, struct dentry *);
 
 extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
@@ -1686,9 +1720,12 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
 int vfs_mkobj(struct dentry *, umode_t,
 		int (*f)(struct dentry *, umode_t, void *),
 		void *);
+<<<<<<< HEAD
 int vfs_mkobj2(struct vfsmount *, struct dentry *, umode_t,
 		int (*f)(struct dentry *, umode_t, void *),
 		void *);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 extern long vfs_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
 
@@ -1711,8 +1748,11 @@ struct fiemap_extent_info {
 int fiemap_fill_next_extent(struct fiemap_extent_info *info, u64 logical,
 			    u64 phys, u64 len, u32 flags);
 int fiemap_check_flags(struct fiemap_extent_info *fieinfo, u32 fs_flags);
+<<<<<<< HEAD
 int fiemap_check_ranges(struct super_block *sb,
 					       u64 start, u64 len, u64 *new_len);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * File types
@@ -1821,7 +1861,10 @@ struct inode_operations {
 	struct dentry * (*lookup) (struct inode *,struct dentry *, unsigned int);
 	const char * (*get_link) (struct dentry *, struct inode *, struct delayed_call *);
 	int (*permission) (struct inode *, int);
+<<<<<<< HEAD
 	int (*permission2) (struct vfsmount *, struct inode *, int);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct posix_acl * (*get_acl)(struct inode *, int);
 
 	int (*readlink) (struct dentry *, char __user *,int);
@@ -1836,8 +1879,12 @@ struct inode_operations {
 	int (*rename) (struct inode *, struct dentry *,
 			struct inode *, struct dentry *, unsigned int);
 	int (*setattr) (struct dentry *, struct iattr *);
+<<<<<<< HEAD
 	int (*setattr2) (struct vfsmount *, struct dentry *, struct iattr *);
         int (*getattr) (const struct path *, struct kstat *, u32, unsigned int);
+=======
+	int (*getattr) (const struct path *, struct kstat *, u32, unsigned int);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ssize_t (*listxattr) (struct dentry *, char *, size_t);
 	int (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start,
 		      u64 len);
@@ -1911,6 +1958,7 @@ struct super_operations {
 	int (*unfreeze_fs) (struct super_block *);
 	int (*statfs) (struct dentry *, struct kstatfs *);
 	int (*remount_fs) (struct super_block *, int *, char *);
+<<<<<<< HEAD
 	int (*remount_fs2) (struct vfsmount *, struct super_block *, int *, char *);
 	void *(*clone_mnt_data) (void *);
 	void (*copy_mnt_data) (void *, void *);
@@ -1919,6 +1967,11 @@ struct super_operations {
 
 	int (*show_options)(struct seq_file *, struct dentry *);
 	int (*show_options2)(struct vfsmount *,struct seq_file *, struct dentry *);
+=======
+	void (*umount_begin) (struct super_block *);
+
+	int (*show_options)(struct seq_file *, struct dentry *);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int (*show_devname)(struct seq_file *, struct dentry *);
 	int (*show_path)(struct seq_file *, struct dentry *);
 	int (*show_stats)(struct seq_file *, struct dentry *);
@@ -1956,8 +2009,11 @@ struct super_operations {
 #define S_DAX		0	/* Make all the DAX code disappear */
 #endif
 #define S_ENCRYPTED	16384	/* Encrypted file (using fs/crypto/) */
+<<<<<<< HEAD
 #define S_CASEFOLD	32768	/* Casefolded file */
 #define S_VERITY	65536	/* Verity file (using fs/verity/) */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Note that nosuid etc flags are inode-specific: setting some file-system
@@ -1998,8 +2054,11 @@ static inline bool sb_rdonly(const struct super_block *sb) { return sb->s_flags 
 #define IS_NOSEC(inode)		((inode)->i_flags & S_NOSEC)
 #define IS_DAX(inode)		((inode)->i_flags & S_DAX)
 #define IS_ENCRYPTED(inode)	((inode)->i_flags & S_ENCRYPTED)
+<<<<<<< HEAD
 #define IS_CASEFOLDED(inode)	((inode)->i_flags & S_CASEFOLD)
 #define IS_VERITY(inode)	((inode)->i_flags & S_VERITY)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define IS_WHITEOUT(inode)	(S_ISCHR(inode->i_mode) && \
 				 (inode)->i_rdev == WHITEOUT_DEV)
@@ -2099,10 +2158,13 @@ static inline void init_sync_kiocb(struct kiocb *kiocb, struct file *filp)
  *
  * I_CREATING		New object's inode in the middle of setting up.
  *
+<<<<<<< HEAD
  * I_SYNC_QUEUED	Inode is queued in b_io or b_more_io writeback lists.
  *			Used to detect that mark_inode_dirty() should not move
  *			inode between dirty lists.
  *
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Q: What is the difference between I_WILL_FREE and I_FREEING?
  */
 #define I_DIRTY_SYNC		(1 << 0)
@@ -2120,10 +2182,18 @@ static inline void init_sync_kiocb(struct kiocb *kiocb, struct file *filp)
 #define I_DIO_WAKEUP		(1 << __I_DIO_WAKEUP)
 #define I_LINKABLE		(1 << 10)
 #define I_DIRTY_TIME		(1 << 11)
+<<<<<<< HEAD
 #define I_WB_SWITCH		(1 << 13)
 #define I_OVL_INUSE		(1 << 14)
 #define I_CREATING		(1 << 15)
 #define I_SYNC_QUEUED		(1 << 17)
+=======
+#define __I_DIRTY_TIME_EXPIRED	12
+#define I_DIRTY_TIME_EXPIRED	(1 << __I_DIRTY_TIME_EXPIRED)
+#define I_WB_SWITCH		(1 << 13)
+#define I_OVL_INUSE		(1 << 14)
+#define I_CREATING		(1 << 15)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define I_DIRTY_INODE (I_DIRTY_SYNC | I_DIRTY_DATASYNC)
 #define I_DIRTY (I_DIRTY_INODE | I_DIRTY_PAGES)
@@ -2185,9 +2255,12 @@ struct file_system_type {
 #define FS_RENAME_DOES_D_MOVE	32768	/* FS will handle d_move() during rename() internally. */
 	struct dentry *(*mount) (struct file_system_type *, int,
 		       const char *, void *);
+<<<<<<< HEAD
 	struct dentry *(*mount2) (struct vfsmount *, struct file_system_type *, int,
 			       const char *, void *);
 	void *(*alloc_mnt_data) (void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	void (*kill_sb) (struct super_block *);
 	struct module *owner;
 	struct file_system_type * next;
@@ -2304,7 +2377,10 @@ extern int thaw_super(struct super_block *super);
 extern bool our_mnt(struct vfsmount *mnt);
 extern __printf(2, 3)
 int super_setup_bdi_name(struct super_block *sb, char *fmt, ...);
+<<<<<<< HEAD
 int sec_super_setup_bdi_name(struct super_block *sb, char *fmt, ...);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern int super_setup_bdi(struct super_block *sb);
 
 extern int current_umask(void);
@@ -2505,8 +2581,11 @@ struct filename {
 extern long vfs_truncate(const struct path *, loff_t);
 extern int do_truncate(struct dentry *, loff_t start, unsigned int time_attrs,
 		       struct file *filp);
+<<<<<<< HEAD
 extern int do_truncate2(struct vfsmount *, struct dentry *, loff_t start,
 			unsigned int time_attrs, struct file *filp);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
 			loff_t len);
 extern long do_sys_open(int dfd, const char __user *filename, int flags,
@@ -2793,7 +2872,10 @@ static inline errseq_t filemap_sample_wb_err(struct address_space *mapping)
 extern int vfs_fsync_range(struct file *file, loff_t start, loff_t end,
 			   int datasync);
 extern int vfs_fsync(struct file *file, int datasync);
+<<<<<<< HEAD
 extern unsigned long read_fsync_time_cnt(int idx);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Sync the bytes written if this was a synchronous write.  Expect ki_pos
@@ -2815,14 +2897,21 @@ static inline ssize_t generic_write_sync(struct kiocb *iocb, ssize_t count)
 
 extern void emergency_sync(void);
 extern void emergency_remount(void);
+<<<<<<< HEAD
 extern int intr_sync(int *);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_BLOCK
 extern sector_t bmap(struct inode *, sector_t);
 #endif
 extern int notify_change(struct dentry *, struct iattr *, struct inode **);
+<<<<<<< HEAD
 extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
 extern int inode_permission(struct inode *, int);
 extern int inode_permission2(struct vfsmount *, struct inode *, int);
+=======
+extern int inode_permission(struct inode *, int);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern int generic_permission(struct inode *, int);
 extern int __check_sticky(struct inode *dir, struct inode *inode);
 
@@ -3099,11 +3188,14 @@ enum {
 
 	/* filesystem does not support filling holes */
 	DIO_SKIP_HOLES	= 0x02,
+<<<<<<< HEAD
 
 #ifdef CONFIG_FS_HPB
 	/* HPB FLAG */
 	DIO_HPB_IO	= 0x10,
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 void dio_end_io(struct bio *bio);
@@ -3291,6 +3383,7 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
 
 extern int generic_check_addressable(unsigned, u64);
 
+<<<<<<< HEAD
 #ifdef CONFIG_UNICODE
 extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
 extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
@@ -3305,6 +3398,8 @@ static inline bool needs_casefold(const struct inode *dir)
 extern void generic_set_encrypted_ci_d_ops(struct inode *dir,
 					   struct dentry *dentry);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_MIGRATION
 extern int buffer_migrate_page(struct address_space *,
 				struct page *, struct page *,
@@ -3550,6 +3645,7 @@ extern void inode_nohighmem(struct inode *inode);
 extern int vfs_fadvise(struct file *file, loff_t offset, loff_t len,
 		       int advice);
 
+<<<<<<< HEAD
 int vfs_ioc_setflags_prepare(struct inode *inode, unsigned int oldflags,
 			     unsigned int flags);
 
@@ -3573,4 +3669,6 @@ static inline int inode_drain_writes(struct inode *inode)
 	return filemap_write_and_wait(inode->i_mapping);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _LINUX_FS_H */

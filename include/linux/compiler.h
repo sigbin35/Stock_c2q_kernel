@@ -200,7 +200,11 @@ void __read_once_size(const volatile void *p, void *res, int size)
  * 	https://gcc.gnu.org/bugzilla/show_bug.cgi?id=67368
  * '__maybe_unused' allows us to avoid defined-but-not-used warnings.
  */
+<<<<<<< HEAD
 # define __no_kasan_or_inline __no_sanitize_address notrace __maybe_unused
+=======
+# define __no_kasan_or_inline __no_sanitize_address __maybe_unused
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #else
 # define __no_kasan_or_inline __always_inline
 #endif
@@ -325,7 +329,11 @@ static inline void *offset_to_ptr(const int *off)
 # define __compiletime_assert(condition, msg, prefix, suffix)		\
 	do {								\
 		extern void prefix ## suffix(void) __compiletime_error(msg); \
+<<<<<<< HEAD
 		if (!(condition))						\
+=======
+		if (!(condition))					\
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			prefix ## suffix();				\
 	} while (0)
 #else
@@ -345,7 +353,11 @@ static inline void *offset_to_ptr(const int *off)
  * compiler has support to do so.
  */
 #define compiletime_assert(condition, msg) \
+<<<<<<< HEAD
 	_compiletime_assert(condition, msg, __compiletime_assert_, __LINE__)
+=======
+	_compiletime_assert(condition, msg, __compiletime_assert_, __COUNTER__)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define compiletime_assert_atomic_type(t)				\
 	compiletime_assert(__native_word(t),				\

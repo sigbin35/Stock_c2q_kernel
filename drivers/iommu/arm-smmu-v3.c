@@ -29,7 +29,10 @@
 #include <linux/dma-iommu.h>
 #include <linux/err.h>
 #include <linux/interrupt.h>
+<<<<<<< HEAD
 #include <linux/io-pgtable.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/iommu.h>
 #include <linux/iopoll.h>
 #include <linux/module.h>
@@ -43,6 +46,11 @@
 
 #include <linux/amba/bus.h>
 
+<<<<<<< HEAD
+=======
+#include "io-pgtable.h"
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* MMIO registers */
 #define ARM_SMMU_IDR0			0x0
 #define IDR0_ST_LVL			GENMASK(28, 27)
@@ -2912,9 +2920,21 @@ static int arm_smmu_device_remove(struct platform_device *pdev)
 	struct arm_smmu_device *smmu = platform_get_drvdata(pdev);
 
 	arm_smmu_device_disable(smmu);
+<<<<<<< HEAD
 	return 0;
 }
 
+=======
+
+	return 0;
+}
+
+static void arm_smmu_device_shutdown(struct platform_device *pdev)
+{
+	arm_smmu_device_remove(pdev);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct of_device_id arm_smmu_of_match[] = {
 	{ .compatible = "arm,smmu-v3", },
 	{ },
@@ -2928,6 +2948,10 @@ static struct platform_driver arm_smmu_driver = {
 	},
 	.probe	= arm_smmu_device_probe,
 	.remove	= arm_smmu_device_remove,
+<<<<<<< HEAD
+=======
+	.shutdown = arm_smmu_device_shutdown,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 module_platform_driver(arm_smmu_driver);
 

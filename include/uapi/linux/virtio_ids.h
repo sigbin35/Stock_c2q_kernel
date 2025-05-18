@@ -43,6 +43,9 @@
 #define VIRTIO_ID_INPUT        18 /* virtio input */
 #define VIRTIO_ID_VSOCK        19 /* virtio vsock transport */
 #define VIRTIO_ID_CRYPTO       20 /* virtio crypto */
+<<<<<<< HEAD
 #define VIRTIO_ID_PMEM         27 /* virtio pmem */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif /* _LINUX_VIRTIO_IDS_H */

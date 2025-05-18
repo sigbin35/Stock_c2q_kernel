@@ -43,7 +43,10 @@ struct regulator {
 	unsigned int bypass:1;
 	int uA_load;
 	struct regulator_voltage voltage[REGULATOR_STATES_NUM];
+<<<<<<< HEAD
 	int enabled;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	const char *supply_name;
 	struct device_attribute dev_attr;
 	struct regulator_dev *rdev;

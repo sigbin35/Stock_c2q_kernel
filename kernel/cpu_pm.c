@@ -22,8 +22,11 @@
 #include <linux/spinlock.h>
 #include <linux/syscore_ops.h>
 
+<<<<<<< HEAD
 bool from_suspend;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static ATOMIC_NOTIFIER_HEAD(cpu_pm_notifier_chain);
 
 static int cpu_pm_notify(enum cpu_pm_event event, int nr_to_call, int *nr_calls)
@@ -183,7 +186,10 @@ static int cpu_pm_suspend(void)
 {
 	int ret;
 
+<<<<<<< HEAD
 	from_suspend = true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = cpu_pm_enter();
 	if (ret)
 		return ret;
@@ -194,7 +200,10 @@ static int cpu_pm_suspend(void)
 
 static void cpu_pm_resume(void)
 {
+<<<<<<< HEAD
 	from_suspend = false;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cpu_cluster_pm_exit();
 	cpu_pm_exit();
 }

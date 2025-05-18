@@ -139,6 +139,10 @@ struct etnaviv_gpu {
 
 	struct etnaviv_iommu *mmu;
 	struct etnaviv_cmdbuf_suballoc *cmdbuf_suballoc;
+<<<<<<< HEAD
+=======
+	unsigned int flush_seq;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Power Control: */
 	struct clk *clk_bus;

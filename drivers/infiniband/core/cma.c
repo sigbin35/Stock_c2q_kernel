@@ -2753,6 +2753,10 @@ static int cma_resolve_iboe_route(struct rdma_id_private *id_priv)
 err2:
 	kfree(route->path_rec);
 	route->path_rec = NULL;
+<<<<<<< HEAD
+=======
+	route->num_paths = 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 err1:
 	kfree(work);
 	return ret;
@@ -4635,6 +4639,22 @@ static int __init cma_init(void)
 {
 	int ret;
 
+<<<<<<< HEAD
+=======
+	/*
+	 * There is a rare lock ordering dependency in cma_netdev_callback()
+	 * that only happens when bonding is enabled. Teach lockdep that rtnl
+	 * must never be nested under lock so it can find these without having
+	 * to test with bonding.
+	 */
+	if (IS_ENABLED(CONFIG_LOCKDEP)) {
+		rtnl_lock();
+		mutex_lock(&lock);
+		mutex_unlock(&lock);
+		rtnl_unlock();
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cma_wq = alloc_ordered_workqueue("rdma_cm", WQ_MEM_RECLAIM);
 	if (!cma_wq)
 		return -ENOMEM;

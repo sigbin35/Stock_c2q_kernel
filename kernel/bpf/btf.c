@@ -1763,7 +1763,11 @@ static int btf_enum_check_member(struct btf_verifier_env *env,
 
 	struct_size = struct_type->size;
 	bytes_offset = BITS_ROUNDDOWN_BYTES(struct_bits_off);
+<<<<<<< HEAD
 	if (struct_size - bytes_offset < sizeof(int)) {
+=======
+	if (struct_size - bytes_offset < member_type->size) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		btf_verifier_log_member(env, struct_type, member,
 					"Member exceeds struct_size");
 		return -EINVAL;

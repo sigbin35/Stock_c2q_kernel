@@ -30,6 +30,10 @@
 #include <linux/clockchips.h>
 #include <linux/hyperv.h>
 #include <linux/slab.h>
+<<<<<<< HEAD
+=======
+#include <linux/kernel.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/cpuhotplug.h>
 
 #ifdef CONFIG_HYPERV_TSCPAGE
@@ -427,11 +431,21 @@ void hyperv_cleanup(void)
 }
 EXPORT_SYMBOL_GPL(hyperv_cleanup);
 
+<<<<<<< HEAD
 void hyperv_report_panic(struct pt_regs *regs, long err)
+=======
+void hyperv_report_panic(struct pt_regs *regs, long err, bool in_die)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	static bool panic_reported;
 	u64 guest_id;
 
+<<<<<<< HEAD
+=======
+	if (in_die && !panic_on_oops)
+		return;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * We prefer to report panic on 'die' chain as we have proper
 	 * registers to report, but if we miss it (e.g. on BUG()) we need

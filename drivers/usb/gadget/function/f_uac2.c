@@ -14,9 +14,12 @@
 #include "u_audio.h"
 #include "u_uac2.h"
 
+<<<<<<< HEAD
 /* Keep everyone on toes */
 #define USB_XFERS	8
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * The driver implements a simple UAC_2 topology.
  * USB-OUT -> IT_1 -> OT_3 -> ALSA_Capture
@@ -277,7 +280,11 @@ static struct usb_endpoint_descriptor fs_epout_desc = {
 	.bDescriptorType = USB_DT_ENDPOINT,
 
 	.bEndpointAddress = USB_DIR_OUT,
+<<<<<<< HEAD
 	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_SYNC,
+=======
+	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_ASYNC,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.wMaxPacketSize = cpu_to_le16(1023),
 	.bInterval = 1,
 };
@@ -286,11 +293,16 @@ static struct usb_endpoint_descriptor hs_epout_desc = {
 	.bLength = USB_DT_ENDPOINT_SIZE,
 	.bDescriptorType = USB_DT_ENDPOINT,
 
+<<<<<<< HEAD
 	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_SYNC,
+=======
+	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_ASYNC,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.wMaxPacketSize = cpu_to_le16(1024),
 	.bInterval = 4,
 };
 
+<<<<<<< HEAD
 static struct usb_ss_ep_comp_descriptor ss_epout_comp_desc = {
 	 .bLength =		 sizeof(ss_epout_comp_desc),
 	 .bDescriptorType =	 USB_DT_SS_ENDPOINT_COMP,
@@ -298,6 +310,8 @@ static struct usb_ss_ep_comp_descriptor ss_epout_comp_desc = {
 	 .wBytesPerInterval =	cpu_to_le16(1024),
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* CS AS ISO OUT Endpoint */
 static struct uac2_iso_endpoint_descriptor as_iso_out_desc = {
 	.bLength = sizeof as_iso_out_desc,
@@ -361,7 +375,11 @@ static struct usb_endpoint_descriptor fs_epin_desc = {
 	.bDescriptorType = USB_DT_ENDPOINT,
 
 	.bEndpointAddress = USB_DIR_IN,
+<<<<<<< HEAD
 	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_SYNC,
+=======
+	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_ASYNC,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.wMaxPacketSize = cpu_to_le16(1023),
 	.bInterval = 1,
 };
@@ -370,11 +388,16 @@ static struct usb_endpoint_descriptor hs_epin_desc = {
 	.bLength = USB_DT_ENDPOINT_SIZE,
 	.bDescriptorType = USB_DT_ENDPOINT,
 
+<<<<<<< HEAD
 	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_SYNC,
+=======
+	.bmAttributes = USB_ENDPOINT_XFER_ISOC | USB_ENDPOINT_SYNC_ASYNC,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.wMaxPacketSize = cpu_to_le16(1024),
 	.bInterval = 4,
 };
 
+<<<<<<< HEAD
 static struct usb_ss_ep_comp_descriptor ss_epin_comp_desc = {
 	 .bLength =		 sizeof(ss_epin_comp_desc),
 	 .bDescriptorType =	 USB_DT_SS_ENDPOINT_COMP,
@@ -382,6 +405,8 @@ static struct usb_ss_ep_comp_descriptor ss_epin_comp_desc = {
 	 .wBytesPerInterval =	cpu_to_le16(1024),
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* CS AS ISO IN Endpoint */
 static struct uac2_iso_endpoint_descriptor as_iso_in_desc = {
 	.bLength = sizeof as_iso_in_desc,
@@ -454,6 +479,7 @@ static struct usb_descriptor_header *hs_audio_desc[] = {
 	NULL,
 };
 
+<<<<<<< HEAD
 static struct usb_descriptor_header *ss_audio_desc[] = {
 	(struct usb_descriptor_header *)&iad_desc,
 	(struct usb_descriptor_header *)&std_ac_if_desc,
@@ -486,6 +512,8 @@ static struct usb_descriptor_header *ss_audio_desc[] = {
 	NULL,
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct cntrl_cur_lay3 {
 	__le32	dCUR;
 };
@@ -576,7 +604,10 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	iad_desc.bFirstInterface = ret;
 
 	std_ac_if_desc.bInterfaceNumber = ret;
+<<<<<<< HEAD
 	iad_desc.bFirstInterface = ret;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	uac2->ac_intf = ret;
 	uac2->ac_alt = 0;
 
@@ -628,8 +659,13 @@ afunc_bind(struct usb_configuration *cfg, struct usb_function *fn)
 	hs_epout_desc.bEndpointAddress = fs_epout_desc.bEndpointAddress;
 	hs_epin_desc.bEndpointAddress = fs_epin_desc.bEndpointAddress;
 
+<<<<<<< HEAD
 	ret = usb_assign_descriptors(fn, fs_audio_desc, hs_audio_desc,
 					ss_audio_desc, NULL);
+=======
+	ret = usb_assign_descriptors(fn, fs_audio_desc, hs_audio_desc, NULL,
+				     NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret)
 		return ret;
 
@@ -1057,6 +1093,7 @@ static struct usb_function *afunc_alloc(struct usb_function_instance *fi)
 }
 
 DECLARE_USB_FUNCTION_INIT(uac2, afunc_alloc_inst, afunc_alloc);
+<<<<<<< HEAD
 
 static int afunc_init(void)
 {
@@ -1070,6 +1107,8 @@ static void __exit afunc_exit(void)
 }
 module_exit(afunc_exit);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Yadwinder Singh");
 MODULE_AUTHOR("Jaswinder Singh");

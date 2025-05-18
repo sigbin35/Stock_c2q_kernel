@@ -17,11 +17,14 @@
 #include <linux/workqueue.h>
 #include "flask.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 #include <linux/uh.h>
 #include <linux/kdp.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define SECSID_NULL			0x00000000 /* unspecified SID */
 #define SECSID_WILD			0xffffffff /* wildcard SID */
 #define SECCLASS_NULL			0x0000 /* no class */
@@ -86,7 +89,11 @@ enum {
 };
 #define POLICYDB_CAPABILITY_MAX (__POLICYDB_CAPABILITY_MAX - 1)
 
+<<<<<<< HEAD
 extern const char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX];
+=======
+extern char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX];
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * type_datum properties
@@ -109,9 +116,12 @@ struct selinux_state {
 	bool checkreqprot;
 	bool initialized;
 	bool policycap[__POLICYDB_CAPABILITY_MAX];
+<<<<<<< HEAD
 	bool android_netlink_route;
 	bool android_netlink_getneigh;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct selinux_avc *avc;
 	struct selinux_ss *ss;
 };
@@ -122,19 +132,29 @@ void selinux_avc_init(struct selinux_avc **avc);
 extern struct selinux_state selinux_state;
 
 #ifdef CONFIG_SECURITY_SELINUX_DEVELOP
+<<<<<<< HEAD
 extern int selinux_enforcing;
 static inline bool enforcing_enabled(struct selinux_state *state)
 {
 	return selinux_enforcing; // SEC_SELINUX_PORTING_COMMON Change to use RKP 
+=======
+static inline bool enforcing_enabled(struct selinux_state *state)
+{
+	return state->enforcing;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void enforcing_set(struct selinux_state *state, bool value)
 {
+<<<<<<< HEAD
 #if (defined CONFIG_KDP_CRED && defined CONFIG_SAMSUNG_PRODUCT_SHIP)
 	uh_call(UH_APP_RKP, RKP_KDP_X60, (u64)&selinux_enforcing, (u64)value, 0, 0);
 #else
 	selinux_enforcing = value; // SEC_SELINUX_PORTING_COMMON Change to use RKP 
 #endif
+=======
+	state->enforcing = value;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 #else
 static inline bool enforcing_enabled(struct selinux_state *state)
@@ -189,6 +209,7 @@ static inline bool selinux_policycap_nnp_nosuid_transition(void)
 	return state->policycap[POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION];
 }
 
+<<<<<<< HEAD
 static inline bool selinux_android_nlroute_getlink(void)
 {
 	struct selinux_state *state = &selinux_state;
@@ -203,6 +224,8 @@ static inline bool selinux_android_nlroute_getneigh(void)
 	return state->android_netlink_getneigh;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int security_mls_enabled(struct selinux_state *state);
 int security_load_policy(struct selinux_state *state,
 			 void *data, size_t len);
@@ -417,9 +440,14 @@ extern int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm);
 extern void avtab_cache_init(void);
 extern void ebitmap_cache_init(void);
 extern void hashtab_cache_init(void);
+<<<<<<< HEAD
 extern void selinux_nlmsg_init(void);
 extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
 extern void selinux_nlmsg_init(void);
 
 #endif /* _SELINUX_SECURITY_H_ */
 
+=======
+
+#endif /* _SELINUX_SECURITY_H_ */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

@@ -34,6 +34,13 @@ Configure the kernel with::
         CONFIG_DEBUG_FS=y
         CONFIG_GCOV_KERNEL=y
 
+<<<<<<< HEAD
+=======
+select the gcc's gcov format, default is autodetect based on gcc version::
+
+        CONFIG_GCOV_FORMAT_AUTODETECT=y
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 and to get coverage data for the entire kernel::
 
         CONFIG_GCOV_PROFILE_ALL=y
@@ -165,6 +172,7 @@ b) gcov is run on the BUILD machine
       [user@build] gcov -o /tmp/coverage/tmp/out/init main.c
 
 
+<<<<<<< HEAD
 Note on compilers
 -----------------
 
@@ -179,6 +187,8 @@ automatically selects the appropriate gcov format depending on the detected
 toolchain.
 
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 Troubleshooting
 ---------------
 

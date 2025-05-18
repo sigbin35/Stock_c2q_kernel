@@ -370,7 +370,11 @@ KBUILD_HOSTLDLIBS   := $(HOST_LFS_LIBS) $(HOSTLDLIBS)
 # Make variables (CC, etc...)
 AS		= $(CROSS_COMPILE)as
 LD		= $(CROSS_COMPILE)ld
+<<<<<<< HEAD
 REAL_CC		= $(srctree)/toolchain/llvm-arm-toolchain-ship/10.0/bin/clang
+=======
+CC		= $(CROSS_COMPILE)gcc
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 CPP		= $(CC) -E
 AR		= $(CROSS_COMPILE)ar
 NM		= $(CROSS_COMPILE)nm
@@ -389,10 +393,13 @@ PYTHON2		= python2
 PYTHON3		= python3
 CHECK		= sparse
 
+<<<<<<< HEAD
 # Use the wrapper for the compiler.  This wrapper scans for new
 # warnings and causes the build to stop upon encountering them
 CC		= $(PYTHON) $(srctree)/scripts/gcc-wrapper.py $(REAL_CC)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void -Wno-unknown-attribute $(CF)
 NOSTDINC_FLAGS  =
@@ -487,11 +494,15 @@ endif
 
 ifeq ($(cc-name),clang)
 ifneq ($(CROSS_COMPILE),)
+<<<<<<< HEAD
 CLANG_TRIPLE	?= aarch64-linux-gnu-
 CLANG_FLAGS	+= --target=$(notdir $(CLANG_TRIPLE:%-=%))
 ifeq ($(shell $(srctree)/scripts/clang-android.sh $(CC) $(CLANG_FLAGS)), y)
 $(error "Clang with Android --target detected. Did you specify CLANG_TRIPLE?")
 endif
+=======
+CLANG_FLAGS	+= --target=$(notdir $(CROSS_COMPILE:%-=%))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 GCC_TOOLCHAIN_DIR := $(dir $(shell which $(CROSS_COMPILE)elfedit))
 CLANG_FLAGS	+= --prefix=$(GCC_TOOLCHAIN_DIR)
 GCC_TOOLCHAIN	:= $(realpath $(GCC_TOOLCHAIN_DIR)/..)
@@ -500,10 +511,14 @@ ifneq ($(GCC_TOOLCHAIN),)
 CLANG_FLAGS	+= --gcc-toolchain=$(GCC_TOOLCHAIN)
 endif
 CLANG_FLAGS	+= -no-integrated-as
+<<<<<<< HEAD
 CLANG_FLAGS	+= $(call cc-option, -Wno-misleading-indentation)
 CLANG_FLAGS	+= $(call cc-option, -Wno-bool-operation)
 CLANG_FLAGS	+= -Werror=unknown-warning-option
 CLANG_FLAGS	+= $(call cc-option, -Wno-unsequenced)
+=======
+CLANG_FLAGS	+= -Werror=unknown-warning-option
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 KBUILD_CFLAGS	+= $(CLANG_FLAGS)
 KBUILD_AFLAGS	+= $(CLANG_FLAGS)
 export CLANG_FLAGS
@@ -590,7 +605,11 @@ export KBUILD_MODULES KBUILD_BUILTIN
 ifeq ($(KBUILD_EXTMOD),)
 # Objects we will link into vmlinux / subdirs we need to visit
 init-y		:= init/
+<<<<<<< HEAD
 drivers-y	:= drivers/ sound/ firmware/ techpack/
+=======
+drivers-y	:= drivers/ sound/ firmware/
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 net-y		:= net/
 libs-y		:= lib/
 core-y		:= usr/
@@ -617,6 +636,7 @@ ifdef CONFIG_FUNCTION_TRACER
   CC_FLAGS_FTRACE := -pg
 endif
 
+<<<<<<< HEAD
 # Make toolchain changes before including arch/$(SRCARCH)/Makefile to ensure
 # ar/cc/ld-* macros return correct values.
 ifdef CONFIG_LTO_CLANG
@@ -627,6 +647,8 @@ LLVM_NM		:= llvm-nm
 export LLVM_AR LLVM_NM
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # The arch Makefile can set ARCH_{CPP,A,C}FLAGS to override the default
 # values of the respective KBUILD_* variables
 ARCH_CPPFLAGS :=
@@ -693,12 +715,15 @@ KBUILD_CFLAGS += $(call cc-ifversion, -lt, 0409, \
 # Tell gcc to never replace conditional load with a non-conditional one
 KBUILD_CFLAGS	+= $(call cc-option,--param=allow-store-data-races=0)
 
+<<<<<<< HEAD
 # check for 'asm goto'
 ifeq ($(call shell-cached,$(CONFIG_SHELL) $(srctree)/scripts/gcc-goto.sh $(CC) $(KBUILD_CFLAGS)), y)
 	KBUILD_CFLAGS += -DCC_HAVE_ASM_GOTO
 	KBUILD_AFLAGS += -DCC_HAVE_ASM_GOTO
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 include scripts/Makefile.kcov
 include scripts/Makefile.gcc-plugins
 
@@ -723,6 +748,7 @@ stackp-flags-$(CONFIG_STACKPROTECTOR_STRONG)      := -fstack-protector-strong
 KBUILD_CFLAGS += $(stackp-flags-y)
 
 ifeq ($(cc-name),clang)
+<<<<<<< HEAD
 ifneq ($(CROSS_COMPILE),)
 CLANG_TRIPLE	?= $(CROSS_COMPILE)
 CLANG_TARGET	:= --target=$(notdir $(CLANG_TRIPLE:%-=%))
@@ -743,6 +769,11 @@ KBUILD_CFLAGS += $(call cc-option, -Wno-undefined-optimized)
 KBUILD_CFLAGS += $(call cc-option, -Wno-tautological-constant-out-of-range-compare)
 KBUILD_CFLAGS += $(call cc-option, -mllvm -disable-struct-const-merge)
 
+=======
+KBUILD_CPPFLAGS += $(call cc-option,-Qunused-arguments,)
+KBUILD_CFLAGS += $(call cc-disable-warning, format-invalid-specifier)
+KBUILD_CFLAGS += $(call cc-disable-warning, gnu)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Quiet clang warning: comparison of unsigned expression < 0 is always false
 KBUILD_CFLAGS += $(call cc-disable-warning, tautological-compare)
 # CLANG uses a _MergedGlobals as optimization, but this breaks modpost, as the
@@ -771,11 +802,14 @@ KBUILD_CFLAGS	+= -fomit-frame-pointer
 endif
 endif
 
+<<<<<<< HEAD
 # Initialize all stack variables with a pattern, if desired.
 ifdef CONFIG_INIT_STACK_ALL
 KBUILD_CFLAGS  += -ftrivial-auto-var-init=pattern
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 KBUILD_CFLAGS   += $(call cc-option, -fno-var-tracking-assignments)
 
 ifdef CONFIG_DEBUG_INFO
@@ -790,6 +824,7 @@ ifdef CONFIG_DEBUG_INFO_DWARF4
 KBUILD_CFLAGS	+= $(call cc-option, -gdwarf-4,)
 endif
 
+<<<<<<< HEAD
 ifdef CONFIG_CFP
 CFP_CC		?= $(srctree)/toolchain/llvm-arm-toolchain-ship/10.0/bin/clang
 CC		= $(srctree)/scripts/gcc-wrapper.py $(CFP_CC)
@@ -808,6 +843,8 @@ ifdef CONFIG_CFP_ROPP
 KBUILD_CFLAGS	+= $(call cc-option, -mllvm -cfp-ropp)
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 ifdef CONFIG_DEBUG_INFO_REDUCED
 KBUILD_CFLAGS 	+= $(call cc-option, -femit-struct-debug-baseonly) \
 		   $(call cc-option,-fno-var-tracking)
@@ -854,6 +891,7 @@ KBUILD_CFLAGS_KERNEL += -ffunction-sections -fdata-sections
 LDFLAGS_vmlinux += --gc-sections
 endif
 
+<<<<<<< HEAD
 ifdef CONFIG_LTO_CLANG
 ifdef CONFIG_THINLTO
 lto-clang-flags	:= -flto=thin
@@ -917,6 +955,8 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
 export CC_FLAGS_SCS
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # arch Makefile may override CC so keep this after arch Makefile is included
 NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
 
@@ -993,16 +1033,20 @@ ifeq ($(CONFIG_STRIP_ASM_SYMS),y)
 LDFLAGS_vmlinux	+= $(call ld-option, -X,)
 endif
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_RELR),y)
 LDFLAGS_vmlinux	+= --pack-dyn-relocs=relr
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # insure the checker run with the right endianness
 CHECKFLAGS += $(if $(CONFIG_CPU_BIG_ENDIAN),-mbig-endian,-mlittle-endian)
 
 # the checker needs the correct machine size
 CHECKFLAGS += $(if $(CONFIG_64BIT),-m64,-m32)
 
+<<<<<<< HEAD
 USE_SECGETSPF := $(shell echo $(PATH))
 ifneq ($(findstring buildscript/build_common/core/bin, $(USE_SECGETSPF)),)
   ifneq ($(shell secgetspf SEC_PRODUCT_FEATURE_BIOAUTH_CONFIG_FINGERPRINT_TZ), false)
@@ -1025,6 +1069,8 @@ ifneq ($(shell secgetspf SEC_PRODUCT_FEATURE_COMMON_CONFIG_SEP_VERSION),)
       export KBUILD_SEP_VERSION := -DSEP_KVERSION=$(SEP_MAJOR_VERSION)$(SEP_MINOR_VERSION)
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Default kernel image to build when no specific target is given.
 # KBUILD_IMAGE may be overruled on the command line or
 # set in the environment
@@ -1168,12 +1214,18 @@ endif
 
 autoksyms_h := $(if $(CONFIG_TRIM_UNUSED_KSYMS), include/generated/autoksyms.h)
 
+<<<<<<< HEAD
 quiet_cmd_autoksyms_h = GEN     $@
       cmd_autoksyms_h = mkdir -p $(dir $@); \
 			$(CONFIG_SHELL) $(srctree)/scripts/gen_autoksyms.sh $@
 
 $(autoksyms_h):
 	$(call cmd,autoksyms_h)
+=======
+$(autoksyms_h):
+	$(Q)mkdir -p $(dir $@)
+	$(Q)touch $@
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 ARCH_POSTLINK := $(wildcard $(srctree)/arch/$(SRCARCH)/Makefile.postlink)
 
@@ -1283,12 +1335,15 @@ else
 endif
 endif
 
+<<<<<<< HEAD
 ifdef cfi-flags
   ifeq ($(call cc-option, $(cfi-flags)),)
 	@echo Cannot use CONFIG_CFI: $(cfi-flags) not supported by compiler >&2 && exit 1
   endif
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Generate some files
 # ---------------------------------------------------------------------------
 
@@ -1351,9 +1406,12 @@ headers_install: __headers
 	  $(error Headers not exportable for the $(SRCARCH) architecture))
 	$(Q)$(MAKE) $(hdr-inst)=include/uapi dst=include
 	$(Q)$(MAKE) $(hdr-inst)=arch/$(SRCARCH)/include/uapi $(hdr-dst)
+<<<<<<< HEAD
 	$(Q)$(MAKE) $(hdr-inst)=techpack
 	$(Q)$(MAKE) $(hdr-inst)=techpack/audio/include/uapi dst=techpack/audio/include 
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 PHONY += headers_check_all
 headers_check_all: headers_install_all
@@ -1363,8 +1421,11 @@ PHONY += headers_check
 headers_check: headers_install
 	$(Q)$(MAKE) $(hdr-inst)=include/uapi dst=include HDRCHECK=1
 	$(Q)$(MAKE) $(hdr-inst)=arch/$(SRCARCH)/include/uapi $(hdr-dst) HDRCHECK=1
+<<<<<<< HEAD
 	$(Q)$(MAKE) $(hdr-inst)=techpack HDRCHECK=1
 	$(Q)$(MAKE) $(hdr-inst)=techpack/audio/include/uapi dst=techpack/audio/include HDRCHECK=1
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 # ---------------------------------------------------------------------------
 # Kernel selftest
@@ -1749,8 +1810,12 @@ clean: $(clean-dirs)
 		-o -name modules.builtin -o -name '.tmp_*.o.*' \
 		-o -name '*.c.[012]*.*' \
 		-o -name '*.ll' \
+<<<<<<< HEAD
 		-o -name '*.gcno' \
 		-o -name '*.*.symversions' \) -type f -print | xargs rm -f
+=======
+		-o -name '*.gcno' \) -type f -print | xargs rm -f
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 # Generate tags for editors
 # ---------------------------------------------------------------------------

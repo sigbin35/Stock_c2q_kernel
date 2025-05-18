@@ -163,7 +163,10 @@ struct nd_region {
 	struct badblocks bb;
 	struct nd_interleave_set *nd_set;
 	struct nd_percpu_lane __percpu *lane;
+<<<<<<< HEAD
 	int (*flush)(struct nd_region *nd_region, struct bio *bio);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct nd_mapping mapping[0];
 };
 

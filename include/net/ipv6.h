@@ -975,8 +975,11 @@ int ip6_output(struct net *net, struct sock *sk, struct sk_buff *skb);
 int ip6_forward(struct sk_buff *skb);
 int ip6_input(struct sk_buff *skb);
 int ip6_mc_input(struct sk_buff *skb);
+<<<<<<< HEAD
 void ip6_protocol_deliver_rcu(struct net *net, struct sk_buff *skb, int nexthdr,
 			      bool have_final);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int __ip6_local_out(struct net *net, struct sock *sk, struct sk_buff *skb);
 int ip6_local_out(struct net *net, struct sock *sk, struct sk_buff *skb);

@@ -15,9 +15,12 @@
 
 #include <linux/atomic.h>
 #include <crypto/internal/rng.h>
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 #include <crypto/drbg.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/err.h>
 #include <linux/module.h>
 #include <linux/mutex.h>
@@ -233,6 +236,7 @@ void crypto_unregister_rngs(struct rng_alg *algs, int count)
 }
 EXPORT_SYMBOL_GPL(crypto_unregister_rngs);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS
 int crypto_rng_check_entropy(struct crypto_rng *rng)
 {
@@ -256,5 +260,7 @@ int crypto_rng_check_entropy(struct crypto_rng *rng)
 EXPORT_SYMBOL_GPL(crypto_rng_check_entropy);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 MODULE_LICENSE("GPL");
 MODULE_DESCRIPTION("Random Number Generator");

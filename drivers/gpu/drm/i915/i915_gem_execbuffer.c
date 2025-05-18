@@ -1604,9 +1604,13 @@ static int eb_copy_relocations(const struct i915_execbuffer *eb)
 		 * happened we would make the mistake of assuming that the
 		 * relocations were valid.
 		 */
+<<<<<<< HEAD
 		if (!user_access_begin(VERIFY_WRITE, urelocs, size))
 			goto end_user;
 
+=======
+		user_access_begin();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		for (copied = 0; copied < nreloc; copied++)
 			unsafe_put_user(-1,
 					&urelocs[copied].presumed_offset,
@@ -2651,6 +2655,7 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
 		unsigned int i;
 
 		/* Copy the new buffer offsets back to the user's exec list. */
+<<<<<<< HEAD
 		/*
 		 * Note: count * sizeof(*user_exec_list) does not overflow,
 		 * because we checked 'count' in check_buffer_count().
@@ -2662,6 +2667,9 @@ i915_gem_execbuffer2_ioctl(struct drm_device *dev, void *data,
 				       count * sizeof(*user_exec_list)))
 			goto end_user;
 
+=======
+		user_access_begin();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		for (i = 0; i < args->buffer_count; i++) {
 			if (!(exec2_list[i].offset & UPDATE))
 				continue;

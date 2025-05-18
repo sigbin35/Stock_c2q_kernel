@@ -89,7 +89,10 @@
 #include <linux/netfilter_ipv4.h>
 #include <linux/random.h>
 #include <linux/slab.h>
+<<<<<<< HEAD
 #include <linux/netfilter/xt_qtaguid.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/uaccess.h>
 
@@ -105,9 +108,12 @@
 #include <net/ip_fib.h>
 #include <net/inet_connection_sock.h>
 #include <net/tcp.h>
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 #include <net/mptcp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <net/udp.h>
 #include <net/udplite.h>
 #include <net/ping.h>
@@ -124,6 +130,7 @@
 #include <linux/mroute.h>
 #endif
 #include <net/l3mdev.h>
+<<<<<<< HEAD
 #ifdef CONFIG_NET_ANALYTICS
 #include <net/analytics.h>
 #endif
@@ -146,6 +153,11 @@ static inline int current_has_network(void)
 
 int sysctl_reserved_port_bind __read_mostly = 1;
 
+=======
+
+#include <trace/events/sock.h>
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* The inetsw table contains everything that inet_create needs to
  * build a new socket.
  */
@@ -173,11 +185,14 @@ void inet_sock_destruct(struct sock *sk)
 		return;
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	if (sock_flag(sk, SOCK_MPTCP))
 		mptcp_disable_static_key();
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	WARN_ON(atomic_read(&sk->sk_rmem_alloc));
 	WARN_ON(refcount_read(&sk->sk_wmem_alloc));
 	WARN_ON(sk->sk_wmem_queued);
@@ -272,12 +287,17 @@ EXPORT_SYMBOL(inet_listen);
  *	Create an inet socket.
  */
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 int inet_create(struct net *net, struct socket *sock, int protocol, int kern)
 #else
 static int inet_create(struct net *net, struct socket *sock, int protocol,
 		       int kern)
 #endif
+=======
+static int inet_create(struct net *net, struct socket *sock, int protocol,
+		       int kern)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct sock *sk;
 	struct inet_protosw *answer;
@@ -290,9 +310,12 @@ static int inet_create(struct net *net, struct socket *sock, int protocol,
 	if (protocol < 0 || protocol >= IPPROTO_MAX)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	if (!current_has_network())
 		return -EACCES;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	sock->state = SS_UNCONNECTED;
 
 	/* Look for the requested type/protocol pair. */
@@ -341,7 +364,12 @@ lookup_protocol:
 	}
 
 	err = -EPERM;
+<<<<<<< HEAD
 	if (sock->type == SOCK_RAW && !kern && !capable(CAP_NET_RAW))
+=======
+	if (sock->type == SOCK_RAW && !kern &&
+	    !ns_capable(net->user_ns, CAP_NET_RAW))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		goto out_rcu_unlock;
 
 	sock->ops = answer->ops;
@@ -444,9 +472,12 @@ int inet_release(struct socket *sock)
 	if (sk) {
 		long timeout;
 
+<<<<<<< HEAD
 #ifdef CONFIG_NETFILTER_XT_MATCH_QTAGUID
 		qtaguid_untag(sock, true);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		/* Applications forget to leave groups before exiting */
 		ip_mc_drop_socket(sk);
 
@@ -776,6 +807,7 @@ int inet_accept(struct socket *sock, struct socket *newsock, int flags,
 	lock_sock(sk2);
 
 	sock_rps_record_flow(sk2);
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	if (sk2->sk_protocol == IPPROTO_TCP && mptcp(tcp_sk(sk2))) {
 		struct mptcp_tcp_sock *mptcp;
@@ -794,6 +826,8 @@ int inet_accept(struct socket *sock, struct socket *newsock, int flags,
 		}
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	WARN_ON(!((1 << sk2->sk_state) &
 		  (TCPF_ESTABLISHED | TCPF_SYN_RECV |
 		  TCPF_CLOSE_WAIT | TCPF_CLOSE)));
@@ -842,9 +876,12 @@ EXPORT_SYMBOL(inet_getname);
 int inet_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 {
 	struct sock *sk = sock->sk;
+<<<<<<< HEAD
 #ifdef CONFIG_NET_ANALYTICS
 	int err;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	sock_rps_record_flow(sk);
 
@@ -853,6 +890,7 @@ int inet_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 	    inet_autobind(sk))
 		return -EAGAIN;
 
+<<<<<<< HEAD
 #ifdef CONFIG_NET_ANALYTICS
 	err = sk->sk_prot->sendmsg(sk, msg, size);
 	net_usr_tx(sk, err);
@@ -861,6 +899,9 @@ int inet_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 #else
 	return sk->sk_prot->sendmsg(sk, msg, size);
 #endif
+=======
+	return sk->sk_prot->sendmsg(sk, msg, size);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL(inet_sendmsg);
 
@@ -896,11 +937,14 @@ int inet_recvmsg(struct socket *sock, struct msghdr *msg, size_t size,
 				   flags & ~MSG_DONTWAIT, &addr_len);
 	if (err >= 0)
 		msg->msg_namelen = addr_len;
+<<<<<<< HEAD
 
 #ifdef CONFIG_NET_ANALYTICS
 	net_usr_rx(sk, err);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return err;
 }
 EXPORT_SYMBOL(inet_recvmsg);
@@ -1498,6 +1542,10 @@ struct sk_buff *inet_gro_receive(struct list_head *head, struct sk_buff *skb)
 
 	list_for_each_entry(p, head, list) {
 		struct iphdr *iph2;
+<<<<<<< HEAD
+=======
+		u16 flush_id;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (!NAPI_GRO_CB(p)->same_flow)
 			continue;
@@ -1523,6 +1571,7 @@ struct sk_buff *inet_gro_receive(struct list_head *head, struct sk_buff *skb)
 
 		NAPI_GRO_CB(p)->flush |= flush;
 
+<<<<<<< HEAD
 		/* For non-atomic datagrams we need to save the IP ID offset
 		 * to be included later.  If the frame has the DF bit set
 		 * we must ignore the IP ID value as per RFC 6864.
@@ -1540,6 +1589,36 @@ struct sk_buff *inet_gro_receive(struct list_head *head, struct sk_buff *skb)
 					    (u16)(id - NAPI_GRO_CB(p)->count);
 	}
 
+=======
+		/* We need to store of the IP ID check to be included later
+		 * when we can verify that this packet does in fact belong
+		 * to a given flow.
+		 */
+		flush_id = (u16)(id - ntohs(iph2->id));
+
+		/* This bit of code makes it much easier for us to identify
+		 * the cases where we are doing atomic vs non-atomic IP ID
+		 * checks.  Specifically an atomic check can return IP ID
+		 * values 0 - 0xFFFF, while a non-atomic check can only
+		 * return 0 or 0xFFFF.
+		 */
+		if (!NAPI_GRO_CB(p)->is_atomic ||
+		    !(iph->frag_off & htons(IP_DF))) {
+			flush_id ^= NAPI_GRO_CB(p)->count;
+			flush_id = flush_id ? 0xFFFF : 0;
+		}
+
+		/* If the previous IP ID value was based on an atomic
+		 * datagram we can overwrite the value and ignore it.
+		 */
+		if (NAPI_GRO_CB(skb)->is_atomic)
+			NAPI_GRO_CB(p)->flush_id = flush_id;
+		else
+			NAPI_GRO_CB(p)->flush_id |= flush_id;
+	}
+
+	NAPI_GRO_CB(skb)->is_atomic = !!(iph->frag_off & htons(IP_DF));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NAPI_GRO_CB(skb)->flush |= flush;
 	skb_set_network_header(skb, off);
 	/* The above will be needed by the transport layer if there is one
@@ -2012,10 +2091,13 @@ static int __init inet_init(void)
 	 */
 
 	ip_init();
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	/* We must initialize MPTCP before TCP. */
 	mptcp_init();
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Setup TCP slab cache for open requests. */
 	tcp_init();

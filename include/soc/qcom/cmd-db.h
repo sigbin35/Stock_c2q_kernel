@@ -25,8 +25,11 @@ size_t cmd_db_read_aux_data_len(const char *resource_id);
 enum cmd_db_hw_type cmd_db_read_slave_id(const char *resource_id);
 
 int cmd_db_ready(void);
+<<<<<<< HEAD
 
 int cmd_db_is_standalone(void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #else
 static inline u32 cmd_db_read_addr(const char *resource_id)
 { return 0; }
@@ -43,8 +46,11 @@ static inline enum cmd_db_hw_type cmd_db_read_slave_id(const char *resource_id)
 
 static inline int cmd_db_ready(void)
 { return -ENODEV; }
+<<<<<<< HEAD
 
 static inline int cmd_db_is_standalone(void)
 { return -ENODEV; }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* CONFIG_QCOM_COMMAND_DB */
 #endif /* __QCOM_COMMAND_DB_H__ */

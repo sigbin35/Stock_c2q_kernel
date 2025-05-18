@@ -858,7 +858,11 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
 		dput(parent);
 		dput(next);
 	}
+<<<<<<< HEAD
 	ovl_revert_creds(old_cred);
+=======
+	revert_creds(old_cred);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return err;
 }

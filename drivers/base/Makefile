@@ -23,7 +23,10 @@ obj-$(CONFIG_PINCTRL) += pinctrl.o
 obj-$(CONFIG_DEV_COREDUMP) += devcoredump.o
 obj-$(CONFIG_GENERIC_MSI_IRQ_DOMAIN) += platform-msi.o
 obj-$(CONFIG_GENERIC_ARCH_TOPOLOGY) += arch_topology.o
+<<<<<<< HEAD
 obj-$(CONFIG_PLATFORM_MOCK) += platform-mock.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 obj-y			+= test/
 

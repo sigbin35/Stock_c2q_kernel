@@ -2,8 +2,14 @@
 /*
  * fscrypt.h: declarations for per-file encryption
  *
+<<<<<<< HEAD
  * Filesystems that implement per-file encryption must include this header
  * file.
+=======
+ * Filesystems that implement per-file encryption include this header
+ * file with the __FS_HAS_ENCRYPTION set according to whether that filesystem
+ * is being built with encryption support or not.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * Copyright (C) 2015, Google, Inc.
  *
@@ -14,12 +20,19 @@
 #define _LINUX_FSCRYPT_H
 
 #include <linux/fs.h>
+<<<<<<< HEAD
 #include <linux/mm.h>
 #include <linux/slab.h>
 #include <uapi/linux/fscrypt.h>
 
 #define FS_CRYPTO_BLOCK_SIZE		16
 
+=======
+
+#define FS_CRYPTO_BLOCK_SIZE		16
+
+struct fscrypt_ctx;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct fscrypt_info;
 
 struct fscrypt_str {
@@ -33,7 +46,10 @@ struct fscrypt_name {
 	u32 hash;
 	u32 minor_hash;
 	struct fscrypt_str crypto_buf;
+<<<<<<< HEAD
 	bool is_ciphertext_name;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define FSTR_INIT(n, l)		{ .name = n, .len = l }
@@ -42,6 +58,7 @@ struct fscrypt_name {
 #define fname_len(p)		((p)->disk_name.len)
 
 /* Maximum value for the third parameter of fscrypt_operations.set_context(). */
+<<<<<<< HEAD
 #if defined(CONFIG_FSCRYPT_SDP) || defined(CONFIG_DDAR)
 #define FSCRYPT_SET_CONTEXT_MAX_SIZE	44
 #else
@@ -651,6 +668,14 @@ fscrypt_inode_should_skip_dm_default_key(const struct inode *inode)
 {
 	return false;
 }
+=======
+#define FSCRYPT_SET_CONTEXT_MAX_SIZE	28
+
+#if __FS_HAS_ENCRYPTION
+#include <linux/fscrypt_supp.h>
+#else
+#include <linux/fscrypt_notsupp.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 
 /**
@@ -694,7 +719,11 @@ static inline int fscrypt_require_key(struct inode *inode)
  * in an encrypted directory tree use the same encryption policy.
  *
  * Return: 0 on success, -ENOKEY if the directory's encryption key is missing,
+<<<<<<< HEAD
  * -EXDEV if the link would result in an inconsistent encryption policy, or
+=======
+ * -EPERM if the link would result in an inconsistent encryption policy, or
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * another -errno code.
  */
 static inline int fscrypt_prepare_link(struct dentry *old_dentry,
@@ -702,7 +731,11 @@ static inline int fscrypt_prepare_link(struct dentry *old_dentry,
 				       struct dentry *dentry)
 {
 	if (IS_ENCRYPTED(dir))
+<<<<<<< HEAD
 		return __fscrypt_prepare_link(d_inode(old_dentry), dir, dentry);
+=======
+		return __fscrypt_prepare_link(d_inode(old_dentry), dir);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -724,7 +757,11 @@ static inline int fscrypt_prepare_link(struct dentry *old_dentry,
  * We also verify that the rename will not violate the constraint that all files
  * in an encrypted directory tree use the same encryption policy.
  *
+<<<<<<< HEAD
  * Return: 0 on success, -ENOKEY if an encryption key is missing, -EXDEV if the
+=======
+ * Return: 0 on success, -ENOKEY if an encryption key is missing, -EPERM if the
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * rename would cause inconsistent encryption policies, or another -errno code.
  */
 static inline int fscrypt_prepare_rename(struct inode *old_dir,
@@ -743,6 +780,7 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
  * fscrypt_prepare_lookup - prepare to lookup a name in a possibly-encrypted directory
  * @dir: directory being searched
  * @dentry: filename being looked up
+<<<<<<< HEAD
  * @fname: (output) the name to use to search the on-disk directory
  *
  * Prepare for ->lookup() in a directory which may be encrypted by determining
@@ -770,6 +808,29 @@ static inline int fscrypt_prepare_lookup(struct inode *dir,
 	fname->usr_fname = &dentry->d_name;
 	fname->disk_name.name = (unsigned char *)dentry->d_name.name;
 	fname->disk_name.len = dentry->d_name.len;
+=======
+ * @flags: lookup flags
+ *
+ * Prepare for ->lookup() in a directory which may be encrypted.  Lookups can be
+ * done with or without the directory's encryption key; without the key,
+ * filenames are presented in encrypted form.  Therefore, we'll try to set up
+ * the directory's encryption key, but even without it the lookup can continue.
+ *
+ * To allow invalidating stale dentries if the directory's encryption key is
+ * added later, we also install a custom ->d_revalidate() method and use the
+ * DCACHE_ENCRYPTED_WITH_KEY flag to indicate whether a given dentry is a
+ * plaintext name (flag set) or a ciphertext name (flag cleared).
+ *
+ * Return: 0 on success, -errno if a problem occurred while setting up the
+ * encryption key
+ */
+static inline int fscrypt_prepare_lookup(struct inode *dir,
+					 struct dentry *dentry,
+					 unsigned int flags)
+{
+	if (IS_ENCRYPTED(dir))
+		return __fscrypt_prepare_lookup(dir, dentry);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -862,6 +923,7 @@ static inline int fscrypt_encrypt_symlink(struct inode *inode,
 	return 0;
 }
 
+<<<<<<< HEAD
 /* If *pagep is a bounce page, free it and set *pagep to the pagecache page */
 static inline void fscrypt_finalize_bounce_page(struct page **pagep)
 {
@@ -872,4 +934,6 @@ static inline void fscrypt_finalize_bounce_page(struct page **pagep)
 		fscrypt_free_bounce_page(page);
 	}
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif	/* _LINUX_FSCRYPT_H */

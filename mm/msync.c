@@ -37,8 +37,11 @@ SYSCALL_DEFINE3(msync, unsigned long, start, size_t, len, int, flags)
 	int unmapped_error = 0;
 	int error = -EINVAL;
 
+<<<<<<< HEAD
 	start = untagged_addr(start);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (flags & ~(MS_ASYNC | MS_INVALIDATE | MS_SYNC))
 		goto out;
 	if (offset_in_page(start))

@@ -22,8 +22,11 @@ struct qcom_glink_pipe {
 	void (*write)(struct qcom_glink_pipe *glink_pipe,
 		      const void *hdr, size_t hlen,
 		      const void *data, size_t dlen);
+<<<<<<< HEAD
 
 	void (*reset)(struct qcom_glink_pipe *glink_pipe);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 struct qcom_glink;

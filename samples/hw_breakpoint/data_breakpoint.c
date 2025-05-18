@@ -36,7 +36,11 @@
 
 struct perf_event * __percpu *sample_hbp;
 
+<<<<<<< HEAD
 static char ksym_name[KSYM_NAME_LEN] = "jiffies";
+=======
+static char ksym_name[KSYM_NAME_LEN] = "pid_max";
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 module_param_string(ksym, ksym_name, KSYM_NAME_LEN, S_IRUGO);
 MODULE_PARM_DESC(ksym, "Kernel symbol to monitor; this module will report any"
 			" write operations on the kernel symbol");
@@ -54,6 +58,7 @@ static int __init hw_break_module_init(void)
 {
 	int ret;
 	struct perf_event_attr attr;
+<<<<<<< HEAD
 	void *addr = __symbol_get(ksym_name);
 
 	if (!addr)
@@ -63,6 +68,13 @@ static int __init hw_break_module_init(void)
 	attr.bp_addr = (unsigned long)addr;
 	attr.bp_len = HW_BREAKPOINT_LEN_4;
 	attr.bp_type = HW_BREAKPOINT_W;
+=======
+
+	hw_breakpoint_init(&attr);
+	attr.bp_addr = kallsyms_lookup_name(ksym_name);
+	attr.bp_len = HW_BREAKPOINT_LEN_4;
+	attr.bp_type = HW_BREAKPOINT_W | HW_BREAKPOINT_R;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	sample_hbp = register_wide_hw_breakpoint(&attr, sample_hbp_handler, NULL);
 	if (IS_ERR((void __force *)sample_hbp)) {
@@ -83,7 +95,10 @@ fail:
 static void __exit hw_break_module_exit(void)
 {
 	unregister_wide_hw_breakpoint(sample_hbp);
+<<<<<<< HEAD
 	symbol_put(ksym_name);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	printk(KERN_INFO "HW Breakpoint for %s write uninstalled\n", ksym_name);
 }
 

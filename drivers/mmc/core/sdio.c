@@ -615,8 +615,12 @@ try_again:
 		card->type = MMC_TYPE_SD_COMBO;
 
 		if (oldcard && (oldcard->type != MMC_TYPE_SD_COMBO ||
+<<<<<<< HEAD
 		    memcmp(card->raw_cid, oldcard->raw_cid,
 					sizeof(card->raw_cid)) != 0)) {
+=======
+		    memcmp(card->raw_cid, oldcard->raw_cid, sizeof(card->raw_cid)) != 0)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			mmc_remove_card(card);
 			return -ENOENT;
 		}
@@ -940,7 +944,10 @@ static int mmc_sdio_suspend(struct mmc_host *host)
 	cancel_delayed_work_sync(&host->sdio_irq_work);
 
 	mmc_claim_host(host);
+<<<<<<< HEAD
 	mmc_log_string(host, "Enter\n");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (mmc_card_keep_power(host) && mmc_card_wake_sdio_irq(host))
 		sdio_disable_wide(host->card);
@@ -952,7 +959,10 @@ static int mmc_sdio_suspend(struct mmc_host *host)
 		mmc_retune_needed(host);
 	}
 
+<<<<<<< HEAD
 	mmc_log_string(host, "Exit\n");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mmc_release_host(host);
 
 	return 0;
@@ -964,7 +974,10 @@ static int mmc_sdio_resume(struct mmc_host *host)
 
 	/* Basic card reinitialization. */
 	mmc_claim_host(host);
+<<<<<<< HEAD
 	mmc_log_string(host, "Enter\n");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Restore power if needed */
 	if (!mmc_card_keep_power(host)) {
@@ -1004,7 +1017,10 @@ static int mmc_sdio_resume(struct mmc_host *host)
 	}
 
 out:
+<<<<<<< HEAD
 	mmc_log_string(host, "Exit err: %d\n", err);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mmc_release_host(host);
 
 	host->pm_flags &= ~MMC_PM_KEEP_POWER;

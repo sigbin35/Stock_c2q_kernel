@@ -152,16 +152,26 @@ int hsr_add_port(struct hsr_priv *hsr, struct net_device *dev,
 	if (port == NULL)
 		return -ENOMEM;
 
+<<<<<<< HEAD
+=======
+	port->hsr = hsr;
+	port->dev = dev;
+	port->type = type;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (type != HSR_PT_MASTER) {
 		res = hsr_portdev_setup(dev, port);
 		if (res)
 			goto fail_dev_setup;
 	}
 
+<<<<<<< HEAD
 	port->hsr = hsr;
 	port->dev = dev;
 	port->type = type;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	list_add_tail_rcu(&port->port_list, &hsr->ports);
 	synchronize_rcu();
 

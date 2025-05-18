@@ -29,8 +29,11 @@
 #include <linux/vmalloc.h>
 #include <asm/page.h>
 
+<<<<<<< HEAD
 #include "internal.h"
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct persistent_ram_buffer {
 	uint32_t    sig;
 	atomic_t    start;
@@ -286,10 +289,13 @@ static int notrace persistent_ram_update_user(struct persistent_ram_zone *prz,
 	struct persistent_ram_buffer *buffer = prz->buffer;
 	int ret = unlikely(__copy_from_user(buffer->data + start, s, count)) ?
 		-EFAULT : 0;
+<<<<<<< HEAD
 
 	if (IS_ENABLED(CONFIG_PSTORE_PMSG_SSPLOG) && !ret)
 		ss_hook_pmsg(buffer->data + start, count);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	persistent_ram_update_ecc(prz, start, count);
 	return ret;
 }

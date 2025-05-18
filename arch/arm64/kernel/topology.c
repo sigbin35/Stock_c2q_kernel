@@ -230,6 +230,7 @@ const struct cpumask *cpu_coregroup_mask(int cpu)
 	return core_mask;
 }
 
+<<<<<<< HEAD
 static void update_possible_siblings_masks(unsigned int cpuid)
 {
 	struct cpu_topology *cpu_topo, *cpuid_topo = &cpu_topology[cpuid];
@@ -248,6 +249,8 @@ static void update_possible_siblings_masks(unsigned int cpuid)
 	}
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void update_siblings_masks(unsigned int cpuid)
 {
 	struct cpu_topology *cpu_topo, *cpuid_topo = &cpu_topology[cpuid];
@@ -423,8 +426,11 @@ static inline int __init parse_acpi_topology(void)
 
 void __init init_cpu_topology(void)
 {
+<<<<<<< HEAD
 	int cpu;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	reset_cpu_topology();
 
 	/*
@@ -435,8 +441,11 @@ void __init init_cpu_topology(void)
 		reset_cpu_topology();
 	else if (of_have_populated_dt() && parse_dt_topology())
 		reset_cpu_topology();
+<<<<<<< HEAD
 	else {
 		for_each_possible_cpu(cpu)
 			update_possible_siblings_masks(cpu);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }

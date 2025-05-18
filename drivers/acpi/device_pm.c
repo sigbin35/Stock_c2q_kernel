@@ -455,8 +455,12 @@ acpi_status acpi_add_pm_notifier(struct acpi_device *adev, struct device *dev,
 		goto out;
 
 	mutex_lock(&acpi_pm_notifier_lock);
+<<<<<<< HEAD
 	adev->wakeup.ws = wakeup_source_register(&adev->dev,
 						 dev_name(&adev->dev));
+=======
+	adev->wakeup.ws = wakeup_source_register(dev_name(&adev->dev));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	adev->wakeup.context.dev = dev;
 	adev->wakeup.context.func = func;
 	adev->wakeup.flags.notifier_present = true;

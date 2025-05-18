@@ -1489,6 +1489,10 @@ ENTRY(int3)
 END(int3)
 
 ENTRY(general_protection)
+<<<<<<< HEAD
+=======
+	ASM_CLAC
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	pushl	$do_general_protection
 	jmp	common_exception
 END(general_protection)

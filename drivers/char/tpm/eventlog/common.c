@@ -104,11 +104,16 @@ static int tpm_read_log(struct tpm_chip *chip)
  *
  * If an event log is found then the securityfs files are setup to
  * export it to userspace, otherwise nothing is done.
+<<<<<<< HEAD
  *
  * Returns -ENODEV if the firmware has no event log or securityfs is not
  * supported.
  */
 int tpm_bios_log_setup(struct tpm_chip *chip)
+=======
+ */
+void tpm_bios_log_setup(struct tpm_chip *chip)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	const char *name = dev_name(&chip->dev);
 	unsigned int cnt;
@@ -117,7 +122,11 @@ int tpm_bios_log_setup(struct tpm_chip *chip)
 
 	rc = tpm_read_log(chip);
 	if (rc < 0)
+<<<<<<< HEAD
 		return rc;
+=======
+		return;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	log_version = rc;
 
 	cnt = 0;
@@ -163,6 +172,7 @@ int tpm_bios_log_setup(struct tpm_chip *chip)
 		cnt++;
 	}
 
+<<<<<<< HEAD
 	return 0;
 
 err:
@@ -170,6 +180,14 @@ err:
 	chip->bios_dir[cnt] = NULL;
 	tpm_bios_log_teardown(chip);
 	return rc;
+=======
+	return;
+
+err:
+	chip->bios_dir[cnt] = NULL;
+	tpm_bios_log_teardown(chip);
+	return;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 void tpm_bios_log_teardown(struct tpm_chip *chip)

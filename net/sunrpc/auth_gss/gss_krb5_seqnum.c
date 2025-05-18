@@ -43,12 +43,21 @@ static s32
 krb5_make_rc4_seq_num(struct krb5_ctx *kctx, int direction, s32 seqnum,
 		      unsigned char *cksum, unsigned char *buf)
 {
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *cipher;
+=======
+	struct crypto_skcipher *cipher;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned char *plain;
 	s32 code;
 
 	dprintk("RPC:       %s:\n", __func__);
+<<<<<<< HEAD
 	cipher = crypto_alloc_sync_skcipher(kctx->gk5e->encrypt_name, 0, 0);
+=======
+	cipher = crypto_alloc_skcipher(kctx->gk5e->encrypt_name, 0,
+				       CRYPTO_ALG_ASYNC);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (IS_ERR(cipher))
 		return PTR_ERR(cipher);
 
@@ -71,13 +80,21 @@ krb5_make_rc4_seq_num(struct krb5_ctx *kctx, int direction, s32 seqnum,
 
 	code = krb5_encrypt(cipher, cksum, plain, buf, 8);
 out:
+<<<<<<< HEAD
 	crypto_free_sync_skcipher(cipher);
+=======
+	crypto_free_skcipher(cipher);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	kfree(plain);
 	return code;
 }
 s32
 krb5_make_seq_num(struct krb5_ctx *kctx,
+<<<<<<< HEAD
 		struct crypto_sync_skcipher *key,
+=======
+		struct crypto_skcipher *key,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		int direction,
 		u32 seqnum,
 		unsigned char *cksum, unsigned char *buf)
@@ -112,12 +129,21 @@ static s32
 krb5_get_rc4_seq_num(struct krb5_ctx *kctx, unsigned char *cksum,
 		     unsigned char *buf, int *direction, s32 *seqnum)
 {
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *cipher;
+=======
+	struct crypto_skcipher *cipher;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned char *plain;
 	s32 code;
 
 	dprintk("RPC:       %s:\n", __func__);
+<<<<<<< HEAD
 	cipher = crypto_alloc_sync_skcipher(kctx->gk5e->encrypt_name, 0, 0);
+=======
+	cipher = crypto_alloc_skcipher(kctx->gk5e->encrypt_name, 0,
+				       CRYPTO_ALG_ASYNC);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (IS_ERR(cipher))
 		return PTR_ERR(cipher);
 
@@ -148,7 +174,11 @@ krb5_get_rc4_seq_num(struct krb5_ctx *kctx, unsigned char *cksum,
 out_plain:
 	kfree(plain);
 out:
+<<<<<<< HEAD
 	crypto_free_sync_skcipher(cipher);
+=======
+	crypto_free_skcipher(cipher);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return code;
 }
 
@@ -159,7 +189,11 @@ krb5_get_seq_num(struct krb5_ctx *kctx,
 	       int *direction, u32 *seqnum)
 {
 	s32 code;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *key = kctx->seq;
+=======
+	struct crypto_skcipher *key = kctx->seq;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned char *plain;
 
 	dprintk("RPC:       krb5_get_seq_num:\n");

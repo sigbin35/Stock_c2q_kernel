@@ -14,7 +14,10 @@
 #include <linux/sched/signal.h>
 #include <linux/uio.h>
 #include <linux/miscdevice.h>
+<<<<<<< HEAD
 #include <linux/namei.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/pagemap.h>
 #include <linux/file.h>
 #include <linux/slab.h>
@@ -61,8 +64,11 @@ static struct fuse_req *__fuse_request_alloc(unsigned npages, gfp_t flags)
 		struct page **pages;
 		struct fuse_page_desc *page_descs;
 
+<<<<<<< HEAD
 		/* @fs.sec -- 5da784cce4308ae10a79e3c8c41b13fb9568e4e0 -- */
 		WARN_ON(npages > FUSE_MAX_MAX_PAGES);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (npages <= FUSE_REQ_INLINE_PAGES) {
 			pages = req->inline_pages;
 			page_descs = req->inline_page_descs;
@@ -153,8 +159,12 @@ static struct fuse_req *__fuse_get_req(struct fuse_conn *fc, unsigned npages,
 
 	if (fuse_block_alloc(fc, for_background)) {
 		err = -EINTR;
+<<<<<<< HEAD
 		/* @fs.sec -- 9992f9e9ebd25b0dcc80951a9e4f4fc2e71a08c6 -- */
 		if (fuse_wait_event_killable_exclusive(fc->blocked_waitq,
+=======
+		if (wait_event_killable_exclusive(fc->blocked_waitq,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				!fuse_block_alloc(fc, for_background)))
 			goto out;
 	}
@@ -222,7 +232,11 @@ static struct fuse_req *get_reserved_req(struct fuse_conn *fc,
 	struct fuse_file *ff = file->private_data;
 
 	do {
+<<<<<<< HEAD
 		fuse_wait_event(fc->reserved_req_waitq, ff->reserved_req);
+=======
+		wait_event(fc->reserved_req_waitq, ff->reserved_req);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		spin_lock(&fc->lock);
 		if (ff->reserved_req) {
 			req = ff->reserved_req;
@@ -271,7 +285,11 @@ struct fuse_req *fuse_get_req_nofail_nopages(struct fuse_conn *fc,
 	struct fuse_req *req;
 
 	atomic_inc(&fc->num_waiting);
+<<<<<<< HEAD
 	fuse_wait_event(fc->blocked_waitq, fc->initialized);
+=======
+	wait_event(fc->blocked_waitq, fc->initialized);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Matches smp_wmb() in fuse_set_initialized() */
 	smp_rmb();
 	req = fuse_request_alloc(0);
@@ -465,7 +483,11 @@ static void request_wait_answer(struct fuse_conn *fc, struct fuse_req *req)
 
 	if (!test_bit(FR_FORCE, &req->flags)) {
 		/* Only fatal signals may interrupt this */
+<<<<<<< HEAD
 		err = fuse_wait_event_killable(req->waitq,
+=======
+		err = wait_event_killable(req->waitq,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					test_bit(FR_FINISHED, &req->flags));
 		if (!err)
 			return;
@@ -486,7 +508,11 @@ static void request_wait_answer(struct fuse_conn *fc, struct fuse_req *req)
 	 * Either request is already in userspace, or it was forced.
 	 * Wait it out.
 	 */
+<<<<<<< HEAD
 	fuse_wait_event(req->waitq, test_bit(FR_FINISHED, &req->flags));
+=======
+	wait_event(req->waitq, test_bit(FR_FINISHED, &req->flags));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void __fuse_request_send(struct fuse_conn *fc, struct fuse_req *req)
@@ -1254,12 +1280,15 @@ static ssize_t fuse_dev_do_read(struct fuse_dev *fud, struct file *file,
 	struct fuse_in *in;
 	unsigned reqsize;
 
+<<<<<<< HEAD
 	if ((current->flags & PF_NOFREEZE) == 0) {
 		current->flags |= PF_NOFREEZE;
 		printk_ratelimited(KERN_WARNING "%s(%d): This thread should not be frozen\n",
 				current->comm, task_pid_nr(current));
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  restart:
 	for (;;) {
 		spin_lock(&fiq->lock);
@@ -1689,7 +1718,11 @@ static int fuse_retrieve(struct fuse_conn *fc, struct inode *inode,
 	unsigned int num;
 	unsigned int offset;
 	size_t total_len = 0;
+<<<<<<< HEAD
 	unsigned int num_pages;
+=======
+	int num_pages;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	offset = outarg->offset & ~PAGE_MASK;
 	file_size = i_size_read(inode);
@@ -1701,7 +1734,11 @@ static int fuse_retrieve(struct fuse_conn *fc, struct inode *inode,
 		num = file_size - outarg->offset;
 
 	num_pages = (num + offset + PAGE_SIZE - 1) >> PAGE_SHIFT;
+<<<<<<< HEAD
 	num_pages = min(num_pages, fc->max_pages);
+=======
+	num_pages = min(num_pages, FUSE_MAX_PAGES_PER_REQ);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	req = fuse_get_req(fc, num_pages);
 	if (IS_ERR(req))
@@ -1932,12 +1969,15 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
 		cs->move_pages = 0;
 
 	err = copy_out_args(cs, &req->out, nbytes);
+<<<<<<< HEAD
 	if (req->in.h.opcode == FUSE_CANONICAL_PATH) {
 		char *path = (char *)req->out.args[0].value;
 
 		path[req->out.args[0].size - 1] = 0;
 		req->out.h.error = kern_path(path, 0, req->canonical_path);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	fuse_copy_finish(cs);
 
 	spin_lock(&fpq->lock);
@@ -2137,10 +2177,13 @@ void fuse_abort_conn(struct fuse_conn *fc, bool is_abort)
 {
 	struct fuse_iqueue *fiq = &fc->iq;
 
+<<<<<<< HEAD
 	/* @fs.sec -- d7bd5cc97a05d48e04defc719fbaffefdd4e6f22 -- */
 	ST_LOG("<%s> dev = %u:%u  fuse abort all requests",
 			__func__, MAJOR(fc->dev), MINOR(fc->dev));
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	spin_lock(&fc->lock);
 	if (fc->connected) {
 		struct fuse_dev *fud;
@@ -2198,7 +2241,11 @@ void fuse_wait_aborted(struct fuse_conn *fc)
 {
 	/* matches implicit memory barrier in fuse_drop_waiting() */
 	smp_mb();
+<<<<<<< HEAD
 	fuse_wait_event(fc->blocked_waitq, atomic_read(&fc->num_waiting) == 0);
+=======
+	wait_event(fc->blocked_waitq, atomic_read(&fc->num_waiting) == 0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 int fuse_dev_release(struct inode *inode, struct file *file)

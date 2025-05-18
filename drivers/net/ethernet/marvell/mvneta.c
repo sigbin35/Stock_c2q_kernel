@@ -2801,11 +2801,18 @@ static int mvneta_poll(struct napi_struct *napi, int budget)
 	/* For the case where the last mvneta_poll did not process all
 	 * RX packets
 	 */
+<<<<<<< HEAD
 	rx_queue = fls(((cause_rx_tx >> 8) & 0xff));
 
 	cause_rx_tx |= pp->neta_armada3700 ? pp->cause_rx_tx :
 		port->cause_rx_tx;
 
+=======
+	cause_rx_tx |= pp->neta_armada3700 ? pp->cause_rx_tx :
+		port->cause_rx_tx;
+
+	rx_queue = fls(((cause_rx_tx >> 8) & 0xff));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (rx_queue) {
 		rx_queue = rx_queue - 1;
 		if (pp->bm_priv)

@@ -209,6 +209,7 @@ void __wake_up_sync(struct wait_queue_head *wq_head, unsigned int mode, int nr_e
 }
 EXPORT_SYMBOL_GPL(__wake_up_sync);	/* For internal use only */
 
+<<<<<<< HEAD
 void __wake_up_pollfree(struct wait_queue_head *wq_head)
 {
 	__wake_up(wq_head, TASK_NORMAL, 0, poll_to_key(EPOLLHUP | POLLFREE));
@@ -216,6 +217,8 @@ void __wake_up_pollfree(struct wait_queue_head *wq_head)
 	WARN_ON_ONCE(waitqueue_active(wq_head));
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Note: we use "set_current_state()" _after_ the wait-queue add,
  * because we need a memory barrier there on SMP, so that any

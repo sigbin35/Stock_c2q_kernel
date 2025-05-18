@@ -451,12 +451,21 @@ void lru_cache_add(struct page *page)
  * directly back onto it's zone's unevictable list, it does NOT use a
  * per cpu pagevec.
  */
+<<<<<<< HEAD
 void __lru_cache_add_active_or_unevictable(struct page *page,
 					   unsigned long vma_flags)
 {
 	VM_BUG_ON_PAGE(PageLRU(page), page);
 
 	if (likely((vma_flags & (VM_LOCKED | VM_SPECIAL)) != VM_LOCKED))
+=======
+void lru_cache_add_active_or_unevictable(struct page *page,
+					 struct vm_area_struct *vma)
+{
+	VM_BUG_ON_PAGE(PageLRU(page), page);
+
+	if (likely((vma->vm_flags & (VM_LOCKED | VM_SPECIAL)) != VM_LOCKED))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		SetPageActive(page);
 	else if (!TestSetPageMlocked(page)) {
 		/*

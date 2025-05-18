@@ -227,7 +227,11 @@ static int get_lmb_range(u32 drc_index, int n_lmbs,
 			 struct drmem_lmb **end_lmb)
 {
 	struct drmem_lmb *lmb, *start, *end;
+<<<<<<< HEAD
 	struct drmem_lmb *last_lmb;
+=======
+	struct drmem_lmb *limit;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	start = NULL;
 	for_each_drmem_lmb(lmb) {
@@ -240,10 +244,17 @@ static int get_lmb_range(u32 drc_index, int n_lmbs,
 	if (!start)
 		return -EINVAL;
 
+<<<<<<< HEAD
 	end = &start[n_lmbs - 1];
 
 	last_lmb = &drmem_info->lmbs[drmem_info->n_lmbs - 1];
 	if (end > last_lmb)
+=======
+	end = &start[n_lmbs];
+
+	limit = &drmem_info->lmbs[drmem_info->n_lmbs];
+	if (end > limit)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return -EINVAL;
 
 	*start_lmb = start;

@@ -739,8 +739,20 @@ static int claimintf(struct usb_dev_state *ps, unsigned int ifnum)
 	intf = usb_ifnum_to_if(dev, ifnum);
 	if (!intf)
 		err = -ENOENT;
+<<<<<<< HEAD
 	else
 		err = usb_driver_claim_interface(&usbfs_driver, intf, ps);
+=======
+	else {
+		unsigned int old_suppress;
+
+		/* suppress uevents while claiming interface */
+		old_suppress = dev_get_uevent_suppress(&intf->dev);
+		dev_set_uevent_suppress(&intf->dev, 1);
+		err = usb_driver_claim_interface(&usbfs_driver, intf, ps);
+		dev_set_uevent_suppress(&intf->dev, old_suppress);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (err == 0)
 		set_bit(ifnum, &ps->ifclaimed);
 	return err;
@@ -760,7 +772,17 @@ static int releaseintf(struct usb_dev_state *ps, unsigned int ifnum)
 	if (!intf)
 		err = -ENOENT;
 	else if (test_and_clear_bit(ifnum, &ps->ifclaimed)) {
+<<<<<<< HEAD
 		usb_driver_release_interface(&usbfs_driver, intf);
+=======
+		unsigned int old_suppress;
+
+		/* suppress uevents while releasing interface */
+		old_suppress = dev_get_uevent_suppress(&intf->dev);
+		dev_set_uevent_suppress(&intf->dev, 1);
+		usb_driver_release_interface(&usbfs_driver, intf);
+		dev_set_uevent_suppress(&intf->dev, old_suppress);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		err = 0;
 	}
 	return err;
@@ -963,10 +985,13 @@ static struct usb_device *usbdev_lookup_by_devt(dev_t devt)
 	return to_usb_device(dev);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 static unsigned int prev_cmd = 0;
 static int prev_ret = 0;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * file operations
  */
@@ -1020,10 +1045,13 @@ static int usbdev_open(struct inode *inode, struct file *file)
 	usb_unlock_device(dev);
 	snoop(&dev->dev, "opened by process %d: %s\n", task_pid_nr(current),
 			current->comm);
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	prev_cmd = 0;
 	prev_ret = 0;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ret;
 
  out_unlock_device:
@@ -1256,9 +1284,12 @@ static int proc_resetep(struct usb_dev_state *ps, void __user *arg)
 	ret = checkintf(ps, ret);
 	if (ret)
 		return ret;
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	dev_info(&ps->dev->dev,"%s epnum %d\n", __func__, ep);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	check_reset_of_active_ep(ps->dev, ep, "RESETEP");
 	usb_reset_endpoint(ps->dev, ep);
 	return 0;
@@ -1329,9 +1360,12 @@ static int proc_resetdevice(struct usb_dev_state *ps)
 	 * privilege to do such things and any of the interfaces are
 	 * currently claimed.
 	 */
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	dev_info(&ps->dev->dev,"%s\n", __func__);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ps->privileges_dropped && actconfig) {
 		for (i = 0; i < actconfig->desc.bNumInterfaces; ++i) {
 			interface = actconfig->interface[i];
@@ -2117,9 +2151,12 @@ static int proc_claiminterface(struct usb_dev_state *ps, void __user *arg)
 
 	if (get_user(ifnum, (unsigned int __user *)arg))
 		return -EFAULT;
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	dev_info(&ps->dev->dev,"%s: ifnum %d\n", __func__, ifnum);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return claimintf(ps, ifnum);
 }
 
@@ -2130,9 +2167,12 @@ static int proc_releaseinterface(struct usb_dev_state *ps, void __user *arg)
 
 	if (get_user(ifnum, (unsigned int __user *)arg))
 		return -EFAULT;
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	dev_info(&ps->dev->dev,"%s: ifnum %d\n", __func__, ifnum);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = releaseintf(ps, ifnum);
 	if (ret < 0)
 		return ret;
@@ -2178,9 +2218,12 @@ static int proc_ioctl(struct usb_dev_state *ps, struct usbdevfs_ioctl *ctl)
 		retval = -EINVAL;
 	else switch (ctl->ioctl_code) {
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	dev_info(&ps->dev->dev,"%s ioctl_code %d\n", __func__, ctl->ioctl_code);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* disconnect kernel driver from interface */
 	case USBDEVFS_DISCONNECT:
 		if (intf->dev.driver) {
@@ -2316,12 +2359,16 @@ static int proc_disconnect_claim(struct usb_dev_state *ps, void __user *arg)
 					sizeof(dc.driver)) == 0)
 			return -EBUSY;
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 		dev_info(&intf->dev, "%s,intfnum %d disconnect by usbfs\n",
 				__func__, dc.interface);
 #else
 		dev_dbg(&intf->dev, "disconnect by usbfs\n");
 #endif
+=======
+		dev_dbg(&intf->dev, "disconnect by usbfs\n");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		usb_driver_release_interface(driver, intf);
 	}
 
@@ -2587,6 +2634,7 @@ static long usbdev_do_ioctl(struct file *file, unsigned int cmd,
 	return ret;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 static int usbdev_log(unsigned int cmd, int ret)
 {
@@ -2669,12 +2717,15 @@ static int usbdev_log(unsigned int cmd, int ret)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static long usbdev_ioctl(struct file *file, unsigned int cmd,
 			unsigned long arg)
 {
 	int ret;
 
 	ret = usbdev_do_ioctl(file, cmd, (void __user *)arg);
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	if (ret < 0)
 		usbdev_log(cmd, ret);
@@ -2683,6 +2734,8 @@ static long usbdev_ioctl(struct file *file, unsigned int cmd,
 		prev_ret = 0;
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }

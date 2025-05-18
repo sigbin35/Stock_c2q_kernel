@@ -240,7 +240,11 @@ static bool remove_migration_pte(struct page *page, struct vm_area_struct *vma,
 		 */
 		entry = pte_to_swp_entry(*pvmw.pte);
 		if (is_write_migration_entry(entry))
+<<<<<<< HEAD
 			pte = maybe_mkwrite(pte, vma->vm_flags);
+=======
+			pte = maybe_mkwrite(pte, vma);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (unlikely(is_zone_device_page(new))) {
 			if (is_device_private_page(new)) {
@@ -325,13 +329,25 @@ void __migration_entry_wait(struct mm_struct *mm, pte_t *ptep,
 
 	/*
 	 * Once radix-tree replacement of page migration started, page_count
+<<<<<<< HEAD
 	 * is zero; but we must not call put_and_wait_on_page_locked() without
 	 * a ref. Use get_page_unless_zero(), and just fault again if it fails.
+=======
+	 * *must* be zero. And, we don't want to call wait_on_page_locked()
+	 * against a page without get_page().
+	 * So, we use get_page_unless_zero(), here. Even failed, page fault
+	 * will occur again.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	 */
 	if (!get_page_unless_zero(page))
 		goto out;
 	pte_unmap_unlock(ptep, ptl);
+<<<<<<< HEAD
 	put_and_wait_on_page_locked(page);
+=======
+	wait_on_page_locked(page);
+	put_page(page);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return;
 out:
 	pte_unmap_unlock(ptep, ptl);
@@ -365,7 +381,12 @@ void pmd_migration_entry_wait(struct mm_struct *mm, pmd_t *pmd)
 	if (!get_page_unless_zero(page))
 		goto unlock;
 	spin_unlock(ptl);
+<<<<<<< HEAD
 	put_and_wait_on_page_locked(page);
+=======
+	wait_on_page_locked(page);
+	put_page(page);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return;
 unlock:
 	spin_unlock(ptl);
@@ -679,8 +700,11 @@ void migrate_page_states(struct page *newpage, struct page *page)
 		SetPageActive(newpage);
 	} else if (TestClearPageUnevictable(page))
 		SetPageUnevictable(newpage);
+<<<<<<< HEAD
 	if (PageWorkingset(page))
 		SetPageWorkingset(newpage);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (PageChecked(page))
 		SetPageChecked(newpage);
 	if (PageMappedToDisk(page))
@@ -895,7 +919,11 @@ static int fallback_migrate_page(struct address_space *mapping,
 	 */
 	if (page_has_private(page) &&
 	    !try_to_release_page(page, GFP_KERNEL))
+<<<<<<< HEAD
 		return mode == MIGRATE_SYNC ? -EAGAIN : -EBUSY;
+=======
+		return -EAGAIN;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return migrate_page(mapping, newpage, page, mode);
 }
@@ -920,9 +948,12 @@ static int move_to_new_page(struct page *newpage, struct page *page,
 
 	VM_BUG_ON_PAGE(!PageLocked(page), page);
 	VM_BUG_ON_PAGE(!PageLocked(newpage), newpage);
+<<<<<<< HEAD
 #ifdef CONFIG_HUGEPAGE_POOL_DEBUG
 	BUG_ON(PageCompound(page));
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	mapping = page_mapping(page);
 
@@ -1101,7 +1132,11 @@ static int __unmap_and_move(struct page *page, struct page *newpage,
 		VM_BUG_ON_PAGE(PageAnon(page) && !PageKsm(page) && !anon_vma,
 				page);
 		try_to_unmap(page,
+<<<<<<< HEAD
 			TTU_MIGRATION|TTU_IGNORE_MLOCK|TTU_IGNORE_ACCESS, NULL);
+=======
+			TTU_MIGRATION|TTU_IGNORE_MLOCK|TTU_IGNORE_ACCESS);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		page_was_mapped = 1;
 	}
 
@@ -1327,7 +1362,11 @@ static int unmap_and_move_huge_page(new_page_t get_new_page,
 
 	if (page_mapped(hpage)) {
 		try_to_unmap(hpage,
+<<<<<<< HEAD
 			TTU_MIGRATION|TTU_IGNORE_MLOCK|TTU_IGNORE_ACCESS, NULL);
+=======
+			TTU_MIGRATION|TTU_IGNORE_MLOCK|TTU_IGNORE_ACCESS);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		page_was_mapped = 1;
 	}
 
@@ -1402,8 +1441,11 @@ int migrate_pages(struct list_head *from, new_page_t get_new_page,
 	int swapwrite = current->flags & PF_SWAPWRITE;
 	int rc;
 
+<<<<<<< HEAD
 	trace_mm_migrate_pages_start(mode, reason);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!swapwrite)
 		current->flags |= PF_SWAPWRITE;
 
@@ -1609,7 +1651,11 @@ static int do_pages_move(struct mm_struct *mm, nodemask_t task_nodes,
 			goto out_flush;
 		if (get_user(node, nodes + i))
 			goto out_flush;
+<<<<<<< HEAD
 		addr = (unsigned long)untagged_addr(p);
+=======
+		addr = (unsigned long)p;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		err = -ENODEV;
 		if (node < 0 || node >= MAX_NUMNODES)
@@ -1961,7 +2007,11 @@ bool pmd_trans_migrating(pmd_t pmd)
  * node. Caller is expected to have an elevated reference count on
  * the page that will be dropped by this function before returning.
  */
+<<<<<<< HEAD
 int migrate_misplaced_page(struct page *page, struct vm_fault *vmf,
+=======
+int migrate_misplaced_page(struct page *page, struct vm_area_struct *vma,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			   int node)
 {
 	pg_data_t *pgdat = NODE_DATA(node);
@@ -1974,7 +2024,11 @@ int migrate_misplaced_page(struct page *page, struct vm_fault *vmf,
 	 * with execute permissions as they are probably shared libraries.
 	 */
 	if (page_mapcount(page) != 1 && page_is_file_cache(page) &&
+<<<<<<< HEAD
 	    (vmf->vma_flags & VM_EXEC))
+=======
+	    (vma->vm_flags & VM_EXEC))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		goto out;
 
 	/*

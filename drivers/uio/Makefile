@@ -11,4 +11,7 @@ obj-$(CONFIG_UIO_PRUSS)         += uio_pruss.o
 obj-$(CONFIG_UIO_MF624)         += uio_mf624.o
 obj-$(CONFIG_UIO_FSL_ELBC_GPCM)	+= uio_fsl_elbc_gpcm.o
 obj-$(CONFIG_UIO_HV_GENERIC)	+= uio_hv_generic.o
+<<<<<<< HEAD
 obj-$(CONFIG_UIO_MSM_SHAREDMEM) += msm_sharedmem/
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

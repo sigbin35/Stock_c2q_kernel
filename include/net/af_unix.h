@@ -10,7 +10,10 @@
 
 void unix_inflight(struct user_struct *user, struct file *fp);
 void unix_notinflight(struct user_struct *user, struct file *fp);
+<<<<<<< HEAD
 void unix_destruct_scm(struct sk_buff *skb);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void unix_gc(void);
 void wait_for_unix_gc(void);
 struct sock *unix_get_socket(struct file *filp);
@@ -58,7 +61,11 @@ struct unix_sock {
 	struct mutex		iolock, bindlock;
 	struct sock		*peer;
 	struct list_head	link;
+<<<<<<< HEAD
 	unsigned long		inflight;
+=======
+	atomic_long_t		inflight;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	spinlock_t		lock;
 	unsigned long		gc_flags;
 #define UNIX_GC_CANDIDATE	0

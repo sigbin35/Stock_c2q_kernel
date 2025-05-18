@@ -48,7 +48,11 @@ struct etnaviv_iommu {
 	struct mutex lock;
 	struct list_head mappings;
 	struct drm_mm mm;
+<<<<<<< HEAD
 	bool need_flush;
+=======
+	unsigned int flush_seq;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 struct etnaviv_gem_object;

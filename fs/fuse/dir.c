@@ -263,6 +263,7 @@ invalid:
 	goto out;
 }
 
+<<<<<<< HEAD
 /*
  * Get the canonical path. Since we must translate to a path, this must be done
  * in the context of the userspace daemon, however, the userspace daemon cannot
@@ -307,6 +308,8 @@ default_path:
 	path_get(canonical_path);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int invalid_nodeid(u64 nodeid)
 {
 	return !nodeid || nodeid == FUSE_ROOT_ID;
@@ -325,6 +328,7 @@ static void fuse_dentry_release(struct dentry *dentry)
 	kfree_rcu(fd, rcu);
 }
 
+<<<<<<< HEAD
 /* @fs.sec -- 63ff82f9216c9b6d003e7d45699d54b833344719 -- */
 static int fuse_dentry_delete(const struct dentry *dentry)
 {
@@ -346,12 +350,21 @@ const struct dentry_operations fuse_dentry_operations = {
 	.d_init		= fuse_dentry_init,
 	.d_release	= fuse_dentry_release,
 	.d_canonical_path = fuse_dentry_canonical_path,
+=======
+const struct dentry_operations fuse_dentry_operations = {
+	.d_revalidate	= fuse_dentry_revalidate,
+	.d_init		= fuse_dentry_init,
+	.d_release	= fuse_dentry_release,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 const struct dentry_operations fuse_root_dentry_operations = {
 	.d_init		= fuse_dentry_init,
 	.d_release	= fuse_dentry_release,
+<<<<<<< HEAD
 	.d_canonical_path = fuse_dentry_canonical_path,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 int fuse_valid_type(int m)
@@ -1014,8 +1027,11 @@ static int fuse_update_get_attr(struct inode *inode, struct file *file,
 		sync = true;
 	else if (flags & AT_STATX_DONT_SYNC)
 		sync = false;
+<<<<<<< HEAD
 	else if (test_bit(FUSE_I_ATTR_FORCE_SYNC, &fi->state))
 		sync = true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	else
 		sync = time_before64(fi->i_time, get_jiffies_64());
 
@@ -1199,8 +1215,12 @@ static int fuse_permission(struct inode *inode, int mask)
 	    ((mask & MAY_EXEC) && S_ISREG(inode->i_mode))) {
 		struct fuse_inode *fi = get_fuse_inode(inode);
 
+<<<<<<< HEAD
 		if (time_before64(fi->i_time, get_jiffies_64()) ||
 		    test_bit(FUSE_I_ATTR_FORCE_SYNC, &fi->state)) {
+=======
+		if (time_before64(fi->i_time, get_jiffies_64())) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			refreshed = true;
 
 			err = fuse_perm_getattr(inode, mask);
@@ -1618,7 +1638,11 @@ void fuse_set_nowrite(struct inode *inode)
 	BUG_ON(fi->writectr < 0);
 	fi->writectr += FUSE_NOWRITE;
 	spin_unlock(&fc->lock);
+<<<<<<< HEAD
 	fuse_wait_event(fi->page_waitq, fi->writectr == FUSE_NOWRITE);
+=======
+	wait_event(fi->page_waitq, fi->writectr == FUSE_NOWRITE);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*

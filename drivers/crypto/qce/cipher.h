@@ -22,7 +22,11 @@
 struct qce_cipher_ctx {
 	u8 enc_key[QCE_MAX_KEY_SIZE];
 	unsigned int enc_keylen;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *fallback;
+=======
+	struct crypto_skcipher *fallback;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /**

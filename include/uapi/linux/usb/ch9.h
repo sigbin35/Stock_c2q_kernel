@@ -1081,6 +1081,7 @@ struct usb_ptm_cap_descriptor {
  */
 #define USB_DT_USB_SSP_CAP_SIZE(ssac)	(12 + (ssac + 1) * 4)
 
+<<<<<<< HEAD
 /*
  * Configuration Summary descriptors: Defines a list of device preferred
  * configurations. This descriptor may be used by Host software to decide
@@ -1101,6 +1102,8 @@ struct usb_config_summary_descriptor {
 	__u8 bConfigurationIndex[];
 } __attribute__((packed));
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*-------------------------------------------------------------------------*/
 
 /* USB_DT_WIRELESS_ENDPOINT_COMP:  companion descriptor associated with

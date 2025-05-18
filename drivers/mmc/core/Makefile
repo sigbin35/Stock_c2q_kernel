@@ -16,8 +16,11 @@ obj-$(CONFIG_PWRSEQ_EMMC)	+= pwrseq_emmc.o
 mmc_core-$(CONFIG_DEBUG_FS)	+= debugfs.o
 obj-$(CONFIG_MMC_BLOCK)		+= mmc_block.o
 mmc_block-objs			:= block.o queue.o
+<<<<<<< HEAD
 ifeq ($(CONFIG_MMC_CPRM),y)
 mmc_block-objs			+= cprmdrv_samsung.o
 endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_MMC_TEST)		+= mmc_test.o
 obj-$(CONFIG_SDIO_UART)		+= sdio_uart.o

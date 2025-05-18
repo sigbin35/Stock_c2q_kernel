@@ -44,8 +44,11 @@
 
 #define DRIVER_DESC "USB HID core driver"
 
+<<<<<<< HEAD
 #undef dev_dbg
 #define dev_dbg dev_err
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Module parameters.
  */
@@ -101,10 +104,13 @@ static int hid_start_in(struct hid_device *hid)
 		} else {
 			clear_bit(HID_NO_BANDWIDTH, &usbhid->iofl);
 		}
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 		usbhid->in_err_isr = 0;
 		hid_info(hid, "%s submit urb rc=%d\n", __func__, rc);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	spin_unlock_irqrestore(&usbhid->lock, flags);
 	return rc;
@@ -293,6 +299,7 @@ static void hid_irq_in(struct urb *urb)
 			hid_input_report(urb->context, HID_INPUT_REPORT,
 					 urb->transfer_buffer,
 					 urb->actual_length, 1);
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 			if (status == 0) {
 				if (usbhid->in_err_isr) {
@@ -309,6 +316,8 @@ static void hid_irq_in(struct urb *urb)
 						, urb->actual_length);
 			}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			/*
 			 * autosuspend refused while keys are pressed
 			 * because most keyboards don't wake up when
@@ -321,9 +330,12 @@ static void hid_irq_in(struct urb *urb)
 		}
 		break;
 	case -EPIPE:		/* stall */
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 		hid_err(urb->dev, "usbhid: %s: stall\n", __func__);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		usbhid_mark_busy(usbhid);
 		clear_bit(HID_IN_RUNNING, &usbhid->iofl);
 		set_bit(HID_CLEAR_HALT, &usbhid->iofl);
@@ -332,20 +344,26 @@ static void hid_irq_in(struct urb *urb)
 	case -ECONNRESET:	/* unlink */
 	case -ENOENT:
 	case -ESHUTDOWN:	/* unplug */
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 		hid_err(urb->dev, "usbhid: %s: unlink %d\n",
 					__func__, urb->status);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		clear_bit(HID_IN_RUNNING, &usbhid->iofl);
 		return;
 	case -EILSEQ:		/* protocol error or unplug */
 	case -EPROTO:		/* protocol error or unplug */
 	case -ETIME:		/* protocol error or unplug */
 	case -ETIMEDOUT:	/* Should never happen, but... */
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 		hid_err(urb->dev, "usbhid: %s: protocol error %d\n",
 					__func__, urb->status);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		usbhid_mark_busy(usbhid);
 		clear_bit(HID_IN_RUNNING, &usbhid->iofl);
 		hid_io_error(hid);
@@ -761,10 +779,13 @@ static int usbhid_open(struct hid_device *hid)
 		msleep(50);
 
 	clear_bit(HID_RESUME_RUNNING, &usbhid->iofl);
+<<<<<<< HEAD
 #ifdef CONFIG_USB_DEBUG_DETAILED_LOG
 	if (res < 0)
 		hid_err(hid, "%s error res %d\n", __func__, res);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return res;
 }
 

@@ -55,7 +55,10 @@
 #include <linux/nsproxy.h>
 #include <linux/file.h>
 #include <linux/sched/cputime.h>
+<<<<<<< HEAD
 #include <linux/psi.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <net/sock.h>
 
 #define CREATE_TRACE_POINTS
@@ -837,7 +840,11 @@ static void css_set_move_task(struct task_struct *task,
 		 */
 		WARN_ON_ONCE(task->flags & PF_EXITING);
 
+<<<<<<< HEAD
 		cgroup_move_task(task, to_cset);
+=======
+		rcu_assign_pointer(task->cgroups, to_cset);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		list_add_tail(&task->cg_list, use_mg_tasks ? &to_cset->mg_tasks :
 							     &to_cset->tasks);
 	}
@@ -3426,6 +3433,7 @@ static int cpu_stat_show(struct seq_file *seq, void *v)
 	return ret;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_PSI
 static int cgroup_io_pressure_show(struct seq_file *seq, void *v)
 {
@@ -3499,6 +3507,8 @@ static void cgroup_pressure_release(struct kernfs_open_file *of)
 }
 #endif /* CONFIG_PSI */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int cgroup_file_open(struct kernfs_open_file *of)
 {
 	struct cftype *cft = of->kn->priv;
@@ -3566,6 +3576,7 @@ static ssize_t cgroup_file_write(struct kernfs_open_file *of, char *buf,
 	return ret ?: nbytes;
 }
 
+<<<<<<< HEAD
 static __poll_t cgroup_file_poll(struct kernfs_open_file *of, poll_table *pt)
 {
 	struct cftype *cft = of->kn->priv;
@@ -3576,6 +3587,8 @@ static __poll_t cgroup_file_poll(struct kernfs_open_file *of, poll_table *pt)
 	return kernfs_generic_poll(of, pt);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void *cgroup_seqfile_start(struct seq_file *seq, loff_t *ppos)
 {
 	return seq_cft(seq)->seq_start(seq, ppos);
@@ -3614,7 +3627,10 @@ static struct kernfs_ops cgroup_kf_single_ops = {
 	.open			= cgroup_file_open,
 	.release		= cgroup_file_release,
 	.write			= cgroup_file_write,
+<<<<<<< HEAD
 	.poll			= cgroup_file_poll,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.seq_show		= cgroup_seqfile_show,
 };
 
@@ -3623,7 +3639,10 @@ static struct kernfs_ops cgroup_kf_ops = {
 	.open			= cgroup_file_open,
 	.release		= cgroup_file_release,
 	.write			= cgroup_file_write,
+<<<<<<< HEAD
 	.poll			= cgroup_file_poll,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.seq_start		= cgroup_seqfile_start,
 	.seq_next		= cgroup_seqfile_next,
 	.seq_stop		= cgroup_seqfile_stop,
@@ -4692,6 +4711,7 @@ static struct cftype cgroup_base_files[] = {
 		.flags = CFTYPE_NOT_ON_ROOT,
 		.seq_show = cpu_stat_show,
 	},
+<<<<<<< HEAD
 #ifdef CONFIG_PSI
 	{
 		.name = "io.pressure",
@@ -4718,6 +4738,8 @@ static struct cftype cgroup_base_files[] = {
 		.release = cgroup_pressure_release,
 	},
 #endif /* CONFIG_PSI */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	{ }	/* terminate */
 };
 
@@ -4778,7 +4800,10 @@ static void css_free_rwork_fn(struct work_struct *work)
 			 */
 			cgroup_put(cgroup_parent(cgrp));
 			kernfs_put(cgrp->kn);
+<<<<<<< HEAD
 			psi_cgroup_free(cgrp);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (cgroup_on_dfl(cgrp))
 				cgroup_rstat_exit(cgrp);
 			kfree(cgrp);
@@ -5037,6 +5062,7 @@ static struct cgroup *cgroup_create(struct cgroup *parent)
 	cgrp->self.parent = &parent->self;
 	cgrp->root = root;
 	cgrp->level = level;
+<<<<<<< HEAD
 
 	ret = psi_cgroup_alloc(cgrp);
 	if (ret)
@@ -5045,6 +5071,11 @@ static struct cgroup *cgroup_create(struct cgroup *parent)
 	ret = cgroup_bpf_inherit(cgrp);
 	if (ret)
 		goto out_psi_free;
+=======
+	ret = cgroup_bpf_inherit(cgrp);
+	if (ret)
+		goto out_idr_free;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	spin_lock_irq(&css_set_lock);
 	for (tcgrp = cgrp; tcgrp; tcgrp = cgroup_parent(tcgrp)) {
@@ -5085,8 +5116,11 @@ static struct cgroup *cgroup_create(struct cgroup *parent)
 
 	return cgrp;
 
+<<<<<<< HEAD
 out_psi_free:
 	psi_cgroup_free(cgrp);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out_idr_free:
 	cgroup_idr_remove(&root->cgroup_idr, cgrp->id);
 out_stat_exit:
@@ -6189,6 +6223,7 @@ static int __init cgroup_sysfs_init(void)
 	return sysfs_create_group(kernel_kobj, &cgroup_sysfs_attr_group);
 }
 subsys_initcall(cgroup_sysfs_init);
+<<<<<<< HEAD
 
 static u64 power_of_ten(int power)
 {
@@ -6232,4 +6267,6 @@ int cgroup_parse_float(const char *input, unsigned dec_shift, s64 *v)
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* CONFIG_SYSFS */

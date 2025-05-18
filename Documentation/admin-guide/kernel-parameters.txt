@@ -436,10 +436,13 @@
 			embedded devices based on command line input.
 			See Documentation/block/cmdline-partition.txt
 
+<<<<<<< HEAD
 	boot_cpus=	[SMP]
 			Rather than attempting to online all possible CPUs at
 			boot time, only online the specified set of CPUs.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	boot_delay=	Milliseconds to delay each printk during boot.
 			Values larger than 10 seconds (10000) are changed to
 			no delay (0).
@@ -888,9 +891,12 @@
 
 	dis_ucode_ldr	[X86] Disable the microcode loader.
 
+<<<<<<< HEAD
 	dm=		[DM] Allows early creation of a device-mapper device.
 			See Documentation/device-mapper/boot.txt.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	dma_debug=off	If the kernel is compiled with DMA_API_DEBUG support,
 			this option disables the debugging code at boot.
 
@@ -1642,6 +1648,7 @@
 
 	initrd=		[BOOT] Specify the location of the initial ramdisk
 
+<<<<<<< HEAD
 	init_on_alloc=	[MM] Fill newly allocated pages and heap objects with
 			zeroes.
 			Format: 0 | 1
@@ -1651,6 +1658,8 @@
 			Format: 0 | 1
 			Default set by CONFIG_INIT_ON_FREE_DEFAULT_ON.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	init_pkru=	[x86] Specify the default memory protection keys rights
 			register contents for all processes.  0x55555554 by
 			default (disallow access to all but pkey 0).  Can
@@ -3128,12 +3137,15 @@
 			This can be set from sysctl after boot.
 			See Documentation/sysctl/vm.txt for details.
 
+<<<<<<< HEAD
 	of_devlink	[OF, KNL] Create device links between consumer and
 			supplier devices by scanning the devictree to infer the
 			consumer/supplier relationships.  A consumer device
 			will not be probed until all the supplier devices have
 			probed successfully.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ohci1394_dma=early	[HW] enable debugging via the ohci1394 driver.
 			See Documentation/debugging-via-ohci1394.txt for more
 			info.
@@ -3611,10 +3623,13 @@
 			before loading.
 			See Documentation/blockdev/ramdisk.txt.
 
+<<<<<<< HEAD
 	psi=		[KNL] Enable or disable pressure stall information
 			tracking.
 			Format: <bool>
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	psmouse.proto=	[HW,MOUSE] Highest PS2 mouse protocol extension to
 			probe for; one of (bare|imps|exps|lifebook|any).
 	psmouse.rate=	[HW,MOUSE] Set desired mouse report rate, in reports
@@ -4039,9 +4054,13 @@
 				[[,]s[mp]#### \
 				[[,]b[ios] | a[cpi] | k[bd] | t[riple] | e[fi] | p[ci]] \
 				[[,]f[orce]
+<<<<<<< HEAD
 			Where reboot_mode is one of warm (soft) or cold (hard) or gpio
 					(prefix with 'panic_' to set mode for panic
 					reboot only),
+=======
+			Where reboot_mode is one of warm (soft) or cold (hard) or gpio,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			      reboot_type is one of bios, acpi, kbd, triple, efi, or pci,
 			      reboot_force is either force or not specified,
 			      reboot_cpu is s[mp]#### with #### being the processor

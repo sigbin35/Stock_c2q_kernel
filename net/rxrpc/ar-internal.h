@@ -436,7 +436,11 @@ struct rxrpc_connection {
 	struct sk_buff_head	rx_queue;	/* received conn-level packets */
 	const struct rxrpc_security *security;	/* applied security module */
 	struct key		*server_key;	/* security for this service */
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *cipher;	/* encryption handle */
+=======
+	struct crypto_skcipher	*cipher;	/* encryption handle */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct rxrpc_crypt	csum_iv;	/* packet checksum base */
 	unsigned long		flags;
 	unsigned long		events;

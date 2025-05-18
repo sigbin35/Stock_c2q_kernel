@@ -94,16 +94,20 @@
 #include <linux/sched/stat.h>
 #include <linux/flex_array.h>
 #include <linux/posix-timers.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
 #include <linux/cpufreq_times.h>
 #include <linux/proca.h>
 #include <linux/cn_proc.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <trace/events/oom.h>
 #include "internal.h"
 #include "fd.h"
 
 #include "../../lib/kstrtox.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_PAGE_BOOST
 #include <linux/delayacct.h>
 #endif
@@ -113,6 +117,8 @@
 #define GLOBAL_SYSTEM_GID KGIDT_INIT(1000)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* NOTE:
  *	Implementing inode permission operations in /proc is almost
  *	certainly an error.  Permission checks need to happen during
@@ -479,6 +485,7 @@ static int proc_pid_stack(struct seq_file *m, struct pid_namespace *ns,
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_PAGE_BOOST
 static int proc_pid_ioinfo(struct seq_file *m, struct pid_namespace *ns,
 			      struct pid *pid, struct task_struct *task)
@@ -530,6 +537,8 @@ out_unlock:
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_SCHED_INFO
 /*
  * Provides /proc/PID/schedstat
@@ -615,7 +624,11 @@ static int proc_oom_score(struct seq_file *m, struct pid_namespace *ns,
 	unsigned long totalpages = totalram_pages + total_swap_pages;
 	unsigned long points = 0;
 
+<<<<<<< HEAD
 	points = oom_badness(task, NULL, NULL, totalpages, false) *
+=======
+	points = oom_badness(task, NULL, NULL, totalpages) *
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					1000 / totalpages;
 	seq_printf(m, "%lu\n", points);
 
@@ -975,6 +988,7 @@ static const struct file_operations proc_mem_operations = {
 	.release	= mem_release,
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 static int proc_static_ftt_show(struct seq_file *m, void *v)
 {
@@ -1094,6 +1108,8 @@ static int __init proc_fttinfo_init(void)
 fs_initcall(proc_fttinfo_init);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int environ_open(struct inode *inode, struct file *file)
 {
 	return __mem_open(inode, file, PTRACE_MODE_READ);
@@ -1640,6 +1656,7 @@ static const struct file_operations proc_pid_sched_operations = {
 
 #endif
 
+<<<<<<< HEAD
 /*
  * Print out various scheduling related per-task fields:
  */
@@ -1890,6 +1907,8 @@ static const struct file_operations proc_pid_sched_low_latency_operations = {
 
 #endif	/* CONFIG_SCHED_WALT */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_SCHED_AUTOGROUP
 /*
  * Print out autogroup related information:
@@ -1981,10 +2000,15 @@ static ssize_t comm_write(struct file *file, const char __user *buf,
 	if (!p)
 		return -ESRCH;
 
+<<<<<<< HEAD
 	if (same_thread_group(current, p)) {
 		set_task_comm(p, buffer);
 		proc_comm_connector(p);
 	}
+=======
+	if (same_thread_group(current, p))
+		set_task_comm(p, buffer);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	else
 		count = -EINVAL;
 
@@ -2242,6 +2266,7 @@ int pid_getattr(const struct path *path, struct kstat *stat,
 	return 0;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_FAST_TRACK)
 bool is_special_entry(struct dentry *dentry, const char* special_proc)
 {
@@ -2257,6 +2282,8 @@ bool is_special_entry(struct dentry *dentry, const char* special_proc)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* dentry stuff */
 
 /*
@@ -2288,6 +2315,7 @@ static int pid_revalidate(struct dentry *dentry, unsigned int flags)
 
 	if (task) {
 		pid_update_inode(task, inode);
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 		if (is_special_entry(dentry, "static_ftt"))
 		{
@@ -2295,6 +2323,8 @@ static int pid_revalidate(struct dentry *dentry, unsigned int flags)
 			inode->i_gid = GLOBAL_SYSTEM_GID;
 		}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		put_task_struct(task);
 		return 1;
 	}
@@ -2932,6 +2962,7 @@ static struct dentry *proc_pident_instantiate(struct dentry *dentry,
 		inode->i_fop = p->fop;
 	ei->op = p->op;
 	pid_update_inode(task, inode);
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 	if (p->fop == &proc_static_ftt_operations)
 	{
@@ -2939,11 +2970,17 @@ static struct dentry *proc_pident_instantiate(struct dentry *dentry,
 		inode->i_gid = GLOBAL_SYSTEM_GID;
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	d_set_d_op(dentry, &pid_dentry_operations);
 	return d_splice_alias(inode, dentry);
 }
 
+<<<<<<< HEAD
 static struct dentry *proc_pident_lookup(struct inode *dir,
+=======
+static struct dentry *proc_pident_lookup(struct inode *dir, 
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					 struct dentry *dentry,
 					 const struct pid_entry *ents,
 					 unsigned int nents)
@@ -3090,7 +3127,11 @@ static const struct pid_entry attr_dir_stuff[] = {
 
 static int proc_attr_dir_readdir(struct file *file, struct dir_context *ctx)
 {
+<<<<<<< HEAD
 	return proc_pident_readdir(file, ctx,
+=======
+	return proc_pident_readdir(file, ctx, 
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				   attr_dir_stuff, ARRAY_SIZE(attr_dir_stuff));
 }
 
@@ -3252,6 +3293,7 @@ static int proc_tgid_io_accounting(struct seq_file *m, struct pid_namespace *ns,
 }
 #endif /* CONFIG_TASK_IO_ACCOUNTING */
 
+<<<<<<< HEAD
 #ifdef CONFIG_DETECT_HUNG_TASK
 static ssize_t proc_hung_task_detection_enabled_read(struct file *file,
 				char __user *buf, size_t count, loff_t *ppos)
@@ -3411,6 +3453,8 @@ static const struct file_operations proc_task_boost_period_operations = {
 	.llseek		= generic_file_llseek,
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_USER_NS
 static int proc_id_map_open(struct inode *inode, struct file *file,
 	const struct seq_operations *seq_ops)
@@ -3543,6 +3587,7 @@ static const struct file_operations proc_setgroups_operations = {
 };
 #endif /* CONFIG_USER_NS */
 
+<<<<<<< HEAD
 #ifdef CONFIG_FIVE
 static int proc_integrity_value_read(struct seq_file *m,
 		struct pid_namespace *ns, struct pid *pid,
@@ -3768,6 +3813,8 @@ static const struct file_operations proc_integrity_operations = {
 };
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int proc_pid_personality(struct seq_file *m, struct pid_namespace *ns,
 				struct pid *pid, struct task_struct *task)
 {
@@ -3788,6 +3835,7 @@ static int proc_pid_patch_state(struct seq_file *m, struct pid_namespace *ns,
 }
 #endif /* CONFIG_LIVEPATCH */
 
+<<<<<<< HEAD
 #ifdef CONFIG_PROC_TRIGGER_SQLITE_BUG
 static ssize_t trigger_sqlite_bug_write(struct file *file,
 		const char __user *buf, size_t count, loff_t *offset)
@@ -3817,6 +3865,8 @@ const struct file_operations proc_trigger_sqlite_bug_operations = {
 };
 #endif /* CONFIG_PROC_TRIGGER_SQLITE_BUG */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Thread groups
  */
@@ -3837,6 +3887,7 @@ static const struct pid_entry tgid_base_stuff[] = {
 	ONE("status",     S_IRUGO, proc_pid_status),
 	ONE("personality", S_IRUSR, proc_pid_personality),
 	ONE("limits",	  S_IRUGO, proc_pid_limits),
+<<<<<<< HEAD
 #ifdef CONFIG_SMP
 	REG("sched_wake_up_idle", 00644, proc_pid_sched_wake_up_idle_operations),
 #endif
@@ -3847,6 +3898,8 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("sched_boost_period_ms", 0666, proc_task_boost_period_operations),
 	REG("sched_low_latency", 00666, proc_pid_sched_low_latency_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_SCHED_DEBUG
 	REG("sched",      S_IRUGO|S_IWUSR, proc_pid_sched_operations),
 #endif
@@ -3860,6 +3913,7 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("cmdline",    S_IRUGO, proc_pid_cmdline_ops),
 	ONE("stat",       S_IRUGO, proc_tgid_stat),
 	ONE("statm",      S_IRUGO, proc_pid_statm),
+<<<<<<< HEAD
 	ONE("statlmkd",      S_IRUGO, proc_pid_statlmkd),
 	REG("maps",       S_IRUGO, proc_pid_maps_operations),
 #ifdef CONFIG_PAGE_BOOST
@@ -3869,6 +3923,9 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("io_record_control",      S_IRUGO|S_IWUGO, proc_pid_io_record_operations),
 #endif
 #endif
+=======
+	REG("maps",       S_IRUGO, proc_pid_maps_operations),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_NUMA
 	REG("numa_maps",  S_IRUGO, proc_pid_numa_maps_operations),
 #endif
@@ -3879,9 +3936,12 @@ static const struct pid_entry tgid_base_stuff[] = {
 	REG("mounts",     S_IRUGO, proc_mounts_operations),
 	REG("mountinfo",  S_IRUGO, proc_mountinfo_operations),
 	REG("mountstats", S_IRUSR, proc_mountstats_operations),
+<<<<<<< HEAD
 #ifdef CONFIG_PROCESS_RECLAIM
 	REG("reclaim", 0666, proc_reclaim_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_PROC_PAGE_MONITOR
 	REG("clear_refs", S_IWUSR, proc_clear_refs_operations),
 	REG("smaps",      S_IRUGO, proc_pid_smaps_operations),
@@ -3926,10 +3986,13 @@ static const struct pid_entry tgid_base_stuff[] = {
 #ifdef CONFIG_TASK_IO_ACCOUNTING
 	ONE("io",	S_IRUSR, proc_tgid_io_accounting),
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_DETECT_HUNG_TASK
 	REG("hang_detection_enabled", 0666,
 		proc_hung_task_detection_enabled_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_USER_NS
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
@@ -3943,6 +4006,7 @@ static const struct pid_entry tgid_base_stuff[] = {
 #ifdef CONFIG_LIVEPATCH
 	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_PROC_TRIGGER_SQLITE_BUG
 	REG("trigger_sqlite_bug", S_IWUSR, proc_trigger_sqlite_bug_operations),
 #endif
@@ -3953,6 +4017,8 @@ static const struct pid_entry tgid_base_stuff[] = {
 	DIR("integrity", S_IRUGO|S_IXUGO, proc_integrity_inode_operations,
 			proc_integrity_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static int proc_tgid_base_readdir(struct file *file, struct dir_context *ctx)
@@ -3967,6 +4033,7 @@ static const struct file_operations proc_tgid_base_operations = {
 	.llseek		= generic_file_llseek,
 };
 
+<<<<<<< HEAD
 struct pid *tgid_pidfd_to_pid(const struct file *file)
 {
 	if (!d_is_dir(file->f_path.dentry) ||
@@ -3976,6 +4043,8 @@ struct pid *tgid_pidfd_to_pid(const struct file *file)
 	return proc_pid(file_inode(file));
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct dentry *proc_tgid_base_lookup(struct inode *dir, struct dentry *dentry, unsigned int flags)
 {
 	return proc_pident_lookup(dir, dentry,
@@ -4277,7 +4346,10 @@ static const struct pid_entry tid_base_stuff[] = {
 	REG("cmdline",   S_IRUGO, proc_pid_cmdline_ops),
 	ONE("stat",      S_IRUGO, proc_tid_stat),
 	ONE("statm",     S_IRUGO, proc_pid_statm),
+<<<<<<< HEAD
 	ONE("statlmkd",      S_IRUGO, proc_pid_statlmkd),
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	REG("maps",      S_IRUGO, proc_pid_maps_operations),
 #ifdef CONFIG_PROC_CHILDREN
 	REG("children",  S_IRUGO, proc_tid_children_operations),
@@ -4332,10 +4404,13 @@ static const struct pid_entry tid_base_stuff[] = {
 #ifdef CONFIG_TASK_IO_ACCOUNTING
 	ONE("io",	S_IRUSR, proc_tid_io_accounting),
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_DETECT_HUNG_TASK
 	REG("hang_detection_enabled", 0666,
 		proc_hung_task_detection_enabled_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_USER_NS
 	REG("uid_map",    S_IRUGO|S_IWUSR, proc_uid_map_operations),
 	REG("gid_map",    S_IRUGO|S_IWUSR, proc_gid_map_operations),
@@ -4345,12 +4420,15 @@ static const struct pid_entry tid_base_stuff[] = {
 #ifdef CONFIG_LIVEPATCH
 	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_CPU_FREQ_TIMES
 	ONE("time_in_state", 0444, proc_time_in_state_show),
 #endif
 #ifdef CONFIG_FAST_TRACK
 	REG("static_ftt", S_IRUGO | S_IWUSR | S_IWGRP, proc_static_ftt_operations),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static int proc_tid_base_readdir(struct file *file, struct dir_context *ctx)

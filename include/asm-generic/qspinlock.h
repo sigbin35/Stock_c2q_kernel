@@ -21,6 +21,7 @@
 
 #include <asm-generic/qspinlock_types.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_DEBUG_QSPINLOCK_OWNER
 #include <asm/smp.h>
 static __always_inline void queued_spin_set_owner(struct qspinlock *lock)
@@ -38,6 +39,8 @@ static __always_inline void queued_spin_clear_owner(struct qspinlock *lock)
 #define queued_spin_set_owner(lock)
 #define queued_spin_clear_owner(lock)
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * queued_spin_is_locked - is the spinlock locked?
  * @lock: Pointer to queued spinlock structure
@@ -84,10 +87,15 @@ static __always_inline int queued_spin_is_contended(struct qspinlock *lock)
 static __always_inline int queued_spin_trylock(struct qspinlock *lock)
 {
 	if (!atomic_read(&lock->val) &&
+<<<<<<< HEAD
 	   (atomic_cmpxchg_acquire(&lock->val, 0, _Q_LOCKED_VAL) == 0)) {
 		queued_spin_set_owner(lock);
 		return 1;
 	}
+=======
+	   (atomic_cmpxchg_acquire(&lock->val, 0, _Q_LOCKED_VAL) == 0))
+		return 1;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -102,12 +110,18 @@ static __always_inline void queued_spin_lock(struct qspinlock *lock)
 	u32 val;
 
 	val = atomic_cmpxchg_acquire(&lock->val, 0, _Q_LOCKED_VAL);
+<<<<<<< HEAD
 	if (likely(val == 0)) {
 		queued_spin_set_owner(lock);
 		return;
 	}
 	queued_spin_lock_slowpath(lock, val);
 	queued_spin_set_owner(lock);
+=======
+	if (likely(val == 0))
+		return;
+	queued_spin_lock_slowpath(lock, val);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 #ifndef queued_spin_unlock
@@ -120,7 +134,10 @@ static __always_inline void queued_spin_unlock(struct qspinlock *lock)
 	/*
 	 * unlock() needs release semantics:
 	 */
+<<<<<<< HEAD
 	queued_spin_clear_owner(lock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	smp_store_release(&lock->locked, 0);
 }
 #endif

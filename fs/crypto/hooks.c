@@ -4,8 +4,12 @@
  * Encryption hooks for higher-level filesystem operations.
  */
 
+<<<<<<< HEAD
 #include <linux/key.h>
 
+=======
+#include <linux/ratelimit.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "fscrypt_private.h"
 
 /**
@@ -40,9 +44,15 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
 	dir = dget_parent(file_dentry(filp));
 	if (IS_ENCRYPTED(d_inode(dir)) &&
 	    !fscrypt_has_permitted_context(d_inode(dir), inode)) {
+<<<<<<< HEAD
 		fscrypt_warn(inode,
 			     "Inconsistent encryption context (parent directory: %lu)",
 			     d_inode(dir)->i_ino);
+=======
+		fscrypt_warn(inode->i_sb,
+			     "inconsistent encryption contexts: %lu/%lu",
+			     d_inode(dir)->i_ino, inode->i_ino);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		err = -EPERM;
 	}
 	dput(dir);
@@ -50,8 +60,12 @@ int fscrypt_file_open(struct inode *inode, struct file *filp)
 }
 EXPORT_SYMBOL_GPL(fscrypt_file_open);
 
+<<<<<<< HEAD
 int __fscrypt_prepare_link(struct inode *inode, struct inode *dir,
 			   struct dentry *dentry)
+=======
+int __fscrypt_prepare_link(struct inode *inode, struct inode *dir)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	int err;
 
@@ -59,12 +73,17 @@ int __fscrypt_prepare_link(struct inode *inode, struct inode *dir,
 	if (err)
 		return err;
 
+<<<<<<< HEAD
 	/* ... in case we looked up ciphertext name before key was added */
 	if (dentry->d_flags & DCACHE_ENCRYPTED_NAME)
 		return -ENOKEY;
 
 	if (!fscrypt_has_permitted_context(dir, inode))
 		return -EXDEV;
+=======
+	if (!fscrypt_has_permitted_context(dir, inode))
+		return -EPERM;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return 0;
 }
@@ -84,27 +103,39 @@ int __fscrypt_prepare_rename(struct inode *old_dir, struct dentry *old_dentry,
 	if (err)
 		return err;
 
+<<<<<<< HEAD
 	/* ... in case we looked up ciphertext name(s) before key was added */
 	if ((old_dentry->d_flags | new_dentry->d_flags) &
 	    DCACHE_ENCRYPTED_NAME)
 		return -ENOKEY;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (old_dir != new_dir) {
 		if (IS_ENCRYPTED(new_dir) &&
 		    !fscrypt_has_permitted_context(new_dir,
 						   d_inode(old_dentry)))
+<<<<<<< HEAD
 			return -EXDEV;
+=======
+			return -EPERM;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if ((flags & RENAME_EXCHANGE) &&
 		    IS_ENCRYPTED(old_dir) &&
 		    !fscrypt_has_permitted_context(old_dir,
 						   d_inode(new_dentry)))
+<<<<<<< HEAD
 			return -EXDEV;
+=======
+			return -EPERM;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return 0;
 }
 EXPORT_SYMBOL_GPL(__fscrypt_prepare_rename);
 
+<<<<<<< HEAD
 int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
 			     struct fscrypt_name *fname)
 {
@@ -163,6 +194,25 @@ int fscrypt_prepare_setflags(struct inode *inode,
 	}
 	return 0;
 }
+=======
+int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry)
+{
+	int err = fscrypt_get_encryption_info(dir);
+
+	if (err)
+		return err;
+
+	if (fscrypt_has_encryption_key(dir)) {
+		spin_lock(&dentry->d_lock);
+		dentry->d_flags |= DCACHE_ENCRYPTED_WITH_KEY;
+		spin_unlock(&dentry->d_lock);
+	}
+
+	d_set_d_op(dentry, &fscrypt_d_ops);
+	return 0;
+}
+EXPORT_SYMBOL_GPL(__fscrypt_prepare_lookup);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int __fscrypt_prepare_symlink(struct inode *dir, unsigned int len,
 			      unsigned int max_len,
@@ -230,11 +280,20 @@ int __fscrypt_encrypt_symlink(struct inode *inode, const char *target,
 	ciphertext_len = disk_link->len - sizeof(*sd);
 	sd->len = cpu_to_le16(ciphertext_len);
 
+<<<<<<< HEAD
 	err = fscrypt_fname_encrypt(inode, &iname, sd->encrypted_path,
 				    ciphertext_len);
 	if (err)
 		goto err_free_sd;
 
+=======
+	err = fname_encrypt(inode, &iname, sd->encrypted_path, ciphertext_len);
+	if (err) {
+		if (!disk_link->name)
+			kfree(sd);
+		return err;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Null-terminating the ciphertext doesn't make sense, but we still
 	 * count the null terminator in the length, so we might as well
@@ -242,6 +301,7 @@ int __fscrypt_encrypt_symlink(struct inode *inode, const char *target,
 	 */
 	sd->encrypted_path[ciphertext_len] = '\0';
 
+<<<<<<< HEAD
 	/* Cache the plaintext symlink target for later use by get_link() */
 	err = -ENOMEM;
 	inode->i_link = kmemdup(target, len + 1, GFP_NOFS);
@@ -256,6 +316,11 @@ err_free_sd:
 	if (!disk_link->name)
 		kfree(sd);
 	return err;
+=======
+	if (!disk_link->name)
+		disk_link->name = (unsigned char *)sd;
+	return 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL(__fscrypt_encrypt_symlink);
 
@@ -264,7 +329,11 @@ EXPORT_SYMBOL_GPL(__fscrypt_encrypt_symlink);
  * @inode: the symlink inode
  * @caddr: the on-disk contents of the symlink
  * @max_size: size of @caddr buffer
+<<<<<<< HEAD
  * @done: if successful, will be set up to free the returned target if needed
+=======
+ * @done: if successful, will be set up to free the returned target
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * If the symlink's encryption key is available, we decrypt its target.
  * Otherwise, we encode its target for presentation.
@@ -279,18 +348,24 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
 {
 	const struct fscrypt_symlink_data *sd;
 	struct fscrypt_str cstr, pstr;
+<<<<<<< HEAD
 	bool has_key;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int err;
 
 	/* This is for encrypted symlinks only */
 	if (WARN_ON(!IS_ENCRYPTED(inode)))
 		return ERR_PTR(-EINVAL);
 
+<<<<<<< HEAD
 	/* If the decrypted target is already cached, just return it. */
 	pstr.name = READ_ONCE(inode->i_link);
 	if (pstr.name)
 		return pstr.name;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Try to set up the symlink's encryption key, but we can continue
 	 * regardless of whether the key is available or not.
@@ -298,7 +373,10 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
 	err = fscrypt_get_encryption_info(inode);
 	if (err)
 		return ERR_PTR(err);
+<<<<<<< HEAD
 	has_key = fscrypt_has_encryption_key(inode);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*
 	 * For historical reasons, encrypted symlink targets are prefixed with
@@ -330,6 +408,7 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
 		goto err_kfree;
 
 	pstr.name[pstr.len] = '\0';
+<<<<<<< HEAD
 
 	/*
 	 * Cache decrypted symlink targets in i_link for later use.  Don't cache
@@ -341,6 +420,9 @@ const char *fscrypt_get_symlink(struct inode *inode, const void *caddr,
 	    cmpxchg_release(&inode->i_link, NULL, pstr.name) != NULL)
 		set_delayed_call(done, kfree_link, pstr.name);
 
+=======
+	set_delayed_call(done, kfree_link, pstr.name);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return pstr.name;
 
 err_kfree:

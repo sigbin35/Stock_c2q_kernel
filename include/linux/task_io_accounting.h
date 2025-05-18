@@ -19,8 +19,11 @@ struct task_io_accounting {
 	u64 syscr;
 	/* # of write syscalls */
 	u64 syscw;
+<<<<<<< HEAD
 	/* # of fsync syscalls */
 	u64 syscfs;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* CONFIG_TASK_XACCT */
 
 #ifdef CONFIG_TASK_IO_ACCOUNTING

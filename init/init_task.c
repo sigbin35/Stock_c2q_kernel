@@ -9,9 +9,13 @@
 #include <linux/init.h>
 #include <linux/fs.h>
 #include <linux/mm.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
 #include <linux/audit.h>
 #include <linux/scs.h>
+=======
+#include <linux/audit.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <asm/pgtable.h>
 #include <linux/uaccess.h>
@@ -52,11 +56,14 @@ static struct sighand_struct init_sighand = {
 	.signalfd_wqh	= __WAIT_QUEUE_HEAD_INITIALIZER(init_sighand.signalfd_wqh),
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_FIVE
 static struct task_integrity init_integrity =
 					INIT_TASK_INTEGRITY(init_integrity);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Set up the first task table, touch at your own risk!. Base=0,
  * limit=0x1fffff (=2MB)
@@ -80,7 +87,10 @@ struct task_struct init_task
 	.policy		= SCHED_NORMAL,
 	.cpus_allowed	= CPU_MASK_ALL,
 	.nr_cpus_allowed= NR_CPUS,
+<<<<<<< HEAD
 	.cpus_requested	= CPU_MASK_ALL,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.mm		= NULL,
 	.active_mm	= &init_mm,
 	.restart_block	= {
@@ -100,9 +110,12 @@ struct task_struct init_task
 #ifdef CONFIG_CGROUP_SCHED
 	.sched_task_group = &root_task_group,
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_SCHED_TUNE
 	.stune_idx	= 0,
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.ptraced	= LIST_HEAD_INIT(init_task.ptraced),
 	.ptrace_entry	= LIST_HEAD_INIT(init_task.ptrace_entry),
 	.real_parent	= &init_task,
@@ -190,6 +203,7 @@ struct task_struct init_task
 #ifdef CONFIG_SECURITY
 	.security	= NULL,
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_FIVE
 	INIT_INTEGRITY(init_task)
 #endif
@@ -203,6 +217,11 @@ unsigned long init_shadow_call_stack[SCS_SIZE / sizeof(long)] __init_task_data
 };
 #endif
 
+=======
+};
+EXPORT_SYMBOL(init_task);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Initial thread structure. Alignment of this is handled by a special
  * linker map entry.

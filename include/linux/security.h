@@ -53,11 +53,14 @@ struct msg_msg;
 struct xattr;
 struct xfrm_sec_ctx;
 struct mm_struct;
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 /* For understanding size of struct cred*/
 #include <linux/rkp.h>
 #include <linux/kdp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* Default (no) options for the capable function */
 #define CAP_OPT_NONE 0x0
@@ -78,10 +81,13 @@ enum lsm_event {
 	LSM_POLICY_CHANGE,
 };
 
+<<<<<<< HEAD
 #ifndef CONFIG_KDP_CRED
 #define security_integrity_current()  0
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* These functions are in security/commoncap.c */
 extern int cap_capable(const struct cred *cred, struct user_namespace *ns,
 		       int cap, unsigned int opts);
@@ -228,6 +234,7 @@ static inline void security_free_mnt_opts(struct security_mnt_opts *opts)
 extern int security_init(void);
 
 /* Security operations */
+<<<<<<< HEAD
 int security_binder_set_context_mgr(const struct cred *mgr);
 int security_binder_transaction(const struct cred *from,
 				const struct cred *to);
@@ -235,6 +242,15 @@ int security_binder_transfer_binder(const struct cred *from,
 				    const struct cred *to);
 int security_binder_transfer_file(const struct cred *from,
 				  const struct cred *to, struct file *file);
+=======
+int security_binder_set_context_mgr(struct task_struct *mgr);
+int security_binder_transaction(struct task_struct *from,
+				struct task_struct *to);
+int security_binder_transfer_binder(struct task_struct *from,
+				    struct task_struct *to);
+int security_binder_transfer_file(struct task_struct *from,
+				  struct task_struct *to, struct file *file);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int security_ptrace_access_check(struct task_struct *child, unsigned int mode);
 int security_ptrace_traceme(struct task_struct *parent);
 int security_capget(struct task_struct *target,
@@ -451,25 +467,44 @@ static inline int security_init(void)
 	return 0;
 }
 
+<<<<<<< HEAD
 static inline int security_binder_set_context_mgr(const struct cred *mgr)
+=======
+static inline int security_binder_set_context_mgr(struct task_struct *mgr)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return 0;
 }
 
+<<<<<<< HEAD
 static inline int security_binder_transaction(const struct cred *from,
 					      const struct cred *to)
+=======
+static inline int security_binder_transaction(struct task_struct *from,
+					      struct task_struct *to)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return 0;
 }
 
+<<<<<<< HEAD
 static inline int security_binder_transfer_binder(const struct cred *from,
 						  const struct cred *to)
+=======
+static inline int security_binder_transfer_binder(struct task_struct *from,
+						  struct task_struct *to)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return 0;
 }
 
+<<<<<<< HEAD
 static inline int security_binder_transfer_file(const struct cred *from,
 						const struct cred *to,
+=======
+static inline int security_binder_transfer_file(struct task_struct *from,
+						struct task_struct *to,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 						struct file *file)
 {
 	return 0;
@@ -923,11 +958,14 @@ static inline void security_transfer_creds(struct cred *new,
 {
 }
 
+<<<<<<< HEAD
 static inline void security_cred_getsecid(const struct cred *c, u32 *secid)
 {
 	*secid = 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline int security_kernel_act_as(struct cred *cred, u32 secid)
 {
 	return 0;
@@ -1857,6 +1895,7 @@ static inline void free_secdata(void *secdata)
 { }
 #endif /* CONFIG_SECURITY */
 
+<<<<<<< HEAD
 #ifdef CONFIG_PERF_EVENTS
 struct perf_event_attr;
 struct perf_event;
@@ -1896,3 +1935,7 @@ static inline int security_perf_event_write(struct perf_event *event)
 #endif /* CONFIG_PERF_EVENTS */
 
 #endif /* ! __LINUX_SECURITY_H */
+=======
+#endif /* ! __LINUX_SECURITY_H */
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

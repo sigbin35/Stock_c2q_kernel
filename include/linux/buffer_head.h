@@ -5,8 +5,11 @@
  * Everything to do with buffer_heads.
  */
 
+<<<<<<< HEAD
 /* @fs.sec -- c853aa20d912cceb3e932a91b6bc8aa3 -- */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifndef _LINUX_BUFFER_HEAD_H
 #define _LINUX_BUFFER_HEAD_H
 
@@ -39,7 +42,10 @@ enum bh_state_bits {
 	BH_Quiet,	/* Buffer Error Prinks to be quiet */
 	BH_Meta,	/* Buffer contains metadata */
 	BH_Prio,	/* Buffer should be submitted with REQ_PRIO */
+<<<<<<< HEAD
 	BH_Sync_Flush,	/* Buffer should be submttted with REQ_SYNC_FLUSH */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	BH_Defer_Completion, /* Defer AIO completion to workqueue */
 
 	BH_PrivateStart,/* not a state bit, but the first bit available
@@ -136,7 +142,10 @@ BUFFER_FNS(Write_EIO, write_io_error)
 BUFFER_FNS(Unwritten, unwritten)
 BUFFER_FNS(Meta, meta)
 BUFFER_FNS(Prio, prio)
+<<<<<<< HEAD
 BUFFER_FNS(Sync_Flush, sync_flush)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 BUFFER_FNS(Defer_Completion, defer_completion)
 
 #define bh_offset(bh)		((unsigned long)(bh)->b_data & ~PAGE_MASK)
@@ -157,8 +166,11 @@ void buffer_check_dirty_writeback(struct page *page,
  */
 
 void mark_buffer_dirty(struct buffer_head *bh);
+<<<<<<< HEAD
 void mark_buffer_dirty_sync(struct buffer_head *bh);
 void init_buffer(struct buffer_head *, bh_end_io_t *, void *);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void mark_buffer_write_io_error(struct buffer_head *bh);
 void touch_buffer(struct buffer_head *bh);
 void set_bh_page(struct buffer_head *bh,
@@ -174,7 +186,10 @@ void end_buffer_async_write(struct buffer_head *bh, int uptodate);
 
 /* Things to do with buffers at mapping->private_list */
 void mark_buffer_dirty_inode(struct buffer_head *bh, struct inode *inode);
+<<<<<<< HEAD
 void mark_buffer_dirty_inode_sync(struct buffer_head *bh, struct inode *inode);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int inode_has_buffers(struct inode *);
 void invalidate_inode_buffers(struct inode *);
 int remove_inode_buffers(struct inode *inode);
@@ -196,6 +211,11 @@ struct buffer_head *__getblk_gfp(struct block_device *bdev, sector_t block,
 void __brelse(struct buffer_head *);
 void __bforget(struct buffer_head *);
 void __breadahead(struct block_device *, sector_t block, unsigned int size);
+<<<<<<< HEAD
+=======
+void __breadahead_gfp(struct block_device *, sector_t block, unsigned int size,
+		  gfp_t gfp);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct buffer_head *__bread_gfp(struct block_device *,
 				sector_t block, unsigned size, gfp_t gfp);
 void invalidate_bh_lrus(void);
@@ -326,6 +346,15 @@ sb_breadahead(struct super_block *sb, sector_t block)
 	__breadahead(sb->s_bdev, block, sb->s_blocksize);
 }
 
+<<<<<<< HEAD
+=======
+static inline void
+sb_breadahead_unmovable(struct super_block *sb, sector_t block)
+{
+	__breadahead_gfp(sb->s_bdev, block, sb->s_blocksize, 0);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline struct buffer_head *
 sb_getblk(struct super_block *sb, sector_t block)
 {

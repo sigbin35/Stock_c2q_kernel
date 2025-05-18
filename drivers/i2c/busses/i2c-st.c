@@ -437,6 +437,10 @@ static void st_i2c_wr_fill_tx_fifo(struct st_i2c_dev *i2c_dev)
 /**
  * st_i2c_rd_fill_tx_fifo() - Fill the Tx FIFO in read mode
  * @i2c_dev: Controller's private data
+<<<<<<< HEAD
+=======
+ * @max: Maximum amount of data to fill into the Tx FIFO
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * This functions fills the Tx FIFO with fixed pattern when
  * in read mode to trigger clock.

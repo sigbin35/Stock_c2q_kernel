@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0-only
 /*
  * Copyright (c) 2013-2014, 2017-2019, The Linux Foundation.
  * All rights reserved.
+=======
+// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 
 #include <linux/export.h>
@@ -21,9 +27,13 @@
 struct qcom_cc {
 	struct qcom_reset_controller reset;
 	struct clk_regmap **rclks;
+<<<<<<< HEAD
 	struct clk_hw **hwclks;
 	size_t num_rclks;
 	size_t num_hwclks;
+=======
+	size_t num_rclks;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 const
@@ -203,6 +213,7 @@ static struct clk_hw *qcom_cc_clk_hw_get(struct of_phandle_args *clkspec,
 	struct qcom_cc *cc = data;
 	unsigned int idx = clkspec->args[0];
 
+<<<<<<< HEAD
 	if (idx >= cc->num_rclks + cc->num_hwclks) {
 		pr_err("invalid index %u\n", idx);
 		return ERR_PTR(-EINVAL);
@@ -211,6 +222,13 @@ static struct clk_hw *qcom_cc_clk_hw_get(struct of_phandle_args *clkspec,
 	if (idx < cc->num_hwclks && cc->hwclks[idx])
 		return cc->hwclks[idx];
 
+=======
+	if (idx >= cc->num_rclks) {
+		pr_err("%s: invalid index %u\n", __func__, idx);
+		return ERR_PTR(-EINVAL);
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return cc->rclks[idx] ? &cc->rclks[idx]->hw : ERR_PTR(-ENOENT);
 }
 
@@ -223,9 +241,13 @@ int qcom_cc_really_probe(struct platform_device *pdev,
 	struct qcom_cc *cc;
 	struct gdsc_desc *scd;
 	size_t num_clks = desc->num_clks;
+<<<<<<< HEAD
 	size_t num_hwclks = desc->num_hwclks;
 	struct clk_regmap **rclks = desc->clks;
 	struct clk_hw **hwclks = desc->hwclks;
+=======
+	struct clk_regmap **rclks = desc->clks;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	cc = devm_kzalloc(dev, sizeof(*cc), GFP_KERNEL);
 	if (!cc)
@@ -239,11 +261,17 @@ int qcom_cc_really_probe(struct platform_device *pdev,
 	reset->regmap = regmap;
 	reset->reset_map = desc->resets;
 
+<<<<<<< HEAD
 	if (desc->num_resets) {
 		ret = devm_reset_controller_register(dev, &reset->rcdev);
 		if (ret)
 			return ret;
 	}
+=======
+	ret = devm_reset_controller_register(dev, &reset->rcdev);
+	if (ret)
+		return ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (desc->gdscs && desc->num_gdscs) {
 		scd = devm_kzalloc(dev, sizeof(*scd), GFP_KERNEL);
@@ -263,6 +291,7 @@ int qcom_cc_really_probe(struct platform_device *pdev,
 
 	cc->rclks = rclks;
 	cc->num_rclks = num_clks;
+<<<<<<< HEAD
 	cc->hwclks = hwclks;
 	cc->num_hwclks = num_hwclks;
 
@@ -274,6 +303,8 @@ int qcom_cc_really_probe(struct platform_device *pdev,
 		if (ret)
 			return ret;
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	for (i = 0; i < num_clks; i++) {
 		if (!rclks[i])

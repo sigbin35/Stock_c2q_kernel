@@ -555,7 +555,10 @@ void __init prepare_namespace(void)
 	wait_for_device_probe();
 
 	md_run_setup();
+<<<<<<< HEAD
 	dm_run_setup();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (saved_root_name[0]) {
 		root_device_name = saved_root_name;

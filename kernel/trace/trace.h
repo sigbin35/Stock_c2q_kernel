@@ -1385,7 +1385,10 @@ __event_trigger_test_discard(struct trace_event_file *file,
  * @entry: The event itself
  * @irq_flags: The state of the interrupts at the start of the event
  * @pc: The state of the preempt count at the start of the event.
+<<<<<<< HEAD
  * @len: The length of the payload data required for stm logging.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * This is a helper function to handle triggers that require data
  * from the event itself. It also tests the event against filters and
@@ -1395,6 +1398,7 @@ static inline void
 event_trigger_unlock_commit(struct trace_event_file *file,
 			    struct ring_buffer *buffer,
 			    struct ring_buffer_event *event,
+<<<<<<< HEAD
 			    void *entry, unsigned long irq_flags, int pc,
 			    unsigned long len)
 {
@@ -1406,6 +1410,14 @@ event_trigger_unlock_commit(struct trace_event_file *file,
 
 		trace_buffer_unlock_commit(file->tr, buffer, event, irq_flags, pc);
 	}
+=======
+			    void *entry, unsigned long irq_flags, int pc)
+{
+	enum event_trigger_type tt = ETT_NONE;
+
+	if (!__event_trigger_test_discard(file, buffer, event, entry, &tt))
+		trace_buffer_unlock_commit(file->tr, buffer, event, irq_flags, pc);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (tt)
 		event_triggers_post_call(file, tt);

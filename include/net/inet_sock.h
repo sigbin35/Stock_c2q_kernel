@@ -83,6 +83,7 @@ struct inet_request_sock {
 #define ireq_state		req.__req_common.skc_state
 #define ireq_family		req.__req_common.skc_family
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 		u32		snd_wscale : 4,
 				rcv_wscale : 4,
@@ -97,6 +98,8 @@ struct inet_request_sock {
 				smc_ok	   : 1;
 	u32                     ir_mark;
 #else
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u16			snd_wscale : 4,
 				rcv_wscale : 4,
 				tstamp_ok  : 1,
@@ -107,7 +110,10 @@ struct inet_request_sock {
 				no_srccheck: 1,
 				smc_ok	   : 1;
 	u32                     ir_mark;
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	union {
 		struct ip_options_rcu __rcu	*ireq_opt;
 #if IS_ENABLED(CONFIG_IPV6)

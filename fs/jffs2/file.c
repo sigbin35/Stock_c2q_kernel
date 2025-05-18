@@ -109,9 +109,15 @@ static int jffs2_do_readpage_nolock (struct inode *inode, struct page *pg)
 	return ret;
 }
 
+<<<<<<< HEAD
 int jffs2_do_readpage_unlock(void *data, struct page *pg)
 {
 	int ret = jffs2_do_readpage_nolock(data, pg);
+=======
+int jffs2_do_readpage_unlock(struct inode *inode, struct page *pg)
+{
+	int ret = jffs2_do_readpage_nolock(inode, pg);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unlock_page(pg);
 	return ret;
 }

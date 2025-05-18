@@ -175,9 +175,14 @@ struct poll_iocb {
 	struct file		*file;
 	struct wait_queue_head	*head;
 	__poll_t		events;
+<<<<<<< HEAD
 	bool			cancelled;
 	bool			work_scheduled;
 	bool			work_need_resched;
+=======
+	bool			done;
+	bool			cancelled;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct wait_queue_entry	wait;
 	struct work_struct	work;
 };
@@ -1609,6 +1614,7 @@ static void aio_poll_put_work(struct work_struct *work)
 	iocb_put(iocb);
 }
 
+<<<<<<< HEAD
 /*
  * Safely lock the waitqueue which the request is on, synchronizing with the
  * case where the ->poll() provider decides to free its waitqueue early.
@@ -1654,6 +1660,8 @@ static void poll_iocb_unlock_wq(struct poll_iocb *req)
 	rcu_read_unlock();
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void aio_poll_complete_work(struct work_struct *work)
 {
 	struct poll_iocb *req = container_of(work, struct poll_iocb, work);
@@ -1673,6 +1681,7 @@ static void aio_poll_complete_work(struct work_struct *work)
 	 * avoid further branches in the fast path.
 	 */
 	spin_lock_irq(&ctx->ctx_lock);
+<<<<<<< HEAD
 	if (poll_iocb_lock_wq(req)) {
 		if (!mask && !READ_ONCE(req->cancelled)) {
 			/*
@@ -1694,6 +1703,16 @@ static void aio_poll_complete_work(struct work_struct *work)
 	} /* else, POLLFREE has freed the waitqueue, so we must complete */
 	list_del_init(&iocb->ki_list);
 	iocb->ki_res.res = mangle_poll(mask);
+=======
+	if (!mask && !READ_ONCE(req->cancelled)) {
+		add_wait_queue(req->head, &req->wait);
+		spin_unlock_irq(&ctx->ctx_lock);
+		return;
+	}
+	list_del_init(&iocb->ki_list);
+	iocb->ki_res.res = mangle_poll(mask);
+	req->done = true;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	spin_unlock_irq(&ctx->ctx_lock);
 
 	iocb_put(iocb);
@@ -1705,6 +1724,7 @@ static int aio_poll_cancel(struct kiocb *iocb)
 	struct aio_kiocb *aiocb = container_of(iocb, struct aio_kiocb, rw);
 	struct poll_iocb *req = &aiocb->poll;
 
+<<<<<<< HEAD
 	if (poll_iocb_lock_wq(req)) {
 		WRITE_ONCE(req->cancelled, true);
 		if (!req->work_scheduled) {
@@ -1713,6 +1733,15 @@ static int aio_poll_cancel(struct kiocb *iocb)
 		}
 		poll_iocb_unlock_wq(req);
 	} /* else, the request was force-cancelled by POLLFREE already */
+=======
+	spin_lock(&req->head->lock);
+	WRITE_ONCE(req->cancelled, true);
+	if (!list_empty(&req->wait.entry)) {
+		list_del_init(&req->wait.entry);
+		schedule_work(&aiocb->poll.work);
+	}
+	spin_unlock(&req->head->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return 0;
 }
@@ -1729,6 +1758,7 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
 	if (mask && !(mask & req->events))
 		return 0;
 
+<<<<<<< HEAD
 	/*
 	 * Complete the request inline if possible.  This requires that three
 	 * conditions be met:
@@ -1749,6 +1779,22 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
 		list_del_init(&req->wait.entry);
 		list_del(&iocb->ki_list);
 		iocb->ki_res.res = mangle_poll(mask);
+=======
+	list_del_init(&req->wait.entry);
+
+	if (mask && spin_trylock_irqsave(&iocb->ki_ctx->ctx_lock, flags)) {
+		struct kioctx *ctx = iocb->ki_ctx;
+
+		/*
+		 * Try to complete the iocb inline if we can. Use
+		 * irqsave/irqrestore because not all filesystems (e.g. fuse)
+		 * call this function with IRQs disabled and because IRQs
+		 * have to be disabled before ctx_lock is obtained.
+		 */
+		list_del(&iocb->ki_list);
+		iocb->ki_res.res = mangle_poll(mask);
+		req->done = true;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (iocb->ki_eventfd && eventfd_signal_count()) {
 			iocb = NULL;
 			INIT_WORK(&req->work, aio_poll_put_work);
@@ -1758,6 +1804,7 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
 		if (iocb)
 			iocb_put(iocb);
 	} else {
+<<<<<<< HEAD
 		/*
 		 * Schedule the completion work if needed.  If it was already
 		 * scheduled, record that another wakeup came in.
@@ -1795,6 +1842,9 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
 			 */
 			smp_store_release(&req->head, NULL);
 		}
+=======
+		schedule_work(&req->work);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return 1;
 }
@@ -1802,7 +1852,10 @@ static int aio_poll_wake(struct wait_queue_entry *wait, unsigned mode, int sync,
 struct aio_poll_table {
 	struct poll_table_struct	pt;
 	struct aio_kiocb		*iocb;
+<<<<<<< HEAD
 	bool				queued;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int				error;
 };
 
@@ -1813,12 +1866,19 @@ aio_poll_queue_proc(struct file *file, struct wait_queue_head *head,
 	struct aio_poll_table *pt = container_of(p, struct aio_poll_table, pt);
 
 	/* multiple wait queues per file are not supported */
+<<<<<<< HEAD
 	if (unlikely(pt->queued)) {
+=======
+	if (unlikely(pt->iocb->poll.head)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		pt->error = -EINVAL;
 		return;
 	}
 
+<<<<<<< HEAD
 	pt->queued = true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	pt->error = 0;
 	pt->iocb->poll.head = head;
 	add_wait_queue(head, &pt->iocb->poll.wait);
@@ -1843,14 +1903,22 @@ static ssize_t aio_poll(struct aio_kiocb *aiocb, const struct iocb *iocb)
 	req->events = demangle_poll(iocb->aio_buf) | EPOLLERR | EPOLLHUP;
 
 	req->head = NULL;
+<<<<<<< HEAD
 	req->cancelled = false;
 	req->work_scheduled = false;
 	req->work_need_resched = false;
+=======
+	req->done = false;
+	req->cancelled = false;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	apt.pt._qproc = aio_poll_queue_proc;
 	apt.pt._key = req->events;
 	apt.iocb = aiocb;
+<<<<<<< HEAD
 	apt.queued = false;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	apt.error = -EINVAL; /* same as no support for IOCB_CMD_POLL */
 
 	/* initialized the list so that we can do list_empty checks */
@@ -1859,6 +1927,7 @@ static ssize_t aio_poll(struct aio_kiocb *aiocb, const struct iocb *iocb)
 
 	mask = vfs_poll(req->file, &apt.pt) & req->events;
 	spin_lock_irq(&ctx->ctx_lock);
+<<<<<<< HEAD
 	if (likely(apt.queued)) {
 		bool on_queue = poll_iocb_lock_wq(req);
 
@@ -1868,11 +1937,18 @@ static ssize_t aio_poll(struct aio_kiocb *aiocb, const struct iocb *iocb)
 			 * completion work, or completed the request inline.
 			 */
 			if (apt.error) /* unsupported case: multiple queues */
+=======
+	if (likely(req->head)) {
+		spin_lock(&req->head->lock);
+		if (unlikely(list_empty(&req->wait.entry))) {
+			if (apt.error)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				cancel = true;
 			apt.error = 0;
 			mask = 0;
 		}
 		if (mask || apt.error) {
+<<<<<<< HEAD
 			/* Steal to complete synchronously. */
 			list_del_init(&req->wait.entry);
 		} else if (cancel) {
@@ -1888,6 +1964,16 @@ static ssize_t aio_poll(struct aio_kiocb *aiocb, const struct iocb *iocb)
 		}
 		if (on_queue)
 			poll_iocb_unlock_wq(req);
+=======
+			list_del_init(&req->wait.entry);
+		} else if (cancel) {
+			WRITE_ONCE(req->cancelled, true);
+		} else if (!req->done) { /* actually waiting for an event */
+			list_add_tail(&aiocb->ki_list, &ctx->active_reqs);
+			aiocb->ki_cancel = aio_poll_cancel;
+		}
+		spin_unlock(&req->head->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	if (mask) { /* no async, we'd stolen it */
 		aiocb->ki_res.res = mangle_poll(mask);

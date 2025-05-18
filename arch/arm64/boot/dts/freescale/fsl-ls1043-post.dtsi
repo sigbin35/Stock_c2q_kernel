@@ -20,6 +20,11 @@
 };
 
 &fman0 {
+<<<<<<< HEAD
+=======
+	fsl,erratum-a050385;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* these aliases provide the FMan ports mapping */
 	enet0: ethernet@e0000 {
 	};

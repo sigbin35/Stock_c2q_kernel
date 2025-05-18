@@ -27,8 +27,12 @@ struct thread_struct {
 	struct task_struct *prev_sched;
 	struct arch_thread arch;
 	jmp_buf switch_buf;
+<<<<<<< HEAD
 	bool is_running_test;
     struct {
+=======
+	struct {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		int op;
 		union {
 			struct {
@@ -52,8 +56,12 @@ struct thread_struct {
 	.fault_addr		= NULL, \
 	.prev_sched		= NULL, \
 	.arch			= INIT_ARCH_THREAD, \
+<<<<<<< HEAD
 	.request		= { 0 }, \
 	.is_running_test	= false, \
+=======
+	.request		= { 0 } \
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void release_thread(struct task_struct *task)

@@ -1537,6 +1537,10 @@ static void hw_collect_aux(struct cpu_hw_sf *cpuhw)
 	perf_aux_output_end(handle, size);
 	num_sdb = aux->sfb.num_sdb;
 
+<<<<<<< HEAD
+=======
+	num_sdb = aux->sfb.num_sdb;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	while (!done) {
 		/* Get an output handle */
 		aux = perf_aux_output_begin(handle, cpuhw->event);

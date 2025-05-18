@@ -92,6 +92,7 @@ config DEBUG_USER
 	      8 - SIGSEGV faults
 	     16 - SIGBUS faults
 
+<<<<<<< HEAD
 config ARCH_SUPPORTS_DEBUG_PAGEALLOC
 	def_bool y
 	depends on FORCE_PAGES
@@ -107,6 +108,8 @@ config FORCE_PAGES
           If unsure say N.
 
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # These options are only for real kernel hackers who want to get their hands dirty.
 config DEBUG_LL
 	bool "Kernel low-level debugging functions (read help!)"
@@ -1867,7 +1870,11 @@ config DEBUG_UNCOMPRESS
 config UNCOMPRESS_INCLUDE
 	string
 	default "debug/uncompress.h" if ARCH_MULTIPLATFORM || ARCH_MSM || \
+<<<<<<< HEAD
 				ARCH_QCOM || PLAT_SAMSUNG || ARM_SINGLE_ARMV7M
+=======
+					PLAT_SAMSUNG || ARM_SINGLE_ARMV7M
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default "mach/uncompress.h"
 
 config EARLY_PRINTK

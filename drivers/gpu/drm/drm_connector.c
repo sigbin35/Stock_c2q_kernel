@@ -256,7 +256,13 @@ int drm_connector_init(struct drm_device *dev,
 
 	if (connector_type != DRM_MODE_CONNECTOR_VIRTUAL &&
 	    connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+<<<<<<< HEAD
 		drm_connector_attach_edid_property(connector);
+=======
+		drm_object_attach_property(&connector->base,
+					      config->edid_property,
+					      0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	drm_object_attach_property(&connector->base,
 				      config->dpms_property, 0);
@@ -289,6 +295,7 @@ out_put:
 EXPORT_SYMBOL(drm_connector_init);
 
 /**
+<<<<<<< HEAD
  * drm_connector_attach_edid_property - attach edid property.
  * @dev: DRM device
  * @connector: the connector
@@ -308,6 +315,8 @@ void drm_connector_attach_edid_property(struct drm_connector *connector)
 EXPORT_SYMBOL(drm_connector_attach_edid_property);
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * drm_connector_attach_encoder - attach a connector to an encoder
  * @connector: connector to attach
  * @encoder: encoder to attach @connector to
@@ -822,6 +831,7 @@ static struct drm_prop_enum_list drm_cp_enum_list[] = {
 };
 DRM_ENUM_NAME_FN(drm_get_content_protection_name, drm_cp_enum_list)
 
+<<<<<<< HEAD
 static const struct drm_prop_enum_list hdmi_colorspaces[] = {
 	/* For Default case, driver will set the colorspace */
 	{ DRM_MODE_COLORIMETRY_DEFAULT, "Default" },
@@ -871,6 +881,8 @@ static const struct drm_prop_enum_list dp_colorspaces[] = {
 	{ DRM_MODE_COLORIMETRY_BT2020_YCC, "BT2020_YCC" },
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * DOC: standard connector properties
  *
@@ -1440,6 +1452,7 @@ int drm_mode_create_aspect_ratio_property(struct drm_device *dev)
 EXPORT_SYMBOL(drm_mode_create_aspect_ratio_property);
 
 /**
+<<<<<<< HEAD
  * DOC: standard connector properties
  *
  * Colorspace:
@@ -1499,6 +1512,8 @@ int drm_mode_create_colorspace_property(struct drm_connector *connector)
 EXPORT_SYMBOL(drm_mode_create_colorspace_property);
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * drm_mode_create_content_type_property - create content type property
  * @dev: DRM device
  *

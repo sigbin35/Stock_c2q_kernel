@@ -4001,6 +4001,10 @@ exit:
 #if defined(CONFIG_BFQ_GROUP_IOSCHED) && defined(CONFIG_DEBUG_BLK_CGROUP)
 static void bfq_update_dispatch_stats(struct request_queue *q,
 				      struct request *rq,
+<<<<<<< HEAD
+=======
+				      struct bfq_queue *in_serv_queue,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				      bool idle_timer_disabled)
 {
 	struct bfq_queue *bfqq = rq ? RQ_BFQQ(rq) : NULL;
@@ -4022,6 +4026,7 @@ static void bfq_update_dispatch_stats(struct request_queue *q,
 	 * bfqq_group(bfqq) exists as well.
 	 */
 	spin_lock_irq(q->queue_lock);
+<<<<<<< HEAD
 	if (bfqq && idle_timer_disabled)
 		/*
 		 * It could be possible that current active
@@ -4031,6 +4036,19 @@ static void bfq_update_dispatch_stats(struct request_queue *q,
 		 * derive its associated bfq queue and group.
 		 */
 		bfqg_stats_update_idle_time(bfqq_group(bfqq));
+=======
+	if (idle_timer_disabled)
+		/*
+		 * Since the idle timer has been disabled,
+		 * in_serv_queue contained some request when
+		 * __bfq_dispatch_request was invoked above, which
+		 * implies that rq was picked exactly from
+		 * in_serv_queue. Thus in_serv_queue == bfqq, and is
+		 * therefore guaranteed to exist because of the above
+		 * arguments.
+		 */
+		bfqg_stats_update_idle_time(bfqq_group(in_serv_queue));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (bfqq) {
 		struct bfq_group *bfqg = bfqq_group(bfqq);
 
@@ -4043,6 +4061,10 @@ static void bfq_update_dispatch_stats(struct request_queue *q,
 #else
 static inline void bfq_update_dispatch_stats(struct request_queue *q,
 					     struct request *rq,
+<<<<<<< HEAD
+=======
+					     struct bfq_queue *in_serv_queue,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					     bool idle_timer_disabled) {}
 #endif
 
@@ -4065,7 +4087,11 @@ static struct request *bfq_dispatch_request(struct blk_mq_hw_ctx *hctx)
 
 	spin_unlock_irq(&bfqd->lock);
 
+<<<<<<< HEAD
 	bfq_update_dispatch_stats(hctx->queue, rq,
+=======
+	bfq_update_dispatch_stats(hctx->queue, rq, in_serv_queue,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				  idle_timer_disabled);
 
 	return rq;
@@ -5495,6 +5521,7 @@ out_free:
 	return -ENOMEM;
 }
 
+<<<<<<< HEAD
 static void bfq_registered_queue(struct request_queue *q)
 {
 	struct elevator_queue *e = q->elevator;
@@ -5507,6 +5534,8 @@ static void bfq_registered_queue(struct request_queue *q)
 		bfqd->bfq_slice_idle = 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void bfq_slab_kill(void)
 {
 	kmem_cache_destroy(bfq_pool);
@@ -5754,7 +5783,10 @@ static struct elevator_type iosched_bfq_mq = {
 		.init_hctx		= bfq_init_hctx,
 		.init_sched		= bfq_init_queue,
 		.exit_sched		= bfq_exit_queue,
+<<<<<<< HEAD
 		.elevator_registered_fn = bfq_registered_queue,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	},
 
 	.uses_mq =		true,

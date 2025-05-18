@@ -27,9 +27,12 @@
  */
 struct mm_struct init_mm = {
 	.mm_rb		= RB_ROOT,
+<<<<<<< HEAD
 #ifdef CONFIG_SPECULATIVE_PAGE_FAULT
 	.mm_rb_lock	= __RW_LOCK_UNLOCKED(init_mm.mm_rb_lock),
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.pgd		= swapper_pg_dir,
 	.mm_users	= ATOMIC_INIT(2),
 	.mm_count	= ATOMIC_INIT(1),

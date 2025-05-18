@@ -1766,7 +1766,11 @@ static int fill_thread_core_info(struct elf_thread_core_info *t,
 		    (!regset->active || regset->active(t->task, regset) > 0)) {
 			int ret;
 			size_t size = regset_size(t->task, regset);
+<<<<<<< HEAD
 			void *data = kzalloc(size, GFP_KERNEL);
+=======
+			void *data = kmalloc(size, GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (unlikely(!data))
 				return 0;
 			ret = regset->get(t->task, regset,

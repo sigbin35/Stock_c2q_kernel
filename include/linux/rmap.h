@@ -12,11 +12,14 @@
 #include <linux/memcontrol.h>
 #include <linux/highmem.h>
 
+<<<<<<< HEAD
 extern int isolate_lru_page(struct page *page);
 extern void putback_lru_page(struct page *page);
 extern unsigned long reclaim_pages_from_list(struct list_head *page_list,
 					     struct vm_area_struct *vma);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * The anon_vma heads a list of private "related" vmas, to scan if
  * an anonymous page pointing to this anon_vma needs to be unmapped:
@@ -43,7 +46,17 @@ struct anon_vma {
 	 */
 	atomic_t refcount;
 
+<<<<<<< HEAD
 	unsigned degree;		/* ANDROID: KABI preservation, DO NOT USE! */
+=======
+	/*
+	 * Count of child anon_vmas and VMAs which points to this anon_vma.
+	 *
+	 * This counter is used for making decision about reusing anon_vma
+	 * instead of forking new one. See comments in function anon_vma_clone.
+	 */
+	unsigned degree;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	struct anon_vma *parent;	/* Parent of this anon_vma */
 
@@ -58,6 +71,7 @@ struct anon_vma {
 
 	/* Interval tree of private "related" vmas */
 	struct rb_root_cached rb_root;
+<<<<<<< HEAD
 
 	/*
 	 * ANDROID: KABI preservation, it's safe to put these at the end of this structure as it's
@@ -77,6 +91,8 @@ struct anon_vma {
 	unsigned long num_active_vmas;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /*
@@ -192,6 +208,7 @@ void page_add_anon_rmap(struct page *, struct vm_area_struct *,
 		unsigned long, bool);
 void do_page_add_anon_rmap(struct page *, struct vm_area_struct *,
 			   unsigned long, int);
+<<<<<<< HEAD
 void __page_add_new_anon_rmap(struct page *page, struct vm_area_struct *vma,
 			      unsigned long address, bool compound);
 static inline void page_add_new_anon_rmap(struct page *page,
@@ -202,6 +219,10 @@ static inline void page_add_new_anon_rmap(struct page *page,
 	__page_add_new_anon_rmap(page, vma, address, compound);
 }
 
+=======
+void page_add_new_anon_rmap(struct page *, struct vm_area_struct *,
+		unsigned long, bool);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void page_add_file_rmap(struct page *, bool);
 void page_remove_rmap(struct page *, bool);
 
@@ -221,8 +242,12 @@ static inline void page_dup_rmap(struct page *page, bool compound)
 int page_referenced(struct page *, int is_locked,
 			struct mem_cgroup *memcg, unsigned long *vm_flags);
 
+<<<<<<< HEAD
 bool try_to_unmap(struct page *page, enum ttu_flags flags,
 				struct vm_area_struct *vma);
+=======
+bool try_to_unmap(struct page *, enum ttu_flags flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* Avoid racy checks */
 #define PVMW_SYNC		(1 << 0)
@@ -288,14 +313,20 @@ int page_mapped_in_vma(struct page *page, struct vm_area_struct *vma);
  */
 struct rmap_walk_control {
 	void *arg;
+<<<<<<< HEAD
 	struct vm_area_struct *target_vma;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Return false if page table scanning in rmap_walk should be stopped.
 	 * Otherwise, return true.
 	 */
+<<<<<<< HEAD
 #ifdef CONFIG_PAGE_BOOST
 	int ret;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	bool (*rmap_one)(struct page *page, struct vm_area_struct *vma,
 					unsigned long addr, void *arg);
 	int (*done)(struct page *page);
@@ -320,7 +351,11 @@ static inline int page_referenced(struct page *page, int is_locked,
 	return 0;
 }
 
+<<<<<<< HEAD
 #define try_to_unmap(page, refs, vma) false
+=======
+#define try_to_unmap(page, refs) false
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline int page_mkclean(struct page *page)
 {

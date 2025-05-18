@@ -34,7 +34,10 @@ obj-$(CONFIG_PWM_PCA9685)	+= pwm-pca9685.o
 obj-$(CONFIG_PWM_PUV3)		+= pwm-puv3.o
 obj-$(CONFIG_PWM_PXA)		+= pwm-pxa.o
 obj-$(CONFIG_PWM_RCAR)		+= pwm-rcar.o
+<<<<<<< HEAD
 obj-$(CONFIG_PWM_QTI_LPG)	+= pwm-qti-lpg.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_PWM_RENESAS_TPU)	+= pwm-renesas-tpu.o
 obj-$(CONFIG_PWM_ROCKCHIP)	+= pwm-rockchip.o
 obj-$(CONFIG_PWM_SAMSUNG)	+= pwm-samsung.o

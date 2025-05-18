@@ -865,6 +865,7 @@ static void nfs_pageio_setup_mirroring(struct nfs_pageio_descriptor *pgio,
 	pgio->pg_mirror_count = mirror_count;
 }
 
+<<<<<<< HEAD
 /*
  * nfs_pageio_stop_mirroring - stop using mirroring (set mirror count to 1)
  */
@@ -874,6 +875,8 @@ void nfs_pageio_stop_mirroring(struct nfs_pageio_descriptor *pgio)
 	pgio->pg_mirror_idx = 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void nfs_pageio_cleanup_mirroring(struct nfs_pageio_descriptor *pgio)
 {
 	pgio->pg_mirror_count = 1;
@@ -1302,6 +1305,17 @@ void nfs_pageio_cond_complete(struct nfs_pageio_descriptor *desc, pgoff_t index)
 	}
 }
 
+<<<<<<< HEAD
+=======
+/*
+ * nfs_pageio_stop_mirroring - stop using mirroring (set mirror count to 1)
+ */
+void nfs_pageio_stop_mirroring(struct nfs_pageio_descriptor *pgio)
+{
+	nfs_pageio_complete(pgio);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int __init nfs_init_nfspagecache(void)
 {
 	nfs_page_cachep = kmem_cache_create("nfs_page",

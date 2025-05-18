@@ -1081,6 +1081,15 @@ free_and_return:
 
 static inline void clean_chip_info(void)
 {
+<<<<<<< HEAD
+=======
+	int i;
+
+	/* flush any pending work items */
+	if (chips)
+		for (i = 0; i < nr_chips; i++)
+			cancel_work_sync(&chips[i].throttle);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	kfree(chips);
 }
 

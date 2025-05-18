@@ -1,10 +1,20 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * f2fs shrinker support
  *   the basic infra was copied from fs/ubifs/shrinker.c
  *
  * Copyright (c) 2015 Motorola Mobility
  * Copyright (c) 2015 Jaegeuk Kim <jaegeuk@kernel.org>
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 #include <linux/fs.h>
 #include <linux/f2fs_fs.h>
@@ -18,7 +28,13 @@ static unsigned int shrinker_run_no;
 
 static unsigned long __count_nat_entries(struct f2fs_sb_info *sbi)
 {
+<<<<<<< HEAD
 	return NM_I(sbi)->nat_cnt[RECLAIMABLE_NAT];
+=======
+	long count = NM_I(sbi)->nat_cnt - NM_I(sbi)->dirty_nat_cnt;
+
+	return count > 0 ? count : 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static unsigned long __count_free_nids(struct f2fs_sb_info *sbi)

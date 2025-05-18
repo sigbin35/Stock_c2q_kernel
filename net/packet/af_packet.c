@@ -2160,8 +2160,12 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
 	int skb_len = skb->len;
 	unsigned int snaplen, res;
 	unsigned long status = TP_STATUS_USER;
+<<<<<<< HEAD
 	unsigned short macoff, hdrlen;
 	unsigned int netoff;
+=======
+	unsigned short macoff, netoff, hdrlen;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sk_buff *copy_skb = NULL;
 	struct timespec ts;
 	__u32 ts_status;
@@ -2224,12 +2228,15 @@ static int tpacket_rcv(struct sk_buff *skb, struct net_device *dev,
 		}
 		macoff = netoff - maclen;
 	}
+<<<<<<< HEAD
 	if (netoff > USHRT_MAX) {
 		spin_lock(&sk->sk_receive_queue.lock);
 		po->stats.stats1.tp_drops++;
 		spin_unlock(&sk->sk_receive_queue.lock);
 		goto drop_n_restore;
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (po->tp_version <= TPACKET_V2) {
 		if (macoff + snaplen > po->rx_ring.frame_size) {
 			if (po->copy_thresh &&
@@ -3964,7 +3971,11 @@ static int packet_getsockopt(struct socket *sock, int level, int optname,
 			len = sizeof(int);
 		if (len < sizeof(int))
 			return -EINVAL;
+<<<<<<< HEAD
 		if (copy_from_user(&val, optval, sizeof(val)))
+=======
+		if (copy_from_user(&val, optval, len))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			return -EFAULT;
 		switch (val) {
 		case TPACKET_V1:
@@ -4432,10 +4443,16 @@ static int packet_set_ring(struct sock *sk, union tpacket_req_u *req_u,
 	}
 
 out_free_pg_vec:
+<<<<<<< HEAD
 	if (pg_vec) {
 		bitmap_free(rx_owner_map);
 		free_pg_vec(pg_vec, order, req->tp_block_nr);
 	}
+=======
+	bitmap_free(rx_owner_map);
+	if (pg_vec)
+		free_pg_vec(pg_vec, order, req->tp_block_nr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out:
 	return err;
 }

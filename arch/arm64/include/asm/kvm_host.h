@@ -535,9 +535,12 @@ void kvm_vcpu_put_sysregs(struct kvm_vcpu *vcpu);
 struct kvm *kvm_arch_alloc_vm(void);
 void kvm_arch_free_vm(struct kvm *kvm);
 
+<<<<<<< HEAD
 static inline enum mitigation_state kvm_arm_get_spectre_bhb_state(void)
 {
 	return arm64_get_spectre_bhb_state();
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* __ARM64_KVM_HOST_H__ */

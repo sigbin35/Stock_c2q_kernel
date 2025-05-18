@@ -18,8 +18,11 @@
 CFLAGS_aha152x.o =   -DAHA152X_STAT -DAUTOCONF
 CFLAGS_gdth.o    = # -DDEBUG_GDTH=2 -D__SERIAL__ -D__COM2__ -DGDTH_STATISTICS
 
+<<<<<<< HEAD
 subdir-ccflags-y := -Wformat
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_PCMCIA)		+= pcmcia/
 
 obj-$(CONFIG_SCSI)		+= scsi_mod.o

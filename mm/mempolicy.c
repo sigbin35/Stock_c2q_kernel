@@ -380,11 +380,16 @@ void mpol_rebind_mm(struct mm_struct *mm, nodemask_t *new)
 	struct vm_area_struct *vma;
 
 	down_write(&mm->mmap_sem);
+<<<<<<< HEAD
 	for (vma = mm->mmap; vma; vma = vma->vm_next) {
 		vm_write_begin(vma);
 		mpol_rebind_policy(vma->vm_policy, new);
 		vm_write_end(vma);
 	}
+=======
+	for (vma = mm->mmap; vma; vma = vma->vm_next)
+		mpol_rebind_policy(vma->vm_policy, new);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	up_write(&mm->mmap_sem);
 }
 
@@ -599,11 +604,17 @@ unsigned long change_prot_numa(struct vm_area_struct *vma,
 {
 	int nr_updated;
 
+<<<<<<< HEAD
 	vm_write_begin(vma);
 	nr_updated = change_protection(vma, addr, end, PAGE_NONE, 0, 1);
 	if (nr_updated)
 		count_vm_numa_events(NUMA_PTE_UPDATES, nr_updated);
 	vm_write_end(vma);
+=======
+	nr_updated = change_protection(vma, addr, end, PAGE_NONE, 0, 1);
+	if (nr_updated)
+		count_vm_numa_events(NUMA_PTE_UPDATES, nr_updated);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return nr_updated;
 }
@@ -717,7 +728,10 @@ static int vma_replace_policy(struct vm_area_struct *vma,
 	if (IS_ERR(new))
 		return PTR_ERR(new);
 
+<<<<<<< HEAD
 	vm_write_begin(vma);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (vma->vm_ops && vma->vm_ops->set_policy) {
 		err = vma->vm_ops->set_policy(vma, new);
 		if (err)
@@ -725,17 +739,24 @@ static int vma_replace_policy(struct vm_area_struct *vma,
 	}
 
 	old = vma->vm_policy;
+<<<<<<< HEAD
 	/*
 	 * The speculative page fault handler accesses this field without
 	 * hodling the mmap_sem.
 	 */
 	WRITE_ONCE(vma->vm_policy,  new);
 	vm_write_end(vma);
+=======
+	vma->vm_policy = new; /* protected by mmap_sem */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mpol_put(old);
 
 	return 0;
  err_out:
+<<<<<<< HEAD
 	vm_write_end(vma);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mpol_put(new);
 	return err;
 }
@@ -772,8 +793,12 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
 			((vmstart - vma->vm_start) >> PAGE_SHIFT);
 		prev = vma_merge(mm, prev, vmstart, vmend, vma->vm_flags,
 				 vma->anon_vma, vma->vm_file, pgoff,
+<<<<<<< HEAD
 				 new_pol, vma->vm_userfaultfd_ctx,
 				 vma_get_anon_name(vma));
+=======
+				 new_pol, vma->vm_userfaultfd_ctx);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (prev) {
 			vma = prev;
 			next = vma->vm_next;
@@ -1409,7 +1434,10 @@ static long kernel_mbind(unsigned long start, unsigned long len,
 	int err;
 	unsigned short mode_flags;
 
+<<<<<<< HEAD
 	start = untagged_addr(start);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mode_flags = mode & MPOL_MODE_FLAGS;
 	mode &= ~MPOL_MODE_FLAGS;
 	if (mode >= MPOL_MAX)
@@ -1567,8 +1595,11 @@ static int kernel_get_mempolicy(int __user *policy,
 	int uninitialized_var(pval);
 	nodemask_t nodes;
 
+<<<<<<< HEAD
 	addr = untagged_addr(addr);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (nmask != NULL && maxnode < nr_node_ids)
 		return -EINVAL;
 
@@ -1706,6 +1737,7 @@ COMPAT_SYSCALL_DEFINE4(migrate_pages, compat_pid_t, pid,
 struct mempolicy *__get_vma_policy(struct vm_area_struct *vma,
 						unsigned long addr)
 {
+<<<<<<< HEAD
 	struct mempolicy *pol;
 
 	if (!vma)
@@ -1728,6 +1760,25 @@ struct mempolicy *__get_vma_policy(struct vm_area_struct *vma,
 		 */
 		if (mpol_needs_cond_ref(pol))
 			mpol_get(pol);
+=======
+	struct mempolicy *pol = NULL;
+
+	if (vma) {
+		if (vma->vm_ops && vma->vm_ops->get_policy) {
+			pol = vma->vm_ops->get_policy(vma, addr);
+		} else if (vma->vm_policy) {
+			pol = vma->vm_policy;
+
+			/*
+			 * shmem_alloc_page() passes MPOL_F_SHARED policy with
+			 * a pseudo vma whose vma->vm_ops=NULL. Take a reference
+			 * count on these policies which will be dropped by
+			 * mpol_cond_put() later
+			 */
+			if (mpol_needs_cond_ref(pol))
+				mpol_get(pol);
+		}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return pol;
@@ -2853,7 +2904,13 @@ int mpol_parse_str(char *str, struct mempolicy **mpol)
 	switch (mode) {
 	case MPOL_PREFERRED:
 		/*
+<<<<<<< HEAD
 		 * Insist on a nodelist of one node only
+=======
+		 * Insist on a nodelist of one node only, although later
+		 * we use first_node(nodes) to grab a single node, so here
+		 * nodelist (or nodes) cannot be empty.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		 */
 		if (nodelist) {
 			char *rest = nodelist;
@@ -2861,6 +2918,11 @@ int mpol_parse_str(char *str, struct mempolicy **mpol)
 				rest++;
 			if (*rest)
 				goto out;
+<<<<<<< HEAD
+=======
+			if (nodes_empty(nodes))
+				goto out;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 		break;
 	case MPOL_INTERLEAVE:

@@ -34,12 +34,15 @@
 #include "avc_ss.h"
 #include "classmap.h"
 
+<<<<<<< HEAD
 // [ SEC_SELINUX_PORTING_COMMON
 #ifdef SEC_SELINUX_DEBUG
 #include <linux/signal.h>
 #endif
 // ] SEC_SELINUX_PORTING_COMMON
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define AVC_CACHE_SLOTS			512
 #define AVC_DEF_CACHE_THRESHOLD		512
 #define AVC_CACHE_RECLAIM		16
@@ -372,27 +375,43 @@ static struct avc_xperms_decision_node
 	struct avc_xperms_decision_node *xpd_node;
 	struct extended_perms_decision *xpd;
 
+<<<<<<< HEAD
 	xpd_node = kmem_cache_zalloc(avc_xperms_decision_cachep,
 			GFP_NOWAIT | __GFP_NOWARN);
+=======
+	xpd_node = kmem_cache_zalloc(avc_xperms_decision_cachep, GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!xpd_node)
 		return NULL;
 
 	xpd = &xpd_node->xpd;
 	if (which & XPERMS_ALLOWED) {
 		xpd->allowed = kmem_cache_zalloc(avc_xperms_data_cachep,
+<<<<<<< HEAD
 						GFP_NOWAIT | __GFP_NOWARN);
+=======
+						GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!xpd->allowed)
 			goto error;
 	}
 	if (which & XPERMS_AUDITALLOW) {
 		xpd->auditallow = kmem_cache_zalloc(avc_xperms_data_cachep,
+<<<<<<< HEAD
 						GFP_NOWAIT | __GFP_NOWARN);
+=======
+						GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!xpd->auditallow)
 			goto error;
 	}
 	if (which & XPERMS_DONTAUDIT) {
 		xpd->dontaudit = kmem_cache_zalloc(avc_xperms_data_cachep,
+<<<<<<< HEAD
 						GFP_NOWAIT | __GFP_NOWARN);
+=======
+						GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!xpd->dontaudit)
 			goto error;
 	}
@@ -420,8 +439,12 @@ static struct avc_xperms_node *avc_xperms_alloc(void)
 {
 	struct avc_xperms_node *xp_node;
 
+<<<<<<< HEAD
 	xp_node = kmem_cache_zalloc(avc_xperms_cachep,
 			GFP_NOWAIT | __GFP_NOWARN);
+=======
+	xp_node = kmem_cache_zalloc(avc_xperms_cachep, GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!xp_node)
 		return xp_node;
 	INIT_LIST_HEAD(&xp_node->xpd_head);
@@ -577,7 +600,11 @@ static struct avc_node *avc_alloc_node(struct selinux_avc *avc)
 {
 	struct avc_node *node;
 
+<<<<<<< HEAD
 	node = kmem_cache_zalloc(avc_node_cachep, GFP_NOWAIT | __GFP_NOWARN);
+=======
+	node = kmem_cache_zalloc(avc_node_cachep, GFP_NOWAIT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!node)
 		goto out;
 
@@ -719,13 +746,21 @@ static struct avc_node *avc_insert(struct selinux_avc *avc,
 	spin_lock_irqsave(lock, flag);
 	hlist_for_each_entry(pos, head, list) {
 		if (pos->ae.ssid == ssid &&
+<<<<<<< HEAD
 		    pos->ae.tsid == tsid &&
 		    pos->ae.tclass == tclass) {
+=======
+			pos->ae.tsid == tsid &&
+			pos->ae.tclass == tclass) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			avc_node_replace(avc, node, pos);
 			goto found;
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	hlist_add_head_rcu(&node->list, head);
 found:
 	spin_unlock_irqrestore(lock, flag);
@@ -905,11 +940,15 @@ static int avc_update_node(struct selinux_avc *avc,
 	if (orig->ae.xp_node) {
 		rc = avc_xperms_populate(node, orig->ae.xp_node);
 		if (rc) {
+<<<<<<< HEAD
 //[SEC_SELINUX_PORTING_COMMON
 // P191014-03912 - avc_cache.active_nodes is not decresed when "avc_alloc_node-success"&"avc_xperms_populate-fail"
 //			kmem_cache_free(avc_node_cachep, node);
 			avc_node_kill(avc, node);
 //]SEC_SELINUX_PORTING_COMMON
+=======
+			avc_node_kill(avc, node);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			goto out_unlock;
 		}
 	}
@@ -1031,6 +1070,7 @@ static noinline int avc_denied(struct selinux_state *state,
 	if (flags & AVC_STRICT)
 		return -EACCES;
 
+<<<<<<< HEAD
 // [ SEC_SELINUX_PORTING_COMMON
 #ifdef SEC_SELINUX_DEBUG
 	if ((requested & avd->auditallow) && !(avd->flags & AVD_FLAGS_PERMISSIVE)) {
@@ -1081,6 +1121,9 @@ static noinline int avc_denied(struct selinux_state *state,
 // ] SEC_SELINUX_PORTING_COMMON
 
 	if (selinux_enforcing &&
+=======
+	if (enforcing_enabled(state) &&
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	    !(avd->flags & AVD_FLAGS_PERMISSIVE))
 		return -EACCES;
 

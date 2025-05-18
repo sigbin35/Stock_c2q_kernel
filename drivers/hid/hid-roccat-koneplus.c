@@ -434,9 +434,12 @@ static int koneplus_probe(struct hid_device *hdev,
 {
 	int retval;
 
+<<<<<<< HEAD
 	if (!hid_is_usb(hdev))
 		return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	retval = hid_parse(hdev);
 	if (retval) {
 		hid_err(hdev, "parse failed\n");

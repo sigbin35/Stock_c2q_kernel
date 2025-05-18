@@ -52,6 +52,10 @@ warning-3 += -Wpointer-arith
 warning-3 += -Wredundant-decls
 warning-3 += -Wswitch-default
 warning-3 += $(call cc-option, -Wpacked-bitfield-compat)
+<<<<<<< HEAD
+=======
+warning-3 += $(call cc-option, -Wvla)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 warning := $(warning-$(findstring 1, $(KBUILD_ENABLE_EXTRA_GCC_CHECKS)))
 warning += $(warning-$(findstring 2, $(KBUILD_ENABLE_EXTRA_GCC_CHECKS)))

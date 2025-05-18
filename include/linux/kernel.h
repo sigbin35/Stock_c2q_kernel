@@ -664,6 +664,7 @@ enum ftrace_dump_mode {
 };
 
 #ifdef CONFIG_TRACING
+<<<<<<< HEAD
 void tracing_mark_write_helper(int type, const char *str);
 #define TRACING_MARK_TYPE_BEGIN 0
 #define TRACING_MARK_TYPE_END 1
@@ -680,6 +681,8 @@ do {								\
 	__tracing_mark(TRACING_MARK_TYPE_END, "")
 #define tracing_mark_end_debug(fmt, args...)			\
 	__tracing_mark(TRACING_MARK_TYPE_END, fmt, ##args)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void tracing_on(void);
 void tracing_off(void);
 int tracing_is_on(void);
@@ -823,9 +826,12 @@ __ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
 
 extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
 #else
+<<<<<<< HEAD
 #define tracing_mark_begin(fmt, args...) { }
 #define tracing_mark_end() { }
 #define tracing_mark_end_debug(fmt, args...) { }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void tracing_start(void) { }
 static inline void tracing_stop(void) { }
 static inline void trace_dump_stack(int skip) { }

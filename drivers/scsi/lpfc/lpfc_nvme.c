@@ -1903,8 +1903,11 @@ lpfc_nvme_fcp_abort(struct nvme_fc_local_port *pnvme_lport,
 
 /* Declare and initialization an instance of the FC NVME template. */
 static struct nvme_fc_port_template lpfc_nvme_template = {
+<<<<<<< HEAD
 	.module	= THIS_MODULE,
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* initiator-based functions */
 	.localport_delete  = lpfc_nvme_localport_delete,
 	.remoteport_delete = lpfc_nvme_remoteport_delete,

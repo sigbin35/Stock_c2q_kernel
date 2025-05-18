@@ -22,7 +22,13 @@ struct netns_nf {
 #ifdef CONFIG_NETFILTER_FAMILY_ARP
 	struct nf_hook_entries __rcu *hooks_arp[NF_ARP_NUMHOOKS];
 #endif
+<<<<<<< HEAD
 	struct nf_hook_entries __rcu *hooks_bridge[NF_INET_NUMHOOKS];
+=======
+#ifdef CONFIG_NETFILTER_FAMILY_BRIDGE
+	struct nf_hook_entries __rcu *hooks_bridge[NF_INET_NUMHOOKS];
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #if IS_ENABLED(CONFIG_DECNET)
 	struct nf_hook_entries __rcu *hooks_decnet[NF_DN_NUMHOOKS];
 #endif

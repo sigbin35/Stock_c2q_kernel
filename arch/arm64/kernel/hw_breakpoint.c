@@ -77,6 +77,7 @@ int hw_breakpoint_slots(int type)
 		AARCH64_DBG_WRITE(N, REG, VAL);	\
 		break
 
+<<<<<<< HEAD
 //Reserve DBGBVR5_EL1 for CFP_ROPP_SYSREGKEY
 #ifdef CONFIG_CFP_ROPP_SYSREGKEY
 
@@ -92,6 +93,8 @@ int hw_breakpoint_slots(int type)
 
 #endif //END CONFIG_CFP_ROPP_SYSREGKEY
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define GEN_READ_WB_REG_CASES(OFF, REG, VAL)	\
 	READ_WB_REG_CASE(OFF,  0, REG, VAL);	\
 	READ_WB_REG_CASE(OFF,  1, REG, VAL);	\
@@ -950,6 +953,7 @@ void hw_breakpoint_thread_switch(struct task_struct *next)
 }
 
 /*
+<<<<<<< HEAD
  * Check if halted debug mode is enabled.
  */
 static u32 hde_enabled(void)
@@ -961,12 +965,15 @@ static u32 hde_enabled(void)
 }
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * CPU initialisation.
  */
 static int hw_breakpoint_reset(unsigned int cpu)
 {
 	int i;
 	struct perf_event **slots;
+<<<<<<< HEAD
 
 	/*
 	 * When halting debug mode is enabled, break point could be already
@@ -975,6 +982,8 @@ static int hw_breakpoint_reset(unsigned int cpu)
 	 */
 	if (hde_enabled())
 		return 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * When a CPU goes through cold-boot, it does not have any installed
 	 * slot, so it is safe to share the same function for restoring and
@@ -986,6 +995,7 @@ static int hw_breakpoint_reset(unsigned int cpu)
 	 * reprogrammed according to the debug slots content.
 	 */
 	for (slots = this_cpu_ptr(bp_on_reg), i = 0; i < core_num_brps; ++i) {
+<<<<<<< HEAD
 #ifdef CONFIG_CFP_ROPP_SYSREGKEY
 		if (5 == i) {
 			/* There are too many logs so we cannot debug kernel */
@@ -993,6 +1003,8 @@ static int hw_breakpoint_reset(unsigned int cpu)
 			continue;
 		}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (slots[i]) {
 			hw_breakpoint_control(slots[i], HW_BREAKPOINT_RESTORE);
 		} else {

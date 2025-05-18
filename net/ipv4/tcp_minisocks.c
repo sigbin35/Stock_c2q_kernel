@@ -18,17 +18,23 @@
  *		Jorge Cwik, <jorge@laser.satlink.net>
  */
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 #include <linux/kconfig.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/mm.h>
 #include <linux/module.h>
 #include <linux/slab.h>
 #include <linux/sysctl.h>
 #include <linux/workqueue.h>
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 #include <net/mptcp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/static_key.h>
 #include <net/tcp.h>
 #include <net/inet_common.h>
@@ -100,6 +106,7 @@ tcp_timewait_state_process(struct inet_timewait_sock *tw, struct sk_buff *skb,
 	struct tcp_options_received tmp_opt;
 	struct tcp_timewait_sock *tcptw = tcp_twsk((struct sock *)tw);
 	bool paws_reject = false;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct mptcp_options_received mopt;
 #endif
@@ -119,6 +126,12 @@ tcp_timewait_state_process(struct inet_timewait_sock *tw, struct sk_buff *skb,
 #else
 		tcp_parse_options(twsk_net(tw), skb, &tmp_opt, 0, NULL);
 #endif
+=======
+
+	tmp_opt.saw_tstamp = 0;
+	if (th->doff > (sizeof(*th) >> 2) && tcptw->tw_ts_recent_stamp) {
+		tcp_parse_options(twsk_net(tw), skb, &tmp_opt, 0, NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (tmp_opt.saw_tstamp) {
 			if (tmp_opt.rcv_tsecr)
@@ -127,12 +140,15 @@ tcp_timewait_state_process(struct inet_timewait_sock *tw, struct sk_buff *skb,
 			tmp_opt.ts_recent_stamp	= tcptw->tw_ts_recent_stamp;
 			paws_reject = tcp_paws_reject(&tmp_opt, th->rst);
 		}
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 		if (unlikely(mopt.mp_fclose) && tcptw->mptcp_tw) {
 			if (mopt.mptcp_sender_key == tcptw->mptcp_tw->loc_key)
 				return TCP_TW_RST;
 		}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	if (tw->tw_substate == TCP_FIN_WAIT2) {
@@ -156,6 +172,7 @@ tcp_timewait_state_process(struct inet_timewait_sock *tw, struct sk_buff *skb,
 		if (!th->ack ||
 		    !after(TCP_SKB_CB(skb)->end_seq, tcptw->tw_rcv_nxt) ||
 		    TCP_SKB_CB(skb)->end_seq == TCP_SKB_CB(skb)->seq) {
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 			/* If mptcp_is_data_fin() returns true, we are sure that
 			 * mopt has been initialized - otherwise it would not
@@ -167,6 +184,8 @@ tcp_timewait_state_process(struct inet_timewait_sock *tw, struct sk_buff *skb,
 			    mopt.data_seq + 1 == (u32)tcptw->mptcp_tw->rcv_nxt)
 				return TCP_TW_ACK;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			inet_twsk_put(tw);
 			return TCP_TW_SUCCESS;
 		}
@@ -312,6 +331,7 @@ void tcp_time_wait(struct sock *sk, int state, int timeo)
 		tcptw->tw_ts_offset	= tp->tsoffset;
 		tcptw->tw_last_oow_ack_time = 0;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 		if (mptcp(tp)) {
 			if (mptcp_init_tw_sock(sk, tcptw)) {
@@ -322,6 +342,8 @@ void tcp_time_wait(struct sock *sk, int state, int timeo)
 			tcptw->mptcp_tw = NULL;
 		}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #if IS_ENABLED(CONFIG_IPV6)
 		if (tw->tw_family == PF_INET6) {
 			struct ipv6_pinfo *np = inet6_sk(sk);
@@ -378,9 +400,12 @@ void tcp_time_wait(struct sock *sk, int state, int timeo)
 		NET_INC_STATS(sock_net(sk), LINUX_MIB_TCPTIMEWAITOVERFLOW);
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 exit:
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	tcp_update_metrics(sk);
 	tcp_done(sk);
 }
@@ -388,6 +413,7 @@ EXPORT_SYMBOL(tcp_time_wait);
 
 void tcp_twsk_destructor(struct sock *sk)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct tcp_timewait_sock *twsk = tcp_twsk(sk);
 
@@ -398,6 +424,11 @@ void tcp_twsk_destructor(struct sock *sk)
 #ifndef CONFIG_MPTCP
 	struct tcp_timewait_sock *twsk = tcp_twsk(sk);
 #endif
+=======
+#ifdef CONFIG_TCP_MD5SIG
+	struct tcp_timewait_sock *twsk = tcp_twsk(sk);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (twsk->tw_md5_key)
 		kfree_rcu(twsk->tw_md5_key, rcu);
 #endif
@@ -436,6 +467,7 @@ void tcp_openreq_init_rwin(struct request_sock *req,
 		full_space = rcv_wnd * mss;
 
 	/* tcp_full_space because it is guaranteed to be the first packet */
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	tp->ops->select_initial_window(sk_listener, full_space,
 		mss - (ireq->tstamp_ok ? TCPOLEN_TSTAMP_ALIGNED : 0) -
@@ -444,6 +476,10 @@ void tcp_openreq_init_rwin(struct request_sock *req,
 	tcp_select_initial_window(sk_listener, full_space,
 		mss - (ireq->tstamp_ok ? TCPOLEN_TSTAMP_ALIGNED : 0),
 #endif
+=======
+	tcp_select_initial_window(sk_listener, full_space,
+		mss - (ireq->tstamp_ok ? TCPOLEN_TSTAMP_ALIGNED : 0),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		&req->rsk_rcv_wnd,
 		&req->rsk_window_clamp,
 		ireq->wscale_ok,
@@ -541,10 +577,13 @@ struct sock *tcp_create_openreq_child(const struct sock *sk,
 	newtp->snd_sml = newtp->snd_una =
 	newtp->snd_nxt = newtp->snd_up = treq->snt_isn + 1;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	newtp->out_of_order_queue = RB_ROOT;
 	newsk->tcp_rtx_queue = RB_ROOT;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	INIT_LIST_HEAD(&newtp->tsq_node);
 	INIT_LIST_HEAD(&newtp->tsorted_sent_queue);
 
@@ -615,10 +654,13 @@ struct sock *tcp_create_openreq_child(const struct sock *sk,
 		newtp->rx_opt.ts_recent_stamp = 0;
 		newtp->tcp_header_len = sizeof(struct tcphdr);
 	}
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	if (ireq->saw_mpc)
 		newtp->tcp_header_len += MPTCP_SUB_LEN_DSM_ALIGN;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	newtp->tsoffset = treq->ts_off;
 #ifdef CONFIG_TCP_MD5SIG
 	newtp->md5sig_info = NULL;	/*XXX*/
@@ -661,9 +703,12 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 			   bool fastopen, bool *req_stolen)
 {
 	struct tcp_options_received tmp_opt;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct mptcp_options_received mopt;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sock *child;
 	const struct tcphdr *th = tcp_hdr(skb);
 	__be32 flg = tcp_flag_word(th) & (TCP_FLAG_RST|TCP_FLAG_SYN|TCP_FLAG_ACK);
@@ -671,6 +716,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 	bool own_req;
 
 	tmp_opt.saw_tstamp = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	mptcp_init_mp_opt(&mopt);
 #endif
@@ -680,6 +726,10 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 #else
 		tcp_parse_options(sock_net(sk), skb, &tmp_opt, 0, NULL);
 #endif
+=======
+	if (th->doff > (sizeof(struct tcphdr)>>2)) {
+		tcp_parse_options(sock_net(sk), skb, &tmp_opt, 0, NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (tmp_opt.saw_tstamp) {
 			tmp_opt.ts_recent = req->ts_recent;
@@ -720,6 +770,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 		 *
 		 * Reset timer after retransmitting SYNACK, similar to
 		 * the idea of fast retransmit in recovery.
+<<<<<<< HEAD
 		 *
 		 * Fall back to TCP if MP_CAPABLE is not set.
 		 */
@@ -728,6 +779,9 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 			inet_rsk(req)->saw_mpc = false;
 #endif
 
+=======
+		 */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!tcp_oow_rate_limited(sock_net(sk), skb,
 					  LINUX_MIB_TCPACKSKIPPEDSYNRECV,
 					  &tcp_rsk(req)->last_oow_ack_time) &&
@@ -880,6 +934,7 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 	if (!child)
 		goto listen_overflow;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	if (own_req && !is_meta_sk(sk)) {
 		int ret = mptcp_check_req_master(sk, child, req, skb, 1, 0);
@@ -893,6 +948,8 @@ struct sock *tcp_check_req(struct sock *sk, struct sk_buff *skb,
 		return mptcp_check_req_child(sk, child, req, skb, &mopt);
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	sock_rps_save_rxhash(child, skb);
 	tcp_synack_rtt_meas(child, req);
 	*req_stolen = !own_req;
@@ -941,14 +998,18 @@ int tcp_child_process(struct sock *parent, struct sock *child,
 {
 	int ret = 0;
 	int state = child->sk_state;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct sock *meta_sk = mptcp(tcp_sk(child)) ? mptcp_meta_sk(child) : child;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* record NAPI ID of child */
 	sk_mark_napi_id(child, skb);
 
 	tcp_segs_in(tcp_sk(child), skb);
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	/* The following will be removed when we allow lockless data-reception
 	 * on the subflows.
@@ -959,6 +1020,9 @@ int tcp_child_process(struct sock *parent, struct sock *child,
 #else
 	if (!sock_owned_by_user(child)) {
 #endif
+=======
+	if (!sock_owned_by_user(child)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ret = tcp_rcv_state_process(child, skb);
 		/* Wakeup parent, send SIGIO */
 		if (state == TCP_SYN_RECV && child->sk_state != state)
@@ -968,6 +1032,7 @@ int tcp_child_process(struct sock *parent, struct sock *child,
 		 * in main socket hash table and lock on listening
 		 * socket does not protect us more.
 		 */
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 		if (mptcp(tcp_sk(child)))
 			mptcp_prepare_for_backlog(child, skb);
@@ -982,6 +1047,12 @@ int tcp_child_process(struct sock *parent, struct sock *child,
 	if (mptcp(tcp_sk(child)))
 		bh_unlock_sock(meta_sk);
 #endif
+=======
+		__sk_add_backlog(child, skb);
+	}
+
+	bh_unlock_sock(child);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	sock_put(child);
 	return ret;
 }

@@ -97,9 +97,15 @@ xfs_trans_log_inode(
 	 * to log the timestamps, or will clear already cleared fields in the
 	 * worst case.
 	 */
+<<<<<<< HEAD
 	if (inode->i_state & I_DIRTY_TIME) {
 		spin_lock(&inode->i_lock);
 		inode->i_state &= ~I_DIRTY_TIME;
+=======
+	if (inode->i_state & (I_DIRTY_TIME | I_DIRTY_TIME_EXPIRED)) {
+		spin_lock(&inode->i_lock);
+		inode->i_state &= ~(I_DIRTY_TIME | I_DIRTY_TIME_EXPIRED);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		spin_unlock(&inode->i_lock);
 	}
 

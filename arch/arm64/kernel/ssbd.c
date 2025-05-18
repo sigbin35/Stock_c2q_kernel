@@ -30,7 +30,13 @@ static void ssbd_ssbs_disable(struct task_struct *task)
 
 /*
  * prctl interface for SSBD
+<<<<<<< HEAD
  */
+=======
+ * FIXME: Drop the below ifdefery once merged in 4.18.
+ */
+#ifdef PR_SPEC_STORE_BYPASS
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int ssbd_prctl_set(struct task_struct *task, unsigned long ctrl)
 {
 	int state = arm64_get_ssbd_state();
@@ -127,3 +133,7 @@ int arch_prctl_spec_ctrl_get(struct task_struct *task, unsigned long which)
 		return -ENODEV;
 	}
 }
+<<<<<<< HEAD
+=======
+#endif	/* PR_SPEC_STORE_BYPASS */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

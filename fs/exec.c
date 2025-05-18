@@ -62,7 +62,10 @@
 #include <linux/oom.h>
 #include <linux/compat.h>
 #include <linux/vmalloc.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/uaccess.h>
 #include <asm/mmu_context.h>
@@ -70,6 +73,7 @@
 
 #include <trace/events/task.h>
 #include "internal.h"
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_NS
 #include "mount.h"
 #endif
@@ -101,6 +105,11 @@ static int __init boot_recovery(char *str)
 early_param("androidboot.boot_recovery", boot_recovery);
 #endif
 
+=======
+
+#include <trace/events/sched.h>
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int suid_dumpable = 0;
 
 static LIST_HEAD(formats);
@@ -1063,10 +1072,13 @@ static int exec_mmap(struct mm_struct *mm)
 	activate_mm(active_mm, mm);
 	tsk->mm->vmacache_seqnum = 0;
 	vmacache_flush(tsk);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	if(rkp_cred_enable)
 		uh_call(UH_APP_RKP, RKP_KDP_X43, (u64)current_cred(), (u64)mm->pgd, 0, 0);
 #endif 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	task_unlock(tsk);
 	if (old_mm) {
 		up_read(&old_mm->mmap_sem);
@@ -1276,6 +1288,7 @@ void __set_task_comm(struct task_struct *tsk, const char *buf, bool exec)
 	task_unlock(tsk);
 	perf_event_comm(tsk, exec);
 }
+<<<<<<< HEAD
 #if 0
 #ifdef CONFIG_KDP_NS
 /* pointer to superblock */
@@ -1388,6 +1401,8 @@ static int is_kdp_priv_task(void)
 }
 #endif
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Calling this is the point of no return. None of the failures will be
@@ -1418,6 +1433,7 @@ int flush_old_exec(struct linux_binprm * bprm)
 	 * Release all of the old mmap stuff
 	 */
 	acct_arg_size(bprm, 0);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_NS
 	/*
 	if(rkp_cred_enable &&
@@ -1427,6 +1443,8 @@ int flush_old_exec(struct linux_binprm * bprm)
 	}
 	*/
 #endif 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	retval = exec_mmap(bprm->mm);
 	if (retval)
 		goto out;
@@ -1462,7 +1480,11 @@ EXPORT_SYMBOL(flush_old_exec);
 void would_dump(struct linux_binprm *bprm, struct file *file)
 {
 	struct inode *inode = file_inode(file);
+<<<<<<< HEAD
 	if (inode_permission2(file->f_path.mnt, inode, MAY_READ) < 0) {
+=======
+	if (inode_permission(inode, MAY_READ) < 0) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		struct user_namespace *old, *user_ns;
 		bprm->interp_flags |= BINPRM_FLAGS_ENFORCE_NONDUMP;
 
@@ -1532,7 +1554,11 @@ void setup_new_exec(struct linux_binprm * bprm)
 
 	/* An exec changes our domain. We are no longer part of the thread
 	   group */
+<<<<<<< HEAD
 	current->self_exec_id++;
+=======
+	WRITE_ONCE(current->self_exec_id, current->self_exec_id + 1);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	flush_signal_handlers(current, 0);
 }
 EXPORT_SYMBOL(setup_new_exec);
@@ -1825,8 +1851,12 @@ int search_binary_handler(struct linux_binprm *bprm)
 		if (printable(bprm->buf[0]) && printable(bprm->buf[1]) &&
 		    printable(bprm->buf[2]) && printable(bprm->buf[3]))
 			return retval;
+<<<<<<< HEAD
 		if (request_module("binfmt-%04x",
 					*(ushort *)(bprm->buf + 2)) < 0)
+=======
+		if (request_module("binfmt-%04x", *(ushort *)(bprm->buf + 2)) < 0)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			return retval;
 		need_retry = false;
 		goto retry;
@@ -1836,6 +1866,7 @@ int search_binary_handler(struct linux_binprm *bprm)
 }
 EXPORT_SYMBOL(search_binary_handler);
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 #define CHECK_ROOT_UID(x) (x->cred->uid.val == 0 || x->cred->gid.val == 0 || \
 			x->cred->euid.val == 0 || x->cred->egid.val == 0 || \
@@ -1871,6 +1902,8 @@ static int rkp_restrict_fork(struct filename *path)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int exec_binprm(struct linux_binprm *bprm)
 {
 	pid_t old_pid, old_vpid;
@@ -1888,8 +1921,11 @@ static int exec_binprm(struct linux_binprm *bprm)
 		trace_sched_process_exec(current, old_pid, bprm);
 		ptrace_event(PTRACE_EVENT_EXEC, old_vpid);
 		proc_exec_connector(current);
+<<<<<<< HEAD
 	} else {
 		task_integrity_delayed_reset(current, CAUSE_EXEC, bprm->file);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return ret;
@@ -1949,6 +1985,7 @@ static int __do_execve_file(int fd, struct filename *filename,
 	if (IS_ERR(file))
 		goto out_unmark;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 	retval = task_defex_enforce(current, file, -__NR_execve);
 	if (retval < 0) {
@@ -1958,6 +1995,8 @@ static int __do_execve_file(int fd, struct filename *filename,
 	 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	sched_exec();
 
 	bprm->file = file;
@@ -2162,6 +2201,7 @@ SYSCALL_DEFINE3(execve,
 		const char __user *const __user *, argv,
 		const char __user *const __user *, envp)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	struct filename *path = getname(filename);
 	int error = PTR_ERR(path);
@@ -2185,6 +2225,8 @@ SYSCALL_DEFINE3(execve,
 	}
 	putname(path);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return do_execve(getname(filename), argv, envp);
 }
 

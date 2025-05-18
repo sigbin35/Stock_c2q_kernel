@@ -2764,9 +2764,13 @@ static inline u16 dpaa_get_headroom(struct dpaa_buffer_layout *bl)
 	headroom = (u16)(bl->priv_data_size + DPAA_PARSE_RESULTS_SIZE +
 		DPAA_TIME_STAMP_SIZE + DPAA_HASH_RESULTS_SIZE);
 
+<<<<<<< HEAD
 	return DPAA_FD_DATA_ALIGNMENT ? ALIGN(headroom,
 					      DPAA_FD_DATA_ALIGNMENT) :
 					headroom;
+=======
+	return ALIGN(headroom, DPAA_FD_DATA_ALIGNMENT);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int dpaa_eth_probe(struct platform_device *pdev)

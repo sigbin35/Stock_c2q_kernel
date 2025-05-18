@@ -1283,10 +1283,15 @@ no_res_check:
 	/* USB descriptions contain the dB scale in 1/256 dB unit
 	 * while ALSA TLV contains in 1/100 dB unit
 	 */
+<<<<<<< HEAD
 	cval->dBmin =
 		(convert_signed_value(cval, cval->min) * 100) / (cval->res);
 	cval->dBmax =
 		(convert_signed_value(cval, cval->max) * 100) / (cval->res);
+=======
+	cval->dBmin = (convert_signed_value(cval, cval->min) * 100) / 256;
+	cval->dBmax = (convert_signed_value(cval, cval->max) * 100) / 256;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (cval->dBmin > cval->dBmax) {
 		/* something is wrong; assume it's either from/to 0dB */
 		if (cval->dBmin < 0)
@@ -1463,7 +1468,11 @@ error:
 		usb_audio_err(chip,
 			"cannot get connectors status: req = %#x, wValue = %#x, wIndex = %#x, type = %d\n",
 			UAC_GET_CUR, validx, idx, cval->val_type);
+<<<<<<< HEAD
 		return ret;
+=======
+		return filter_error(cval, ret);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	ucontrol->value.integer.value[0] = val;
@@ -1767,11 +1776,21 @@ static void get_connector_control_name(struct usb_mixer_interface *mixer,
 
 /* Build a mixer control for a UAC connector control (jack-detect) */
 static void build_connector_control(struct usb_mixer_interface *mixer,
+<<<<<<< HEAD
+=======
+				    const struct usbmix_name_map *imap,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				    struct usb_audio_term *term, bool is_input)
 {
 	struct snd_kcontrol *kctl;
 	struct usb_mixer_elem_info *cval;
 
+<<<<<<< HEAD
+=======
+	if (check_ignored_ctl(find_map(imap, term->id, 0)))
+		return;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cval = kzalloc(sizeof(*cval), GFP_KERNEL);
 	if (!cval)
 		return;
@@ -2109,8 +2128,14 @@ static int parse_audio_input_terminal(struct mixer_build *state, int unitid,
 	check_input_term(state, term_id, &iterm);
 
 	/* Check for jack detection. */
+<<<<<<< HEAD
 	if (uac_v2v3_control_is_readable(bmctls, control))
 		build_connector_control(state->mixer, &iterm, true);
+=======
+	if ((iterm.type & 0xff00) != 0x0100 &&
+	    uac_v2v3_control_is_readable(bmctls, control))
+		build_connector_control(state->mixer, state->map, &iterm, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return 0;
 }
@@ -3071,13 +3096,21 @@ static int snd_usb_mixer_controls_badd(struct usb_mixer_interface *mixer,
 		memset(&iterm, 0, sizeof(iterm));
 		iterm.id = UAC3_BADD_IT_ID4;
 		iterm.type = UAC_BIDIR_TERMINAL_HEADSET;
+<<<<<<< HEAD
 		build_connector_control(mixer, &iterm, true);
+=======
+		build_connector_control(mixer, map->map, &iterm, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		/* Output Term - Insertion control */
 		memset(&oterm, 0, sizeof(oterm));
 		oterm.id = UAC3_BADD_OT_ID3;
 		oterm.type = UAC_BIDIR_TERMINAL_HEADSET;
+<<<<<<< HEAD
 		build_connector_control(mixer, &oterm, false);
+=======
+		build_connector_control(mixer, map->map, &oterm, false);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return 0;
@@ -3106,7 +3139,11 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
 		if (map->id == state.chip->usb_id) {
 			state.map = map->map;
 			state.selector_map = map->selector_map;
+<<<<<<< HEAD
 			mixer->ignore_ctl_error = map->ignore_ctl_error;
+=======
+			mixer->ignore_ctl_error |= map->ignore_ctl_error;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			break;
 		}
 	}
@@ -3149,10 +3186,18 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
 			if (err < 0 && err != -EINVAL)
 				return err;
 
+<<<<<<< HEAD
 			if (uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
 							 UAC2_TE_CONNECTOR)) {
 				build_connector_control(state.mixer, &state.oterm,
 							false);
+=======
+			if ((state.oterm.type & 0xff00) != 0x0100 &&
+			    uac_v2v3_control_is_readable(le16_to_cpu(desc->bmControls),
+							 UAC2_TE_CONNECTOR)) {
+				build_connector_control(state.mixer, state.map,
+							&state.oterm, false);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			}
 		} else {  /* UAC_VERSION_3 */
 			struct uac3_output_terminal_descriptor *desc = p;
@@ -3174,10 +3219,18 @@ static int snd_usb_mixer_controls(struct usb_mixer_interface *mixer)
 			if (err < 0 && err != -EINVAL)
 				return err;
 
+<<<<<<< HEAD
 			if (uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
 							 UAC3_TE_INSERTION)) {
 				build_connector_control(state.mixer, &state.oterm,
 							false);
+=======
+			if ((state.oterm.type & 0xff00) != 0x0100 &&
+			    uac_v2v3_control_is_readable(le32_to_cpu(desc->bmControls),
+							 UAC3_TE_INSERTION)) {
+				build_connector_control(state.mixer, state.map,
+							&state.oterm, false);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			}
 		}
 	}

@@ -30,8 +30,11 @@ struct f_ncm_opts {
 	int				refcnt;
 };
 
+<<<<<<< HEAD
 extern struct device *create_function_device(char *name);
 int ncm_ctrlrequest(struct usb_composite_dev *cdev,
 		const struct usb_ctrlrequest *ctrl);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* U_NCM_H */

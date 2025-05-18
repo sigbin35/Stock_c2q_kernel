@@ -802,9 +802,15 @@ static int __init pstore_init(void)
 
 	ret = pstore_init_fs();
 	if (ret)
+<<<<<<< HEAD
 		return ret;
 
 	return 0;
+=======
+		free_buf_for_compression();
+
+	return ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 late_initcall(pstore_init);
 

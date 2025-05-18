@@ -1720,7 +1720,11 @@ static int qlcnic_83xx_get_reset_instruction_template(struct qlcnic_adapter *p_d
 
 	ahw->reset.seq_error = 0;
 	ahw->reset.buff = kzalloc(QLC_83XX_RESTART_TEMPLATE_SIZE, GFP_KERNEL);
+<<<<<<< HEAD
 	if (p_dev->ahw->reset.buff == NULL)
+=======
+	if (ahw->reset.buff == NULL)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return -ENOMEM;
 
 	p_buff = p_dev->ahw->reset.buff;

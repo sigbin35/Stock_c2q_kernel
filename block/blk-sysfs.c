@@ -101,6 +101,7 @@ static ssize_t
 queue_ra_store(struct request_queue *q, const char *page, size_t count)
 {
 	unsigned long ra_kb;
+<<<<<<< HEAD
 	ssize_t ret;
 	static const char temp[] = "temporary ";
 
@@ -111,13 +112,20 @@ queue_ra_store(struct request_queue *q, const char *page, size_t count)
 	page += sizeof(temp) - 1;
 
 	ret = queue_var_store(&ra_kb, page, count);
+=======
+	ssize_t ret = queue_var_store(&ra_kb, page, count);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (ret < 0)
 		return ret;
 
 	q->backing_dev_info->ra_pages = ra_kb >> (PAGE_SHIFT - 10);
 
+<<<<<<< HEAD
 	return count;
+=======
+	return ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static ssize_t queue_max_sectors_show(struct request_queue *q, char *page)
@@ -712,6 +720,7 @@ static struct queue_sysfs_entry throtl_sample_time_entry = {
 };
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_IO_VOLUME
 static ssize_t queue_io_vol_show(struct request_queue *q, char *page)
 {
@@ -1083,6 +1092,8 @@ static struct queue_sysfs_entry queue_tw_off_delay_ms_entry = {
 };
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct attribute *default_attrs[] = {
 	&queue_requests_entry.attr,
 	&queue_ra_entry.attr,
@@ -1120,6 +1131,7 @@ static struct attribute *default_attrs[] = {
 #ifdef CONFIG_BLK_DEV_THROTTLING_LOW
 	&throtl_sample_time_entry.attr,
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_IO_VOLUME
 	&queue_io_volume_entry.attr,
 #endif
@@ -1133,6 +1145,8 @@ static struct attribute *default_attrs[] = {
 	&queue_tw_on_interval_ms_entry.attr,
 	&queue_tw_off_delay_ms_entry.attr,
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NULL,
 };
 

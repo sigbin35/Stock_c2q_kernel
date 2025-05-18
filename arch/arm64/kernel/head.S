@@ -37,16 +37,22 @@
 #include <asm/pgtable-hwdef.h>
 #include <asm/pgtable.h>
 #include <asm/page.h>
+<<<<<<< HEAD
 #include <asm/scs.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <asm/smp.h>
 #include <asm/sysreg.h>
 #include <asm/thread_info.h>
 #include <asm/virt.h>
 
 #include "efi-header.S"
+<<<<<<< HEAD
 #ifdef CONFIG_CFP_ROPP
 #include <asm/cfp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define __PHYS_OFFSET	(KERNEL_START - TEXT_OFFSET)
 
@@ -93,11 +99,15 @@ _head:
 	le64sym	_kernel_size_le			// Effective size of kernel image, little-endian
 	le64sym	_kernel_flags_le		// Informative flags, little-endian
 	.quad	0				// reserved
+<<<<<<< HEAD
 #ifdef CONFIG_PROCA
 	le64sym	_proca_conf_offset		// memory info for proca ta
 #else
 	.quad	0xecefecef			// Magic number for proca ta
 #endif
+=======
+	.quad	0				// reserved
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.quad	0				// reserved
 	.ascii	"ARM\x64"			// Magic number
 #ifdef CONFIG_EFI
@@ -120,6 +130,7 @@ pe_header:
 	 *  x23        stext() .. start_kernel()  physical misalignment/KASLR offset
 	 *  x28        __create_page_tables()     callee preserved temp register
 	 *  x19/x20    __primary_switch()         callee preserved temp registers
+<<<<<<< HEAD
 	 *  x24        __primary_switch() .. relocate_kernel()
 	 *                                        current RELR displacement
 	 */
@@ -127,6 +138,10 @@ ENTRY(stext)
 #ifdef CONFIG_CFP_ROPP
 	ropp_primary_early_init
 #endif
+=======
+	 */
+ENTRY(stext)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	bl	preserve_boot_args
 	bl	el2_setup			// Drop to EL1, w0=cpu_boot_mode
 	adrp	x23, __PHYS_OFFSET
@@ -150,6 +165,7 @@ preserve_boot_args:
 	mov	x21, x0				// x21=FDT
 
 	adr_l	x0, boot_args			// record the contents of
+<<<<<<< HEAD
 #ifndef CONFIG_RANDOMIZE_BASE
 	stp	x21, x1, [x0]			// x0 .. x3 at kernel entry
 	stp	x2, x3, [x0, #16]
@@ -157,6 +173,10 @@ preserve_boot_args:
 	stp	x21, xzr, [x0]			// x0 .. x3 at kernel entry
 	stp	xzr, xzr, [x0, #16]
 #endif
+=======
+	stp	x21, x1, [x0]			// x0 .. x3 at kernel entry
+	stp	x2, x3, [x0, #16]
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	dmb	sy				// needed before dc ivac with
 						// MMU off
@@ -435,10 +455,13 @@ __primary_switched:
 	stp	xzr, x30, [sp, #-16]!
 	mov	x29, sp
 
+<<<<<<< HEAD
 #ifdef CONFIG_SHADOW_CALL_STACK
 	adr_l	x18, init_shadow_call_stack	// Set shadow call stack
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	str_l	x21, __fdt_pointer, x5		// Save FDT pointer
 
 	ldr_l	x4, kimage_vaddr		// Save the offset between
@@ -689,7 +712,11 @@ ENTRY(__boot_cpu_mode)
  * with MMU turned off.
  */
 ENTRY(__early_cpu_boot_status)
+<<<<<<< HEAD
 	.long 	0
+=======
+	.quad 	0
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	.popsection
 
@@ -742,6 +769,7 @@ __secondary_switched:
 	mov	sp, x1
 	ldr	x2, [x0, #CPU_BOOT_TASK]
 	msr	sp_el0, x2
+<<<<<<< HEAD
 #ifdef CONFIG_CFP_ROPP
 	ropp_secondary_init x2
 #endif
@@ -749,6 +777,8 @@ __secondary_switched:
 	ldr	x18, [x2, #TSK_TI_SCS]		// set shadow call stack
 	str	xzr, [x2, #TSK_TI_SCS]		// limit visibility of saved SCS
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mov	x29, #0
 	mov	x30, #0
 	b	secondary_start_kernel
@@ -859,6 +889,7 @@ __relocate_kernel:
 
 0:	cmp	x9, x10
 	b.hs	1f
+<<<<<<< HEAD
 	ldp	x12, x13, [x9], #24
 	ldr	x14, [x9, #-8]
 	cmp	w13, #R_AARCH64_RELATIVE
@@ -946,6 +977,16 @@ __relocate_kernel:
 #endif
 	ret
 
+=======
+	ldp	x11, x12, [x9], #24
+	ldr	x13, [x9, #-8]
+	cmp	w12, #R_AARCH64_RELATIVE
+	b.ne	0b
+	add	x13, x13, x23			// relocate
+	str	x13, [x11, x23]
+	b	0b
+1:	ret
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 ENDPROC(__relocate_kernel)
 #endif
 
@@ -957,9 +998,12 @@ __primary_switch:
 
 	bl	__enable_mmu
 #ifdef CONFIG_RELOCATABLE
+<<<<<<< HEAD
 #ifdef CONFIG_RELR
 	mov	x24, #0				// no RELR displacement yet
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	bl	__relocate_kernel
 #ifdef CONFIG_RANDOMIZE_BASE
 	ldr	x8, =__primary_switched

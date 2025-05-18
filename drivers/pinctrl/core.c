@@ -1824,6 +1824,7 @@ static int pinctrl_show(struct seq_file *s, void *what)
 }
 DEFINE_SHOW_ATTRIBUTE(pinctrl);
 
+<<<<<<< HEAD
 #ifdef CONFIG_SEC_PM
 static int sec_gpio_debug_show(struct seq_file *s, void *what)
 {
@@ -1877,6 +1878,8 @@ static const struct file_operations sec_gpio_debug_ops = {
 };
 #endif /* CONFIG_SEC_PM */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct dentry *debugfs_root;
 
 static void pinctrl_init_device_debugfs(struct pinctrl_dev *pctldev)
@@ -1938,10 +1941,13 @@ static void pinctrl_init_debugfs(void)
 			    debugfs_root, NULL, &pinctrl_maps_fops);
 	debugfs_create_file("pinctrl-handles", S_IFREG | S_IRUGO,
 			    debugfs_root, NULL, &pinctrl_fops);
+<<<<<<< HEAD
 #ifdef CONFIG_SEC_PM
 	debugfs_create_file("showall", S_IFREG | 0444,
 			    debugfs_root, NULL, &sec_gpio_debug_ops);
 #endif /* CONFIG_SEC_PM */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 #else /* CONFIG_DEBUG_FS */

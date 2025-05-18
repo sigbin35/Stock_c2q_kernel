@@ -37,7 +37,10 @@ config ARM_GIC_V3
 	select GENERIC_IRQ_MULTI_HANDLER
 	select IRQ_DOMAIN_HIERARCHY
 	select PARTITION_PERCPU
+<<<<<<< HEAD
 	select QCOM_SHOW_RESUME_IRQ
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select GENERIC_IRQ_EFFECTIVE_AFF_MASK
 
 config ARM_GIC_V3_ITS
@@ -58,6 +61,7 @@ config ARM_GIC_V3_ITS_FSL_MC
 	depends on FSL_MC_BUS
 	default ARM_GIC_V3_ITS
 
+<<<<<<< HEAD
 config ARM_GIC_V3_ACL
 	bool "GICv3 Access control"
 	depends on ARM_GIC_V3
@@ -67,6 +71,8 @@ config ARM_GIC_V3_ACL
 	  If you wish to enforce the Acces control then set this
 	  option to Y, if you are unsure please say N.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config ARM_NVIC
 	bool
 	select IRQ_DOMAIN
@@ -139,6 +145,7 @@ config BRCMSTB_L2_IRQ
 	select GENERIC_IRQ_CHIP
 	select IRQ_DOMAIN
 
+<<<<<<< HEAD
 config QCOM_SHOW_RESUME_IRQ
 	bool "Enable logging of interrupts that could have caused resume"
 	depends on ARM_GIC
@@ -149,6 +156,8 @@ config QCOM_SHOW_RESUME_IRQ
 	  wake up interrupts that causes system to come out of low power modes.
 	  Say Y if you want to debug why the system resumed.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config DW_APB_ICTL
 	bool
 	select GENERIC_IRQ_CHIP
@@ -391,6 +400,7 @@ config QCOM_PDC
 	  Power Domain Controller driver to manage and configure wakeup
 	  IRQs for Qualcomm Technologies Inc (QTI) mobile chips.
 
+<<<<<<< HEAD
 config QCOM_MPM
 	bool "QCOM MPM"
 	depends on ARCH_QCOM
@@ -402,6 +412,8 @@ config QCOM_MPM
 	  Say yes here to enable the MSM Power Manager interrupt
 	  controller to use as a wakeup interrupt controller.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config SIFIVE_PLIC
 	bool "SiFive Platform-Level Interrupt Controller"
 	depends on RISCV

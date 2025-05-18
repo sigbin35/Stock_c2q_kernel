@@ -1,6 +1,10 @@
 config FANOTIFY
 	bool "Filesystem wide access notification"
 	select FSNOTIFY
+<<<<<<< HEAD
+=======
+	select ANON_INODES
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default n
 	---help---
 	   Say Y here to enable fanotify support.  fanotify is a file access

@@ -28,12 +28,20 @@ struct drmem_lmb_info {
 extern struct drmem_lmb_info *drmem_info;
 
 #define for_each_drmem_lmb_in_range(lmb, start, end)		\
+<<<<<<< HEAD
 	for ((lmb) = (start); (lmb) <= (end); (lmb)++)
+=======
+	for ((lmb) = (start); (lmb) < (end); (lmb)++)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define for_each_drmem_lmb(lmb)					\
 	for_each_drmem_lmb_in_range((lmb),			\
 		&drmem_info->lmbs[0],				\
+<<<<<<< HEAD
 		&drmem_info->lmbs[drmem_info->n_lmbs - 1])
+=======
+		&drmem_info->lmbs[drmem_info->n_lmbs])
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * The of_drconf_cell_v1 struct defines the layout of the LMB data

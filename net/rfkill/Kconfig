@@ -10,11 +10,14 @@ menuconfig RFKILL
 	  To compile this driver as a module, choose M here: the
 	  module will be called rfkill.
 
+<<<<<<< HEAD
 config RFKILL_PM
 	bool "Power off on suspend"
 	depends on RFKILL && PM
 	default y
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # LED trigger support
 config RFKILL_LEDS
 	bool

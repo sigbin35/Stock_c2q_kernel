@@ -282,9 +282,12 @@ static int clk_divider_bestdiv(struct clk_hw *hw, struct clk_hw *parent,
 	unsigned long parent_rate, best = 0, now, maxdiv;
 	unsigned long parent_rate_saved = *best_parent_rate;
 
+<<<<<<< HEAD
 	if (!hw || !parent)
 		return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!rate)
 		rate = 1;
 
@@ -461,7 +464,11 @@ static struct clk_hw *_register_divider(struct device *dev, const char *name,
 {
 	struct clk_divider *div;
 	struct clk_hw *hw;
+<<<<<<< HEAD
 	struct clk_init_data init = {};
+=======
+	struct clk_init_data init;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int ret;
 
 	if (clk_divider_flags & CLK_DIVIDER_HIWORD_MASK) {
@@ -497,7 +504,10 @@ static struct clk_hw *_register_divider(struct device *dev, const char *name,
 	/* register the clock */
 	hw = &div->hw;
 	ret = clk_hw_register(dev, hw);
+<<<<<<< HEAD
 	hw->init = NULL;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret) {
 		kfree(div);
 		hw = ERR_PTR(ret);

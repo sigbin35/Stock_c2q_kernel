@@ -934,6 +934,7 @@ ssize_t iio_write_channel_ext_info(struct iio_channel *chan, const char *attr,
 			       chan->channel, buf, len);
 }
 EXPORT_SYMBOL_GPL(iio_write_channel_ext_info);
+<<<<<<< HEAD
 
 int iio_write_channel_processed(struct iio_channel *chan, int val)
 {
@@ -952,3 +953,5 @@ err_unlock:
 	return ret;
 }
 EXPORT_SYMBOL(iio_write_channel_processed);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

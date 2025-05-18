@@ -8,9 +8,12 @@ struct sk_buff;
 
 /* endpoint node id auto assignment */
 #define QRTR_EP_NID_AUTO (-1)
+<<<<<<< HEAD
 #define QRTR_EP_NET_ID_AUTO (1)
 
 #define QRTR_DEL_PROC_MAGIC	0xe111
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * struct qrtr_endpoint - endpoint handle
@@ -26,12 +29,19 @@ struct qrtr_endpoint {
 	struct qrtr_node *node;
 };
 
+<<<<<<< HEAD
 int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int net_id,
 			   bool rt);
+=======
+int qrtr_endpoint_register(struct qrtr_endpoint *ep, unsigned int nid);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 void qrtr_endpoint_unregister(struct qrtr_endpoint *ep);
 
 int qrtr_endpoint_post(struct qrtr_endpoint *ep, const void *data, size_t len);
 
+<<<<<<< HEAD
 int qrtr_peek_pkt_size(const void *data);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

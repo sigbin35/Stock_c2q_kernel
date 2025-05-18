@@ -2023,10 +2023,17 @@ static vm_fault_t shmem_fault(struct vm_fault *vmf)
 
 	sgp = SGP_CACHE;
 
+<<<<<<< HEAD
 	if ((vmf->vma_flags & VM_NOHUGEPAGE) ||
 	    test_bit(MMF_DISABLE_THP, &vma->vm_mm->flags))
 		sgp = SGP_NOHUGE;
 	else if (vmf->vma_flags & VM_HUGEPAGE)
+=======
+	if ((vma->vm_flags & VM_NOHUGEPAGE) ||
+	    test_bit(MMF_DISABLE_THP, &vma->vm_mm->flags))
+		sgp = SGP_NOHUGE;
+	else if (vma->vm_flags & VM_HUGEPAGE)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		sgp = SGP_HUGE;
 
 	err = shmem_getpage_gfp(inode, vmf->pgoff, &vmf->page, sgp,
@@ -2170,6 +2177,7 @@ out_nomem:
 
 static int shmem_mmap(struct file *file, struct vm_area_struct *vma)
 {
+<<<<<<< HEAD
 	struct shmem_inode_info *info = SHMEM_I(file_inode(file));
 
 	if (info->seals & F_SEAL_FUTURE_WRITE) {
@@ -2188,6 +2196,8 @@ static int shmem_mmap(struct file *file, struct vm_area_struct *vma)
 		vma->vm_flags &= ~(VM_MAYWRITE);
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	file_accessed(file);
 	vma->vm_ops = &shmem_vm_ops;
 	if (IS_ENABLED(CONFIG_TRANSPARENT_HUGE_PAGECACHE) &&
@@ -2441,9 +2451,14 @@ shmem_write_begin(struct file *file, struct address_space *mapping,
 	pgoff_t index = pos >> PAGE_SHIFT;
 
 	/* i_mutex is held by caller */
+<<<<<<< HEAD
 	if (unlikely(info->seals & (F_SEAL_GROW |
 				   F_SEAL_WRITE | F_SEAL_FUTURE_WRITE))) {
 		if (info->seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE))
+=======
+	if (unlikely(info->seals & (F_SEAL_WRITE | F_SEAL_GROW))) {
+		if (info->seals & F_SEAL_WRITE)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			return -EPERM;
 		if ((info->seals & F_SEAL_GROW) && pos + len > inode->i_size)
 			return -EPERM;
@@ -2706,7 +2721,11 @@ static long shmem_fallocate(struct file *file, int mode, loff_t offset,
 		DECLARE_WAIT_QUEUE_HEAD_ONSTACK(shmem_falloc_waitq);
 
 		/* protected by i_mutex */
+<<<<<<< HEAD
 		if (info->seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE)) {
+=======
+		if (info->seals & F_SEAL_WRITE) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			error = -EPERM;
 			goto out;
 		}

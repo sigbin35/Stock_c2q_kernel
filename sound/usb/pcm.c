@@ -35,15 +35,21 @@
 #include "pcm.h"
 #include "clock.h"
 #include "power.h"
+<<<<<<< HEAD
 #ifdef CONFIG_USB_NOTIFY_PROC_LOG
 #include <linux/usb_notify.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define SUBSTREAM_FLAG_DATA_EP_STARTED	0
 #define SUBSTREAM_FLAG_SYNC_EP_STARTED	1
 
+<<<<<<< HEAD
 #define MAX_SETALT_TIMEOUT_MS 1000
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* return the estimated delay based on USB frame counters */
 snd_pcm_uframes_t snd_usb_pcm_delay(struct snd_usb_substream *subs,
 				    unsigned int rate)
@@ -154,6 +160,7 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
 	return found;
 }
 
+<<<<<<< HEAD
 /*
  * find a matching audio format as well as non-zero service interval
  */
@@ -217,6 +224,8 @@ static struct audioformat *find_format_and_si(struct snd_usb_substream *subs,
 	return found;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
 			 struct usb_host_interface *alts,
 			 struct audioformat *fmt)
@@ -591,8 +600,12 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
 	/* close the old interface */
 	if (subs->interface >= 0 && (subs->interface != fmt->iface || subs->need_setup_fmt)) {
 		if (!subs->stream->chip->keep_iface) {
+<<<<<<< HEAD
 			err = usb_set_interface_timeout(subs->dev,
 				subs->interface, 0, MAX_SETALT_TIMEOUT_MS);
+=======
+			err = usb_set_interface(subs->dev, subs->interface, 0);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (err < 0) {
 				dev_err(&dev->dev,
 					"%d:%d: return to setting 0 failed (%d)\n",
@@ -613,8 +626,12 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
 		if (err < 0)
 			return -EIO;
 
+<<<<<<< HEAD
 		err = usb_set_interface_timeout(dev, fmt->iface,
 				fmt->altsetting, MAX_SETALT_TIMEOUT_MS);
+=======
+		err = usb_set_interface(dev, fmt->iface, fmt->altsetting);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (err < 0) {
 			dev_err(&dev->dev,
 				"%d:%d: usb_set_interface failed (%d)\n",
@@ -650,6 +667,7 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
 	return 0;
 }
 
+<<<<<<< HEAD
 static int snd_usb_pcm_change_state(struct snd_usb_substream *subs, int state);
 
 int snd_usb_enable_audio_stream(struct snd_usb_substream *subs,
@@ -745,6 +763,8 @@ int snd_usb_enable_audio_stream(struct snd_usb_substream *subs,
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Return the score of matching two audioformats.
  * Veto the audioformat if:

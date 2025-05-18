@@ -118,7 +118,11 @@ static int ia32_restore_sigcontext(struct pt_regs *regs,
 	return err;
 }
 
+<<<<<<< HEAD
 asmlinkage long sys32_sigreturn(const struct pt_regs *__unused)
+=======
+asmlinkage long sys32_sigreturn(void)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct pt_regs *regs = current_pt_regs();
 	struct sigframe_ia32 __user *frame = (struct sigframe_ia32 __user *)(regs->sp-8);
@@ -144,7 +148,11 @@ badframe:
 	return 0;
 }
 
+<<<<<<< HEAD
 asmlinkage long sys32_rt_sigreturn(const struct pt_regs *__unused)
+=======
+asmlinkage long sys32_rt_sigreturn(void)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct pt_regs *regs = current_pt_regs();
 	struct rt_sigframe_ia32 __user *frame;

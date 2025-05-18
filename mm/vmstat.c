@@ -1117,15 +1117,21 @@ const char * const vmstat_text[] = {
 	"nr_mlock",
 	"nr_page_table_pages",
 	"nr_kernel_stack",
+<<<<<<< HEAD
 #if IS_ENABLED(CONFIG_SHADOW_CALL_STACK)
 	"nr_shadow_call_stack_bytes",
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	"nr_bounce",
 #if IS_ENABLED(CONFIG_ZSMALLOC)
 	"nr_zspages",
 #endif
 	"nr_free_cma",
+<<<<<<< HEAD
 	"nr_free_rbin",
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* enum numa_stat_item counters */
 #ifdef CONFIG_NUMA
@@ -1149,7 +1155,10 @@ const char * const vmstat_text[] = {
 	"nr_isolated_file",
 	"workingset_refault",
 	"workingset_activate",
+<<<<<<< HEAD
 	"workingset_restore",
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	"workingset_nodereclaim",
 	"nr_anon_pages",
 	"nr_mapped",
@@ -1166,12 +1175,16 @@ const char * const vmstat_text[] = {
 	"nr_vmscan_immediate_reclaim",
 	"nr_dirtied",
 	"nr_written",
+<<<<<<< HEAD
 #ifdef CONFIG_KZEROD
 	"zero_page_alloc_total",
 	"zero_page_alloc_prezero",
 #endif
 	"nr_kernel_misc_reclaimable",
 	"nr_unreclaimable_pages",
+=======
+	"", /* nr_indirectly_reclaimable */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* enum writeback_stat_item counters */
 	"nr_dirty_threshold",
@@ -1181,7 +1194,10 @@ const char * const vmstat_text[] = {
 	/* enum vm_event_item counters */
 	"pgpgin",
 	"pgpgout",
+<<<<<<< HEAD
 	"pgpgoutclean",
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	"pswpin",
 	"pswpout",
 
@@ -1266,9 +1282,12 @@ const char * const vmstat_text[] = {
 	"thp_split_page",
 	"thp_split_page_failed",
 	"thp_deferred_split_page",
+<<<<<<< HEAD
 #ifdef CONFIG_HUGEPAGE_POOL
 	"thp_deferred_split_page_current",
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	"thp_split_pmd",
 #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
 	"thp_split_pud",
@@ -1300,6 +1319,7 @@ const char * const vmstat_text[] = {
 	"swap_ra",
 	"swap_ra_hit",
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_SPECULATIVE_PAGE_FAULT
 	"speculative_pgfault_anon",
 	"speculative_pgfault_file",
@@ -1311,6 +1331,9 @@ const char * const vmstat_text[] = {
 	"sqzr_write",
 #endif
 #endif /* CONFIG_VM_EVENT_COUNTERS */
+=======
+#endif /* CONFIG_VM_EVENTS_COUNTERS */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 #endif /* CONFIG_PROC_FS || CONFIG_SYSFS || CONFIG_NUMA */
 
@@ -1729,6 +1752,13 @@ static int vmstat_show(struct seq_file *m, void *arg)
 	unsigned long *l = arg;
 	unsigned long off = l - (unsigned long *)m->private;
 
+<<<<<<< HEAD
+=======
+	/* Skip hidden vmstat items. */
+	if (*vmstat_text[off] == '\0')
+		return 0;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	seq_puts(m, vmstat_text[off]);
 	seq_put_decimal_ull(m, " ", *l);
 	seq_putc(m, '\n');
@@ -1811,7 +1841,11 @@ int vmstat_refresh(struct ctl_table *table, int write,
 
 static void vmstat_update(struct work_struct *w)
 {
+<<<<<<< HEAD
 	if (refresh_cpu_vm_stats(true) && !cpu_isolated(smp_processor_id())) {
+=======
+	if (refresh_cpu_vm_stats(true)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		/*
 		 * Counters were updated so we expect more updates
 		 * to occur in the future. Keep on running the
@@ -1903,8 +1937,12 @@ static void vmstat_shepherd(struct work_struct *w)
 	for_each_online_cpu(cpu) {
 		struct delayed_work *dw = &per_cpu(vmstat_work, cpu);
 
+<<<<<<< HEAD
 		if (!delayed_work_pending(dw) && need_update(cpu) &&
 		     !cpu_isolated(cpu))
+=======
+		if (!delayed_work_pending(dw) && need_update(cpu))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			queue_delayed_work_on(cpu, mm_percpu_wq, dw, 0);
 	}
 	put_online_cpus();

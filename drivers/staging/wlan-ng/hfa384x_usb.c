@@ -3494,6 +3494,11 @@ static void hfa384x_int_rxmonitor(struct wlandevice *wlandev,
 	     WLAN_HDR_A4_LEN + WLAN_DATA_MAXLEN + WLAN_CRC_LEN)) {
 		pr_debug("overlen frm: len=%zd\n",
 			 skblen - sizeof(struct p80211_caphdr));
+<<<<<<< HEAD
+=======
+
+		return;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	skb = dev_alloc_skb(skblen);

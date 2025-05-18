@@ -366,7 +366,11 @@ int mmc_get_ext_csd(struct mmc_card *card, u8 **new_ext_csd)
 	 * As the ext_csd is so large and mostly unused, we don't store the
 	 * raw block in mmc_card.
 	 */
+<<<<<<< HEAD
 	ext_csd = kzalloc(512, GFP_NOIO | __GFP_NOFAIL);
+=======
+	ext_csd = kzalloc(512, GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!ext_csd)
 		return -ENOMEM;
 
@@ -804,7 +808,11 @@ static int mmc_send_hpi_cmd(struct mmc_card *card, u32 *status)
 	unsigned int opcode;
 	int err;
 
+<<<<<<< HEAD
 	if (!card->ext_csd.hpi_en) {
+=======
+	if (!card->ext_csd.hpi) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		pr_warn("%s: Card didn't support HPI command\n",
 			mmc_hostname(card->host));
 		return -EINVAL;
@@ -821,7 +829,11 @@ static int mmc_send_hpi_cmd(struct mmc_card *card, u32 *status)
 
 	err = mmc_wait_for_cmd(card->host, &cmd, 0);
 	if (err) {
+<<<<<<< HEAD
 		pr_debug("%s: error %d interrupting operation. "
+=======
+		pr_warn("%s: error %d interrupting operation. "
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			"HPI command response %#x\n", mmc_hostname(card->host),
 			err, cmd.resp[0]);
 		return err;
@@ -877,6 +889,11 @@ int mmc_interrupt_hpi(struct mmc_card *card)
 	}
 
 	err = mmc_send_hpi_cmd(card, &status);
+<<<<<<< HEAD
+=======
+	if (err)
+		goto out;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	prg_wait = jiffies + msecs_to_jiffies(card->ext_csd.out_of_int_time);
 	do {
@@ -884,6 +901,7 @@ int mmc_interrupt_hpi(struct mmc_card *card)
 
 		if (!err && R1_CURRENT_STATE(status) == R1_STATE_TRAN)
 			break;
+<<<<<<< HEAD
 		if (time_after(jiffies, prg_wait)) {
 			err = mmc_send_status(card, &status);
 			if (!err && R1_CURRENT_STATE(status) != R1_STATE_TRAN)
@@ -891,6 +909,10 @@ int mmc_interrupt_hpi(struct mmc_card *card)
 			else
 				break;
 		}
+=======
+		if (time_after(jiffies, prg_wait))
+			err = -ETIMEDOUT;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} while (!err);
 
 out:
@@ -939,6 +961,7 @@ static int mmc_read_bkops_status(struct mmc_card *card)
 	if (err)
 		return err;
 
+<<<<<<< HEAD
 	card->ext_csd.raw_bkops_status = ext_csd[EXT_CSD_BKOPS_STATUS] &
 						MMC_BKOPS_URGENCY_MASK;
 	card->ext_csd.raw_exception_status =
@@ -947,6 +970,10 @@ static int mmc_read_bkops_status(struct mmc_card *card)
 					 EXT_CSD_DYNCAP_NEEDED |
 					 EXT_CSD_SYSPOOL_EXHAUSTED
 					 | EXT_CSD_PACKED_FAILURE);
+=======
+	card->ext_csd.raw_bkops_status = ext_csd[EXT_CSD_BKOPS_STATUS];
+	card->ext_csd.raw_exception_status = ext_csd[EXT_CSD_EXP_EVENTS_STATUS];
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	kfree(ext_csd);
 	return 0;
 }
@@ -1025,8 +1052,12 @@ int mmc_flush_cache(struct mmc_card *card)
 
 	if (mmc_card_mmc(card) &&
 			(card->ext_csd.cache_size > 0) &&
+<<<<<<< HEAD
 			(card->ext_csd.cache_ctrl & 1) &&
 			(!(card->quirks & MMC_QUIRK_CACHE_DISABLE))) {
+=======
+			(card->ext_csd.cache_ctrl & 1)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		err = mmc_switch(card, EXT_CSD_CMD_SET_NORMAL,
 				EXT_CSD_FLUSH_CACHE, 1, 0);
 		if (err)

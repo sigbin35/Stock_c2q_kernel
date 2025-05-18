@@ -623,14 +623,28 @@ static int convert_to_trace_point(Dwarf_Die *sp_die, Dwfl_Module *mod,
 		return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	/* Try to get actual symbol name from symtab */
 	symbol = dwfl_module_addrsym(mod, paddr, &sym, NULL);
+=======
+	if (dwarf_entrypc(sp_die, &eaddr) == 0) {
+		/* If the DIE has entrypc, use it. */
+		symbol = dwarf_diename(sp_die);
+	} else {
+		/* Try to get actual symbol name and address from symtab */
+		symbol = dwfl_module_addrsym(mod, paddr, &sym, NULL);
+		eaddr = sym.st_value;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!symbol) {
 		pr_warning("Failed to find symbol at 0x%lx\n",
 			   (unsigned long)paddr);
 		return -ENOENT;
 	}
+<<<<<<< HEAD
 	eaddr = sym.st_value;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	tp->offset = (unsigned long)(paddr - eaddr);
 	tp->address = (unsigned long)paddr;

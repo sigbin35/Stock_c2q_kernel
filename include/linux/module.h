@@ -20,9 +20,13 @@
 #include <linux/export.h>
 #include <linux/rbtree_latch.h>
 #include <linux/error-injection.h>
+<<<<<<< HEAD
 #include <linux/cfi.h>
 #include <linux/tracepoint-defs.h>
 #include <linux/cfi.h>
+=======
+#include <linux/tracepoint-defs.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/percpu.h>
 #include <asm/module.h>
@@ -350,10 +354,13 @@ struct module {
 	const s32 *crcs;
 	unsigned int num_syms;
 
+<<<<<<< HEAD
 #ifdef CONFIG_CFI_CLANG
 	cfi_check_fn cfi_check;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Kernel parameters. */
 #ifdef CONFIG_SYSFS
 	struct mutex param_lock;
@@ -378,12 +385,19 @@ struct module {
 	const s32 *unused_gpl_crcs;
 #endif
 
+<<<<<<< HEAD
 	/*
 	 * Signature was verified. Unconditionally compiled in Android to
 	 * preserve ABI compatibility between kernels without module
 	 * signing enabled and signed modules.
 	 */
 	bool sig_ok;
+=======
+#ifdef CONFIG_MODULE_SIG
+	/* Signature was verified. */
+	bool sig_ok;
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	bool async_probe_requested;
 
@@ -691,6 +705,7 @@ static inline bool is_module_text_address(unsigned long addr)
 	return false;
 }
 
+<<<<<<< HEAD
 static inline bool within_module_core(unsigned long addr,
 				      const struct module *mod)
 {
@@ -708,6 +723,8 @@ static inline bool within_module(unsigned long addr, const struct module *mod)
 	return false;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Get/put a kernel symbol (calls should be symmetric) */
 #define symbol_get(x) ({ extern typeof(x) x __attribute__((weak)); &(x); })
 #define symbol_put(x) do { } while (0)

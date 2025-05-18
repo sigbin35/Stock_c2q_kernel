@@ -878,6 +878,10 @@ static int writecache_alloc_entries(struct dm_writecache *wc)
 		struct wc_entry *e = &wc->entries[b];
 		e->index = b;
 		e->write_in_progress = false;
+<<<<<<< HEAD
+=======
+		cond_resched();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return 0;
@@ -932,6 +936,10 @@ static void writecache_resume(struct dm_target *ti)
 			e->original_sector = le64_to_cpu(wme.original_sector);
 			e->seq_count = le64_to_cpu(wme.seq_count);
 		}
+<<<<<<< HEAD
+=======
+		cond_resched();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 #endif
 	for (b = 0; b < wc->n_blocks; b++) {
@@ -1764,8 +1772,15 @@ static int init_memory(struct dm_writecache *wc)
 	pmem_assign(sb(wc)->n_blocks, cpu_to_le64(wc->n_blocks));
 	pmem_assign(sb(wc)->seq_count, cpu_to_le64(0));
 
+<<<<<<< HEAD
 	for (b = 0; b < wc->n_blocks; b++)
 		write_original_sector_seq_count(wc, &wc->entries[b], -1, -1);
+=======
+	for (b = 0; b < wc->n_blocks; b++) {
+		write_original_sector_seq_count(wc, &wc->entries[b], -1, -1);
+		cond_resched();
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	writecache_flush_all_metadata(wc);
 	writecache_commit_flushed(wc, false);

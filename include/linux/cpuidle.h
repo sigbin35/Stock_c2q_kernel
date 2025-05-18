@@ -220,7 +220,11 @@ static inline void cpuidle_use_deepest_state(bool enable)
 #endif
 
 /* kernel/sched/idle.c */
+<<<<<<< HEAD
 extern void sched_idle_set_state(struct cpuidle_state *idle_state, int index);
+=======
+extern void sched_idle_set_state(struct cpuidle_state *idle_state);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void default_idle_call(void);
 
 #ifdef CONFIG_ARCH_NEEDS_CPU_IDLE_COUPLED

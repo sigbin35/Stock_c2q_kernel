@@ -184,6 +184,7 @@ static inline void list_move_tail(struct list_head *list,
 }
 
 /**
+<<<<<<< HEAD
  * list_is_first -- tests whether @list is the first entry in list @head
  * @list: the entry to test
  * @head: the head of the list
@@ -195,6 +196,8 @@ static inline int list_is_first(const struct list_head *list,
 }
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * list_is_last - tests whether @list is the last entry in list @head
  * @list: the entry to test
  * @head: the head of the list

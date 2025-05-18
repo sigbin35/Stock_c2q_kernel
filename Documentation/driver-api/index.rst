@@ -32,7 +32,10 @@ available subsections can be seen below.
    pci
    spi
    i2c
+<<<<<<< HEAD
    i3c/index
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
    hsi
    edac
    scsi

@@ -84,9 +84,12 @@
 extern phys_addr_t arm64_dma_phys_limit;
 #define ARCH_LOW_ADDRESS_LIMIT	(arm64_dma_phys_limit - 1)
 
+<<<<<<< HEAD
 extern unsigned int boot_reason;
 extern unsigned int cold_boot;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct debug_info {
 #ifdef CONFIG_HAVE_HW_BREAKPOINT
 	/* Have we suspended stepping by a debugger? */
@@ -294,6 +297,7 @@ extern void __init minsigstksz_setup(void);
 #define SVE_SET_VL(arg)	sve_set_current_vl(arg)
 #define SVE_GET_VL()	sve_get_current_vl()
 
+<<<<<<< HEAD
 #ifdef CONFIG_ARM64_TAGGED_ADDR_ABI
 /* PR_{SET,GET}_TAGGED_ADDR_CTRL prctl */
 long set_tagged_addr_ctrl(unsigned long arg);
@@ -302,6 +306,8 @@ long get_tagged_addr_ctrl(void);
 #define GET_TAGGED_ADDR_CTRL()		get_tagged_addr_ctrl()
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * For CONFIG_GCC_PLUGIN_STACKLEAK
  *

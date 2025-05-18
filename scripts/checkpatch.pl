@@ -15,6 +15,7 @@ use Cwd 'abs_path';
 use Term::ANSIColor qw(:constants);
 use Encode qw(decode encode);
 
+<<<<<<< HEAD
 use constant BEFORE_SHORTTEXT => 0;
 use constant IN_SHORTTEXT_BLANKLINE => 1;
 use constant IN_SHORTTEXT => 2;
@@ -22,6 +23,8 @@ use constant AFTER_SHORTTEXT => 3;
 use constant CHECK_NEXT_SHORTTEXT => 4;
 use constant SHORTTEXT_LIMIT => 75;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 my $P = $0;
 my $D = dirname(abs_path($P));
 
@@ -475,7 +478,10 @@ our $logFunctions = qr{(?x:
 
 our $signature_tags = qr{(?xi:
 	Signed-off-by:|
+<<<<<<< HEAD
 	Co-developed-by:|
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	Acked-by:|
 	Tested-by:|
 	Reviewed-by:|
@@ -2211,6 +2217,7 @@ sub tabify {
 	return "$leading";
 }
 
+<<<<<<< HEAD
 sub cleanup_continuation_headers {
 	# Collapse any header-continuation lines into a single line so they
 	# can be parsed meaningfully, as the parser only has one line
@@ -2238,6 +2245,8 @@ sub cleanup_continuation_headers {
 	} while ($again);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 sub pos_last_openparen {
 	my ($line) = @_;
 
@@ -2276,8 +2285,11 @@ sub process {
 	my $prevrawline="";
 	my $stashline="";
 	my $stashrawline="";
+<<<<<<< HEAD
 	my $subjectline="";
 	my $sublinenr="";
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	my $length;
 	my $indent;
@@ -2337,16 +2349,23 @@ sub process {
 	my $setup_docs = 0;
 
 	my $camelcase_file_seeded = 0;
+<<<<<<< HEAD
 	my $shorttext = BEFORE_SHORTTEXT;
 	my $shorttext_exspc = 0;
 	my $commit_text_present = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	my $checklicenseline = 1;
 
 	sanitise_line_reset();
+<<<<<<< HEAD
 	cleanup_continuation_headers();
 	my $line;
 
+=======
+	my $line;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	foreach my $rawline (@rawlines) {
 		$linenr++;
 		$line = $rawline;
@@ -2560,12 +2579,17 @@ sub process {
 
 			next;
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		$here .= "FILE: $realfile:$realline:" if ($realcnt != 0);
 
 		my $hereline = "$here\n$rawline\n";
 		my $herecurr = "$here\n$rawline\n";
 		my $hereprev = "$here\n$prevrawline\n$rawline\n";
 
+<<<<<<< HEAD
 		if ($shorttext != AFTER_SHORTTEXT) {
 			if ($shorttext == IN_SHORTTEXT_BLANKLINE && $line=~/\S/) {
 				# the subject line was just processed,
@@ -2660,6 +2684,8 @@ sub process {
 			}
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		$cnt_lines++ if ($realcnt != 0);
 
 # Verify the existence of a commit log if appropriate
@@ -2784,7 +2810,11 @@ sub process {
 			$sig_nospace =~ s/\s//g;
 			$sig_nospace = lc($sig_nospace);
 			if (defined $signatures{$sig_nospace}) {
+<<<<<<< HEAD
 				WARN("DUPLICATE_SIGN_OFF",
+=======
+				WARN("BAD_SIGN_OFF",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				     "Duplicate signature\n" . $herecurr);
 			} else {
 				$signatures{$sig_nospace} = 1;
@@ -2817,7 +2847,11 @@ sub process {
 # Check for line lengths > 75 in commit log, warn once
 		if ($in_commit_log && !$commit_log_long_line &&
 		    length($line) > 75 &&
+<<<<<<< HEAD
 		    !($line =~ /^\s*[a-zA-Z0-9_\/\.\-\,]+\s+\|\s+\d+/ ||
+=======
+		    !($line =~ /^\s*[a-zA-Z0-9_\/\.]+\s+\|\s+\d+/ ||
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					# file delta changes
 		      $line =~ /^\s*(?:[\w\.\-]+\/)++[\w\.\-]+:/ ||
 					# filename then :
@@ -3118,7 +3152,11 @@ sub process {
 				$compat2 =~ s/\,[a-zA-Z0-9]*\-/\,<\.\*>\-/;
 				my $compat3 = $compat;
 				$compat3 =~ s/\,([a-z]*)[0-9]*\-/\,$1<\.\*>\-/;
+<<<<<<< HEAD
 				`grep -ERq "$compat|$compat2|$compat3" $dt_path`;
+=======
+				`grep -Erq "$compat|$compat2|$compat3" $dt_path`;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				if ( $? >> 8 ) {
 					WARN("UNDOCUMENTED_DT_STRING",
 					     "DT compatible string \"$compat\" appears un-documented -- check $dt_path\n" . $herecurr);
@@ -3209,10 +3247,13 @@ sub process {
 			} elsif ($rawline =~ /^\+.*\b[a-z][\w\.\+\-]*:\/\/\S+/i) {
 				$msg_type = "";
 
+<<<<<<< HEAD
 			# Long copyright statements are another special case
 			} elsif ($rawline =~ /^\+.\*.*copyright.*\(c\).*$/i) {
 				$msg_type = "";
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			# Otherwise set the alternate message types
 
 			# a comment starts before $max_line_length
@@ -4752,7 +4793,11 @@ sub process {
 
 # check spacing on parentheses
 		if ($line =~ /\(\s/ && $line !~ /\(\s*(?:\\)?$/ &&
+<<<<<<< HEAD
 		    $line !~ /for\s*\(\s+;/ && $line !~ /^\+\s*[A-Z_][A-Z\d_]*\(\s*\d+(\,.*)?\)\,?$/) {
+=======
+		    $line !~ /for\s*\(\s+;/) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (ERROR("SPACING",
 				  "space prohibited after that open parenthesis '('\n" . $herecurr) &&
 			    $fix) {
@@ -5149,7 +5194,11 @@ sub process {
 		if ($realfile !~ m@/vmlinux.lds.h$@ &&
 		    $line =~ /^.\s*\#\s*define\s*$Ident(\()?/) {
 			my $ln = $linenr;
+<<<<<<< HEAD
 			my $cnt = $realcnt - 1;
+=======
+			my $cnt = $realcnt;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			my ($off, $dstat, $dcond, $rest);
 			my $ctx = '';
 			my $has_flow_statement = 0;
@@ -5187,12 +5236,15 @@ sub process {
 			{
 			}
 
+<<<<<<< HEAD
 			# Extremely long macros may fall off the end of the
 			# available context without closing.  Give a dangling
 			# backslash the benefit of the doubt and allow it
 			# to gobble any hanging open-parens.
 			$dstat =~ s/\(.+\\$/1/;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			# Flatten any obvious string concatentation.
 			while ($dstat =~ s/($String)\s*$Ident/$1/ ||
 			       $dstat =~ s/$Ident\s*($String)/$1/)
@@ -5208,7 +5260,10 @@ sub process {
 				MODULE_PARM_DESC|
 				DECLARE_PER_CPU|
 				DEFINE_PER_CPU|
+<<<<<<< HEAD
 				CLK_[A-Z\d_]+|
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				__typeof__\(|
 				union|
 				struct|
@@ -5615,6 +5670,7 @@ sub process {
 			     "Avoid line continuations in quoted strings\n" . $herecurr);
 		}
 
+<<<<<<< HEAD
 # sys_open/read/write/close are not allowed in the kernel
 		if ($line =~ /\b(sys_(?:open|read|write|close))\b/) {
 			ERROR("FILE_OPS",
@@ -5676,6 +5732,8 @@ sub process {
 			}
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # warn about #if 0
 		if ($line =~ /^.\s*\#\s*if\s+0\b/) {
 			WARN("IF_0",
@@ -5881,12 +5939,15 @@ sub process {
 			     "Comparing get_jiffies_64() is almost always wrong; prefer time_after64, time_before64 and friends\n" . $herecurr);
 		}
 
+<<<<<<< HEAD
 # check the patch for use of mdelay
 		if ($line =~ /\bmdelay\s*\(/) {
 			WARN("MDELAY",
 			     "use of mdelay() found: msleep() is the preferred API.\n" . $herecurr );
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # warn about #ifdefs in C files
 #		if ($line =~ /^.\s*\#\s*if(|n)def/ && ($realfile =~ /\.c$/)) {
 #			print "#ifdef in C files should be avoided\n";
@@ -6513,12 +6574,15 @@ sub process {
 			     "switch default: should use break\n" . $herectx);
 		}
 
+<<<<<<< HEAD
 # check for return codes on error paths
 		if ($line =~ /\breturn\s+-\d+/) {
 			ERROR("NO_ERROR_CODE",
 			      "illegal return value, please use an error code\n" . $herecurr);
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # check for gcc specific __FUNCTION__
 		if ($line =~ /\b__FUNCTION__\b/) {
 			if (WARN("USE_FUNC",

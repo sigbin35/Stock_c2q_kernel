@@ -555,6 +555,11 @@ static void domain_add_cpu(int cpu, struct rdt_resource *r)
 	d->id = id;
 	cpumask_set_cpu(cpu, &d->cpu_mask);
 
+<<<<<<< HEAD
+=======
+	rdt_domain_reconfigure_cdp(r);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (r->alloc_capable && domain_setup_ctrlval(r, d)) {
 		kfree(d);
 		return;

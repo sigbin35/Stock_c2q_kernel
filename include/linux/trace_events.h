@@ -9,7 +9,10 @@
 #include <linux/hardirq.h>
 #include <linux/perf_event.h>
 #include <linux/tracepoint.h>
+<<<<<<< HEAD
 #include <linux/coresight-stm.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct trace_array;
 struct trace_buffer;
@@ -217,8 +220,12 @@ void *trace_event_buffer_reserve(struct trace_event_buffer *fbuffer,
 				  struct trace_event_file *trace_file,
 				  unsigned long len);
 
+<<<<<<< HEAD
 void trace_event_buffer_commit(struct trace_event_buffer *fbuffer,
 			       unsigned long len);
+=======
+void trace_event_buffer_commit(struct trace_event_buffer *fbuffer);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 enum {
 	TRACE_EVENT_FL_FILTERED_BIT,

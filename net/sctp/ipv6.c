@@ -240,7 +240,12 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 {
 	struct sctp_association *asoc = t->asoc;
 	struct dst_entry *dst = NULL;
+<<<<<<< HEAD
 	struct flowi6 *fl6 = &fl->u.ip6;
+=======
+	struct flowi _fl;
+	struct flowi6 *fl6 = &_fl.u.ip6;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sctp_bind_addr *bp;
 	struct ipv6_pinfo *np = inet6_sk(sk);
 	struct sctp_sockaddr_entry *laddr;
@@ -250,7 +255,11 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 	enum sctp_scope scope;
 	__u8 matchlen = 0;
 
+<<<<<<< HEAD
 	memset(fl6, 0, sizeof(struct flowi6));
+=======
+	memset(&_fl, 0, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	fl6->daddr = daddr->v6.sin6_addr;
 	fl6->fl6_dport = daddr->v6.sin6_port;
 	fl6->flowi6_proto = IPPROTO_SCTP;
@@ -288,8 +297,16 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 	rcu_read_unlock();
 
 	dst = ip6_dst_lookup_flow(sk, fl6, final_p);
+<<<<<<< HEAD
 	if (!asoc || saddr)
 		goto out;
+=======
+	if (!asoc || saddr) {
+		t->dst = dst;
+		memcpy(fl, &_fl, sizeof(_fl));
+		goto out;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	bp = &asoc->base.bind_addr;
 	scope = sctp_scope(daddr);
@@ -312,6 +329,11 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 			if ((laddr->a.sa.sa_family == AF_INET6) &&
 			    (sctp_v6_cmp_addr(&dst_saddr, &laddr->a))) {
 				rcu_read_unlock();
+<<<<<<< HEAD
+=======
+				t->dst = dst;
+				memcpy(fl, &_fl, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				goto out;
 			}
 		}
@@ -350,6 +372,11 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 			if (!IS_ERR_OR_NULL(dst))
 				dst_release(dst);
 			dst = bdst;
+<<<<<<< HEAD
+=======
+			t->dst = dst;
+			memcpy(fl, &_fl, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			break;
 		}
 
@@ -363,6 +390,11 @@ static void sctp_v6_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 			dst_release(dst);
 		dst = bdst;
 		matchlen = bmatchlen;
+<<<<<<< HEAD
+=======
+		t->dst = dst;
+		memcpy(fl, &_fl, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	rcu_read_unlock();
 
@@ -371,6 +403,7 @@ out:
 		struct rt6_info *rt;
 
 		rt = (struct rt6_info *)dst;
+<<<<<<< HEAD
 		t->dst = dst;
 		t->dst_cookie = rt6_get_cookie(rt);
 		pr_debug("rt6_dst:%pI6/%d rt6_src:%pI6\n",
@@ -379,6 +412,14 @@ out:
 	} else {
 		t->dst = NULL;
 
+=======
+		t->dst_cookie = rt6_get_cookie(rt);
+		pr_debug("rt6_dst:%pI6/%d rt6_src:%pI6\n",
+			 &rt->rt6i_dst.addr, rt->rt6i_dst.plen,
+			 &fl->u.ip6.saddr);
+	} else {
+		t->dst = NULL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		pr_debug("no route\n");
 	}
 }
@@ -534,6 +575,7 @@ static void sctp_v6_to_sk_daddr(union sctp_addr *addr, struct sock *sk)
 }
 
 /* Initialize a sctp_addr from an address parameter. */
+<<<<<<< HEAD
 static bool sctp_v6_from_addr_param(union sctp_addr *addr,
 				    union sctp_addr_param *param,
 				    __be16 port, int iif)
@@ -541,13 +583,22 @@ static bool sctp_v6_from_addr_param(union sctp_addr *addr,
 	if (ntohs(param->v6.param_hdr.length) < sizeof(struct sctp_ipv6addr_param))
 		return false;
 
+=======
+static void sctp_v6_from_addr_param(union sctp_addr *addr,
+				    union sctp_addr_param *param,
+				    __be16 port, int iif)
+{
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	addr->v6.sin6_family = AF_INET6;
 	addr->v6.sin6_port = port;
 	addr->v6.sin6_flowinfo = 0; /* BUG */
 	addr->v6.sin6_addr = param->v6.addr;
 	addr->v6.sin6_scope_id = iif;
+<<<<<<< HEAD
 
 	return true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /* Initialize an address parameter from a sctp_addr and return the length

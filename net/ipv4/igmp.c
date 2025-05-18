@@ -2735,7 +2735,10 @@ int ip_check_mc_rcu(struct in_device *in_dev, __be32 mc_addr, __be32 src_addr, u
 		rv = 1;
 	} else if (im) {
 		if (src_addr) {
+<<<<<<< HEAD
 			spin_lock_bh(&im->lock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			for (psf = im->sources; psf; psf = psf->sf_next) {
 				if (psf->sf_inaddr == src_addr)
 					break;
@@ -2746,7 +2749,10 @@ int ip_check_mc_rcu(struct in_device *in_dev, __be32 mc_addr, __be32 src_addr, u
 					im->sfcount[MCAST_EXCLUDE];
 			else
 				rv = im->sfcount[MCAST_EXCLUDE] != 0;
+<<<<<<< HEAD
 			spin_unlock_bh(&im->lock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		} else
 			rv = 1; /* unspecified source; tentatively allow */
 	}

@@ -2858,12 +2858,24 @@ static int its_vpe_set_irqchip_state(struct irq_data *d,
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+static int its_vpe_retrigger(struct irq_data *d)
+{
+	return !its_vpe_set_irqchip_state(d, IRQCHIP_STATE_PENDING, true);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct irq_chip its_vpe_irq_chip = {
 	.name			= "GICv4-vpe",
 	.irq_mask		= its_vpe_mask_irq,
 	.irq_unmask		= its_vpe_unmask_irq,
 	.irq_eoi		= irq_chip_eoi_parent,
 	.irq_set_affinity	= its_vpe_set_affinity,
+<<<<<<< HEAD
+=======
+	.irq_retrigger		= its_vpe_retrigger,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.irq_set_irqchip_state	= its_vpe_set_irqchip_state,
 	.irq_set_vcpu_affinity	= its_vpe_set_vcpu_affinity,
 };

@@ -371,6 +371,7 @@ int u_audio_start_capture(struct g_audio *audio_dev)
 	struct usb_ep *ep;
 	struct uac_rtd_params *prm;
 	struct uac_params *params = &audio_dev->params;
+<<<<<<< HEAD
 	int req_len, i, ret;
 
 	ep = audio_dev->out_ep;
@@ -379,6 +380,13 @@ int u_audio_start_capture(struct g_audio *audio_dev)
 	if (ret)
 		return ret;
 
+=======
+	int req_len, i;
+
+	ep = audio_dev->out_ep;
+	prm = &uac->c_prm;
+	config_ep_by_speed(gadget, &audio_dev->func, ep);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	req_len = prm->max_psize;
 
 	prm->ep_enabled = true;
@@ -427,6 +435,7 @@ int u_audio_start_playback(struct g_audio *audio_dev)
 	struct uac_params *params = &audio_dev->params;
 	unsigned int factor, rate;
 	const struct usb_endpoint_descriptor *ep_desc;
+<<<<<<< HEAD
 	int req_len, i, ret;
 
 	ep = audio_dev->in_ep;
@@ -434,6 +443,13 @@ int u_audio_start_playback(struct g_audio *audio_dev)
 	ret = config_ep_by_speed(gadget, &audio_dev->func, ep);
 	if (ret)
 		return ret;
+=======
+	int req_len, i;
+
+	ep = audio_dev->in_ep;
+	prm = &uac->p_prm;
+	config_ep_by_speed(gadget, &audio_dev->func, ep);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	ep_desc = ep->desc;
 

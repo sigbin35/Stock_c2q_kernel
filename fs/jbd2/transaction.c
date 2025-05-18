@@ -1903,7 +1903,11 @@ static void __jbd2_journal_temp_unlink_buffer(struct journal_head *jh)
 	if (transaction && is_journal_aborted(transaction->t_journal))
 		clear_buffer_jbddirty(bh);
 	else if (test_clear_buffer_jbddirty(bh))
+<<<<<<< HEAD
 		mark_buffer_dirty_sync(bh);	/* Expose it to the VM */
+=======
+		mark_buffer_dirty(bh);	/* Expose it to the VM */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*

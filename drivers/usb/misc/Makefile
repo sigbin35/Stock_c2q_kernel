@@ -30,4 +30,7 @@ obj-$(CONFIG_USB_CHAOSKEY)		+= chaoskey.o
 
 obj-$(CONFIG_USB_SISUSBVGA)		+= sisusbvga/
 obj-$(CONFIG_USB_LINK_LAYER_TEST)	+= lvstest.o
+<<<<<<< HEAD
 obj-$(CONFIG_USB_REDRIVER_NB7VPQ904M)	+= ssusb-redriver-nb7vpq904m.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

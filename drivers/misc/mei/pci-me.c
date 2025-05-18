@@ -118,6 +118,11 @@ static const struct pci_device_id mei_me_pci_tbl[] = {
 	{MEI_PCI_DEVICE(MEI_DEV_ID_MCC, MEI_ME_PCH12_CFG)},
 	{MEI_PCI_DEVICE(MEI_DEV_ID_MCC_4, MEI_ME_PCH8_CFG)},
 
+<<<<<<< HEAD
+=======
+	{MEI_PCI_DEVICE(MEI_DEV_ID_CDF, MEI_ME_PCH8_CFG)},
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* required last entry */
 	{0, }
 };

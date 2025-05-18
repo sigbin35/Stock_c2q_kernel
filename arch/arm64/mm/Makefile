@@ -1,5 +1,8 @@
 # SPDX-License-Identifier: GPL-2.0
+<<<<<<< HEAD
 subdir-ccflags-y := -Wformat
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-y				:= dma-mapping.o extable.o fault.o init.o \
 				   cache.o copypage.o flush.o \
 				   ioremap.o mmap.o pgd.o mmu.o \

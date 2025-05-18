@@ -457,10 +457,13 @@ static int ext4_file_open(struct inode * inode, struct file * filp)
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	ret = fsverity_file_open(inode, filp);
 	if (ret)
 		return ret;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Set up the jbd2_inode if we are opening the inode for
 	 * writing and the journal is present

@@ -6,6 +6,10 @@
 virtio-gpu-y := virtgpu_drv.o virtgpu_kms.o virtgpu_drm_bus.o virtgpu_gem.o \
 	virtgpu_fb.o virtgpu_display.o virtgpu_vq.o virtgpu_ttm.o \
 	virtgpu_fence.o virtgpu_object.o virtgpu_debugfs.o virtgpu_plane.o \
+<<<<<<< HEAD
 	virtgpu_ioctl.o virtgpu_prime.o virtgpu_trace_points.o
+=======
+	virtgpu_ioctl.o virtgpu_prime.o
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 obj-$(CONFIG_DRM_VIRTIO_GPU) += virtio-gpu.o

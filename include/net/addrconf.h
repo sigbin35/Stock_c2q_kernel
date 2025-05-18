@@ -25,7 +25,10 @@
 
 #include <linux/in.h>
 #include <linux/in6.h>
+<<<<<<< HEAD
 #include <linux/netlog.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct prefix_info {
 	__u8			type;
@@ -297,6 +300,7 @@ static inline bool ipv6_is_mld(struct sk_buff *skb, int nexthdr, int offset)
 void addrconf_prefix_rcv(struct net_device *dev,
 			 u8 *opt, int len, bool sllao);
 
+<<<<<<< HEAD
 /* Determines into what table to put autoconf PIO/RIO/default routes
  * learned on this device.
  *
@@ -309,6 +313,8 @@ void addrconf_prefix_rcv(struct net_device *dev,
  */
 u32 addrconf_rt_table(const struct net_device *dev, u32 default_table);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  *	anycast prototypes (anycast.c)
  */
@@ -378,6 +384,7 @@ static inline struct inet6_dev *in6_dev_get(const struct net_device *dev)
 
 	rcu_read_lock();
 	idev = rcu_dereference(dev->ip6_ptr);
+<<<<<<< HEAD
 	if (idev) {
 		refcount_inc(&idev->refcnt);
 		net_log("%s(): dev: %s, inet refcnt: %u, %pS -> %pS -> %pS\n",
@@ -387,6 +394,11 @@ static inline struct inet6_dev *in6_dev_get(const struct net_device *dev)
 			__builtin_return_address(0));
 	}
 rcu_read_unlock();
+=======
+	if (idev)
+		refcount_inc(&idev->refcnt);
+	rcu_read_unlock();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return idev;
 }
 
@@ -401,6 +413,7 @@ void in6_dev_finish_destroy(struct inet6_dev *idev);
 
 static inline void in6_dev_put(struct inet6_dev *idev)
 {
+<<<<<<< HEAD
 	if (!refcount_read(&idev->refcnt)) {
 		net_log("%s(): dev: %s, refcnt is already 0(%u) force return, %pS() -> %pS() -> %pS()\n",
 			__func__, idev->dev->name, refcount_read(&idev->refcnt),
@@ -419,6 +432,10 @@ static inline void in6_dev_put(struct inet6_dev *idev)
 		net_log("%s(): freeing inet dev for %s\n", __func__, idev->dev->name);
 		in6_dev_finish_destroy(idev);
 	}
+=======
+	if (refcount_dec_and_test(&idev->refcnt))
+		in6_dev_finish_destroy(idev);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void in6_dev_put_clear(struct inet6_dev **pidev)
@@ -434,21 +451,27 @@ static inline void in6_dev_put_clear(struct inet6_dev **pidev)
 static inline void __in6_dev_put(struct inet6_dev *idev)
 {
 	refcount_dec(&idev->refcnt);
+<<<<<<< HEAD
 	net_log("%s(): dev: %s, inet refcnt: %u, %pS() -> %pS -> %pS()\n",
 		__func__, idev->dev->name, refcount_read(&idev->refcnt),
 		__builtin_return_address(2),
 		__builtin_return_address(1),
 		__builtin_return_address(0));
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void in6_dev_hold(struct inet6_dev *idev)
 {
 	refcount_inc(&idev->refcnt);
+<<<<<<< HEAD
 	net_log("%s(): dev: %s, inet refcnt: %u, %pS() -> %pS -> %pS()\n",
 		__func__, idev->dev->name, refcount_read(&idev->refcnt),
 		__builtin_return_address(2),
 		__builtin_return_address(1),
 		__builtin_return_address(0));
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 void inet6_ifa_finish_destroy(struct inet6_ifaddr *ifp);

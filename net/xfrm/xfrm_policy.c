@@ -309,7 +309,13 @@ EXPORT_SYMBOL(xfrm_policy_destroy);
 
 static void xfrm_policy_kill(struct xfrm_policy *policy)
 {
+<<<<<<< HEAD
 	policy->walk.dead = 1;
+=======
+	write_lock_bh(&policy->lock);
+	policy->walk.dead = 1;
+	write_unlock_bh(&policy->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	atomic_inc(&policy->genid);
 
@@ -2562,10 +2568,22 @@ static void xfrm_link_failure(struct sk_buff *skb)
 	/* Impossible. Such dst must be popped before reaches point of failure. */
 }
 
+<<<<<<< HEAD
 static void xfrm_negative_advice(struct sock *sk, struct dst_entry *dst)
 {
 	if (dst->obsolete)
 		sk_dst_reset(sk);
+=======
+static struct dst_entry *xfrm_negative_advice(struct dst_entry *dst)
+{
+	if (dst) {
+		if (dst->obsolete) {
+			dst_release(dst);
+			dst = NULL;
+		}
+	}
+	return dst;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void xfrm_init_pmtu(struct xfrm_dst **bundle, int nr)
@@ -2960,8 +2978,12 @@ void __init xfrm_init(void)
 	synchronize_rcu();
 }
 
+<<<<<<< HEAD
 // [ SEC_SELINUX_PORTING_COMMON - remove AUDIT_MAC_IPSEC_EVENT audit log, it conflict with security notification
 #if 0 //#ifdef CONFIG_AUDITSYSCALL
+=======
+#ifdef CONFIG_AUDITSYSCALL
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void xfrm_audit_common_policyinfo(struct xfrm_policy *xp,
 					 struct audit_buffer *audit_buf)
 {
@@ -3025,7 +3047,10 @@ void xfrm_audit_policy_delete(struct xfrm_policy *xp, int result,
 }
 EXPORT_SYMBOL_GPL(xfrm_audit_policy_delete);
 #endif
+<<<<<<< HEAD
 // ] SEC_SELINUX_PORTING_COMMON - remove AUDIT_MAC_IPSEC_EVENT audit log, it conflict with security notification
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_XFRM_MIGRATE
 static bool xfrm_migrate_selector_match(const struct xfrm_selector *sel_cmp,

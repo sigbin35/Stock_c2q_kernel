@@ -224,6 +224,7 @@ int __order_base_2(unsigned long n)
 		ilog2((n) - 1) + 1) :		\
 	__order_base_2(n)			\
 )
+<<<<<<< HEAD
 
 static inline __attribute__((const))
 int __bits_per(unsigned long n)
@@ -258,4 +259,6 @@ int __bits_per(unsigned long n)
 	) :					\
 	__bits_per(n)				\
 )
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _LINUX_LOG2_H */

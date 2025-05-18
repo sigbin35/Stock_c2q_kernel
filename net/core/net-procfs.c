@@ -159,12 +159,21 @@ static int softnet_seq_show(struct seq_file *seq, void *v)
 	rcu_read_unlock();
 #endif
 
+<<<<<<< HEAD
 	seq_printf
 	(seq, "%08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x\n",
 	 sd->processed, sd->dropped, sd->time_squeeze, 0,
 	 0, 0, 0, 0, /* was fastroute */
 	 0, /* was cpu_collision */
 	 sd->received_rps, flow_limit_count, sd->gro_coalesced);
+=======
+	seq_printf(seq,
+		   "%08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x\n",
+		   sd->processed, sd->dropped, sd->time_squeeze, 0,
+		   0, 0, 0, 0, /* was fastroute */
+		   0,	/* was cpu_collision */
+		   sd->received_rps, flow_limit_count);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 

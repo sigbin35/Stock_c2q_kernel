@@ -58,8 +58,11 @@ static char *slots[SNDRV_CARDS];
 module_param_array(slots, charp, NULL, 0444);
 MODULE_PARM_DESC(slots, "Module names assigned to the slots.");
 
+<<<<<<< HEAD
 #define SND_CARD_STATE_MAX_LEN 16
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* return non-zero if the given index is reserved for the given
  * module via slots option
  */
@@ -109,6 +112,7 @@ static void snd_card_id_read(struct snd_info_entry *entry,
 	snd_iprintf(buffer, "%s\n", entry->card->id);
 }
 
+<<<<<<< HEAD
 static ssize_t snd_card_state_read(struct snd_info_entry *entry,
 			       void *file_private_data, struct file *file,
 			       char __user *buf, size_t count, loff_t pos)
@@ -142,6 +146,11 @@ static struct snd_info_entry_ops snd_card_state_proc_ops = {
 static int init_info_for_card(struct snd_card *card)
 {
 	struct snd_info_entry *entry, *entry_state;
+=======
+static int init_info_for_card(struct snd_card *card)
+{
+	struct snd_info_entry *entry;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	entry = snd_info_create_card_entry(card, "id", card->proc_root);
 	if (!entry) {
@@ -151,6 +160,7 @@ static int init_info_for_card(struct snd_card *card)
 	entry->c.text.read = snd_card_id_read;
 	card->proc_id = entry;
 
+<<<<<<< HEAD
 	entry_state = snd_info_create_card_entry(card, "state",
 						 card->proc_root);
 	if (!entry_state) {
@@ -162,6 +172,8 @@ static int init_info_for_card(struct snd_card *card)
 	entry_state->content = SNDRV_INFO_CONTENT_DATA;
 	entry_state->c.ops = &snd_card_state_proc_ops;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return snd_info_card_register(card);
 }
 #else /* !CONFIG_SND_PROC_FS */
@@ -224,6 +236,7 @@ static void release_card_device(struct device *dev)
 	snd_card_do_free(dev_to_snd_card(dev));
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_AUDIO_ENHANCED_DETECT_TIME
 int get_next_snd_card_number(struct module *module)
 {
@@ -236,6 +249,8 @@ int get_next_snd_card_number(struct module *module)
 EXPORT_SYMBOL_GPL(get_next_snd_card_number);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  *  snd_card_new - create and initialize a soundcard structure
  *  @parent: the parent device object
@@ -312,7 +327,10 @@ int snd_card_new(struct device *parent, int idx, const char *xid,
 #endif
 	init_waitqueue_head(&card->remove_sleep);
 
+<<<<<<< HEAD
 	init_waitqueue_head(&card->offline_poll_wait);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	device_initialize(&card->card_dev);
 	card->card_dev.parent = parent;
 	card->card_dev.class = sound_class;
@@ -1056,6 +1074,7 @@ int snd_card_file_remove(struct snd_card *card, struct file *file)
 }
 EXPORT_SYMBOL(snd_card_file_remove);
 
+<<<<<<< HEAD
 /**
  * snd_card_change_online_state - mark card's online/offline state
  * @card: Card to mark
@@ -1085,6 +1104,8 @@ bool snd_card_is_online_state(struct snd_card *card)
 }
 EXPORT_SYMBOL(snd_card_is_online_state);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_PM
 /**
  *  snd_power_wait - wait until the power-state is changed.

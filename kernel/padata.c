@@ -671,8 +671,13 @@ int padata_set_cpumask(struct padata_instance *pinst, int cpumask_type,
 	struct cpumask *serial_mask, *parallel_mask;
 	int err = -EINVAL;
 
+<<<<<<< HEAD
 	mutex_lock(&pinst->lock);
 	get_online_cpus();
+=======
+	get_online_cpus();
+	mutex_lock(&pinst->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	switch (cpumask_type) {
 	case PADATA_CPU_PARALLEL:
@@ -690,8 +695,13 @@ int padata_set_cpumask(struct padata_instance *pinst, int cpumask_type,
 	err =  __padata_set_cpumasks(pinst, parallel_mask, serial_mask);
 
 out:
+<<<<<<< HEAD
 	put_online_cpus();
 	mutex_unlock(&pinst->lock);
+=======
+	mutex_unlock(&pinst->lock);
+	put_online_cpus();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return err;
 }

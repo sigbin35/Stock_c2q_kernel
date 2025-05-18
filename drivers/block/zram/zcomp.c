@@ -20,7 +20,10 @@
 
 static const char * const backends[] = {
 	"lzo",
+<<<<<<< HEAD
 	"lzo-rle",
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #if IS_ENABLED(CONFIG_CRYPTO_LZ4)
 	"lz4",
 #endif

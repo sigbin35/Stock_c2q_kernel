@@ -154,7 +154,11 @@ static void soc_init_component_debugfs(struct snd_soc_component *component)
 	}
 
 	if (!component->debugfs_root) {
+<<<<<<< HEAD
 		dev_dbg(component->dev,
+=======
+		dev_warn(component->dev,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			"ASoC: Failed to create component debugfs directory\n");
 		return;
 	}
@@ -718,6 +722,7 @@ EXPORT_SYMBOL_GPL(snd_soc_resume);
 static const struct snd_soc_dai_ops null_dai_ops = {
 };
 
+<<<<<<< HEAD
 /**
  * soc_find_component: find a component from component_list in ASoC core
  *
@@ -729,16 +734,22 @@ static const struct snd_soc_dai_ops null_dai_ops = {
  * Returns component handle for success, else NULL error.
  */
 struct snd_soc_component *soc_find_component(
+=======
+static struct snd_soc_component *soc_find_component(
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	const struct device_node *of_node, const char *name)
 {
 	struct snd_soc_component *component;
 
+<<<<<<< HEAD
 	if (!of_node && !name) {
 		pr_err("%s: Either of_node or name must be valid\n",
 			__func__);
 		return NULL;
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	lockdep_assert_held(&client_mutex);
 
 	list_for_each_entry(component, &component_list, list) {
@@ -752,6 +763,7 @@ struct snd_soc_component *soc_find_component(
 
 	return NULL;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(soc_find_component);
 
 /**
@@ -775,6 +787,8 @@ struct snd_soc_component *soc_find_component_locked(
 	return component;
 }
 EXPORT_SYMBOL(soc_find_component_locked);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * snd_soc_find_dai - Find a registered DAI
@@ -2775,7 +2789,10 @@ int snd_soc_register_card(struct snd_soc_card *card)
 	card->instantiated = 0;
 	mutex_init(&card->mutex);
 	mutex_init(&card->dapm_mutex);
+<<<<<<< HEAD
 	mutex_init(&card->dapm_power_mutex);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	ret = snd_soc_instantiate_card(card);
 	if (ret != 0)
@@ -3314,6 +3331,7 @@ struct snd_soc_component *snd_soc_lookup_component(struct device *dev,
 }
 EXPORT_SYMBOL_GPL(snd_soc_lookup_component);
 
+<<<<<<< HEAD
 /**
  * snd_soc_card_change_online_state - Mark if soc card is online/offline
  *
@@ -3326,6 +3344,8 @@ void snd_soc_card_change_online_state(struct snd_soc_card *soc_card, int online)
 }
 EXPORT_SYMBOL(snd_soc_card_change_online_state);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Retrieve a card's name from device tree */
 int snd_soc_of_parse_card_name(struct snd_soc_card *card,
 			       const char *propname)
@@ -3730,6 +3750,7 @@ int snd_soc_get_dai_id(struct device_node *ep)
 }
 EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
 
+<<<<<<< HEAD
 /**
  * snd_soc_info_multi_ext - external single mixer info callback
  * @kcontrol: mixer control
@@ -3763,6 +3784,8 @@ int snd_soc_info_multi_ext(struct snd_kcontrol *kcontrol,
 }
 EXPORT_SYMBOL(snd_soc_info_multi_ext);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int snd_soc_get_dai_name(struct of_phandle_args *args,
 				const char **dai_name)
 {

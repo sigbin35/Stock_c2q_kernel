@@ -5874,7 +5874,11 @@ EXPORT_SYMBOL_GPL(md_stop_writes);
 static void mddev_detach(struct mddev *mddev)
 {
 	md_bitmap_wait_behind_writes(mddev);
+<<<<<<< HEAD
 	if (mddev->pers && mddev->pers->quiesce) {
+=======
+	if (mddev->pers && mddev->pers->quiesce && !mddev->suspended) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mddev->pers->quiesce(mddev, 1);
 		mddev->pers->quiesce(mddev, 0);
 	}

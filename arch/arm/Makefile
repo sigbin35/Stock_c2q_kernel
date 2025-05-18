@@ -10,10 +10,13 @@
 #
 # Copyright (C) 1995-2001 by Russell King
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
 export DTC_FLAGS := -@
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 LDFLAGS_vmlinux	:=-p --no-undefined -X --pic-veneer
 ifeq ($(CONFIG_CPU_ENDIAN_BE8),y)
 LDFLAGS_vmlinux	+= --be8
@@ -30,10 +33,13 @@ GZFLAGS		:=-9
 # Never generate .eh_frame
 KBUILD_CFLAGS	+= $(call cc-option,-fno-dwarf2-cfi-asm)
 
+<<<<<<< HEAD
 ifeq ($(cc-name),clang)
 KBUILD_CFLAGS += -Wno-vectorizer-no-neon
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # This should work on most of the modern platforms
 KBUILD_DEFCONFIG := multi_v7_defconfig
 
@@ -44,10 +50,14 @@ KBUILD_CFLAGS	+= $(call cc-option,-mno-unaligned-access)
 endif
 
 ifeq ($(CONFIG_FRAME_POINTER),y)
+<<<<<<< HEAD
 KBUILD_CFLAGS	+=-fno-omit-frame-pointer
 ifeq ($(CONFIG_CC_IS_GCC),y)
 KBUILD_CFLAGS += $(call cc-option,-mapcs,) $(call cc-option,-mno-sched-prolog,)
 endif
+=======
+KBUILD_CFLAGS	+=-fno-omit-frame-pointer -mapcs -mno-sched-prolog
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endif
 
 ifeq ($(CONFIG_CPU_BIG_ENDIAN),y)
@@ -123,10 +133,13 @@ ifeq ($(CONFIG_ARM_UNWIND),y)
 CFLAGS_ABI	+=-funwind-tables
 endif
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_CC_IS_CLANG),y)
 CFLAGS_ABI	+= -meabi gnu
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Accept old syntax despite ".syntax unified"
 AFLAGS_NOWARN	:=$(call as-option,-Wa$(comma)-mno-warn-deprecated,-Wa$(comma)-W)
 
@@ -318,8 +331,11 @@ libs-y				:= arch/arm/lib/ $(libs-y)
 boot := arch/arm/boot
 ifeq ($(CONFIG_XIP_KERNEL),y)
 KBUILD_IMAGE := $(boot)/xipImage
+<<<<<<< HEAD
 else ifeq ($(CONFIG_BUILD_ARM_APPENDED_DTB_IMAGE),y)
 KBUILD_IMAGE := $(boot)/zImage-dtb
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 else
 KBUILD_IMAGE := $(boot)/zImage
 endif
@@ -329,8 +345,11 @@ ifeq ($(CONFIG_USE_OF),y)
 KBUILD_DTBS := dtbs
 endif
 
+<<<<<<< HEAD
 DTSSUBDIR       := vendor/qcom
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 all:	$(notdir $(KBUILD_IMAGE)) $(KBUILD_DTBS)
 
 
@@ -365,7 +384,10 @@ PHONY += dtbs dtbs_install
 
 dtbs: prepare scripts
 	$(Q)$(MAKE) $(build)=$(boot)/dts
+<<<<<<< HEAD
 	$(foreach DIR, $(DTSSUBDIR), $(Q)$(MAKE) $(build)=$(boot)/dts/$(DIR) MACHINE=$(MACHINE) dtbs)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 dtbs_install:
 	$(Q)$(MAKE) $(dtbinst)=$(boot)/dts
@@ -376,12 +398,15 @@ ifeq ($(CONFIG_VDSO),y)
 	$(Q)$(MAKE) $(build)=arch/arm/vdso $@
 endif
 
+<<<<<<< HEAD
 zImage-dtb: vmlinux scripts dtbs
 	$(Q)$(MAKE) $(build)=$(boot) MACHINE=$(MACHINE) DTSSUBDIR=$(DTSSUBDIR) $(boot)/$@
 
 Image-dtb: vmlinux scripts dtbs
 	$(Q)$(MAKE) $(build)=$(boot) MACHINE=$(MACHINE) DTSSUBDIR=$(DTSSUBDIR) $(boot)/$@
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # We use MRPROPER_FILES and CLEAN_FILES now
 archclean:
 	$(Q)$(MAKE) $(clean)=$(boot)

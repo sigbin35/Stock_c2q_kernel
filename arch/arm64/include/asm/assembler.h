@@ -23,8 +23,11 @@
 #ifndef __ASM_ASSEMBLER_H
 #define __ASM_ASSEMBLER_H
 
+<<<<<<< HEAD
 #include <asm-generic/export.h>
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <asm/asm-offsets.h>
 #include <asm/cpufeature.h>
 #include <asm/debug-monitors.h>
@@ -33,6 +36,7 @@
 #include <asm/ptrace.h>
 #include <asm/thread_info.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_CFP
 /*
  * Stack pushing/popping (register pairs only). Equivalent to store decrement
@@ -47,6 +51,8 @@
 	.endm
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.macro save_and_disable_daif, flags
 	mrs	\flags, daif
 	msr	daifset, #0xf
@@ -95,6 +101,7 @@
 	msr	daif, \flags
 	.endm
 
+<<<<<<< HEAD
 /*
  * Save/disable and restore interrupts.
  */
@@ -107,6 +114,8 @@
 	msr	daif, \olddaif
 	.endm
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.macro	enable_dbg
 	msr	daifclr, #8
 	.endm
@@ -155,6 +164,7 @@
 	.endm
 
 /*
+<<<<<<< HEAD
  * Clear Branch History instruction
  */
 	.macro clearbhb
@@ -162,6 +172,8 @@
 	.endm
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Sanitise a 64-bit bounded index wrt speculation, returning zero if out
  * of bounds.
  */
@@ -523,6 +535,7 @@ USER(\label, ic	ivau, \tmp2)			// invalidate I line PoU
 #else
 #define NOKPROBE(x)
 #endif
+<<<<<<< HEAD
 
 #ifdef CONFIG_KASAN
 #define EXPORT_SYMBOL_NOKASAN(name)
@@ -530,6 +543,8 @@ USER(\label, ic	ivau, \tmp2)			// invalidate I line PoU
 #define EXPORT_SYMBOL_NOKASAN(name)	EXPORT_SYMBOL(name)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Emit a 64-bit absolute little endian symbol reference in a way that
 	 * ensures that it will be resolved at build time, even when building a
@@ -753,6 +768,7 @@ USER(\label, ic	ivau, \tmp2)			// invalidate I line PoU
 .Lyield_out_\@ :
 	.endm
 
+<<<<<<< HEAD
 	.macro __mitigate_spectre_bhb_loop      tmp
 #ifdef CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY
 alternative_cb  spectre_bhb_patch_loop_iter
@@ -780,4 +796,6 @@ alternative_cb_end
 	ldp	x0, x1, [sp], #16
 #endif /* CONFIG_MITIGATE_SPECTRE_BRANCH_HISTORY */
 	.endm
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif	/* __ASM_ASSEMBLER_H */

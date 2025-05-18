@@ -7,7 +7,10 @@
 #include <net/ipv6.h>
 #include <net/addrconf.h>
 #include <net/ip.h>
+<<<<<<< HEAD
 #include "../../drivers/esoc/esoc.h"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* if ipv6 module registers this function is used by xfrm to force all
  * sockets to relookup their nodes - this is fairly expensive, be
@@ -226,12 +229,15 @@ void in6_dev_finish_destroy(struct inet6_dev *idev)
 	dev_put(dev);
 	if (!idev->dead) {
 		pr_warn("Freeing alive inet6 device %p\n", idev);
+<<<<<<< HEAD
 
 #ifdef CONFIG_ESOC_MDM_4x
 		/* Do silent reset */
 		if (!!idev->mc_list)
 			 esoc_do_silentreset();
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return;
 	}
 	call_rcu(&idev->rcu, in6_dev_finish_destroy_rcu);

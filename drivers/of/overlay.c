@@ -261,6 +261,11 @@ static struct property *dup_and_fixup_symbol_prop(
 
 	of_property_set_flag(new_prop, OF_DYNAMIC);
 
+<<<<<<< HEAD
+=======
+	kfree(target_path);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return new_prop;
 
 err_free_new_prop:

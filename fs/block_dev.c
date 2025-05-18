@@ -1463,8 +1463,15 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
 	 */
 	if (!for_part) {
 		ret = devcgroup_inode_permission(bdev->bd_inode, perm);
+<<<<<<< HEAD
 		if (ret != 0)
 			return ret;
+=======
+		if (ret != 0) {
+			bdput(bdev);
+			return ret;
+		}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
  restart:
@@ -1533,10 +1540,15 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
 				goto out_clear;
 			BUG_ON(for_part);
 			ret = __blkdev_get(whole, mode, 1);
+<<<<<<< HEAD
 			if (ret) {
 				bdput(whole);
 				goto out_clear;
 			}
+=======
+			if (ret)
+				goto out_clear;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			bdev->bd_contains = whole;
 			bdev->bd_part = disk_get_part(disk, partno);
 			if (!(disk->flags & GENHD_FL_UP) ||
@@ -1586,6 +1598,10 @@ static int __blkdev_get(struct block_device *bdev, fmode_t mode, int for_part)
 	disk_unblock_events(disk);
 	put_disk_and_module(disk);
  out:
+<<<<<<< HEAD
+=======
+	bdput(bdev);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -1671,9 +1687,12 @@ int blkdev_get(struct block_device *bdev, fmode_t mode, void *holder)
 		bdput(whole);
 	}
 
+<<<<<<< HEAD
 	if (res)
 		bdput(bdev);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return res;
 }
 EXPORT_SYMBOL(blkdev_get);
@@ -1914,9 +1933,12 @@ ssize_t blkdev_write_iter(struct kiocb *iocb, struct iov_iter *from)
 	if (bdev_read_only(I_BDEV(bd_inode)))
 		return -EPERM;
 
+<<<<<<< HEAD
 	if (IS_SWAPFILE(bd_inode))
 		return -ETXTBSY;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!iov_iter_count(from))
 		return 0;
 

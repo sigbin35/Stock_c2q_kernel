@@ -539,6 +539,7 @@ config DEVPORT
 source "drivers/s390/char/Kconfig"
 
 source "drivers/char/xillybus/Kconfig"
+<<<<<<< HEAD
 source "drivers/char/diag/Kconfig"
 
 config MSM_FASTCVPD
@@ -574,6 +575,8 @@ config MSM_RDBG
 	for a debugger running on a host PC to communicate with a remote
 	stub running on peripheral subsystems such as the ADSP, MODEM etc.
 		Say M if you want to enable this module.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 config ADI
 	tristate "SPARC Privileged ADI driver"
@@ -603,6 +606,7 @@ config RANDOM_TRUST_CPU
 	has not installed a hidden back door to compromise the CPU's
 	random number generation facilities. This can also be configured
 	at boot with "random.trust_cpu=on/off".
+<<<<<<< HEAD
 
 config OKL4_PIPE
       bool "OKL4 Pipe Driver"
@@ -659,3 +663,5 @@ config RANDOM_TRUST_BOOTLOADER
 	booloader is trustworthy so it will be added to the kernel's entropy
 	pool. Otherwise, say N here so it will be regarded as device input that
 	only mixes the entropy pool.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

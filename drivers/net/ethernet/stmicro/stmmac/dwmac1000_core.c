@@ -218,7 +218,11 @@ static void dwmac1000_set_filter(struct mac_device_info *hw,
 			reg++;
 		}
 
+<<<<<<< HEAD
 		while (reg <= perfect_addr_number) {
+=======
+		while (reg < perfect_addr_number) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			writel(0, ioaddr + GMAC_ADDR_HIGH(reg));
 			writel(0, ioaddr + GMAC_ADDR_LOW(reg));
 			reg++;

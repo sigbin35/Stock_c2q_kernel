@@ -79,6 +79,10 @@ int __pci_epc_mem_init(struct pci_epc *epc, phys_addr_t phys_base, size_t size,
 	mem->page_size = page_size;
 	mem->pages = pages;
 	mem->size = size;
+<<<<<<< HEAD
+=======
+	mutex_init(&mem->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	epc->mem = mem;
 
@@ -122,7 +126,11 @@ void __iomem *pci_epc_mem_alloc_addr(struct pci_epc *epc,
 				     phys_addr_t *phys_addr, size_t size)
 {
 	int pageno;
+<<<<<<< HEAD
 	void __iomem *virt_addr;
+=======
+	void __iomem *virt_addr = NULL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct pci_epc_mem *mem = epc->mem;
 	unsigned int page_shift = ilog2(mem->page_size);
 	int order;
@@ -130,15 +138,27 @@ void __iomem *pci_epc_mem_alloc_addr(struct pci_epc *epc,
 	size = ALIGN(size, mem->page_size);
 	order = pci_epc_mem_get_order(mem, size);
 
+<<<<<<< HEAD
 	pageno = bitmap_find_free_region(mem->bitmap, mem->pages, order);
 	if (pageno < 0)
 		return NULL;
+=======
+	mutex_lock(&mem->lock);
+	pageno = bitmap_find_free_region(mem->bitmap, mem->pages, order);
+	if (pageno < 0)
+		goto ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	*phys_addr = mem->phys_base + (pageno << page_shift);
 	virt_addr = ioremap(*phys_addr, size);
 	if (!virt_addr)
 		bitmap_release_region(mem->bitmap, pageno, order);
 
+<<<<<<< HEAD
+=======
+ret:
+	mutex_unlock(&mem->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return virt_addr;
 }
 EXPORT_SYMBOL_GPL(pci_epc_mem_alloc_addr);
@@ -164,7 +184,13 @@ void pci_epc_mem_free_addr(struct pci_epc *epc, phys_addr_t phys_addr,
 	pageno = (phys_addr - mem->phys_base) >> page_shift;
 	size = ALIGN(size, mem->page_size);
 	order = pci_epc_mem_get_order(mem, size);
+<<<<<<< HEAD
 	bitmap_release_region(mem->bitmap, pageno, order);
+=======
+	mutex_lock(&mem->lock);
+	bitmap_release_region(mem->bitmap, pageno, order);
+	mutex_unlock(&mem->lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL(pci_epc_mem_free_addr);
 

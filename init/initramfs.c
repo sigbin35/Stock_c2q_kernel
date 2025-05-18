@@ -10,7 +10,10 @@
 #include <linux/syscalls.h>
 #include <linux/utime.h>
 #include <linux/file.h>
+<<<<<<< HEAD
 #include <linux/initramfs.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static ssize_t __init xwrite(int fd, const char *p, size_t count)
 {
@@ -600,6 +603,7 @@ static void __init clean_rootfs(void)
 }
 #endif
 
+<<<<<<< HEAD
 static int __initdata do_skip_initramfs;
 
 static int __init skip_initramfs_param(char *str)
@@ -623,6 +627,12 @@ static int __init populate_rootfs(void)
 
 	/* Load the built in initramfs */
 	err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
+=======
+static int __init populate_rootfs(void)
+{
+	/* Load the built in initramfs */
+	char *err = unpack_to_rootfs(__initramfs_start, __initramfs_size);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (err)
 		panic("%s", err); /* Failed to decompress INTERNAL initramfs */
 	/* If available load the bootloader supplied initrd */

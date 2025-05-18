@@ -37,6 +37,7 @@ config CPU_FREQ_STAT
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 config CPU_FREQ_TIMES
        bool "CPU frequency time-in-state statistics"
        help
@@ -50,6 +51,8 @@ config CPU_FREQ_LIMIT
 	help
 	  This driver supports API to limit CPU frequency.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 choice
 	prompt "Default CPUFreq governor"
 	default CPU_FREQ_DEFAULT_GOV_USERSPACE if ARM_SA1100_CPUFREQ || ARM_SA1110_CPUFREQ
@@ -198,6 +201,7 @@ config CPU_FREQ_GOV_CONSERVATIVE
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 config CPU_BOOST
 	tristate "Event base short term CPU freq boost"
 	depends on CPU_FREQ
@@ -209,6 +213,8 @@ config CPU_BOOST
 
 	  If in doubt, say N.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config CPU_FREQ_GOV_SCHEDUTIL
 	bool "'schedutil' cpufreq policy governor"
 	depends on CPU_FREQ && SMP
@@ -251,6 +257,7 @@ config CPUFREQ_DT_PLATDEV
 
 	  If in doubt, say N.
 
+<<<<<<< HEAD
 config CPUFREQ_DUMMY
 	tristate "Dummy CPU frequency driver"
 	help
@@ -260,6 +267,8 @@ config CPUFREQ_DUMMY
 
 	  If in doubt, say N
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 if X86
 source "drivers/cpufreq/Kconfig.x86"
 endif

@@ -22,7 +22,10 @@
 #include <linux/integrity.h>
 #include <linux/ima.h>
 #include <linux/evm.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/fsnotify.h>
 #include <linux/mman.h>
 #include <linux/mount.h>
@@ -209,6 +212,7 @@ EXPORT_SYMBOL(unregister_lsm_notifier);
  *	This is a hook that returns a value.
  */
 
+<<<<<<< HEAD
 /*
  * security_integrity_current() is added, 
  * which has a dependency of CONFIG_KDP_CRED.
@@ -216,11 +220,16 @@ EXPORT_SYMBOL(unregister_lsm_notifier);
  * if CONFIG_KDP_CRED is disabled, it will always return 0.
  */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define call_void_hook(FUNC, ...)				\
 	do {							\
 		struct security_hook_list *P;			\
 								\
+<<<<<<< HEAD
 		if(security_integrity_current()) break;		\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		hlist_for_each_entry(P, &security_hook_heads.FUNC, list) \
 			P->hook.FUNC(__VA_ARGS__);		\
 	} while (0)
@@ -230,9 +239,12 @@ EXPORT_SYMBOL(unregister_lsm_notifier);
 	do {							\
 		struct security_hook_list *P;			\
 								\
+<<<<<<< HEAD
 		RC = security_integrity_current();		\
 		if (RC != 0)					\
 			break;					\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		hlist_for_each_entry(P, &security_hook_heads.FUNC, list) { \
 			RC = P->hook.FUNC(__VA_ARGS__);		\
 			if (RC != 0)				\
@@ -244,25 +256,44 @@ EXPORT_SYMBOL(unregister_lsm_notifier);
 
 /* Security operations */
 
+<<<<<<< HEAD
 int security_binder_set_context_mgr(const struct cred *mgr)
+=======
+int security_binder_set_context_mgr(struct task_struct *mgr)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return call_int_hook(binder_set_context_mgr, 0, mgr);
 }
 
+<<<<<<< HEAD
 int security_binder_transaction(const struct cred *from,
 				const struct cred *to)
+=======
+int security_binder_transaction(struct task_struct *from,
+				struct task_struct *to)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return call_int_hook(binder_transaction, 0, from, to);
 }
 
+<<<<<<< HEAD
 int security_binder_transfer_binder(const struct cred *from,
 				    const struct cred *to)
+=======
+int security_binder_transfer_binder(struct task_struct *from,
+				    struct task_struct *to)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return call_int_hook(binder_transfer_binder, 0, from, to);
 }
 
+<<<<<<< HEAD
 int security_binder_transfer_file(const struct cred *from,
 				  const struct cred *to, struct file *file)
+=======
+int security_binder_transfer_file(struct task_struct *from,
+				  struct task_struct *to, struct file *file)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return call_int_hook(binder_transfer_file, 0, from, to, file);
 }
@@ -358,9 +389,12 @@ int security_bprm_check(struct linux_binprm *bprm)
 	ret = call_int_hook(bprm_check_security, 0, bprm);
 	if (ret)
 		return ret;
+<<<<<<< HEAD
 	ret = five_bprm_check(bprm);
 	if (ret)
 		return ret;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ima_bprm_check(bprm);
 }
 
@@ -618,7 +652,10 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)
 		return 0;
 	return call_int_hook(path_chown, 0, path, uid, gid);
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(security_path_chown);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int security_path_chroot(const struct path *path)
 {
@@ -758,9 +795,12 @@ int security_inode_setxattr(struct dentry *dentry, const char *name,
 		ret = cap_inode_setxattr(dentry, name, value, size, flags);
 	if (ret)
 		return ret;
+<<<<<<< HEAD
 	ret = five_inode_setxattr(dentry, name, value, size);
 	if (ret)
 		return ret;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = ima_inode_setxattr(dentry, name, value, size);
 	if (ret)
 		return ret;
@@ -805,9 +845,12 @@ int security_inode_removexattr(struct dentry *dentry, const char *name)
 		ret = cap_inode_removexattr(dentry, name);
 	if (ret)
 		return ret;
+<<<<<<< HEAD
 	ret = five_inode_removexattr(dentry, name);
 	if (ret)
 		return ret;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = ima_inode_removexattr(dentry, name);
 	if (ret)
 		return ret;
@@ -953,9 +996,12 @@ int security_mmap_file(struct file *file, unsigned long prot,
 					mmap_prot(file, prot), flags);
 	if (ret)
 		return ret;
+<<<<<<< HEAD
 	ret = five_file_mmap(file, prot);
 	if (ret)
 		return ret;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ima_file_mmap(file, prot);
 }
 
@@ -1004,11 +1050,15 @@ int security_file_open(struct file *file)
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	ret = fsnotify_perm(file, MAY_OPEN);
 	if (ret)
 		return ret;
 
 	return five_file_open(file);
+=======
+	return fsnotify_perm(file, MAY_OPEN);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 int security_task_alloc(struct task_struct *task, unsigned long clone_flags)
@@ -1019,7 +1069,10 @@ int security_task_alloc(struct task_struct *task, unsigned long clone_flags)
 void security_task_free(struct task_struct *task)
 {
 	call_void_hook(task_free, task);
+<<<<<<< HEAD
 	five_task_free(task);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 int security_cred_alloc_blank(struct cred *cred, gfp_t gfp)
@@ -1830,6 +1883,7 @@ void security_bpf_prog_free(struct bpf_prog_aux *aux)
 	call_void_hook(bpf_prog_free_security, aux);
 }
 #endif /* CONFIG_BPF_SYSCALL */
+<<<<<<< HEAD
 
 #ifdef CONFIG_PERF_EVENTS
 int security_perf_event_open(struct perf_event_attr *attr, int type)
@@ -1857,3 +1911,5 @@ int security_perf_event_write(struct perf_event *event)
 	return call_int_hook(perf_event_write, 0, event);
 }
 #endif /* CONFIG_PERF_EVENTS */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

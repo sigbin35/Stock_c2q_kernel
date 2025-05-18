@@ -267,6 +267,7 @@ static void sctp_v4_to_sk_daddr(union sctp_addr *addr, struct sock *sk)
 }
 
 /* Initialize a sctp_addr from an address parameter. */
+<<<<<<< HEAD
 static bool sctp_v4_from_addr_param(union sctp_addr *addr,
 				    union sctp_addr_param *param,
 				    __be16 port, int iif)
@@ -274,12 +275,21 @@ static bool sctp_v4_from_addr_param(union sctp_addr *addr,
 	if (ntohs(param->v4.param_hdr.length) < sizeof(struct sctp_ipv4addr_param))
 		return false;
 
+=======
+static void sctp_v4_from_addr_param(union sctp_addr *addr,
+				    union sctp_addr_param *param,
+				    __be16 port, int iif)
+{
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	addr->v4.sin_family = AF_INET;
 	addr->v4.sin_port = port;
 	addr->v4.sin_addr.s_addr = param->v4.addr.s_addr;
 	memset(addr->v4.sin_zero, 0, sizeof(addr->v4.sin_zero));
+<<<<<<< HEAD
 
 	return true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /* Initialize an address parameter from a sctp_addr and return the length
@@ -429,7 +439,12 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 {
 	struct sctp_association *asoc = t->asoc;
 	struct rtable *rt;
+<<<<<<< HEAD
 	struct flowi4 *fl4 = &fl->u.ip4;
+=======
+	struct flowi _fl;
+	struct flowi4 *fl4 = &_fl.u.ip4;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sctp_bind_addr *bp;
 	struct sctp_sockaddr_entry *laddr;
 	struct dst_entry *dst = NULL;
@@ -439,7 +454,11 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 
 	if (t->dscp & SCTP_DSCP_SET_MASK)
 		tos = t->dscp & SCTP_DSCP_VAL_MASK;
+<<<<<<< HEAD
 	memset(fl4, 0x0, sizeof(struct flowi4));
+=======
+	memset(&_fl, 0x0, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	fl4->daddr  = daddr->v4.sin_addr.s_addr;
 	fl4->fl4_dport = daddr->v4.sin_port;
 	fl4->flowi4_proto = IPPROTO_SCTP;
@@ -458,8 +477,16 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 		 &fl4->saddr);
 
 	rt = ip_route_output_key(sock_net(sk), fl4);
+<<<<<<< HEAD
 	if (!IS_ERR(rt))
 		dst = &rt->dst;
+=======
+	if (!IS_ERR(rt)) {
+		dst = &rt->dst;
+		t->dst = dst;
+		memcpy(fl, &_fl, sizeof(_fl));
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* If there is no association or if a source address is passed, no
 	 * more validation is required.
@@ -522,27 +549,52 @@ static void sctp_v4_get_dst(struct sctp_transport *t, union sctp_addr *saddr,
 		odev = __ip_dev_find(sock_net(sk), laddr->a.v4.sin_addr.s_addr,
 				     false);
 		if (!odev || odev->ifindex != fl4->flowi4_oif) {
+<<<<<<< HEAD
 			if (!dst)
 				dst = &rt->dst;
 			else
 				dst_release(&rt->dst);
+=======
+			if (!dst) {
+				dst = &rt->dst;
+				t->dst = dst;
+				memcpy(fl, &_fl, sizeof(_fl));
+			} else {
+				dst_release(&rt->dst);
+			}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			continue;
 		}
 
 		dst_release(dst);
 		dst = &rt->dst;
+<<<<<<< HEAD
+=======
+		t->dst = dst;
+		memcpy(fl, &_fl, sizeof(_fl));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		break;
 	}
 
 out_unlock:
 	rcu_read_unlock();
 out:
+<<<<<<< HEAD
 	t->dst = dst;
 	if (dst)
 		pr_debug("rt_dst:%pI4, rt_src:%pI4\n",
 			 &fl4->daddr, &fl4->saddr);
 	else
 		pr_debug("no route\n");
+=======
+	if (dst) {
+		pr_debug("rt_dst:%pI4, rt_src:%pI4\n",
+			 &fl->u.ip4.daddr, &fl->u.ip4.saddr);
+	} else {
+		t->dst = NULL;
+		pr_debug("no route\n");
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /* For v4, the source address is cached in the route entry(dst). So no need

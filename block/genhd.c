@@ -22,12 +22,15 @@
 #include <linux/pm_runtime.h>
 #include <linux/badblocks.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLOCK_SUPPORT_STLOG
 #include <linux/fslog.h>
 #else
 #define ST_LOG(fmt, ...)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "blk.h"
 
 static DEFINE_MUTEX(block_class_lock);
@@ -593,11 +596,14 @@ static void register_disk(struct device *parent, struct gendisk *disk)
 	struct hd_struct *part;
 	int err;
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLOCK_SUPPORT_STLOG
 	int major = disk->major;
 	int first_minor = disk->first_minor;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ddev->parent = parent;
 
 	dev_set_name(ddev, "%s", disk->disk_name);
@@ -653,6 +659,7 @@ exit:
 	/* announce disk after possible partitions are created */
 	dev_set_uevent_suppress(ddev, 0);
 	kobject_uevent(&ddev->kobj, KOBJ_ADD);
+<<<<<<< HEAD
 	ST_LOG("<%s> KOBJ_ADD %d:%d", __func__, major, first_minor);
 
 	/* announce possible partitions */
@@ -667,6 +674,13 @@ exit:
 			ST_LOG("<%s> KOBJ_ADD %d:%d", __func__, major,
 					first_minor + part->partno);
 	}
+=======
+
+	/* announce possible partitions */
+	disk_part_iter_init(&piter, disk, 0);
+	while ((part = disk_part_iter_next(&piter)))
+		kobject_uevent(&part_to_dev(part)->kobj, KOBJ_ADD);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	disk_part_iter_exit(&piter);
 
 	err = sysfs_create_link(&ddev->kobj,
@@ -761,10 +775,13 @@ void del_gendisk(struct gendisk *disk)
 	struct disk_part_iter piter;
 	struct hd_struct *part;
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLOCK_SUPPORT_STLOG
 	struct device *dev;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	blk_integrity_del(disk);
 	disk_del_events(disk);
 
@@ -821,11 +838,14 @@ void del_gendisk(struct gendisk *disk)
 	if (!sysfs_deprecated)
 		sysfs_remove_link(block_depr, dev_name(disk_to_dev(disk)));
 	pm_runtime_set_memalloc_noio(disk_to_dev(disk), false);
+<<<<<<< HEAD
 #ifdef CONFIG_BLOCK_SUPPORT_STLOG
 	dev = disk_to_dev(disk);
 	ST_LOG("<%s> KOBJ_REMOVE %d:%d %s", __func__,
 		MAJOR(dev->devt), MINOR(dev->devt), dev->kobj.name);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	device_del(disk_to_dev(disk));
 }
 EXPORT_SYMBOL(del_gendisk);
@@ -1075,6 +1095,7 @@ static const struct seq_operations partitions_op = {
 	.stop	= disk_seqf_stop,
 	.show	= show_partition
 };
+<<<<<<< HEAD
 
 static void *show_iodevs_start(struct seq_file *seqf, loff_t *pos)
 {
@@ -1321,6 +1342,10 @@ static ssize_t iobd_show(struct device *dev,
 	return ret;
 }
 
+=======
+#endif
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static struct kobject *base_probe(dev_t devt, int *partno, void *data)
 {
@@ -1431,9 +1456,12 @@ static DEVICE_ATTR(capability, 0444, disk_capability_show, NULL);
 static DEVICE_ATTR(stat, 0444, part_stat_show, NULL);
 static DEVICE_ATTR(inflight, 0444, part_inflight_show, NULL);
 static DEVICE_ATTR(badblocks, 0644, disk_badblocks_show, disk_badblocks_store);
+<<<<<<< HEAD
 static DEVICE_ATTR(diskios, 0660, disk_ios_show, NULL);
 static DEVICE_ATTR(iobd, 0660, iobd_show, NULL);
 static DEVICE_ATTR(hiotime, 0660, hiotime_show, hiotime_store);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_FAIL_MAKE_REQUEST
 static struct device_attribute dev_attr_fail =
 	__ATTR(make-it-fail, 0644, part_fail_show, part_fail_store);
@@ -1456,9 +1484,12 @@ static struct attribute *disk_attrs[] = {
 	&dev_attr_stat.attr,
 	&dev_attr_inflight.attr,
 	&dev_attr_badblocks.attr,
+<<<<<<< HEAD
 	&dev_attr_diskios.attr,
 	&dev_attr_iobd.attr,
 	&dev_attr_hiotime.attr,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_FAIL_MAKE_REQUEST
 	&dev_attr_fail.attr,
 #endif
@@ -1579,6 +1610,7 @@ static void disk_release(struct device *dev)
 		blk_put_queue(disk->queue);
 	kfree(disk);
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_USB_STORAGE_DETECT
 static int disk_uevent(struct device *dev, struct kobj_uevent_env *env)
@@ -1603,6 +1635,8 @@ static int disk_uevent(struct device *dev, struct kobj_uevent_env *env)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct class block_class = {
 	.name		= "block",
 };
@@ -1622,9 +1656,12 @@ static const struct device_type disk_type = {
 	.groups		= disk_attr_groups,
 	.release	= disk_release,
 	.devnode	= block_devnode,
+<<<<<<< HEAD
 #ifdef CONFIG_USB_STORAGE_DETECT
 	.uevent		= disk_uevent,
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #ifdef CONFIG_PROC_FS
@@ -1694,6 +1731,7 @@ static const struct seq_operations diskstats_op = {
 	.show	= diskstats_show
 };
 
+<<<<<<< HEAD
 /* IOPP-iod-v1.1.k4.19 */
 #define PG2KB(x) ((unsigned long)((x) << (PAGE_SHIFT - 10)))
 static int iostats_show(struct seq_file *seqf, void *v)
@@ -1773,6 +1811,11 @@ static int __init proc_genhd_init(void)
 	proc_create_seq("iostats", 0, NULL, &iostats_op);
 	proc_create_seq("diskstats", 0, NULL, &diskstats_op);
 	proc_create_seq("iodevs", 0, NULL, &iodevs_op);
+=======
+static int __init proc_genhd_init(void)
+{
+	proc_create_seq("diskstats", 0, NULL, &diskstats_op);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	proc_create_seq("partitions", 0, NULL, &partitions_op);
 	return 0;
 }
@@ -2205,6 +2248,7 @@ static void disk_check_events(struct disk_events *ev,
 	unsigned long intv;
 	int nr_events = 0, i;
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_STORAGE_DETECT
 	events = 0;
 	if (disk->interfaces != GENHD_IF_USB)
@@ -2214,6 +2258,10 @@ static void disk_check_events(struct disk_events *ev,
 	/* check events */
 	events = disk->fops->check_events(disk, clearing);
 #endif
+=======
+	/* check events */
+	events = disk->fops->check_events(disk, clearing);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* accumulate pending events and schedule next poll if necessary */
 	spin_lock_irq(&ev->lock);
@@ -2238,6 +2286,7 @@ static void disk_check_events(struct disk_events *ev,
 		if (events & disk->events & (1 << i))
 			envp[nr_events++] = disk_uevents[i];
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_STORAGE_DETECT
 	if (nr_events && disk->interfaces != GENHD_IF_USB)
 		kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
@@ -2245,6 +2294,10 @@ static void disk_check_events(struct disk_events *ev,
 	if (nr_events)
 		kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
 #endif
+=======
+	if (nr_events)
+		kobject_uevent_env(&disk_to_dev(disk)->kobj, KOBJ_CHANGE, envp);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*

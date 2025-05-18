@@ -9,7 +9,10 @@
 #include <linux/percpu.h>
 
 void topology_normalize_cpu_scale(void);
+<<<<<<< HEAD
 int topology_update_cpu_topology(void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct device_node;
 bool topology_parse_cpu_capacity(struct device_node *cpu_node, int cpu);
@@ -33,6 +36,7 @@ unsigned long topology_get_freq_scale(int cpu)
 	return per_cpu(freq_scale, cpu);
 }
 
+<<<<<<< HEAD
 DECLARE_PER_CPU(unsigned long, max_freq_scale);
 
 static inline
@@ -41,4 +45,6 @@ unsigned long topology_get_max_freq_scale(struct sched_domain *sd, int cpu)
 	return per_cpu(max_freq_scale, cpu);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _LINUX_ARCH_TOPOLOGY_H_ */

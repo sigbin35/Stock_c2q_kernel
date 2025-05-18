@@ -617,12 +617,15 @@ extern int irq_chip_pm_put(struct irq_data *data);
 #ifdef	CONFIG_IRQ_DOMAIN_HIERARCHY
 extern void handle_fasteoi_ack_irq(struct irq_desc *desc);
 extern void handle_fasteoi_mask_irq(struct irq_desc *desc);
+<<<<<<< HEAD
 extern int irq_chip_set_parent_state(struct irq_data *data,
 				     enum irqchip_irq_state which,
 				     bool val);
 extern int irq_chip_get_parent_state(struct irq_data *data,
 				     enum irqchip_irq_state which,
 				     bool *state);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void irq_chip_enable_parent(struct irq_data *data);
 extern void irq_chip_disable_parent(struct irq_data *data);
 extern void irq_chip_ack_parent(struct irq_data *data);

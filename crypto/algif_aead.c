@@ -42,7 +42,11 @@
 
 struct aead_tfm {
 	struct crypto_aead *aead;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *null_tfm;
+=======
+	struct crypto_skcipher *null_tfm;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static inline bool aead_sufficient_data(struct sock *sk)
@@ -75,6 +79,7 @@ static int aead_sendmsg(struct socket *sock, struct msghdr *msg, size_t size)
 	return af_alg_sendmsg(sock, msg, size, ivsize);
 }
 
+<<<<<<< HEAD
 static int crypto_aead_copy_sgl(struct crypto_sync_skcipher *null_tfm,
 				struct scatterlist *src,
 				struct scatterlist *dst, unsigned int len)
@@ -82,6 +87,15 @@ static int crypto_aead_copy_sgl(struct crypto_sync_skcipher *null_tfm,
 	SYNC_SKCIPHER_REQUEST_ON_STACK(skreq, null_tfm);
 
 	skcipher_request_set_sync_tfm(skreq, null_tfm);
+=======
+static int crypto_aead_copy_sgl(struct crypto_skcipher *null_tfm,
+				struct scatterlist *src,
+				struct scatterlist *dst, unsigned int len)
+{
+	SKCIPHER_REQUEST_ON_STACK(skreq, null_tfm);
+
+	skcipher_request_set_tfm(skreq, null_tfm);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	skcipher_request_set_callback(skreq, CRYPTO_TFM_REQ_MAY_BACKLOG,
 				      NULL, NULL);
 	skcipher_request_set_crypt(skreq, src, dst, len, NULL);
@@ -99,7 +113,11 @@ static int _aead_recvmsg(struct socket *sock, struct msghdr *msg,
 	struct af_alg_ctx *ctx = ask->private;
 	struct aead_tfm *aeadc = pask->private;
 	struct crypto_aead *tfm = aeadc->aead;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *null_tfm = aeadc->null_tfm;
+=======
+	struct crypto_skcipher *null_tfm = aeadc->null_tfm;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned int i, as = crypto_aead_authsize(tfm);
 	struct af_alg_async_req *areq;
 	struct af_alg_tsgl *tsgl, *tmp;
@@ -478,7 +496,11 @@ static void *aead_bind(const char *name, u32 type, u32 mask)
 {
 	struct aead_tfm *tfm;
 	struct crypto_aead *aead;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *null_tfm;
+=======
+	struct crypto_skcipher *null_tfm;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	tfm = kzalloc(sizeof(*tfm), GFP_KERNEL);
 	if (!tfm)

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012-2015,2017 Qualcomm Atheros, Inc.
+<<<<<<< HEAD
  * Copyright (c) 2018,2019 The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2018, The Linux Foundation. All rights reserved.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -18,7 +22,10 @@
 #include <linux/types.h>
 #include <linux/errno.h>
 #include <linux/fs.h>
+<<<<<<< HEAD
 #include <linux/seq_file.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "wmi.h"
 #include "wil6210.h"
 #include "txrx.h"
@@ -432,6 +439,7 @@ out:
 
 	return newpos;
 }
+<<<<<<< HEAD
 
 int wil_pmcring_read(struct seq_file *s, void *data)
 {
@@ -457,3 +465,5 @@ int wil_pmcring_read(struct seq_file *s, void *data)
 
 	return 0;
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

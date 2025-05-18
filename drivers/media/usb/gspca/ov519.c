@@ -3487,6 +3487,14 @@ static void ov511_mode_init_regs(struct sd *sd)
 		return;
 	}
 
+<<<<<<< HEAD
+=======
+	if (alt->desc.bNumEndpoints < 1) {
+		sd->gspca_dev.usb_err = -ENODEV;
+		return;
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	packet_size = le16_to_cpu(alt->endpoint[0].desc.wMaxPacketSize);
 	reg_w(sd, R51x_FIFO_PSIZE, packet_size >> 5);
 
@@ -3613,6 +3621,14 @@ static void ov518_mode_init_regs(struct sd *sd)
 		return;
 	}
 
+<<<<<<< HEAD
+=======
+	if (alt->desc.bNumEndpoints < 1) {
+		sd->gspca_dev.usb_err = -ENODEV;
+		return;
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	packet_size = le16_to_cpu(alt->endpoint[0].desc.wMaxPacketSize);
 	ov518_reg_w32(sd, R51x_FIFO_PSIZE, packet_size & ~7, 2);
 

@@ -24,10 +24,13 @@ AFLAGS_system_certificates.o := -I$(srctree)
 quiet_cmd_extract_certs  = EXTRACT_CERTS   $(patsubst "%",%,$(2))
       cmd_extract_certs  = scripts/extract-cert $(2) $@ || ( rm $@; exit 1)
 
+<<<<<<< HEAD
 ifeq ($(CONFIG_SYSTEM_TRUSTED_KEYS),"verity.x509.pem")
 SYSTEM_TRUSTED_KEYS_SRCPREFIX := $(srctree)/certs/
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 targets += x509_certificate_list
 $(obj)/x509_certificate_list: scripts/extract-cert $(SYSTEM_TRUSTED_KEYS_SRCPREFIX)$(SYSTEM_TRUSTED_KEYS_FILENAME) FORCE
 	$(call if_changed,extract_certs,$(SYSTEM_TRUSTED_KEYS_SRCPREFIX)$(CONFIG_SYSTEM_TRUSTED_KEYS))

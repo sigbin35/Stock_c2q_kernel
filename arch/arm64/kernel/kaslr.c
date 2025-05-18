@@ -65,6 +65,12 @@ out:
 	return default_cmdline;
 }
 
+<<<<<<< HEAD
+=======
+extern void *__init __fixmap_remap_fdt(phys_addr_t dt_phys, int *size,
+				       pgprot_t prot);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * This routine will be executed with the kernel mapped at its default virtual
  * address, and if it returns successfully, the kernel will be remapped, and
@@ -93,7 +99,11 @@ u64 __init kaslr_early_init(u64 dt_phys)
 	 * attempt at mapping the FDT in setup_machine()
 	 */
 	early_fixmap_init();
+<<<<<<< HEAD
 	fdt = fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL);
+=======
+	fdt = __fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!fdt)
 		return 0;
 

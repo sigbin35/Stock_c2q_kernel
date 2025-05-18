@@ -571,6 +571,10 @@ static struct nullb_cmd *__alloc_cmd(struct nullb_queue *nq)
 	if (tag != -1U) {
 		cmd = &nq->cmds[tag];
 		cmd->tag = tag;
+<<<<<<< HEAD
+=======
+		cmd->error = BLK_STS_OK;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		cmd->nq = nq;
 		if (nq->dev->irqmode == NULL_IRQ_TIMER) {
 			hrtimer_init(&cmd->timer, CLOCK_MONOTONIC,
@@ -1433,6 +1437,10 @@ static blk_status_t null_queue_rq(struct blk_mq_hw_ctx *hctx,
 		cmd->timer.function = null_cmd_timer_expired;
 	}
 	cmd->rq = bd->rq;
+<<<<<<< HEAD
+=======
+	cmd->error = BLK_STS_OK;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cmd->nq = nq;
 
 	blk_mq_start_request(bd->rq);
@@ -1480,7 +1488,16 @@ static void cleanup_queues(struct nullb *nullb)
 
 static void null_del_dev(struct nullb *nullb)
 {
+<<<<<<< HEAD
 	struct nullb_device *dev = nullb->dev;
+=======
+	struct nullb_device *dev;
+
+	if (!nullb)
+		return;
+
+	dev = nullb->dev;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	ida_simple_remove(&nullb_indexes, nullb->index);
 
@@ -1844,6 +1861,10 @@ out_cleanup_queues:
 	cleanup_queues(nullb);
 out_free_nullb:
 	kfree(nullb);
+<<<<<<< HEAD
+=======
+	dev->nullb = NULL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out:
 	return rv;
 }

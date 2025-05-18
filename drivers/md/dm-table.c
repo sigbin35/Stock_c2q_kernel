@@ -11,7 +11,10 @@
 #include <linux/vmalloc.h>
 #include <linux/blkdev.h>
 #include <linux/namei.h>
+<<<<<<< HEAD
 #include <linux/mount.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/ctype.h>
 #include <linux/string.h>
 #include <linux/slab.h>
@@ -22,8 +25,11 @@
 #include <linux/blk-mq.h>
 #include <linux/mount.h>
 #include <linux/dax.h>
+<<<<<<< HEAD
 #include <linux/bio.h>
 #include <linux/keyslot-manager.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define DM_MSG_PREFIX "table"
 
@@ -1640,6 +1646,7 @@ static void dm_table_verify_integrity(struct dm_table *t)
 	}
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_INLINE_ENCRYPTION
 static int device_intersect_crypto_modes(struct dm_target *ti,
 					 struct dm_dev *dev, sector_t start,
@@ -1688,6 +1695,8 @@ static inline void dm_calculate_supported_crypto_modes(struct dm_table *t,
 }
 #endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int device_flush_capable(struct dm_target *ti, struct dm_dev *dev,
 				sector_t start, sector_t len, void *data)
 {
@@ -2013,8 +2022,11 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
 
 	dm_table_verify_integrity(t);
 
+<<<<<<< HEAD
 	dm_calculate_supported_crypto_modes(t, q);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Some devices don't use blk_integrity but still want stable pages
 	 * because they do their own checksumming.
@@ -2032,9 +2044,12 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
 	 */
 	if (blk_queue_add_random(q) && dm_table_all_devices_attribute(t, device_is_not_random))
 		blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, q);
+<<<<<<< HEAD
 
 	/* io_pages is used for readahead */
 	q->backing_dev_info->io_pages = limits->max_sectors >> (PAGE_SHIFT - 9);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 unsigned int dm_table_get_num_targets(struct dm_table *t)

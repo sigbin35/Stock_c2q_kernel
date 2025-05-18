@@ -4,7 +4,11 @@
 /* confdata.c */
 void conf_parse(const char *name);
 int conf_read(const char *name);
+<<<<<<< HEAD
 int conf_read_simple(const char *name, int, int);
+=======
+int conf_read_simple(const char *name, int);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int conf_write_defconfig(const char *name);
 int conf_write(const char *name);
 int conf_write_autoconf(int overwrite);

@@ -67,8 +67,11 @@ obj-$(CONFIG_USBIP_CORE)	+= usbip/
 obj-$(CONFIG_TYPEC)		+= typec/
 
 obj-$(CONFIG_USB_ROLE_SWITCH)	+= roles/
+<<<<<<< HEAD
 
 obj-$(CONFIG_USB_PD)		+= pd/
 
 obj-$(CONFIG_USB_NOTIFY_LAYER)	+= notify/
 obj-$(CONFIG_USB_TYPEC_MANAGER_NOTIFIER)	+= manager/
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

@@ -130,6 +130,11 @@ static struct inode *nfs_layout_find_inode_by_stateid(struct nfs_client *clp,
 
 	list_for_each_entry_rcu(server, &clp->cl_superblocks, client_link) {
 		list_for_each_entry(lo, &server->layouts, plh_layouts) {
+<<<<<<< HEAD
+=======
+			if (!pnfs_layout_is_valid(lo))
+				continue;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (stateid != NULL &&
 			    !nfs4_stateid_match_other(stateid, &lo->plh_stateid))
 				continue;

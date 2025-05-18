@@ -224,6 +224,7 @@ extern enum ftrace_tracing_type_t ftrace_tracing_type;
 int register_ftrace_function(struct ftrace_ops *ops);
 int unregister_ftrace_function(struct ftrace_ops *ops);
 
+<<<<<<< HEAD
 #ifdef CONFIG_CFI_CLANG
 /* Use a C stub with the correct type for CFI */
 static inline void ftrace_stub(unsigned long a0, unsigned long a1,
@@ -234,6 +235,10 @@ static inline void ftrace_stub(unsigned long a0, unsigned long a1,
 extern void ftrace_stub(unsigned long a0, unsigned long a1,
 			struct ftrace_ops *op, struct pt_regs *regs);
 #endif
+=======
+extern void ftrace_stub(unsigned long a0, unsigned long a1,
+			struct ftrace_ops *op, struct pt_regs *regs);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #else /* !CONFIG_FUNCTION_TRACER */
 /*

@@ -560,11 +560,16 @@ void elv_bio_merged(struct request_queue *q, struct request *rq,
 #ifdef CONFIG_PM
 static void blk_pm_requeue_request(struct request *rq)
 {
+<<<<<<< HEAD
 	if (rq->q->dev && !(rq->rq_flags & RQF_PM)) {
 		rq->q->nr_pending--;
 		if (!rq->q->nr_pending)
 			pm_runtime_mark_last_busy(rq->q->dev);
 	}
+=======
+	if (rq->q->dev && !(rq->rq_flags & RQF_PM))
+		rq->q->nr_pending--;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void blk_pm_add_request(struct request_queue *q, struct request *rq)
@@ -623,8 +628,11 @@ void __elv_add_request(struct request_queue *q, struct request *rq, int where)
 {
 	trace_block_rq_insert(q, rq);
 
+<<<<<<< HEAD
 	blk_queue_io_vol_add(q, rq->cmd_flags, blk_rq_bytes(rq));
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	blk_pm_add_request(q, rq);
 
 	rq->q = q;
@@ -785,8 +793,11 @@ void elv_completed_request(struct request_queue *q, struct request *rq)
 	 */
 	if (blk_account_rq(rq)) {
 		q->in_flight[rq_is_sync(rq)]--;
+<<<<<<< HEAD
 		if (!queue_in_flight(q))
 			q->in_flight_time += ktime_us_delta(ktime_get(), q->in_flight_stamp);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if ((rq->rq_flags & RQF_SORTED) &&
 		    e->type->ops.sq.elevator_completed_req_fn)
 			e->type->ops.sq.elevator_completed_req_fn(q, rq);
@@ -861,8 +872,11 @@ int elv_register_queue(struct request_queue *q)
 		e->registered = 1;
 		if (!e->uses_mq && e->type->ops.sq.elevator_registered_fn)
 			e->type->ops.sq.elevator_registered_fn(q);
+<<<<<<< HEAD
 		else if (e->uses_mq && e->type->ops.mq.elevator_registered_fn)
 			e->type->ops.mq.elevator_registered_fn(q);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return error;
 }
@@ -986,9 +1000,12 @@ int elevator_init_mq(struct request_queue *q)
 	struct elevator_type *e;
 	int err = 0;
 
+<<<<<<< HEAD
 	if (q->tag_set && q->tag_set->flags & BLK_MQ_F_NO_SCHED_BY_DEFAULT)
 		return 0;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (q->nr_hw_queues != 1)
 		return 0;
 
@@ -999,6 +1016,7 @@ int elevator_init_mq(struct request_queue *q)
 	mutex_lock(&q->sysfs_lock);
 	if (unlikely(q->elevator))
 		goto out_unlock;
+<<<<<<< HEAD
 	if (IS_ENABLED(CONFIG_IOSCHED_BFQ)) {
 		e = elevator_get(q, "bfq", false);
 		if (!e)
@@ -1008,6 +1026,13 @@ int elevator_init_mq(struct request_queue *q)
 		if (!e)
 			goto out_unlock;
 	}
+=======
+
+	e = elevator_get(q, "mq-deadline", false);
+	if (!e)
+		goto out_unlock;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	err = blk_mq_init_sched(q, e);
 	if (err)
 		elevator_put(e);

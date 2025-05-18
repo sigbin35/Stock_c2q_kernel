@@ -12,6 +12,10 @@ generic-y += ftrace.h
 generic-y += futex.h
 generic-y += hardirq.h
 generic-y += hw_irq.h
+<<<<<<< HEAD
+=======
+generic-y += io.h
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 generic-y += irq_regs.h
 generic-y += irq_work.h
 generic-y += kdebug.h

@@ -155,7 +155,11 @@ extern const struct file_operations jffs2_file_operations;
 extern const struct inode_operations jffs2_file_inode_operations;
 extern const struct address_space_operations jffs2_file_address_operations;
 int jffs2_fsync(struct file *, loff_t, loff_t, int);
+<<<<<<< HEAD
 int jffs2_do_readpage_unlock(void *data, struct page *pg);
+=======
+int jffs2_do_readpage_unlock (struct inode *inode, struct page *pg);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* ioctl.c */
 long jffs2_ioctl(struct file *, unsigned int, unsigned long);

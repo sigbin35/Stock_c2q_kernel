@@ -43,6 +43,7 @@ struct pr_ops;
 struct rq_qos;
 struct blk_queue_stats;
 struct blk_stat_callback;
+<<<<<<< HEAD
 struct keyslot_manager;
 
 #define BLKDEV_MIN_RQ	4
@@ -51,6 +52,11 @@ struct keyslot_manager;
 #else
 #define BLKDEV_MAX_RQ  128     /* Default maximum */
 #endif
+=======
+
+#define BLKDEV_MIN_RQ	4
+#define BLKDEV_MAX_RQ	128	/* Default maximum */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* Must be consistent with blk_mq_poll_stats_bkt() */
 #define BLK_MQ_POLL_STATS_BKTS 16
@@ -435,6 +441,7 @@ static inline int blkdev_reset_zones_ioctl(struct block_device *bdev,
 
 #endif /* CONFIG_BLK_DEV_ZONED */
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_IO_VOLUME
 struct block_io_volume {
 	int			queuing_rqs;
@@ -515,6 +522,8 @@ void blk_account_tw_io(struct request_queue *q, int opf, int bytes);
 #define blk_account_tw_io(q,opf,bytes)			do {} while (0)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct request_queue {
 	/*
 	 * Together with queue_head for cacheline sharing
@@ -652,8 +661,11 @@ struct request_queue {
 
 	unsigned int		nr_sorted;
 	unsigned int		in_flight[2];
+<<<<<<< HEAD
 	unsigned long long	in_flight_time;
 	ktime_t			in_flight_stamp;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*
 	 * Number of active block driver functions for which blk_drain_queue()
@@ -661,10 +673,13 @@ struct request_queue {
 	 * queue_lock internally, e.g. scsi_request_fn().
 	 */
 	unsigned int		request_fn_active;
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_INLINE_ENCRYPTION
 	/* Inline crypto capabilities */
 	struct keyslot_manager *ksm;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	unsigned int		rq_timeout;
 	int			poll_nsec;
@@ -722,7 +737,10 @@ struct request_queue {
 	 * for flush operations
 	 */
 	struct blk_flush_queue	*fq;
+<<<<<<< HEAD
 	unsigned long		flush_ios;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	struct list_head	requeue_list;
 	spinlock_t		requeue_lock;
@@ -733,8 +751,15 @@ struct request_queue {
 	int			bypass_depth;
 	atomic_t		mq_freeze_depth;
 
+<<<<<<< HEAD
 	bsg_job_fn		*bsg_job_fn;
 	struct bsg_class_device bsg_dev;
+=======
+#if defined(CONFIG_BLK_DEV_BSG)
+	bsg_job_fn		*bsg_job_fn;
+	struct bsg_class_device bsg_dev;
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_BLK_DEV_THROTTLING
 	/* Throttle data */
@@ -763,6 +788,7 @@ struct request_queue {
 
 #define BLK_MAX_WRITE_HINTS	5
 	u64			write_hints[BLK_MAX_WRITE_HINTS];
+<<<<<<< HEAD
 
 #ifdef CONFIG_BLK_IO_VOLUME
 	struct block_io_volume	blk_io_vol[BLK_MAX_IO_VOLS];
@@ -771,6 +797,8 @@ struct request_queue {
 #ifdef CONFIG_BLK_TURBO_WRITE
 	struct blk_turbo_write	*tw;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define QUEUE_FLAG_QUEUED	0	/* uses generic tag queueing */
@@ -1094,7 +1122,10 @@ extern void blk_sync_queue(struct request_queue *q);
 extern void __blk_stop_queue(struct request_queue *q);
 extern void __blk_run_queue(struct request_queue *q);
 extern void __blk_run_queue_uncond(struct request_queue *q);
+<<<<<<< HEAD
 extern void __blk_drain_queue(struct request_queue *q, bool drain_all);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void blk_run_queue(struct request_queue *);
 extern void blk_run_queue_async(struct request_queue *q);
 extern int blk_rq_map_user(struct request_queue *, struct request *,
@@ -1532,7 +1563,11 @@ extern int blk_verify_command(unsigned char *cmd, fmode_t mode);
 enum blk_default_limits {
 	BLK_MAX_SEGMENTS	= 128,
 	BLK_SAFE_MAX_SECTORS	= 255,
+<<<<<<< HEAD
 	BLK_DEF_MAX_SECTORS	= 1024,
+=======
+	BLK_DEF_MAX_SECTORS	= 2560,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	BLK_MAX_SEGMENT_SIZE	= 65536,
 	BLK_SEG_BOUNDARY_MASK	= 0xFFFFFFFFUL,
 };
@@ -2200,6 +2235,7 @@ static inline int blkdev_issue_flush(struct block_device *bdev, gfp_t gfp_mask,
 
 #endif /* CONFIG_BLOCK */
 
+<<<<<<< HEAD
 #if !defined(CONFIG_SAMSUNG_PRODUCT_SHIP)
 #define SIO_PATCH_VERSION(name, major, minor, description)	\
 	static const char *sio_##name##_##major##_##minor __attribute__ ((used, section("sio_patches"))) = (#name " " #major "." #minor " " description)
@@ -2207,4 +2243,6 @@ static inline int blkdev_issue_flush(struct block_device *bdev, gfp_t gfp_mask,
 #define SIO_PATCH_VERSION(name, major, minor, description)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

@@ -1420,7 +1420,11 @@ static int rk_gmac_probe(struct platform_device *pdev)
 
 	ret = rk_gmac_clk_init(plat_dat);
 	if (ret)
+<<<<<<< HEAD
 		return ret;
+=======
+		goto err_remove_config_dt;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	ret = rk_gmac_powerup(plat_dat->bsp_priv);
 	if (ret)

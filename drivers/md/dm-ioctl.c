@@ -1987,6 +1987,7 @@ void dm_interface_exit(void)
 	dm_hash_exit();
 }
 
+<<<<<<< HEAD
 
 /**
  * dm_ioctl_export - Permanently export a mapped device via the ioctl interface
@@ -2026,6 +2027,8 @@ int dm_ioctl_export(struct mapped_device *md, const char *name,
 out:
 	return r;
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * dm_copy_name_and_uuid - Copy mapped device name & uuid into supplied buffers
  * @md: Pointer to mapped_device

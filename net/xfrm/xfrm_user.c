@@ -109,7 +109,12 @@ static inline int verify_sec_ctx_len(struct nlattr **attrs)
 		return 0;
 
 	uctx = nla_data(rt);
+<<<<<<< HEAD
 	if (uctx->len != (sizeof(struct xfrm_user_sec_ctx) + uctx->ctx_len))
+=======
+	if (uctx->len > nla_len(rt) ||
+	    uctx->len != (sizeof(struct xfrm_user_sec_ctx) + uctx->ctx_len))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return -EINVAL;
 
 	return 0;
@@ -2274,6 +2279,12 @@ static int xfrm_add_acquire(struct sk_buff *skb, struct nlmsghdr *nlh,
 	err = verify_newpolicy_info(&ua->policy);
 	if (err)
 		goto free_state;
+<<<<<<< HEAD
+=======
+	err = verify_sec_ctx_len(attrs);
+	if (err)
+		goto free_state;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*   build an XP */
 	xp = xfrm_policy_construct(net, &ua->policy, attrs, &err);
@@ -2633,6 +2644,14 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
 	const struct xfrm_link *link;
 	int type, err;
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_COMPAT
+	if (in_compat_syscall())
+		return -EOPNOTSUPP;
+#endif
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	type = nlh->nlmsg_type;
 	if (type > XFRM_MSG_MAX)
 		return -EINVAL;

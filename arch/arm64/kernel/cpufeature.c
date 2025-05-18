@@ -20,14 +20,20 @@
 
 #include <linux/bsearch.h>
 #include <linux/cpumask.h>
+<<<<<<< HEAD
 #include <linux/percpu.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/sort.h>
 #include <linux/stop_machine.h>
 #include <linux/types.h>
 #include <linux/mm.h>
 #include <linux/cpu.h>
 #include <asm/cpu.h>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <asm/cpufeature.h>
 #include <asm/cpu_ops.h>
 #include <asm/fpsimd.h>
@@ -35,7 +41,10 @@
 #include <asm/processor.h>
 #include <asm/sysreg.h>
 #include <asm/traps.h>
+<<<<<<< HEAD
 #include <asm/vectors.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <asm/virt.h>
 
 unsigned long elf_hwcap __read_mostly;
@@ -54,8 +63,11 @@ unsigned int compat_elf_hwcap2 __read_mostly;
 DECLARE_BITMAP(cpu_hwcaps, ARM64_NCAPS);
 EXPORT_SYMBOL(cpu_hwcaps);
 
+<<<<<<< HEAD
 DEFINE_PER_CPU_READ_MOSTLY(const char *, this_cpu_vector) = vectors;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Flag to indicate if we have computed the system wide
  * capabilities based on the boot time active CPUs. This
@@ -150,11 +162,14 @@ static const struct arm64_ftr_bits ftr_id_aa64isar1[] = {
 	ARM64_FTR_END,
 };
 
+<<<<<<< HEAD
 static const struct arm64_ftr_bits ftr_id_aa64isar2[] = {
 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_STRICT, FTR_HIGHER_SAFE, ID_AA64ISAR2_CLEARBHB_SHIFT, 4, 0),
 	ARM64_FTR_END,
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV3_SHIFT, 4, 0),
 	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_CSV2_SHIFT, 4, 0),
@@ -403,7 +418,10 @@ static const struct __ftr_reg_entry {
 	/* Op1 = 0, CRn = 0, CRm = 6 */
 	ARM64_FTR_REG(SYS_ID_AA64ISAR0_EL1, ftr_id_aa64isar0),
 	ARM64_FTR_REG(SYS_ID_AA64ISAR1_EL1, ftr_id_aa64isar1),
+<<<<<<< HEAD
 	ARM64_FTR_REG(SYS_ID_AA64ISAR2_EL1, ftr_id_aa64isar2),
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Op1 = 0, CRn = 0, CRm = 7 */
 	ARM64_FTR_REG(SYS_ID_AA64MMFR0_EL1, ftr_id_aa64mmfr0),
@@ -552,7 +570,10 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
 	init_cpu_ftr_reg(SYS_ID_AA64DFR1_EL1, info->reg_id_aa64dfr1);
 	init_cpu_ftr_reg(SYS_ID_AA64ISAR0_EL1, info->reg_id_aa64isar0);
 	init_cpu_ftr_reg(SYS_ID_AA64ISAR1_EL1, info->reg_id_aa64isar1);
+<<<<<<< HEAD
 	init_cpu_ftr_reg(SYS_ID_AA64ISAR2_EL1, info->reg_id_aa64isar2);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	init_cpu_ftr_reg(SYS_ID_AA64MMFR0_EL1, info->reg_id_aa64mmfr0);
 	init_cpu_ftr_reg(SYS_ID_AA64MMFR1_EL1, info->reg_id_aa64mmfr1);
 	init_cpu_ftr_reg(SYS_ID_AA64MMFR2_EL1, info->reg_id_aa64mmfr2);
@@ -616,7 +637,11 @@ static int check_update_ftr_reg(u32 sys_id, int cpu, u64 val, u64 boot)
 	update_cpu_ftr_reg(regp, val);
 	if ((boot & regp->strict_mask) == (val & regp->strict_mask))
 		return 0;
+<<<<<<< HEAD
 	pr_debug("SANITY CHECK: Unexpected variation in %s. Boot CPU: %#016llx, CPU%d: %#016llx\n",
+=======
+	pr_warn("SANITY CHECK: Unexpected variation in %s. Boot CPU: %#016llx, CPU%d: %#016llx\n",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			regp->name, boot, cpu, val);
 	return 1;
 }
@@ -670,8 +695,11 @@ void update_cpu_features(int cpu,
 				      info->reg_id_aa64isar0, boot->reg_id_aa64isar0);
 	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR1_EL1, cpu,
 				      info->reg_id_aa64isar1, boot->reg_id_aa64isar1);
+<<<<<<< HEAD
 	taint |= check_update_ftr_reg(SYS_ID_AA64ISAR2_EL1, cpu,
 				      info->reg_id_aa64isar2, boot->reg_id_aa64isar2);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*
 	 * Differing PARange support is fine as long as all peripherals and
@@ -808,7 +836,10 @@ static u64 __read_sysreg_by_encoding(u32 sys_id)
 	read_sysreg_case(SYS_ID_AA64MMFR2_EL1);
 	read_sysreg_case(SYS_ID_AA64ISAR0_EL1);
 	read_sysreg_case(SYS_ID_AA64ISAR1_EL1);
+<<<<<<< HEAD
 	read_sysreg_case(SYS_ID_AA64ISAR2_EL1);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	read_sysreg_case(SYS_CNTFRQ_EL0);
 	read_sysreg_case(SYS_CTR_EL0);
@@ -904,8 +935,12 @@ static bool has_cache_dic(const struct arm64_cpu_capabilities *entry,
 }
 
 static bool __meltdown_safe = true;
+<<<<<<< HEAD
 /* 0: not forced, >0: forced on, <0: forced off */
 static int __kpti_forced = -1;
+=======
+static int __kpti_forced; /* 0: not forced, >0: forced on, <0: forced off */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static bool unmap_kernel_at_el0(const struct arm64_cpu_capabilities *entry,
 				int scope)
@@ -920,9 +955,13 @@ static bool unmap_kernel_at_el0(const struct arm64_cpu_capabilities *entry,
 		MIDR_ALL_VERSIONS(MIDR_CORTEX_A57),
 		MIDR_ALL_VERSIONS(MIDR_CORTEX_A72),
 		MIDR_ALL_VERSIONS(MIDR_CORTEX_A73),
+<<<<<<< HEAD
 		MIDR_ALL_VERSIONS(MIDR_KRYO5S),
 		MIDR_ALL_VERSIONS(MIDR_HISI_TSV110),
 		MIDR_ALL_VERSIONS(MIDR_KRYO5S),
+=======
+		MIDR_ALL_VERSIONS(MIDR_HISI_TSV110),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		{ /* sentinel */ }
 	};
 	char const *str = "kpti command line option";
@@ -976,7 +1015,11 @@ static bool unmap_kernel_at_el0(const struct arm64_cpu_capabilities *entry,
 }
 
 #ifdef CONFIG_UNMAP_KERNEL_AT_EL0
+<<<<<<< HEAD
 static void __nocfi
+=======
+static void
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
 {
 	typedef void (kpti_remap_fn)(int, int, phys_addr_t);
@@ -986,6 +1029,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
 	static bool kpti_applied = false;
 	int cpu = smp_processor_id();
 
+<<<<<<< HEAD
 	if (__this_cpu_read(this_cpu_vector) == vectors) {
 		const char *v = arm64_get_bp_hardening_vector(EL1_VECTOR_KPTI);
 
@@ -996,6 +1040,12 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
 		return;
 
 	remap_fn = (void *)__pa_function(idmap_kpti_install_ng_mappings);
+=======
+	if (kpti_applied)
+		return;
+
+	remap_fn = (void *)__pa_symbol(idmap_kpti_install_ng_mappings);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	cpu_install_idmap();
 	remap_fn(cpu, num_online_cpus(), __pa_symbol(swapper_pg_dir));
@@ -1041,7 +1091,10 @@ static bool cpu_has_broken_dbm(void)
 	static const struct midr_range cpus[] = {
 #ifdef CONFIG_ARM64_ERRATUM_1024718
 		MIDR_RANGE(MIDR_CORTEX_A55, 0, 0, 1, 0),  // A55 r0p0 -r1p0
+<<<<<<< HEAD
 		MIDR_RANGE(MIDR_KRYO5S, 13, 14, 13, 14),
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 		{},
 	};
@@ -1127,7 +1180,11 @@ static int ssbs_emulation_handler(struct pt_regs *regs, u32 instr)
 	if (user_mode(regs))
 		return 1;
 
+<<<<<<< HEAD
 	if (instr & BIT(PSTATE_Imm_shift))
+=======
+	if (instr & BIT(CRm_shift))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		regs->pstate |= PSR_SSBS_BIT;
 	else
 		regs->pstate &= ~PSR_SSBS_BIT;
@@ -1137,8 +1194,13 @@ static int ssbs_emulation_handler(struct pt_regs *regs, u32 instr)
 }
 
 static struct undef_hook ssbs_emulation_hook = {
+<<<<<<< HEAD
 	.instr_mask	= ~(1U << PSTATE_Imm_shift),
 	.instr_val	= 0xd500401f | PSTATE_SSBS,
+=======
+	.instr_mask	= ~(1U << CRm_shift),
+	.instr_val	= 0xd500001f | REG_PSTATE_SSBS_IMM,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.fn		= ssbs_emulation_handler,
 };
 

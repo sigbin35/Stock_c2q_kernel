@@ -58,15 +58,19 @@ typedef struct qspinlock {
 		};
 #endif
 	};
+<<<<<<< HEAD
 #ifdef CONFIG_DEBUG_QSPINLOCK_OWNER
 	unsigned int owner_cpu;
 	struct task_struct *owner;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 } arch_spinlock_t;
 
 /*
  * Initializier
  */
+<<<<<<< HEAD
 
 #ifdef CONFIG_DEBUG_QSPINLOCK_OWNER
 #define	__ARCH_SPIN_LOCK_UNLOCKED	{\
@@ -75,6 +79,9 @@ typedef struct qspinlock {
  #else
 #define	__ARCH_SPIN_LOCK_UNLOCKED	{ { .val = ATOMIC_INIT(0) } }
 #endif
+=======
+#define	__ARCH_SPIN_LOCK_UNLOCKED	{ { .val = ATOMIC_INIT(0) } }
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Bitfields in the atomic value:

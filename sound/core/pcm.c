@@ -754,7 +754,10 @@ int snd_pcm_new_stream(struct snd_pcm *pcm, int stream, int substream_count)
 		}
 		substream->group = &substream->self_group;
 		spin_lock_init(&substream->self_group.lock);
+<<<<<<< HEAD
 		spin_lock_init(&substream->runtime_lock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_init(&substream->self_group.mutex);
 		INIT_LIST_HEAD(&substream->self_group.substreams);
 		list_add_tail(&substream->link_list, &substream->self_group.substreams);
@@ -878,6 +881,7 @@ static void free_chmap(struct snd_pcm_str *pstr)
 		snd_ctl_remove(pstr->pcm->card, pstr->chmap_kctl);
 		pstr->chmap_kctl = NULL;
 	}
+<<<<<<< HEAD
 	if (pstr->vol_kctl) {
 		snd_ctl_remove(pstr->pcm->card, pstr->vol_kctl);
 		pstr->vol_kctl = NULL;
@@ -886,6 +890,8 @@ static void free_chmap(struct snd_pcm_str *pstr)
 		snd_ctl_remove(pstr->pcm->card, pstr->usr_kctl);
 		pstr->usr_kctl = NULL;
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void snd_pcm_free_stream(struct snd_pcm_str * pstr)
@@ -1050,11 +1056,17 @@ int snd_pcm_attach_substream(struct snd_pcm *pcm, int stream,
 void snd_pcm_detach_substream(struct snd_pcm_substream *substream)
 {
 	struct snd_pcm_runtime *runtime;
+<<<<<<< HEAD
 	unsigned long flags = 0;
 
 	if (PCM_RUNTIME_CHECK(substream))
 		return;
 	spin_lock_irqsave(&substream->runtime_lock, flags);
+=======
+
+	if (PCM_RUNTIME_CHECK(substream))
+		return;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	runtime = substream->runtime;
 	if (runtime->private_free != NULL)
 		runtime->private_free(runtime);
@@ -1073,7 +1085,10 @@ void snd_pcm_detach_substream(struct snd_pcm_substream *substream)
 	put_pid(substream->pid);
 	substream->pid = NULL;
 	substream->pstr->substream_opened--;
+<<<<<<< HEAD
 	spin_unlock_irqrestore(&substream->runtime_lock, flags);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static ssize_t show_pcm_class(struct device *dev,

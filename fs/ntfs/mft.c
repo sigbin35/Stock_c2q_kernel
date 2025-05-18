@@ -972,7 +972,11 @@ bool ntfs_may_write_mft_record(ntfs_volume *vol, const unsigned long mft_no,
 		 * dirty code path of the inode dirty code path when writing
 		 * $MFT occurs.
 		 */
+<<<<<<< HEAD
 		vi = ilookup5_nowait(sb, mft_no, ntfs_test_inode, &na);
+=======
+		vi = ilookup5_nowait(sb, mft_no, (test_t)ntfs_test_inode, &na);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	if (vi) {
 		ntfs_debug("Base inode 0x%lx is in icache.", mft_no);
@@ -1033,7 +1037,11 @@ bool ntfs_may_write_mft_record(ntfs_volume *vol, const unsigned long mft_no,
 		vi = igrab(mft_vi);
 		BUG_ON(vi != mft_vi);
 	} else
+<<<<<<< HEAD
 		vi = ilookup5_nowait(sb, na.mft_no, ntfs_test_inode,
+=======
+		vi = ilookup5_nowait(sb, na.mft_no, (test_t)ntfs_test_inode,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				&na);
 	if (!vi) {
 		/*

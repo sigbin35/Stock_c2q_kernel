@@ -1,6 +1,24 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0+
 /*
  * Copyright (C) 2015 Microchip Technology
+=======
+/*
+ * Copyright (C) 2015 Microchip Technology
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 2
+ * of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, see <http://www.gnu.org/licenses/>.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 #include <linux/version.h>
 #include <linux/module.h>
@@ -937,9 +955,17 @@ static int lan78xx_read_otp(struct lan78xx_net *dev, u32 offset,
 	ret = lan78xx_read_raw_otp(dev, 0, 1, &sig);
 
 	if (ret == 0) {
+<<<<<<< HEAD
 		if (sig == OTP_INDICATOR_2)
 			offset += 0x100;
 		else if (sig != OTP_INDICATOR_1)
+=======
+		if (sig == OTP_INDICATOR_1)
+			offset = offset;
+		else if (sig == OTP_INDICATOR_2)
+			offset += 0x100;
+		else
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			ret = -EINVAL;
 		if (!ret)
 			ret = lan78xx_read_raw_otp(dev, offset, length, data);
@@ -1014,7 +1040,11 @@ done:
 static void lan78xx_set_addr_filter(struct lan78xx_priv *pdata,
 				    int index, u8 addr[ETH_ALEN])
 {
+<<<<<<< HEAD
 	u32 temp;
+=======
+	u32	temp;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if ((pdata) && (index > 0) && (index < NUM_OF_MAF)) {
 		temp = addr[3];
@@ -1829,7 +1859,12 @@ static int lan78xx_mdio_init(struct lan78xx_net *dev)
 
 	node = of_get_child_by_name(dev->udev->dev.of_node, "mdio");
 	ret = of_mdiobus_register(dev->mdiobus, node);
+<<<<<<< HEAD
 	of_node_put(node);
+=======
+	if (node)
+		of_node_put(node);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret) {
 		netdev_err(dev->net, "can't register MDIO bus\n");
 		goto exit1;
@@ -2687,7 +2722,11 @@ static void lan78xx_terminate_urbs(struct lan78xx_net *dev)
 
 static int lan78xx_stop(struct net_device *net)
 {
+<<<<<<< HEAD
 	struct lan78xx_net *dev = netdev_priv(net);
+=======
+	struct lan78xx_net		*dev = netdev_priv(net);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (timer_pending(&dev->stat_monitor))
 		del_timer_sync(&dev->stat_monitor);
@@ -3067,7 +3106,11 @@ static void lan78xx_rx_vlan_offload(struct lan78xx_net *dev,
 
 static void lan78xx_skb_return(struct lan78xx_net *dev, struct sk_buff *skb)
 {
+<<<<<<< HEAD
 	int status;
+=======
+	int		status;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (test_bit(EVENT_RX_PAUSED, &dev->flags)) {
 		skb_queue_tail(&dev->rxq_pause, skb);
@@ -3334,9 +3377,15 @@ static void lan78xx_tx_bh(struct lan78xx_net *dev)
 	count = 0;
 	length = 0;
 	spin_lock_irqsave(&tqp->lock, flags);
+<<<<<<< HEAD
 	skb_queue_walk(tqp, skb) {
 		if (skb_is_gso(skb)) {
 			if (!skb_queue_is_first(tqp, skb)) {
+=======
+	for (skb = tqp->next; pkt_cnt < tqp->qlen; skb = skb->next) {
+		if (skb_is_gso(skb)) {
+			if (pkt_cnt) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				/* handle previous packets first */
 				break;
 			}
@@ -3627,10 +3676,17 @@ static void intr_complete(struct urb *urb)
 
 static void lan78xx_disconnect(struct usb_interface *intf)
 {
+<<<<<<< HEAD
 	struct lan78xx_net *dev;
 	struct usb_device *udev;
 	struct net_device *net;
 	struct phy_device *phydev;
+=======
+	struct lan78xx_net		*dev;
+	struct usb_device		*udev;
+	struct net_device		*net;
+	struct phy_device		*phydev;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	dev = usb_get_intfdata(intf);
 	usb_set_intfdata(intf, NULL);
@@ -3762,6 +3818,10 @@ static int lan78xx_probe(struct usb_interface *intf,
 	ret = lan78xx_bind(dev, intf);
 	if (ret < 0)
 		goto out2;
+<<<<<<< HEAD
+=======
+	strcpy(netdev->name, "eth%d");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (netdev->mtu > (dev->hard_mtu - netdev->hard_header_len))
 		netdev->mtu = dev->hard_mtu - netdev->hard_header_len;

@@ -37,7 +37,10 @@ static inline void harden_branch_predictor(void)
 #define UDBG_BUS	(1 << 4)
 
 extern unsigned int user_debug;
+<<<<<<< HEAD
 extern char* (*arch_read_hardware_id)(void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline int handle_guest_sea(phys_addr_t addr, unsigned int esr)
 {

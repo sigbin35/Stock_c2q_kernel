@@ -11,7 +11,10 @@
 #include <linux/kthread.h>
 #include <linux/completion.h>
 #include <linux/err.h>
+<<<<<<< HEAD
 #include <linux/cgroup.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/cpuset.h>
 #include <linux/unistd.h>
 #include <linux/file.h>

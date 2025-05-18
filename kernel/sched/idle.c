@@ -16,10 +16,16 @@ extern char __cpuidle_text_start[], __cpuidle_text_end[];
  * sched_idle_set_state - Record idle state for the current CPU.
  * @idle_state: State to record.
  */
+<<<<<<< HEAD
 void sched_idle_set_state(struct cpuidle_state *idle_state, int index)
 {
 	idle_set_state(this_rq(), idle_state);
 	idle_set_state_idx(this_rq(), index);
+=======
+void sched_idle_set_state(struct cpuidle_state *idle_state)
+{
+	idle_set_state(this_rq(), idle_state);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int __read_mostly cpu_idle_force_poll;
@@ -60,8 +66,12 @@ static noinline int __cpuidle cpu_idle_poll(void)
 	stop_critical_timings();
 
 	while (!tif_need_resched() &&
+<<<<<<< HEAD
 		(cpu_idle_force_poll || tick_check_broadcast_expired() ||
 		is_reserved(smp_processor_id())))
+=======
+		(cpu_idle_force_poll || tick_check_broadcast_expired()))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		cpu_relax();
 	start_critical_timings();
 	trace_cpu_idle_rcuidle(PWR_EVENT_EXIT, smp_processor_id());
@@ -258,8 +268,12 @@ static void do_idle(void)
 		 * broadcast device expired for us, we don't want to go deep
 		 * idle as we know that the IPI is going to arrive right away.
 		 */
+<<<<<<< HEAD
 		if (cpu_idle_force_poll || tick_check_broadcast_expired() ||
 				is_reserved(smp_processor_id())) {
+=======
+		if (cpu_idle_force_poll || tick_check_broadcast_expired()) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			tick_nohz_idle_restart_tick();
 			cpu_idle_poll();
 		} else {
@@ -378,8 +392,12 @@ void cpu_startup_entry(enum cpuhp_state state)
 
 #ifdef CONFIG_SMP
 static int
+<<<<<<< HEAD
 select_task_rq_idle(struct task_struct *p, int cpu, int sd_flag, int flags,
 		    int sibling_count_hint)
+=======
+select_task_rq_idle(struct task_struct *p, int cpu, int sd_flag, int flags)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	return task_cpu(p); /* IDLE tasks as never migrated */
 }

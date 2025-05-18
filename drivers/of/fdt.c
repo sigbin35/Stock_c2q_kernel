@@ -25,7 +25,10 @@
 #include <linux/debugfs.h>
 #include <linux/serial_core.h>
 #include <linux/sysfs.h>
+<<<<<<< HEAD
 #include <linux/random.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <asm/setup.h>  /* for COMMAND_LINE_SIZE */
 #include <asm/page.h>
@@ -81,6 +84,7 @@ void of_fdt_limit_memory(int limit)
 }
 
 /**
+<<<<<<< HEAD
  * of_fdt_get_ddrhbb - Return the highest bank bit of ddr on the current device
  *
  * On match, returns a non-zero positive value which matches the highest bank
@@ -171,6 +175,8 @@ int of_fdt_get_ddrtype(void)
 EXPORT_SYMBOL_GPL(of_fdt_get_ddrtype);
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * of_fdt_is_compatible - Return true if given node from the given blob has
  * compat in its compatible list
  * @blob: A device tree blob
@@ -763,7 +769,10 @@ void __init early_init_fdt_scan_reserved_mem(void)
 		if (!size)
 			break;
 		early_init_dt_reserve_memory_arch(base, size, 0);
+<<<<<<< HEAD
 		record_memsize_reserved(NULL, base, size, 0, 0);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	of_scan_flat_dt(__fdt_scan_reserved_mem, NULL);
@@ -1164,6 +1173,7 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
 	return 0;
 }
 
+<<<<<<< HEAD
 /*
  * Convert configs to something easy to use in C code
  */
@@ -1198,11 +1208,23 @@ int __init early_init_dt_scan_chosen(unsigned long node, const char *uname,
 	pr_debug("search \"chosen\", depth: %d, uname: %s\n", depth, uname);
 
 	if (depth != 1 || !cmdline ||
+=======
+int __init early_init_dt_scan_chosen(unsigned long node, const char *uname,
+				     int depth, void *data)
+{
+	int l;
+	const char *p;
+
+	pr_debug("search \"chosen\", depth: %d, uname: %s\n", depth, uname);
+
+	if (depth != 1 || !data ||
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	    (strcmp(uname, "chosen") != 0 && strcmp(uname, "chosen@0") != 0))
 		return 0;
 
 	early_init_dt_check_for_initrd(node);
 
+<<<<<<< HEAD
 	/* Put CONFIG_CMDLINE in if forced or if data had nothing in it to start */
 	if (overwrite_incoming_cmdline || !cmdline[0])
 		strlcpy(cmdline, config_cmdline, COMMAND_LINE_SIZE);
@@ -1236,6 +1258,33 @@ int __init early_init_dt_scan_chosen(unsigned long node, const char *uname,
 		fdt_nop_property(initial_boot_params, node, "rng-seed");
 	}
 
+=======
+	/* Retrieve command line */
+	p = of_get_flat_dt_prop(node, "bootargs", &l);
+	if (p != NULL && l > 0)
+		strlcpy(data, p, min((int)l, COMMAND_LINE_SIZE));
+
+	/*
+	 * CONFIG_CMDLINE is meant to be a default in case nothing else
+	 * managed to set the command line, unless CONFIG_CMDLINE_FORCE
+	 * is set in which case we override whatever was found earlier.
+	 */
+#ifdef CONFIG_CMDLINE
+#if defined(CONFIG_CMDLINE_EXTEND)
+	strlcat(data, " ", COMMAND_LINE_SIZE);
+	strlcat(data, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
+#elif defined(CONFIG_CMDLINE_FORCE)
+	strlcpy(data, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
+#else
+	/* No arguments from boot loader, use kernel's  cmdl*/
+	if (!((char *)data)[0])
+		strlcpy(data, CONFIG_CMDLINE, COMMAND_LINE_SIZE);
+#endif
+#endif /* CONFIG_CMDLINE */
+
+	pr_debug("Command line is: %s\n", (char*)data);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* break now */
 	return 1;
 }
@@ -1338,6 +1387,11 @@ bool __init early_init_dt_verify(void *params)
 
 	/* Setup flat device-tree pointer */
 	initial_boot_params = params;
+<<<<<<< HEAD
+=======
+	of_fdt_crc32 = crc32_be(~0, initial_boot_params,
+				fdt_totalsize(initial_boot_params));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return true;
 }
 
@@ -1352,7 +1406,10 @@ void __init early_init_dt_scan_nodes(void)
 
 	/* Setup memory, calling early_init_dt_add_memory_arch */
 	of_scan_flat_dt(early_init_dt_scan_memory, NULL);
+<<<<<<< HEAD
 	record_memsize_memory_hole();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 bool __init early_init_dt_scan(void *params)
@@ -1364,8 +1421,11 @@ bool __init early_init_dt_scan(void *params)
 		return false;
 
 	early_init_dt_scan_nodes();
+<<<<<<< HEAD
 	of_fdt_crc32 = crc32_be(~0, initial_boot_params,
 				fdt_totalsize(initial_boot_params));
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return true;
 }
 

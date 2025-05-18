@@ -173,6 +173,7 @@ TRACE_EVENT(cpu_frequency_limits,
 		  (unsigned long)__entry->cpu_id)
 );
 
+<<<<<<< HEAD
 TRACE_EVENT(cpu_frequency_switch_start,
 
 	TP_PROTO(unsigned int start_freq, unsigned int end_freq,
@@ -215,6 +216,8 @@ TRACE_EVENT(cpu_frequency_switch_end,
 	TP_printk("cpu_id=%lu", (unsigned long)__entry->cpu_id)
 );
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 TRACE_EVENT(device_pm_callback_start,
 
 	TP_PROTO(struct device *dev, const char *pm_ops, int event),
@@ -571,6 +574,7 @@ DEFINE_EVENT(dev_pm_qos_request, dev_pm_qos_remove_request,
 
 	TP_ARGS(name, type, new_value)
 );
+<<<<<<< HEAD
 
 TRACE_EVENT(sugov_util_update,
 	    TP_PROTO(int cpu,
@@ -832,6 +836,8 @@ TRACE_EVENT(memlat_dev_update,
 		__entry->vote)
 );
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _TRACE_POWER_H */
 
 /* This part must be outside protection */

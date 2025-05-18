@@ -93,8 +93,11 @@ static bool match_index(struct hid_usage *usage,
 
 typedef bool (*hid_usage_cmp_t)(struct hid_usage *usage,
 				unsigned int cur_idx, unsigned int val);
+<<<<<<< HEAD
                 
 extern bool lcd_is_on;      
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static struct hid_usage *hidinput_find_key(struct hid_device *hid,
 					   hid_usage_cmp_t match,
@@ -176,9 +179,12 @@ static int hidinput_setkeycode(struct input_dev *dev,
 				usage->code : KEY_RESERVED;
 		usage->code = ke->keycode;
 
+<<<<<<< HEAD
 		if (usage->code > KEY_MAX || *old_keycode > KEY_MAX)
 			return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		clear_bit(*old_keycode, dev->keybit);
 		set_bit(usage->code, dev->keybit);
 		dbg_hid("Assigned keycode %d to HID usage code %x\n",
@@ -1130,10 +1136,13 @@ static void hidinput_configure_usage(struct hid_input *hidinput, struct hid_fiel
 	}
 
 mapped:
+<<<<<<< HEAD
 	/* Mapping failed, bail out */
 	if (!bit)
 		return;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (device->driver->input_mapped &&
 	    device->driver->input_mapped(device, hidinput, field, usage,
 					 &bit, &max) < 0) {
@@ -1471,12 +1480,15 @@ static void hidinput_led_worker(struct work_struct *work)
 	buf = hid_alloc_report_buf(report, GFP_KERNEL);
 	if (!buf)
 		return;
+<<<<<<< HEAD
     
     if (!lcd_is_on) {
         printk(KERN_DEBUG "lcd is OFF, don't report LED event\n");
 		kfree(buf);
 		return;
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	hid_output_report(report, buf);
 	/* synchronous output report */

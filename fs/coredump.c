@@ -742,7 +742,11 @@ void do_coredump(const siginfo_t *siginfo)
 			goto close_fail;
 		if (!(cprm.file->f_mode & FMODE_CAN_WRITE))
 			goto close_fail;
+<<<<<<< HEAD
 		if (do_truncate2(cprm.file->f_path.mnt, cprm.file->f_path.dentry, 0, 0, cprm.file))
+=======
+		if (do_truncate(cprm.file->f_path.dentry, 0, 0, cprm.file))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			goto close_fail;
 	}
 

@@ -832,11 +832,14 @@ static inline bool hid_is_using_ll_driver(struct hid_device *hdev,
 	return hdev->ll_driver == driver;
 }
 
+<<<<<<< HEAD
 static inline bool hid_is_usb(struct hid_device *hdev)
 {
 	return hid_is_using_ll_driver(hdev, &usb_hid_driver);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define	PM_HINT_FULLON	1<<5
 #define PM_HINT_NORMAL	1<<1
 
@@ -967,6 +970,7 @@ static inline void hid_map_usage(struct hid_input *hidinput,
 		__u8 type, __u16 c)
 {
 	struct input_dev *input = hidinput->input;
+<<<<<<< HEAD
 	unsigned long *bmap = NULL;
 	unsigned int limit = 0;
 
@@ -1000,6 +1004,30 @@ static inline void hid_map_usage(struct hid_input *hidinput,
 	usage->code = c;
 	*max = limit;
 	*bit = bmap;
+=======
+
+	usage->type = type;
+	usage->code = c;
+
+	switch (type) {
+	case EV_ABS:
+		*bit = input->absbit;
+		*max = ABS_MAX;
+		break;
+	case EV_REL:
+		*bit = input->relbit;
+		*max = REL_MAX;
+		break;
+	case EV_KEY:
+		*bit = input->keybit;
+		*max = KEY_MAX;
+		break;
+	case EV_LED:
+		*bit = input->ledbit;
+		*max = LED_MAX;
+		break;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /**
@@ -1013,8 +1041,12 @@ static inline void hid_map_usage_clear(struct hid_input *hidinput,
 		__u8 type, __u16 c)
 {
 	hid_map_usage(hidinput, usage, bit, max, type, c);
+<<<<<<< HEAD
 	if (*bit)
 		clear_bit(usage->code, *bit);
+=======
+	clear_bit(c, *bit);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /**

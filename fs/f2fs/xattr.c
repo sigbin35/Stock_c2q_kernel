@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * fs/f2fs/xattr.c
  *
@@ -14,6 +17,13 @@
  *  suggestion of Luka Renko <luka.renko@hermes.si>.
  * xattr consolidation Copyright (c) 2004 James Morris <jmorris@redhat.com>,
  *  Red Hat Inc.
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 #include <linux/rwsem.h>
 #include <linux/f2fs_fs.h>
@@ -21,7 +31,10 @@
 #include <linux/posix_acl_xattr.h>
 #include "f2fs.h"
 #include "xattr.h"
+<<<<<<< HEAD
 #include "segment.h"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static int f2fs_xattr_generic_get(const struct xattr_handler *handler,
 		struct dentry *unused, struct inode *inode,
@@ -347,9 +360,12 @@ static int lookup_all_xattrs(struct inode *inode, struct page *ipage,
 
 	*xe = __find_xattr(cur_addr, last_txattr_addr, index, len, name);
 	if (!*xe) {
+<<<<<<< HEAD
 		f2fs_err(F2FS_I_SB(inode), "inode (%lu) has corrupted xattr",
 								inode->i_ino);
 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		err = -EFSCORRUPTED;
 		goto out;
 	}
@@ -362,7 +378,11 @@ check:
 	*base_addr = txattr_addr;
 	return 0;
 out:
+<<<<<<< HEAD
 	kvfree(txattr_addr);
+=======
+	kzfree(txattr_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return err;
 }
 
@@ -405,7 +425,11 @@ static int read_all_xattrs(struct inode *inode, struct page *ipage,
 	*base_addr = txattr_addr;
 	return 0;
 fail:
+<<<<<<< HEAD
 	kvfree(txattr_addr);
+=======
+	kzfree(txattr_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return err;
 }
 
@@ -439,7 +463,11 @@ static inline int write_all_xattrs(struct inode *inode, __u32 hsize,
 		}
 
 		f2fs_wait_on_page_writeback(ipage ? ipage : in_page,
+<<<<<<< HEAD
 							NODE, true, true);
+=======
+							NODE, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		/* no need to use xattr node block */
 		if (hsize <= inline_size) {
 			err = f2fs_truncate_xattr_node(inode);
@@ -463,7 +491,11 @@ static inline int write_all_xattrs(struct inode *inode, __u32 hsize,
 			goto in_page_out;
 		}
 		f2fs_bug_on(sbi, new_nid);
+<<<<<<< HEAD
 		f2fs_wait_on_page_writeback(xpage, NODE, true, true);
+=======
+		f2fs_wait_on_page_writeback(xpage, NODE, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} else {
 		struct dnode_of_data dn;
 		set_new_dnode(&dn, inode, NULL, NULL, new_nid);
@@ -532,16 +564,25 @@ int f2fs_getxattr(struct inode *inode, int index, const char *name,
 	}
 	error = size;
 out:
+<<<<<<< HEAD
 	kvfree(base_addr);
+=======
+	kzfree(base_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return error;
 }
 
 ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 {
 	struct inode *inode = d_inode(dentry);
+<<<<<<< HEAD
 	nid_t xnid = F2FS_I(inode)->i_xattr_nid;
 	struct f2fs_xattr_entry *entry;
 	void *base_addr, *last_base_addr;
+=======
+	struct f2fs_xattr_entry *entry;
+	void *base_addr;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int error = 0;
 	size_t rest = buffer_size;
 
@@ -551,8 +592,11 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 	if (error)
 		return error;
 
+<<<<<<< HEAD
 	last_base_addr = (void *)base_addr + XATTR_SIZE(xnid, inode);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	list_for_each_xattr(entry, base_addr) {
 		const struct xattr_handler *handler =
 			f2fs_xattr_handler(entry->e_name_index);
@@ -560,6 +604,7 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 		size_t prefix_len;
 		size_t size;
 
+<<<<<<< HEAD
 		if ((void *)(entry) + sizeof(__u32) > last_base_addr ||
 			(void *)XATTR_NEXT_ENTRY(entry) > last_base_addr) {
 			f2fs_err(F2FS_I_SB(inode), "inode (%lu) has corrupted xattr",
@@ -573,6 +618,12 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 			continue;
 
 		prefix = xattr_prefix(handler);
+=======
+		if (!handler || (handler->list && !handler->list(dentry)))
+			continue;
+
+		prefix = handler->prefix ?: handler->name;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		prefix_len = strlen(prefix);
 		size = prefix_len + entry->e_name_len + 1;
 		if (buffer) {
@@ -590,7 +641,11 @@ ssize_t f2fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
 	}
 	error = buffer_size - rest;
 cleanup:
+<<<<<<< HEAD
 	kvfree(base_addr);
+=======
+	kzfree(base_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return error;
 }
 
@@ -638,9 +693,12 @@ static int __f2fs_setxattr(struct inode *inode, int index,
 	/* find entry with wanted name. */
 	here = __find_xattr(base_addr, last_base_addr, index, len, name);
 	if (!here) {
+<<<<<<< HEAD
 		f2fs_err(F2FS_I_SB(inode), "inode (%lu) has corrupted xattr",
 								inode->i_ino);
 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_FSCK);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		error = -EFSCORRUPTED;
 		goto exit;
 	}
@@ -731,7 +789,11 @@ static int __f2fs_setxattr(struct inode *inode, int index,
 	if (!error && S_ISDIR(inode->i_mode))
 		set_sbi_flag(F2FS_I_SB(inode), SBI_NEED_CP);
 exit:
+<<<<<<< HEAD
 	kvfree(base_addr);
+=======
+	kzfree(base_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return error;
 }
 
@@ -742,11 +804,14 @@ int f2fs_setxattr(struct inode *inode, int index, const char *name,
 	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
 	int err;
 
+<<<<<<< HEAD
 	if (unlikely(f2fs_cp_error(sbi)))
 		return -EIO;
 	if (!f2fs_is_checkpoint_ready(sbi))
 		return -ENOSPC;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	err = dquot_initialize(inode);
 	if (err)
 		return err;

@@ -240,8 +240,20 @@ static struct sk_buff *ipv6_gro_receive(struct list_head *head,
 		/* flush if Traffic Class fields are different */
 		NAPI_GRO_CB(p)->flush |= !!(first_word & htonl(0x0FF00000));
 		NAPI_GRO_CB(p)->flush |= flush;
+<<<<<<< HEAD
 	}
 
+=======
+
+		/* If the previous IP ID value was based on an atomic
+		 * datagram we can overwrite the value and ignore it.
+		 */
+		if (NAPI_GRO_CB(skb)->is_atomic)
+			NAPI_GRO_CB(p)->flush_id = 0;
+	}
+
+	NAPI_GRO_CB(skb)->is_atomic = true;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NAPI_GRO_CB(skb)->flush |= flush;
 
 	skb_gro_postpull_rcsum(skb, iph, nlen);

@@ -86,6 +86,7 @@
 #include <net/scm.h>
 #include <net/tcp_states.h>
 
+<<<<<<< HEAD
 #include "scm.h"
 
 /* Internal data structures and random procedures: */
@@ -93,6 +94,79 @@
 static LIST_HEAD(gc_candidates);
 static DECLARE_WAIT_QUEUE_HEAD(unix_gc_wait);
 
+=======
+/* Internal data structures and random procedures: */
+
+static LIST_HEAD(gc_inflight_list);
+static LIST_HEAD(gc_candidates);
+static DEFINE_SPINLOCK(unix_gc_lock);
+static DECLARE_WAIT_QUEUE_HEAD(unix_gc_wait);
+
+unsigned int unix_tot_inflight;
+
+struct sock *unix_get_socket(struct file *filp)
+{
+	struct sock *u_sock = NULL;
+	struct inode *inode = file_inode(filp);
+
+	/* Socket ? */
+	if (S_ISSOCK(inode->i_mode) && !(filp->f_mode & FMODE_PATH)) {
+		struct socket *sock = SOCKET_I(inode);
+		struct sock *s = sock->sk;
+
+		/* PF_UNIX ? */
+		if (s && sock->ops && sock->ops->family == PF_UNIX)
+			u_sock = s;
+	}
+	return u_sock;
+}
+
+/* Keep the number of times in flight count for the file
+ * descriptor if it is for an AF_UNIX socket.
+ */
+
+void unix_inflight(struct user_struct *user, struct file *fp)
+{
+	struct sock *s = unix_get_socket(fp);
+
+	spin_lock(&unix_gc_lock);
+
+	if (s) {
+		struct unix_sock *u = unix_sk(s);
+
+		if (atomic_long_inc_return(&u->inflight) == 1) {
+			BUG_ON(!list_empty(&u->link));
+			list_add_tail(&u->link, &gc_inflight_list);
+		} else {
+			BUG_ON(list_empty(&u->link));
+		}
+		unix_tot_inflight++;
+	}
+	user->unix_inflight++;
+	spin_unlock(&unix_gc_lock);
+}
+
+void unix_notinflight(struct user_struct *user, struct file *fp)
+{
+	struct sock *s = unix_get_socket(fp);
+
+	spin_lock(&unix_gc_lock);
+
+	if (s) {
+		struct unix_sock *u = unix_sk(s);
+
+		BUG_ON(!atomic_long_read(&u->inflight));
+		BUG_ON(list_empty(&u->link));
+
+		if (atomic_long_dec_and_test(&u->inflight))
+			list_del_init(&u->link);
+		unix_tot_inflight--;
+	}
+	user->unix_inflight--;
+	spin_unlock(&unix_gc_lock);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void scan_inflight(struct sock *x, void (*func)(struct unix_sock *),
 			  struct sk_buff_head *hitlist)
 {
@@ -171,18 +245,30 @@ static void scan_children(struct sock *x, void (*func)(struct unix_sock *),
 
 static void dec_inflight(struct unix_sock *usk)
 {
+<<<<<<< HEAD
 	usk->inflight--;
+=======
+	atomic_long_dec(&usk->inflight);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void inc_inflight(struct unix_sock *usk)
 {
+<<<<<<< HEAD
 	usk->inflight++;
+=======
+	atomic_long_inc(&usk->inflight);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void inc_inflight_move_tail(struct unix_sock *u)
 {
+<<<<<<< HEAD
 	u->inflight++;
 
+=======
+	atomic_long_inc(&u->inflight);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* If this still might be part of a cycle, move it to the end
 	 * of the list, so that it's checked even if it was already
 	 * passed over
@@ -234,6 +320,7 @@ void unix_gc(void)
 	 * receive queues.  Other, non candidate sockets _can_ be
 	 * added to queue, so we must make sure only to touch
 	 * candidates.
+<<<<<<< HEAD
 	 *
 	 * Embryos, though never candidates themselves, affect which
 	 * candidates are reachable by the garbage collector.  Before
@@ -262,6 +349,22 @@ void unix_gc(void)
 				unix_state_lock(sk);
 				unix_state_unlock(sk);
 			}
+=======
+	 */
+	list_for_each_entry_safe(u, next, &gc_inflight_list, link) {
+		long total_refs;
+		long inflight_refs;
+
+		total_refs = file_count(u->sk.sk_socket->file);
+		inflight_refs = atomic_long_read(&u->inflight);
+
+		BUG_ON(inflight_refs < 1);
+		BUG_ON(total_refs < inflight_refs);
+		if (total_refs == inflight_refs) {
+			list_move_tail(&u->link, &gc_candidates);
+			__set_bit(UNIX_GC_CANDIDATE, &u->gc_flags);
+			__set_bit(UNIX_GC_MAYBE_CYCLE, &u->gc_flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 	}
 
@@ -285,7 +388,11 @@ void unix_gc(void)
 		/* Move cursor to after the current position. */
 		list_move(&cursor, &u->link);
 
+<<<<<<< HEAD
 		if (u->inflight) {
+=======
+		if (atomic_long_read(&u->inflight) > 0) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			list_move_tail(&u->link, &not_cycle_list);
 			__clear_bit(UNIX_GC_MAYBE_CYCLE, &u->gc_flags);
 			scan_children(&u->sk, inc_inflight_move_tail, NULL);

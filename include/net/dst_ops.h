@@ -24,7 +24,11 @@ struct dst_ops {
 	void			(*destroy)(struct dst_entry *);
 	void			(*ifdown)(struct dst_entry *,
 					  struct net_device *dev, int how);
+<<<<<<< HEAD
 	void			(*negative_advice)(struct sock *sk, struct dst_entry *);
+=======
+	struct dst_entry *	(*negative_advice)(struct dst_entry *);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	void			(*link_failure)(struct sk_buff *);
 	void			(*update_pmtu)(struct dst_entry *dst, struct sock *sk,
 					       struct sk_buff *skb, u32 mtu,

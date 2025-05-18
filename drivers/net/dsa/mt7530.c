@@ -549,7 +549,11 @@ mt7530_mib_reset(struct dsa_switch *ds)
 static void
 mt7530_port_set_status(struct mt7530_priv *priv, int port, int enable)
 {
+<<<<<<< HEAD
 	u32 mask = PMCR_TX_EN | PMCR_RX_EN;
+=======
+	u32 mask = PMCR_TX_EN | PMCR_RX_EN | PMCR_FORCE_LNK;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (enable)
 		mt7530_set(priv, MT7530_PMCR_P(port), mask);
@@ -824,8 +828,14 @@ mt7530_port_set_vlan_unaware(struct dsa_switch *ds, int port)
 	 */
 	mt7530_rmw(priv, MT7530_PCR_P(port), PCR_PORT_VLAN_MASK,
 		   MT7530_PORT_MATRIX_MODE);
+<<<<<<< HEAD
 	mt7530_rmw(priv, MT7530_PVC_P(port), VLAN_ATTR_MASK,
 		   VLAN_ATTR(MT7530_VLAN_TRANSPARENT));
+=======
+	mt7530_rmw(priv, MT7530_PVC_P(port), VLAN_ATTR_MASK | PVC_EG_TAG_MASK,
+		   VLAN_ATTR(MT7530_VLAN_TRANSPARENT) |
+		   PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	priv->ports[port].vlan_filtering = false;
 
@@ -843,8 +853,13 @@ mt7530_port_set_vlan_unaware(struct dsa_switch *ds, int port)
 	if (all_user_ports_removed) {
 		mt7530_write(priv, MT7530_PCR_P(MT7530_CPU_PORT),
 			     PCR_MATRIX(dsa_user_ports(priv->ds)));
+<<<<<<< HEAD
 		mt7530_write(priv, MT7530_PVC_P(MT7530_CPU_PORT),
 			     PORT_SPEC_TAG);
+=======
+		mt7530_write(priv, MT7530_PVC_P(MT7530_CPU_PORT), PORT_SPEC_TAG
+			     | PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 }
 
@@ -870,8 +885,14 @@ mt7530_port_set_vlan_aware(struct dsa_switch *ds, int port)
 	/* Set the port as a user port which is to be able to recognize VID
 	 * from incoming packets before fetching entry within the VLAN table.
 	 */
+<<<<<<< HEAD
 	mt7530_rmw(priv, MT7530_PVC_P(port), VLAN_ATTR_MASK,
 		   VLAN_ATTR(MT7530_VLAN_USER));
+=======
+	mt7530_rmw(priv, MT7530_PVC_P(port), VLAN_ATTR_MASK | PVC_EG_TAG_MASK,
+		   VLAN_ATTR(MT7530_VLAN_USER) |
+		   PVC_EG_TAG(MT7530_VLAN_EG_DISABLED));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void
@@ -1297,6 +1318,13 @@ mt7530_setup(struct dsa_switch *ds)
 			mt7530_cpu_port_enable(priv, i);
 		else
 			mt7530_port_disable(ds, i, NULL);
+<<<<<<< HEAD
+=======
+
+		/* Enable consistent egress tag */
+		mt7530_rmw(priv, MT7530_PVC_P(i), PVC_EG_TAG_MASK,
+			   PVC_EG_TAG(MT7530_VLAN_EG_CONSISTENT));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	/* Flush the FDB table */

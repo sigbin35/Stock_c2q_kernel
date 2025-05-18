@@ -3,7 +3,10 @@
  * Wireless configuration interface internals.
  *
  * Copyright 2006-2010	Johannes Berg <johannes@sipsolutions.net>
+<<<<<<< HEAD
  * Copyright (C) 2018-2019 Intel Corporation
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 #ifndef __NET_WIRELESS_CORE_H
 #define __NET_WIRELESS_CORE_H
@@ -171,23 +174,29 @@ static inline struct cfg80211_internal_bss *bss_from_pub(struct cfg80211_bss *pu
 static inline void cfg80211_hold_bss(struct cfg80211_internal_bss *bss)
 {
 	atomic_inc(&bss->hold);
+<<<<<<< HEAD
 	if (bss->pub.transmitted_bss) {
 		bss = container_of(bss->pub.transmitted_bss,
 				   struct cfg80211_internal_bss, pub);
 		atomic_inc(&bss->hold);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void cfg80211_unhold_bss(struct cfg80211_internal_bss *bss)
 {
 	int r = atomic_dec_return(&bss->hold);
 	WARN_ON(r < 0);
+<<<<<<< HEAD
 	if (bss->pub.transmitted_bss) {
 		bss = container_of(bss->pub.transmitted_bss,
 				   struct cfg80211_internal_bss, pub);
 		r = atomic_dec_return(&bss->hold);
 		WARN_ON(r < 0);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 

@@ -127,7 +127,11 @@ static struct dentry *securityfs_create_dentry(const char *name, umode_t mode,
 	dir = d_inode(parent);
 
 	inode_lock(dir);
+<<<<<<< HEAD
 	dentry = lookup_one_len2(name, mount, parent, strlen(name));
+=======
+	dentry = lookup_one_len(name, parent, strlen(name));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (IS_ERR(dentry))
 		goto out;
 

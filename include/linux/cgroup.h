@@ -130,8 +130,11 @@ void cgroup_free(struct task_struct *p);
 int cgroup_init_early(void);
 int cgroup_init(void);
 
+<<<<<<< HEAD
 int cgroup_parse_float(const char *input, unsigned dec_shift, s64 *v);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Iteration helpers and macros.
  */
@@ -671,11 +674,14 @@ static inline void pr_cont_cgroup_path(struct cgroup *cgrp)
 	pr_cont_kernfs_path(cgrp->kn);
 }
 
+<<<<<<< HEAD
 static inline struct psi_group *cgroup_psi(struct cgroup *cgrp)
 {
 	return &cgrp->psi;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void cgroup_init_kthreadd(void)
 {
 	/*
@@ -730,6 +736,7 @@ static inline union kernfs_node_id *cgroup_get_kernfs_id(struct cgroup *cgrp)
 	return NULL;
 }
 
+<<<<<<< HEAD
 static inline struct cgroup *cgroup_parent(struct cgroup *cgrp)
 {
 	return NULL;
@@ -740,6 +747,8 @@ static inline struct psi_group *cgroup_psi(struct cgroup *cgrp)
 	return NULL;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline bool task_under_cgroup_hierarchy(struct task_struct *task,
 					       struct cgroup *ancestor)
 {

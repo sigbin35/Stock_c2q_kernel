@@ -103,7 +103,10 @@ ins_node:
 
 	plist_check_head(head);
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(plist_add);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * plist_del - Remove a @node from plist.

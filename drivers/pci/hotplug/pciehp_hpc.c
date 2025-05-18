@@ -627,17 +627,27 @@ static irqreturn_t pciehp_ist(int irq, void *dev_id)
 	if (atomic_fetch_and(~RERUN_ISR, &ctrl->pending_events) & RERUN_ISR) {
 		ret = pciehp_isr(irq, dev_id);
 		enable_irq(irq);
+<<<<<<< HEAD
 		if (ret != IRQ_WAKE_THREAD) {
 			pci_config_pm_runtime_put(pdev);
 			return ret;
 		}
+=======
+		if (ret != IRQ_WAKE_THREAD)
+			goto out;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	synchronize_hardirq(irq);
 	events = atomic_xchg(&ctrl->pending_events, 0);
 	if (!events) {
+<<<<<<< HEAD
 		pci_config_pm_runtime_put(pdev);
 		return IRQ_NONE;
+=======
+		ret = IRQ_NONE;
+		goto out;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	/* Check Attention Button Pressed */
@@ -666,10 +676,19 @@ static irqreturn_t pciehp_ist(int irq, void *dev_id)
 		pciehp_handle_presence_or_link_change(slot, events);
 	up_read(&ctrl->reset_lock);
 
+<<<<<<< HEAD
 	pci_config_pm_runtime_put(pdev);
 	ctrl->ist_running = false;
 	wake_up(&ctrl->requester);
 	return IRQ_HANDLED;
+=======
+	ret = IRQ_HANDLED;
+out:
+	pci_config_pm_runtime_put(pdev);
+	ctrl->ist_running = false;
+	wake_up(&ctrl->requester);
+	return ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int pciehp_poll(void *data)

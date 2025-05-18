@@ -335,8 +335,11 @@ ENTRY(\name\()_cache_fns)
 	.long	\name\()_flush_kern_dcache_area
 	.long	\name\()_dma_map_area
 	.long	\name\()_dma_unmap_area
+<<<<<<< HEAD
 	.long   \name\()_dma_inv_range
 	.long   \name\()_dma_clean_range
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.long	\name\()_dma_flush_range
 	.size	\name\()_cache_fns, . - \name\()_cache_fns
 .endm

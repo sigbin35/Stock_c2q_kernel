@@ -686,7 +686,11 @@ unsigned char *jffs2_gc_fetch_page(struct jffs2_sb_info *c,
 	struct page *pg;
 
 	pg = read_cache_page(inode->i_mapping, offset >> PAGE_SHIFT,
+<<<<<<< HEAD
 			     jffs2_do_readpage_unlock, inode);
+=======
+			     (void *)jffs2_do_readpage_unlock, inode);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (IS_ERR(pg))
 		return (void *)pg;
 

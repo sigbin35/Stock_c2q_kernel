@@ -191,14 +191,22 @@ config HID_CHERRY
 
 config HID_CHICONY
 	tristate "Chicony devices"
+<<<<<<< HEAD
 	depends on USB_HID
+=======
+	depends on HID
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default !EXPERT
 	---help---
 	Support for Chicony Tactical pad and special keys on Chicony keyboards.
 
 config HID_CORSAIR
 	tristate "Corsair devices"
+<<<<<<< HEAD
 	depends on USB_HID && LEDS_CLASS
+=======
+	depends on HID && USB && LEDS_CLASS
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	---help---
 	Support for Corsair devices that are not fully compliant with the
 	HID standard.
@@ -219,7 +227,11 @@ config HID_COUGAR
 
 config HID_PRODIKEYS
 	tristate "Prodikeys PC-MIDI Keyboard support"
+<<<<<<< HEAD
 	depends on USB_HID && SND
+=======
+	depends on HID && SND
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select SND_RAWMIDI
 	---help---
 	Support for Prodikeys PC-MIDI Keyboard device support.
@@ -484,7 +496,11 @@ config HID_LENOVO
 
 config HID_LOGITECH
 	tristate "Logitech devices"
+<<<<<<< HEAD
 	depends on USB_HID
+=======
+	depends on HID
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default !EXPERT
 	---help---
 	Support for Logitech devices that are not fully compliant with HID standard.
@@ -652,6 +668,7 @@ config HID_MULTITOUCH
 	  To compile this driver as a module, choose M here: the
 	  module will be called hid-multitouch.
 
+<<<<<<< HEAD
 config HID_NINTENDO
 	tristate "Nintendo Joy-Con and Pro Controller support"
 	depends on HID
@@ -663,6 +680,8 @@ config HID_NINTENDO
 	To compile this driver as a module, choose M here: the
 	module will be called hid-nintendo.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config HID_NTI
 	tristate "NTI keyboard adapters"
 	---help---
@@ -797,6 +816,7 @@ config HID_PLANTRONICS
 
 	  Say M here if you may ever plug in a Plantronics USB audio device.
 
+<<<<<<< HEAD
 config HID_PLAYSTATION
 	tristate "PlayStation HID Driver"
 	depends on HID
@@ -815,6 +835,8 @@ config PLAYSTATION_FF
 	  Say Y here if you would like to enable force feedback support for
 	  PlayStation game controllers.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config HID_PRIMAX
 	tristate "Primax non-fully HID-compliant devices"
 	depends on HID
@@ -851,7 +873,11 @@ config HID_SAITEK
 
 config HID_SAMSUNG
 	tristate "Samsung InfraRed remote control or keyboards"
+<<<<<<< HEAD
 	depends on USB_HID
+=======
+	depends on HID
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	---help---
 	Support for Samsung InfraRed remote control or keyboards.
 
@@ -1108,6 +1134,7 @@ config HID_ALPS
 	Say Y here if you have a Alps touchpads over i2c-hid or usbhid
 	and want support for its special functionalities.
 
+<<<<<<< HEAD
 config HID_QVR
 	tristate "QVR support"
 	depends on HID
@@ -1117,6 +1144,8 @@ config HID_QVR
 	Say 'Y' or 'M' if you want to connect an external device to
 	stream sensor data for QVR support.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endmenu
 
 endif # HID

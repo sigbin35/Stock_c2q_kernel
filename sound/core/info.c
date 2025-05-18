@@ -446,6 +446,7 @@ static const struct file_operations snd_info_text_entry_ops =
 	.read =			seq_read,
 };
 
+<<<<<<< HEAD
 /*
  * snd_info_create_subdir - create and register a subdir for a given parent
  * @mod: the module pointer
@@ -463,6 +464,14 @@ struct snd_info_entry *snd_info_create_subdir(struct module *mod,
 	struct snd_info_entry *entry;
 
 	entry = snd_info_create_module_entry(mod, name, parent);
+=======
+static struct snd_info_entry *create_subdir(struct module *mod,
+					    const char *name)
+{
+	struct snd_info_entry *entry;
+
+	entry = snd_info_create_module_entry(mod, name, NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!entry)
 		return NULL;
 	entry->mode = S_IFDIR | 0555;
@@ -472,7 +481,10 @@ struct snd_info_entry *snd_info_create_subdir(struct module *mod,
 	}
 	return entry;
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL(snd_info_create_subdir);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static struct snd_info_entry *
 snd_info_create_entry(const char *name, struct snd_info_entry *parent);
@@ -487,12 +499,20 @@ int __init snd_info_init(void)
 	if (!snd_proc_root->p)
 		goto error;
 #ifdef CONFIG_SND_OSSEMUL
+<<<<<<< HEAD
 	snd_oss_root = snd_info_create_subdir(THIS_MODULE, "oss", NULL);
+=======
+	snd_oss_root = create_subdir(THIS_MODULE, "oss");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!snd_oss_root)
 		goto error;
 #endif
 #if IS_ENABLED(CONFIG_SND_SEQUENCER)
+<<<<<<< HEAD
 	snd_seq_root = snd_info_create_subdir(THIS_MODULE, "seq", NULL);
+=======
+	snd_seq_root = create_subdir(THIS_MODULE, "seq");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!snd_seq_root)
 		goto error;
 #endif
@@ -528,7 +548,11 @@ int snd_info_card_create(struct snd_card *card)
 		return -ENXIO;
 
 	sprintf(str, "card%i", card->number);
+<<<<<<< HEAD
 	entry = snd_info_create_subdir(card->module, str, NULL);
+=======
+	entry = create_subdir(card->module, str);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!entry)
 		return -ENOMEM;
 	card->proc_root = entry;
@@ -631,6 +655,10 @@ int snd_info_card_free(struct snd_card *card)
 	return 0;
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * snd_info_get_line - read one line from the procfs buffer
  * @buffer: the procfs buffer

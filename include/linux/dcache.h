@@ -146,7 +146,10 @@ struct dentry_operations {
 	struct vfsmount *(*d_automount)(struct path *);
 	int (*d_manage)(const struct path *, bool);
 	struct dentry *(*d_real)(struct dentry *, const struct inode *);
+<<<<<<< HEAD
 	void (*d_canonical_path)(const struct path *, struct path *);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 } ____cacheline_aligned;
 
 /*
@@ -211,7 +214,11 @@ struct dentry_operations {
 
 #define DCACHE_MAY_FREE			0x00800000
 #define DCACHE_FALLTHRU			0x01000000 /* Fall through to lower layer */
+<<<<<<< HEAD
 #define DCACHE_ENCRYPTED_NAME		0x02000000 /* Encrypted name (dir key was unavailable) */
+=======
+#define DCACHE_ENCRYPTED_WITH_KEY	0x02000000 /* dir is encrypted with a valid key */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define DCACHE_OP_REAL			0x04000000
 
 #define DCACHE_PAR_LOOKUP		0x10000000 /* being looked up (with parent locked shared) */

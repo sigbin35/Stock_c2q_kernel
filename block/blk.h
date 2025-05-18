@@ -196,6 +196,7 @@ void blk_account_io_start(struct request *req, bool new_io);
 void blk_account_io_completion(struct request *req, unsigned int bytes);
 void blk_account_io_done(struct request *req, u64 now);
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_IO_VOLUME
 void blk_queue_reset_io_vol(struct request_queue *q);
 void blk_queue_io_vol_add(struct request_queue *q, int opf, long long bytes);
@@ -208,6 +209,8 @@ void blk_queue_io_vol_merge(struct request_queue *q, int opf, int rqs, long long
 #define blk_queue_io_vol_merge(q, opf, rqs, bytes)	do {} while (0)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * EH timer and IO completion will both attempt to 'grab' the request, make
  * sure that only one of them succeeds. Steal the bottom bit of the

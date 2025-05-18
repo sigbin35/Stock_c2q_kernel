@@ -129,6 +129,10 @@ static void *tpm1_bios_measurements_next(struct seq_file *m, void *v,
 	u32 converted_event_size;
 	u32 converted_event_type;
 
+<<<<<<< HEAD
+=======
+	(*pos)++;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	converted_event_size = do_endian_conversion(event->event_size);
 
 	v += sizeof(struct tcpa_event) + converted_event_size;
@@ -146,7 +150,10 @@ static void *tpm1_bios_measurements_next(struct seq_file *m, void *v,
 	    ((v + sizeof(struct tcpa_event) + converted_event_size) >= limit))
 		return NULL;
 
+<<<<<<< HEAD
 	(*pos)++;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return v;
 }
 

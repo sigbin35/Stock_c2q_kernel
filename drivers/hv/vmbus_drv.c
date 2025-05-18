@@ -43,6 +43,10 @@
 #include <linux/kdebug.h>
 #include <linux/efi.h>
 #include <linux/random.h>
+<<<<<<< HEAD
+=======
+#include <linux/kernel.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "hyperv_vmbus.h"
 
 struct vmbus_dynid {
@@ -58,14 +62,44 @@ static int hyperv_cpuhp_online;
 
 static void *hv_panic_page;
 
+<<<<<<< HEAD
+=======
+/*
+ * Boolean to control whether to report panic messages over Hyper-V.
+ *
+ * It can be set via /proc/sys/kernel/hyperv/record_panic_msg
+ */
+static int sysctl_record_panic_msg = 1;
+
+static int hyperv_report_reg(void)
+{
+	return !sysctl_record_panic_msg || !hv_panic_page;
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int hyperv_panic_event(struct notifier_block *nb, unsigned long val,
 			      void *args)
 {
 	struct pt_regs *regs;
 
+<<<<<<< HEAD
 	regs = current_pt_regs();
 
 	hyperv_report_panic(regs, val);
+=======
+	vmbus_initiate_unload(true);
+
+	/*
+	 * Hyper-V should be notified only once about a panic.  If we will be
+	 * doing hyperv_report_panic_msg() later with kmsg data, don't do
+	 * the notification here.
+	 */
+	if (ms_hyperv.misc_features & HV_FEATURE_GUEST_CRASH_MSR_AVAILABLE
+	    && hyperv_report_reg()) {
+		regs = current_pt_regs();
+		hyperv_report_panic(regs, val, false);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return NOTIFY_DONE;
 }
 
@@ -75,7 +109,17 @@ static int hyperv_die_event(struct notifier_block *nb, unsigned long val,
 	struct die_args *die = (struct die_args *)args;
 	struct pt_regs *regs = die->regs;
 
+<<<<<<< HEAD
 	hyperv_report_panic(regs, val);
+=======
+	/*
+	 * Hyper-V should be notified only once about a panic.  If we will be
+	 * doing hyperv_report_panic_msg() later with kmsg data, don't do
+	 * the notification here.
+	 */
+	if (hyperv_report_reg())
+		hyperv_report_panic(regs, val, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return NOTIFY_DONE;
 }
 
@@ -1089,6 +1133,7 @@ static void vmbus_isr(void)
 }
 
 /*
+<<<<<<< HEAD
  * Boolean to control whether to report panic messages over Hyper-V.
  *
  * It can be set via /proc/sys/kernel/hyperv/record_panic_msg
@@ -1096,6 +1141,8 @@ static void vmbus_isr(void)
 static int sysctl_record_panic_msg = 1;
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Callback from kmsg_dump. Grab as much as possible from the end of the kmsg
  * buffer and call into Hyper-V to transfer the data.
  */
@@ -1219,19 +1266,42 @@ static int vmbus_bus_init(void)
 			hv_panic_page = (void *)get_zeroed_page(GFP_KERNEL);
 			if (hv_panic_page) {
 				ret = kmsg_dump_register(&hv_kmsg_dumper);
+<<<<<<< HEAD
 				if (ret)
 					pr_err("Hyper-V: kmsg dump register "
 						"error 0x%x\n", ret);
+=======
+				if (ret) {
+					pr_err("Hyper-V: kmsg dump register "
+						"error 0x%x\n", ret);
+					free_page(
+					    (unsigned long)hv_panic_page);
+					hv_panic_page = NULL;
+				}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			} else
 				pr_err("Hyper-V: panic message page memory "
 					"allocation failed");
 		}
 
 		register_die_notifier(&hyperv_die_block);
+<<<<<<< HEAD
 		atomic_notifier_chain_register(&panic_notifier_list,
 					       &hyperv_panic_block);
 	}
 
+=======
+	}
+
+	/*
+	 * Always register the panic notifier because we need to unload
+	 * the VMbus channel connection to prevent any VMbus
+	 * activity after the VM panics.
+	 */
+	atomic_notifier_chain_register(&panic_notifier_list,
+			       &hyperv_panic_block);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	vmbus_request_offers();
 
 	return 0;
@@ -1243,7 +1313,10 @@ err_alloc:
 	hv_remove_vmbus_irq();
 
 	bus_unregister(&hv_bus);
+<<<<<<< HEAD
 	free_page((unsigned long)hv_panic_page);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unregister_sysctl_table(hv_ctl_table_hdr);
 	hv_ctl_table_hdr = NULL;
 	return ret;
@@ -1875,7 +1948,10 @@ static void hv_kexec_handler(void)
 {
 	hv_synic_clockevents_cleanup();
 	vmbus_initiate_unload(false);
+<<<<<<< HEAD
 	vmbus_connection.conn_state = DISCONNECTED;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Make sure conn_state is set as hv_synic_cleanup checks for it */
 	mb();
 	cpuhp_remove_state(hyperv_cpuhp_online);
@@ -1890,7 +1966,10 @@ static void hv_crash_handler(struct pt_regs *regs)
 	 * doing the cleanup for current CPU only. This should be sufficient
 	 * for kdump.
 	 */
+<<<<<<< HEAD
 	vmbus_connection.conn_state = DISCONNECTED;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	hv_synic_cleanup(smp_processor_id());
 	hyperv_cleanup();
 };

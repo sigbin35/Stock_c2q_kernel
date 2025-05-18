@@ -47,6 +47,10 @@
 #include <linux/bitmap.h>
 #include <linux/list.h>
 #include <linux/workqueue.h>
+<<<<<<< HEAD
+=======
+#include <linux/sched/mm.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <xen/xen.h>
 #include <xen/xenbus.h>
@@ -2188,10 +2192,19 @@ static void blkfront_setup_discard(struct blkfront_info *info)
 
 static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
 {
+<<<<<<< HEAD
 	unsigned int psegs, grants;
 	int err, i;
 	struct blkfront_info *info = rinfo->dev_info;
 
+=======
+	unsigned int psegs, grants, memflags;
+	int err, i;
+	struct blkfront_info *info = rinfo->dev_info;
+
+	memflags = memalloc_noio_save();
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (info->max_indirect_segments == 0) {
 		if (!HAS_EXTRA_REQ)
 			grants = BLKIF_MAX_SEGMENTS_PER_REQUEST;
@@ -2223,7 +2236,11 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
 
 		BUG_ON(!list_empty(&rinfo->indirect_pages));
 		for (i = 0; i < num; i++) {
+<<<<<<< HEAD
 			struct page *indirect_page = alloc_page(GFP_NOIO);
+=======
+			struct page *indirect_page = alloc_page(GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (!indirect_page)
 				goto out_of_memory;
 			list_add(&indirect_page->lru, &rinfo->indirect_pages);
@@ -2234,15 +2251,26 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
 		rinfo->shadow[i].grants_used =
 			kvcalloc(grants,
 				 sizeof(rinfo->shadow[i].grants_used[0]),
+<<<<<<< HEAD
 				 GFP_NOIO);
 		rinfo->shadow[i].sg = kvcalloc(psegs,
 					       sizeof(rinfo->shadow[i].sg[0]),
 					       GFP_NOIO);
+=======
+				 GFP_KERNEL);
+		rinfo->shadow[i].sg = kvcalloc(psegs,
+					       sizeof(rinfo->shadow[i].sg[0]),
+					       GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (info->max_indirect_segments)
 			rinfo->shadow[i].indirect_grants =
 				kvcalloc(INDIRECT_GREFS(grants),
 					 sizeof(rinfo->shadow[i].indirect_grants[0]),
+<<<<<<< HEAD
 					 GFP_NOIO);
+=======
+					 GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if ((rinfo->shadow[i].grants_used == NULL) ||
 			(rinfo->shadow[i].sg == NULL) ||
 		     (info->max_indirect_segments &&
@@ -2251,6 +2279,10 @@ static int blkfront_setup_indirect(struct blkfront_ring_info *rinfo)
 		sg_init_table(rinfo->shadow[i].sg, psegs);
 	}
 
+<<<<<<< HEAD
+=======
+	memalloc_noio_restore(memflags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return 0;
 
@@ -2270,6 +2302,12 @@ out_of_memory:
 			__free_page(indirect_page);
 		}
 	}
+<<<<<<< HEAD
+=======
+
+	memalloc_noio_restore(memflags);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return -ENOMEM;
 }
 

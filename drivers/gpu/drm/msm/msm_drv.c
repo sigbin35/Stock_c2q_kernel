@@ -1,5 +1,9 @@
 /*
+<<<<<<< HEAD
  * Copyright (c) 2016-2019, The Linux Foundation. All rights reserved.
+=======
+ * Copyright (c) 2016-2018, The Linux Foundation. All rights reserved.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Copyright (C) 2013 Red Hat
  * Author: Rob Clark <robdclark@gmail.com>
  *
@@ -40,6 +44,7 @@
 #define MSM_VERSION_MINOR	3
 #define MSM_VERSION_PATCHLEVEL	0
 
+<<<<<<< HEAD
 #if defined(CONFIG_DISPLAY_SAMSUNG)
 static BLOCKING_NOTIFIER_HEAD(msm_drm_notifier_list);
 
@@ -62,6 +67,8 @@ int __msm_drm_notifier_call_chain(unsigned long event, void *data)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct drm_mode_config_funcs mode_config_funcs = {
 	.fb_create = msm_framebuffer_create,
 	.output_poll_changed = drm_fb_helper_output_poll_changed,
@@ -192,8 +199,12 @@ void __iomem *msm_ioremap(struct platform_device *pdev, const char *name,
 		res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
 
 	if (!res) {
+<<<<<<< HEAD
 		dev_err(&pdev->dev, "failed to get memory resource: %s\n",
 			       name);
+=======
+		dev_err(&pdev->dev, "failed to get memory resource: %s\n", name);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return ERR_PTR(-EINVAL);
 	}
 
@@ -206,8 +217,12 @@ void __iomem *msm_ioremap(struct platform_device *pdev, const char *name,
 	}
 
 	if (reglog)
+<<<<<<< HEAD
 		printk(KERN_DEBUG "IO:region %s %pk %08lx\n", dbgname,
 				ptr, size);
+=======
+		printk(KERN_DEBUG "IO:region %s %p %08lx\n", dbgname, ptr, size);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ptr;
 }
@@ -693,11 +708,15 @@ err_unref_drm_dev:
 /*
  * DRM operations:
  */
+<<<<<<< HEAD
 #ifdef CONFIG_QCOM_KGSL
 static void load_gpu(struct drm_device *dev)
 {
 }
 #else
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void load_gpu(struct drm_device *dev)
 {
 	static DEFINE_MUTEX(init_lock);
@@ -710,7 +729,10 @@ static void load_gpu(struct drm_device *dev)
 
 	mutex_unlock(&init_lock);
 }
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static int context_init(struct drm_device *dev, struct drm_file *file)
 {
@@ -1253,7 +1275,11 @@ static int add_components_mdp(struct device *mdp_dev,
 
 static int compare_name_mdp(struct device *dev, void *data)
 {
+<<<<<<< HEAD
 	return (strnstr(dev_name(dev), "mdp") != NULL);
+=======
+	return (strstr(dev_name(dev), "mdp") != NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int add_display_components(struct device *dev,
@@ -1312,6 +1338,7 @@ static const struct of_device_id msm_gpu_match[] = {
 	{ },
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_QCOM_KGSL
 static int add_gpu_components(struct device *dev,
 					      struct component_match **matchptr)
@@ -1319,6 +1346,8 @@ static int add_gpu_components(struct device *dev,
 		return 0;
 }
 #else
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int add_gpu_components(struct device *dev,
 			      struct component_match **matchptr)
 {
@@ -1335,7 +1364,10 @@ static int add_gpu_components(struct device *dev,
 
 	return 0;
 }
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static int msm_drm_bind(struct device *dev)
 {
@@ -1413,6 +1445,7 @@ static struct platform_driver msm_platform_driver = {
 	},
 };
 
+<<<<<<< HEAD
 #ifdef CONFIG_QCOM_KGSL
 void __init adreno_register(void)
 {
@@ -1423,6 +1456,8 @@ void __exit adreno_unregister(void)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int __init msm_drm_register(void)
 {
 	if (!modeset)

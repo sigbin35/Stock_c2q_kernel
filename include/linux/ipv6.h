@@ -42,7 +42,10 @@ struct ipv6_devconf {
 	__s32		accept_ra_rt_info_max_plen;
 #endif
 #endif
+<<<<<<< HEAD
 	__s32		accept_ra_rt_table;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	__s32		proxy_ndp;
 	__s32		accept_source_route;
 	__s32		accept_ra_from_local;

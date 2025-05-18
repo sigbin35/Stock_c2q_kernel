@@ -332,6 +332,10 @@ static int xfrm_dev_event(struct notifier_block *this, unsigned long event, void
 		return xfrm_dev_feat_change(dev);
 
 	case NETDEV_DOWN:
+<<<<<<< HEAD
+=======
+	case NETDEV_UNREGISTER:
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return xfrm_dev_down(dev);
 	}
 	return NOTIFY_DONE;

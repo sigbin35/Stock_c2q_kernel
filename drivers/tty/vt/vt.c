@@ -890,8 +890,14 @@ static void hide_softcursor(struct vc_data *vc)
 
 static void hide_cursor(struct vc_data *vc)
 {
+<<<<<<< HEAD
 	if (vc == sel_cons)
 		clear_selection();
+=======
+	if (vc_is_sel(vc))
+		clear_selection();
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	vc->vc_sw->con_cursor(vc, CM_ERASE);
 	hide_softcursor(vc);
 }
@@ -901,7 +907,11 @@ static void set_cursor(struct vc_data *vc)
 	if (!con_is_fg(vc) || console_blanked || vc->vc_mode == KD_GRAPHICS)
 		return;
 	if (vc->vc_deccm) {
+<<<<<<< HEAD
 		if (vc == sel_cons)
+=======
+		if (vc_is_sel(vc))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			clear_selection();
 		add_softcursor(vc);
 		if ((vc->vc_cursor_type & 0x0f) != 1)
@@ -1077,6 +1087,20 @@ static void visual_deinit(struct vc_data *vc)
 	module_put(vc->vc_sw->owner);
 }
 
+<<<<<<< HEAD
+=======
+static void vc_port_destruct(struct tty_port *port)
+{
+	struct vc_data *vc = container_of(port, struct vc_data, port);
+
+	kfree(vc);
+}
+
+static const struct tty_port_operations vc_port_ops = {
+	.destruct = vc_port_destruct,
+};
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int vc_allocate(unsigned int currcons)	/* return 0 on success */
 {
 	struct vt_notifier_param param;
@@ -1102,6 +1126,10 @@ int vc_allocate(unsigned int currcons)	/* return 0 on success */
 
 	vc_cons[currcons].d = vc;
 	tty_port_init(&vc->port);
+<<<<<<< HEAD
+=======
+	vc->port.ops = &vc_port_ops;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	INIT_WORK(&vc_cons[currcons].SAK_work, vc_SAK);
 
 	visual_init(vc, currcons, 1);
@@ -1210,7 +1238,11 @@ static int vc_do_resize(struct tty_struct *tty, struct vc_data *vc,
 		}
 	}
 
+<<<<<<< HEAD
 	if (vc == sel_cons)
+=======
+	if (vc_is_sel(vc))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		clear_selection();
 
 	old_rows = vc->vc_rows;
@@ -3228,6 +3260,10 @@ static int con_install(struct tty_driver *driver, struct tty_struct *tty)
 
 	tty->driver_data = vc;
 	vc->port.tty = tty;
+<<<<<<< HEAD
+=======
+	tty_port_get(&vc->port);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!tty->winsize.ws_row && !tty->winsize.ws_col) {
 		tty->winsize.ws_row = vc_cons[currcons].d->vc_rows;
@@ -3263,6 +3299,16 @@ static void con_shutdown(struct tty_struct *tty)
 	console_unlock();
 }
 
+<<<<<<< HEAD
+=======
+static void con_cleanup(struct tty_struct *tty)
+{
+	struct vc_data *vc = tty->driver_data;
+
+	tty_port_put(&vc->port);
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int default_color           = 7; /* white */
 static int default_italic_color    = 2; // green (ASCII)
 static int default_underline_color = 3; // cyan (ASCII)
@@ -3387,7 +3433,12 @@ static const struct tty_operations con_ops = {
 	.throttle = con_throttle,
 	.unthrottle = con_unthrottle,
 	.resize = vt_resize,
+<<<<<<< HEAD
 	.shutdown = con_shutdown
+=======
+	.shutdown = con_shutdown,
+	.cleanup = con_cleanup,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static struct cdev vc0_cdev;

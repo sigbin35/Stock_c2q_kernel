@@ -18,7 +18,11 @@
 #include <linux/dma-buf.h>
 #include <linux/bitops.h>
 
+<<<<<<< HEAD
 #define VB2_MAX_FRAME	(64)
+=======
+#define VB2_MAX_FRAME	(32)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define VB2_MAX_PLANES	(8)
 
 /**

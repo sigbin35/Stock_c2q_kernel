@@ -15,7 +15,10 @@ struct reserved_mem {
 	phys_addr_t			base;
 	phys_addr_t			size;
 	void				*priv;
+<<<<<<< HEAD
 	bool				reusable;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 struct reserved_mem_ops {

@@ -72,6 +72,7 @@ static u32 xive_ipi_irq;
 /* Xive state for each CPU */
 static DEFINE_PER_CPU(struct xive_cpu *, xive_cpu);
 
+<<<<<<< HEAD
 /*
  * A "disabled" interrupt should never fire, to catch problems
  * we set its logical number to this
@@ -79,6 +80,8 @@ static DEFINE_PER_CPU(struct xive_cpu *, xive_cpu);
 #define XIVE_BAD_IRQ		0x7fffffff
 #define XIVE_MAX_IRQ		(XIVE_BAD_IRQ - 1)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* An invalid CPU target */
 #define XIVE_INVALID_TARGET	(-1)
 
@@ -1074,7 +1077,11 @@ static int xive_setup_cpu_ipi(unsigned int cpu)
 	xc = per_cpu(xive_cpu, cpu);
 
 	/* Check if we are already setup */
+<<<<<<< HEAD
 	if (xc->hw_ipi != 0)
+=======
+	if (xc->hw_ipi != XIVE_BAD_IRQ)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return 0;
 
 	/* Grab an IPI from the backend, this will populate xc->hw_ipi */
@@ -1111,7 +1118,11 @@ static void xive_cleanup_cpu_ipi(unsigned int cpu, struct xive_cpu *xc)
 	/* Disable the IPI and free the IRQ data */
 
 	/* Already cleaned up ? */
+<<<<<<< HEAD
 	if (xc->hw_ipi == 0)
+=======
+	if (xc->hw_ipi == XIVE_BAD_IRQ)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return;
 
 	/* Mask the IPI */
@@ -1267,6 +1278,10 @@ static int xive_prepare_cpu(unsigned int cpu)
 		if (np)
 			xc->chip_id = of_get_ibm_chip_id(np);
 		of_node_put(np);
+<<<<<<< HEAD
+=======
+		xc->hw_ipi = XIVE_BAD_IRQ;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		per_cpu(xive_cpu, cpu) = xc;
 	}

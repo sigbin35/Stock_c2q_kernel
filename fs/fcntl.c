@@ -25,8 +25,11 @@
 #include <linux/user_namespace.h>
 #include <linux/memfd.h>
 #include <linux/compat.h>
+<<<<<<< HEAD
 #include <linux/task_integrity.h>
 #include <linux/proca.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/poll.h>
 #include <asm/siginfo.h>
@@ -418,6 +421,7 @@ static long do_fcntl(int fd, unsigned int cmd, unsigned long arg,
 	case F_GETPIPE_SZ:
 		err = pipe_fcntl(filp, cmd, arg);
 		break;
+<<<<<<< HEAD
 #ifdef CONFIG_FIVE
 	case F_FIVE_SIGN:
 		err = five_fcntl_sign(filp,
@@ -446,6 +450,8 @@ static long do_fcntl(int fd, unsigned int cmd, unsigned long arg,
 		break;
 #endif
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	case F_ADD_SEALS:
 	case F_GET_SEALS:
 		err = memfd_fcntl(filp, cmd, arg);

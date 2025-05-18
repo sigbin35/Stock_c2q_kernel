@@ -1364,7 +1364,11 @@ netdev_tx_t usbnet_start_xmit (struct sk_buff *skb,
 	struct skb_data		*entry;
 	struct driver_info	*info = dev->driver_info;
 	unsigned long		flags;
+<<<<<<< HEAD
 	int retval = 0;
+=======
+	int retval;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (skb)
 		skb_tx_timestamp(skb);
@@ -1584,6 +1588,7 @@ static void usbnet_bh (struct timer_list *t)
 	}
 }
 
+<<<<<<< HEAD
 static void usbnet_bh_tasklet(unsigned long data)
 {
 	struct timer_list *t = (struct timer_list *)data;
@@ -1591,6 +1596,8 @@ static void usbnet_bh_tasklet(unsigned long data)
 	usbnet_bh(t);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*-------------------------------------------------------------------------
  *
@@ -1718,7 +1725,11 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
 	skb_queue_head_init (&dev->txq);
 	skb_queue_head_init (&dev->done);
 	skb_queue_head_init(&dev->rxq_pause);
+<<<<<<< HEAD
 	dev->bh.func = usbnet_bh_tasklet;
+=======
+	dev->bh.func = (void (*)(unsigned long))usbnet_bh;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	dev->bh.data = (unsigned long)&dev->delay;
 	INIT_WORK (&dev->kevent, usbnet_deferred_kevent);
 	init_usb_anchor(&dev->deferred);

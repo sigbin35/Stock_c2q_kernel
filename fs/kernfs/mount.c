@@ -240,9 +240,12 @@ static int kernfs_fill_super(struct super_block *sb, unsigned long magic)
 		sb->s_export_op = &kernfs_export_ops;
 	sb->s_time_gran = 1;
 
+<<<<<<< HEAD
 	/* sysfs dentries and inodes don't require IO to create */
 	sb->s_shrink.seeks = 0;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* get root inode, initialize and unlock it */
 	mutex_lock(&kernfs_mutex);
 	inode = kernfs_get_inode(sb, info->root->kn);

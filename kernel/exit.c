@@ -68,10 +68,13 @@
 #include <asm/pgtable.h>
 #include <asm/mmu_context.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 #include <linux/defex.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void __unhash_process(struct task_struct *p, bool group_dead)
 {
 	nr_threads--;
@@ -719,7 +722,10 @@ static void exit_notify(struct task_struct *tsk, int group_dead)
 	if (group_dead)
 		kill_orphaned_pgrp(tsk->group_leader, NULL);
 
+<<<<<<< HEAD
 	tsk->exit_state = EXIT_ZOMBIE;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (unlikely(tsk->ptrace)) {
 		int sig = thread_group_leader(tsk) &&
 				thread_group_empty(tsk) &&
@@ -771,15 +777,22 @@ static void check_stack_usage(void)
 #else
 static inline void check_stack_usage(void) {}
 #endif
+<<<<<<< HEAD
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void __noreturn do_exit(long code)
 {
 	struct task_struct *tsk = current;
 	int group_dead;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 	task_defex_zero_creds(current);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	profile_task_exit(tsk);
 	kcov_task_exit(tsk);
 
@@ -824,7 +837,10 @@ void __noreturn do_exit(long code)
 	}
 
 	exit_signals(tsk);  /* sets PF_EXITING */
+<<<<<<< HEAD
 	sched_exit(tsk);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Ensure that all new tsk->pi_lock acquisitions must observe
 	 * PF_EXITING. Serializes against futex.c:attach_to_pi_owner().
@@ -1626,9 +1642,16 @@ SYSCALL_DEFINE5(waitid, int, which, pid_t, upid, struct siginfo __user *,
 	if (!infop)
 		return err;
 
+<<<<<<< HEAD
 	if (!user_access_begin(VERIFY_WRITE, infop, sizeof(*infop)))
 		return -EFAULT;
 
+=======
+	if (!access_ok(VERIFY_WRITE, infop, sizeof(*infop)))
+		return -EFAULT;
+
+	user_access_begin();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsafe_put_user(signo, &infop->si_signo, Efault);
 	unsafe_put_user(0, &infop->si_errno, Efault);
 	unsafe_put_user(info.cause, &infop->si_code, Efault);
@@ -1753,9 +1776,16 @@ COMPAT_SYSCALL_DEFINE5(waitid,
 	if (!infop)
 		return err;
 
+<<<<<<< HEAD
 	if (!user_access_begin(VERIFY_WRITE, infop, sizeof(*infop)))
 		return -EFAULT;
 
+=======
+	if (!access_ok(VERIFY_WRITE, infop, sizeof(*infop)))
+		return -EFAULT;
+
+	user_access_begin();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsafe_put_user(signo, &infop->si_signo, Efault);
 	unsafe_put_user(0, &infop->si_errno, Efault);
 	unsafe_put_user(info.cause, &infop->si_code, Efault);

@@ -158,6 +158,7 @@ static int v2_read_file_info(struct super_block *sb, int type)
 		qinfo->dqi_entry_size = sizeof(struct v2r1_disk_dqblk);
 		qinfo->dqi_ops = &v2r1_qtree_ops;
 	}
+<<<<<<< HEAD
 	ret = -EUCLEAN;
 	/* Some sanity checks of the read headers... */
 	if ((loff_t)qinfo->dqi_blocks << qinfo->dqi_blocksize_bits >
@@ -177,6 +178,8 @@ static int v2_read_file_info(struct super_block *sb, int type)
 			    qinfo->dqi_free_entry, qinfo->dqi_blocks);
 		goto out;
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ret = 0;
 out:
 	up_read(&dqopt->dqio_sem);

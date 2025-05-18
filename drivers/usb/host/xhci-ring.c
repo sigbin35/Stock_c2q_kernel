@@ -306,7 +306,10 @@ static void xhci_handle_stopped_cmd_ring(struct xhci_hcd *xhci,
 {
 	struct xhci_command *i_cmd;
 
+<<<<<<< HEAD
 	xhci_info(xhci, "%s \n", __func__);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Turn all aborted commands in list to no-ops, then restart */
 	list_for_each_entry(i_cmd, &xhci->cmd_list, cmd_list) {
 
@@ -315,7 +318,11 @@ static void xhci_handle_stopped_cmd_ring(struct xhci_hcd *xhci,
 
 		i_cmd->status = COMP_COMMAND_RING_STOPPED;
 
+<<<<<<< HEAD
 		xhci_info(xhci, "Turn aborted command %pK to no-op\n",
+=======
+		xhci_dbg(xhci, "Turn aborted command %p to no-op\n",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			 i_cmd->command_trb);
 
 		trb_to_noop(i_cmd->command_trb, TRB_CMD_NOOP);
@@ -331,7 +338,10 @@ static void xhci_handle_stopped_cmd_ring(struct xhci_hcd *xhci,
 	/* ring command ring doorbell to restart the command ring */
 	if ((xhci->cmd_ring->dequeue != xhci->cmd_ring->enqueue) &&
 	    !(xhci->xhc_state & XHCI_STATE_DYING)) {
+<<<<<<< HEAD
 		xhci_info(xhci, "%s \n", __func__);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		xhci->current_cmd = cur_cmd;
 		xhci_mod_cmd_timer(xhci, XHCI_CMD_DEFAULT_TIMEOUT);
 		xhci_ring_cmd_db(xhci);
@@ -344,7 +354,11 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 	u64 temp_64;
 	int ret;
 
+<<<<<<< HEAD
 	xhci_info(xhci, "Abort command ring\n");
+=======
+	xhci_dbg(xhci, "Abort command ring\n");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	reinit_completion(&xhci->cmd_ring_stop_completion);
 
@@ -353,6 +367,7 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 			&xhci->op_regs->cmd_ring);
 
 	/* Section 4.6.1.2 of xHCI 1.0 spec says software should also time the
+<<<<<<< HEAD
 	 * completion of the Command Abort operation. If CRR is not negated in a
 	 * timely manner then driver handles it as if host died (-ENODEV).
 	 * In the future we should distinguish between -ENODEV and -ETIMEDOUT
@@ -360,6 +375,15 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 	 */
 	ret = xhci_handshake_check_state(xhci, &xhci->op_regs->cmd_ring,
 			CMD_RING_RUNNING, 0, 5 * 100 * 1000);
+=======
+	 * completion of the Command Abort operation. If CRR is not negated in 5
+	 * seconds then driver handles it as if host died (-ENODEV).
+	 * In the future we should distinguish between -ENODEV and -ETIMEDOUT
+	 * and try to recover a -ETIMEDOUT with a host controller reset.
+	 */
+	ret = xhci_handshake(&xhci->op_regs->cmd_ring,
+			CMD_RING_RUNNING, 0, 5 * 1000 * 1000);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret < 0) {
 		xhci_err(xhci, "Abort failed to stop command ring: %d\n", ret);
 		xhci_halt(xhci);
@@ -377,6 +401,7 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 					  msecs_to_jiffies(2000));
 	spin_lock_irqsave(&xhci->lock, flags);
 	if (!ret) {
+<<<<<<< HEAD
 		xhci_info(xhci, "No stop event for abort, ring start fail?\n");
 #if defined(CONFIG_USB_HOST_SAMSUNG_FEATURE)
 		cancel_delayed_work(&xhci->cmd_timer);
@@ -386,6 +411,10 @@ static int xhci_abort_cmd_ring(struct xhci_hcd *xhci, unsigned long flags)
 		xhci->current_cmd = NULL;
 #endif
 		xhci_info(xhci, "xhci->xhc_state 0x%x\n", xhci->xhc_state);
+=======
+		xhci_dbg(xhci, "No stop event for abort, ring start fail?\n");
+		xhci_cleanup_command_queue(xhci);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} else {
 		xhci_handle_stopped_cmd_ring(xhci, xhci_next_queued_cmd(xhci));
 	}
@@ -3340,8 +3369,13 @@ int xhci_queue_bulk_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
 			/* New sg entry */
 			--num_sgs;
 			sent_len -= block_len;
+<<<<<<< HEAD
 			sg = sg_next(sg);
 			if (num_sgs != 0 && sg) {
+=======
+			if (num_sgs != 0) {
+				sg = sg_next(sg);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				block_len = sg_dma_len(sg);
 				addr = (u64) sg_dma_address(sg);
 				addr += sent_len;
@@ -3490,6 +3524,7 @@ int xhci_queue_ctrl_tx(struct xhci_hcd *xhci, gfp_t mem_flags,
 }
 
 /*
+<<<<<<< HEAD
  * Variant of xhci_queue_ctrl_tx() used to implement EHSET
  * SINGLE_STEP_SET_FEATURE test mode. It differs in that the control
  * transfer is broken up so that the SETUP stage can happen and call
@@ -3634,6 +3669,8 @@ int xhci_submit_single_step_set_feature(struct usb_hcd *hcd, struct urb *urb,
 }
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * The transfer burst count field of the isochronous TRB defines the number of
  * bursts that are required to move all packets in this TD.  Only SuperSpeed
  * devices can burst up to bMaxBurst number of packets per service interval.

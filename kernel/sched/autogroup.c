@@ -259,6 +259,10 @@ out:
 }
 #endif /* CONFIG_PROC_FS */
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_SCHED_DEBUG
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int autogroup_path(struct task_group *tg, char *buf, int buflen)
 {
 	if (!task_group_is_autogroup(tg))
@@ -266,3 +270,7 @@ int autogroup_path(struct task_group *tg, char *buf, int buflen)
 
 	return snprintf(buf, buflen, "%s-%ld", "/autogroup", tg->autogroup->id);
 }
+<<<<<<< HEAD
+=======
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

@@ -2126,9 +2126,12 @@ int uvc_ctrl_add_mapping(struct uvc_video_chain *chain,
 	if (!found)
 		return -ENOENT;
 
+<<<<<<< HEAD
 	if (ctrl->info.size < mapping->size)
 		return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (mutex_lock_interruptible(&chain->ctrl_mutex))
 		return -ERESTARTSYS;
 

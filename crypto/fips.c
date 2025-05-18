@@ -16,6 +16,7 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/sysctl.h>
+<<<<<<< HEAD
 #include "fips140.h"
 
 /*
@@ -54,6 +55,27 @@ static struct ctl_table crypto_sysctl_table[] = {
 	{
 		.procname       = "fips_status",
 		.data           = &IN_FIPS140_ERROR,
+=======
+
+int fips_enabled;
+EXPORT_SYMBOL_GPL(fips_enabled);
+
+/* Process kernel command-line parameter at boot time. fips=0 or fips=1 */
+static int fips_enable(char *str)
+{
+	fips_enabled = !!simple_strtol(str, NULL, 0);
+	printk(KERN_INFO "fips mode: %s\n",
+		fips_enabled ? "enabled" : "disabled");
+	return 1;
+}
+
+__setup("fips=", fips_enable);
+
+static struct ctl_table crypto_sysctl_table[] = {
+	{
+		.procname       = "fips_enabled",
+		.data           = &fips_enabled,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		.maxlen         = sizeof(int),
 		.mode           = 0444,
 		.proc_handler   = proc_dointvec

@@ -819,10 +819,13 @@ __SYSCALL(__NR_pkey_free, sys_pkey_free)
 __SYSCALL(__NR_statx, sys_statx)
 #define __NR_rseq 398
 __SYSCALL(__NR_rseq, sys_rseq)
+<<<<<<< HEAD
 #define __NR_pidfd_send_signal 424
 __SYSCALL(__NR_pidfd_send_signal, sys_pidfd_send_signal)
 #define __NR_pidfd_open 434
 __SYSCALL(__NR_pidfd_open, sys_pidfd_open)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Please add new compat syscalls above this comment and update

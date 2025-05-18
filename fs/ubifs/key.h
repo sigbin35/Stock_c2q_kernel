@@ -162,6 +162,10 @@ static inline void dent_key_init(const struct ubifs_info *c,
 	uint32_t hash = c->key_hash(fname_name(nm), fname_len(nm));
 
 	ubifs_assert(c, !(hash & ~UBIFS_S_KEY_HASH_MASK));
+<<<<<<< HEAD
+=======
+	ubifs_assert(c, !nm->hash && !nm->minor_hash);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	key->u32[0] = inum;
 	key->u32[1] = hash | (UBIFS_DENT_KEY << UBIFS_S_KEY_HASH_BITS);
 }

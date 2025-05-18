@@ -35,6 +35,10 @@
 #ifdef CONFIG_DYNAMIC_FTRACE
 
 int ftrace_arch_code_modify_prepare(void)
+<<<<<<< HEAD
+=======
+    __acquires(&text_mutex)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	mutex_lock(&text_mutex);
 	set_kernel_text_rw();
@@ -43,6 +47,10 @@ int ftrace_arch_code_modify_prepare(void)
 }
 
 int ftrace_arch_code_modify_post_process(void)
+<<<<<<< HEAD
+=======
+    __releases(&text_mutex)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	set_all_modules_text_ro();
 	set_kernel_text_ro();

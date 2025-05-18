@@ -10,5 +10,8 @@ source "drivers/platform/goldfish/Kconfig"
 source "drivers/platform/chrome/Kconfig"
 
 source "drivers/platform/mellanox/Kconfig"
+<<<<<<< HEAD
 
 source "drivers/platform/msm/Kconfig"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

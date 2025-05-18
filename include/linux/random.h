@@ -19,7 +19,10 @@ struct random_ready_callback {
 };
 
 extern void add_device_randomness(const void *, unsigned int);
+<<<<<<< HEAD
 extern void add_bootloader_randomness(const void *, unsigned int);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #if defined(CONFIG_GCC_PLUGIN_LATENT_ENTROPY) && !defined(__CHECKER__)
 static inline void add_latent_entropy(void)
@@ -37,7 +40,10 @@ extern void add_interrupt_randomness(int irq, int irq_flags) __latent_entropy;
 
 extern void get_random_bytes(void *buf, int nbytes);
 extern int wait_for_random_bytes(void);
+<<<<<<< HEAD
 extern int __init rand_initialize(void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern bool rng_is_initialized(void);
 extern int add_random_ready_callback(struct random_ready_callback *rdy);
 extern void del_random_ready_callback(struct random_ready_callback *rdy);
@@ -167,6 +173,7 @@ static inline void prandom_seed_state(struct rnd_state *state, u64 seed)
 #ifdef CONFIG_ARCH_RANDOM
 # include <asm/archrandom.h>
 #else
+<<<<<<< HEAD
 static inline bool __must_check arch_get_random_long(unsigned long *v)
 {
 	return false;
@@ -182,6 +189,31 @@ static inline bool __must_check arch_get_random_seed_long(unsigned long *v)
 static inline bool __must_check arch_get_random_seed_int(unsigned int *v)
 {
 	return false;
+=======
+static inline bool arch_get_random_long(unsigned long *v)
+{
+	return 0;
+}
+static inline bool arch_get_random_int(unsigned int *v)
+{
+	return 0;
+}
+static inline bool arch_has_random(void)
+{
+	return 0;
+}
+static inline bool arch_get_random_seed_long(unsigned long *v)
+{
+	return 0;
+}
+static inline bool arch_get_random_seed_int(unsigned int *v)
+{
+	return 0;
+}
+static inline bool arch_has_random_seed(void)
+{
+	return 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 #endif
 

@@ -67,10 +67,13 @@
 #include <uapi/linux/module.h>
 #include "module-internal.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_SEC_DEBUG
 #include <linux/sec_debug.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define CREATE_TRACE_POINTS
 #include <trace/events/module.h>
 
@@ -78,6 +81,7 @@
 #define ARCH_SHF_SMALL 0
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_UH_LKM_BLOCK
 /* Return codes for lkm_block */
 #define	RET_UH_LKM_OK					0x00000000
@@ -87,6 +91,8 @@
 #define	RET_LKM_BLOCK_SUCCESS				0
 #define	RET_LKM_BLOCK_FAIL				-1
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Modules' sections will be aligned on page boundaries
  * to ensure complete separation of code and data
@@ -170,6 +176,7 @@ static struct mod_tree_root {
 #define module_addr_min mod_tree.addr_min
 #define module_addr_max mod_tree.addr_max
 
+<<<<<<< HEAD
 #ifdef CONFIG_SEC_DEBUG_MODULE_INFO
 void sec_debug_coreinfo_module(void)
 {
@@ -193,6 +200,8 @@ void sec_debug_coreinfo_module(void)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static noinline void __mod_tree_insert(struct mod_tree_node *node)
 {
 	latch_tree_insert(&node->node, &mod_tree.root, &mod_tree_ops);
@@ -2186,8 +2195,11 @@ void __weak module_arch_freeing_init(struct module *mod)
 {
 }
 
+<<<<<<< HEAD
 static void cfi_cleanup(struct module *mod);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Free a module, remove from lists, etc. */
 static void free_module(struct module *mod)
 {
@@ -2229,10 +2241,13 @@ static void free_module(struct module *mod)
 
 	/* This may be empty, but that's OK */
 	disable_ro_nx(&mod->init_layout);
+<<<<<<< HEAD
 
 	/* Clean up CFI for the module. */
 	cfi_cleanup(mod);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	module_arch_freeing_init(mod);
 	module_memfree(mod->init_layout.base);
 	kfree(mod->args);
@@ -2243,10 +2258,13 @@ static void free_module(struct module *mod)
 
 	/* Finally, free the core (containing the module structure) */
 	disable_ro_nx(&mod->core_layout);
+<<<<<<< HEAD
 #ifdef CONFIG_DEBUG_MODULE_LOAD_INFO
 	pr_info("Unloaded %s: module core layout, start: 0x%pK size: 0x%x\n",
 		mod->name, mod->core_layout.base, mod->core_layout.size);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	module_memfree(mod->core_layout.base);
 }
 
@@ -2784,6 +2802,7 @@ static void add_kallsyms(struct module *mod, const struct load_info *info)
 }
 #endif /* CONFIG_KALLSYMS */
 
+<<<<<<< HEAD
 #ifdef CONFIG_UH_LKM_BLOCK
 static int lkm_block()
 {
@@ -2791,6 +2810,8 @@ static int lkm_block()
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void dynamic_debug_setup(struct module *mod, struct _ddebug *debug, unsigned int num)
 {
 	if (!debug)
@@ -2894,12 +2915,15 @@ static int elf_header_check(struct load_info *info)
 		info->len - info->hdr->e_shoff))
 		return -ENOEXEC;
 
+<<<<<<< HEAD
 #ifdef CONFIG_UH_LKM_BLOCK
 	if (lkm_block() != RET_LKM_BLOCK_SUCCESS) {
 		pr_warn("UH: LKM is not allowed by Samsung security policy.\n");
 		return -ENOEXEC;
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -3436,8 +3460,11 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
 	return 0;
 }
 
+<<<<<<< HEAD
 static void cfi_init(struct module *mod);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int post_relocation(struct module *mod, const struct load_info *info)
 {
 	/* Sort exception table now relocations are done. */
@@ -3450,9 +3477,12 @@ static int post_relocation(struct module *mod, const struct load_info *info)
 	/* Setup kallsyms-specific fields. */
 	add_kallsyms(mod, info);
 
+<<<<<<< HEAD
 	/* Setup CFI for the module. */
 	cfi_init(mod);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Arch-specific module finalizing. */
 	return module_finalize(info->hdr, info->sechdrs, mod);
 }
@@ -4221,6 +4251,7 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
 }
 #endif /* CONFIG_KALLSYMS */
 
+<<<<<<< HEAD
 static void cfi_init(struct module *mod)
 {
 #ifdef CONFIG_CFI_CLANG
@@ -4237,6 +4268,8 @@ static void cfi_cleanup(struct module *mod)
 #endif
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Maximum number of characters written by module_flags() */
 #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
 

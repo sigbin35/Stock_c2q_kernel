@@ -383,7 +383,11 @@ int key_payload_reserve(struct key *key, size_t datalen)
 		spin_lock(&key->user->lock);
 
 		if (delta > 0 &&
+<<<<<<< HEAD
 		    (key->user->qnbytes + delta >= maxbytes ||
+=======
+		    (key->user->qnbytes + delta > maxbytes ||
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		     key->user->qnbytes + delta < key->user->qnbytes)) {
 			ret = -EDQUOT;
 		}

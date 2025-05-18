@@ -155,11 +155,16 @@ struct ip_tunnel *ip_tunnel_lookup(struct ip_tunnel_net *itn,
 			cand = t;
 	}
 
+<<<<<<< HEAD
 	if (flags & TUNNEL_NO_KEY)
 		goto skip_key_lookup;
 
 	hlist_for_each_entry_rcu(t, head, hash_node) {
 		if (t->parms.i_key != key ||
+=======
+	hlist_for_each_entry_rcu(t, head, hash_node) {
+		if ((!(flags & TUNNEL_NO_KEY) && t->parms.i_key != key) ||
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		    t->parms.iph.saddr != 0 ||
 		    t->parms.iph.daddr != 0 ||
 		    !(t->dev->flags & IFF_UP))
@@ -171,7 +176,10 @@ struct ip_tunnel *ip_tunnel_lookup(struct ip_tunnel_net *itn,
 			cand = t;
 	}
 
+<<<<<<< HEAD
 skip_key_lookup:
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (cand)
 		return cand;
 

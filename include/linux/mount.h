@@ -67,11 +67,15 @@ struct mnt_namespace;
 struct vfsmount {
 	struct dentry *mnt_root;	/* root of the mounted tree */
 	struct super_block *mnt_sb;	/* pointer to superblock */
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_NS
 	struct mount *bp_mount;	/* pointer to mount*/
 #endif
 	int mnt_flags;
 	void *data;
+=======
+	int mnt_flags;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 } __randomize_layout;
 
 struct file; /* forward dec */

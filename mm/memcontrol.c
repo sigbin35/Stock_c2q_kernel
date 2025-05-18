@@ -207,11 +207,15 @@ static struct move_charge_struct {
  * Maximum loops in mem_cgroup_hierarchical_reclaim(), used for soft
  * limit reclaim to prevent infinite loops, if they ever occur.
  */
+<<<<<<< HEAD
 #ifdef CONFIG_MEMCG_HEIMDALL
 #define	MEM_CGROUP_MAX_RECLAIM_LOOPS		10
 #else
 #define	MEM_CGROUP_MAX_RECLAIM_LOOPS		100
 #endif
+=======
+#define	MEM_CGROUP_MAX_RECLAIM_LOOPS		100
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define	MEM_CGROUP_MAX_SOFT_LIMIT_RECLAIM_LOOPS	2
 
 enum charge_type {
@@ -2857,11 +2861,14 @@ unsigned long mem_cgroup_soft_limit_reclaim(pg_data_t *pgdat, int order,
 	if (order > 0)
 		return 0;
 
+<<<<<<< HEAD
 #ifdef CONFIG_MEMCG_HEIMDALL
 	if (!current_is_kswapd())
 		return 0;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mctz = soft_limit_tree_node(pgdat->node_id);
 
 	/*
@@ -3058,6 +3065,7 @@ static void accumulate_memcg_tree(struct mem_cgroup *memcg,
 	}
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_MEMCG_HEIMDALL
 static ssize_t mem_cgroup_force_shrink_write(struct kernfs_open_file *of,
 					    char *buf, size_t nbytes,
@@ -3094,6 +3102,8 @@ error:
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static unsigned long mem_cgroup_usage(struct mem_cgroup *memcg, bool swap)
 {
 	unsigned long val = 0;
@@ -3108,16 +3118,22 @@ static unsigned long mem_cgroup_usage(struct mem_cgroup *memcg, bool swap)
 				val += memcg_page_state(iter, MEMCG_SWAP);
 		}
 	} else {
+<<<<<<< HEAD
 #ifdef CONFIG_MEMCG_HEIMDALL
 		val = memcg_page_state(memcg, MEMCG_RSS);
 		if (swap)
 			val += memcg_page_state(memcg, MEMCG_SWAP);
 #else
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (!swap)
 			val = page_counter_read(&memcg->memory);
 		else
 			val = page_counter_read(&memcg->memsw);
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return val;
 }
@@ -3588,6 +3604,7 @@ static int memcg_stat_show(struct seq_file *m, void *v)
 
 	return 0;
 }
+<<<<<<< HEAD
 static u64 mem_cgroup_vmpressure_read(struct cgroup_subsys_state *css,
 				      struct cftype *cft)
 {
@@ -3599,6 +3616,9 @@ static u64 mem_cgroup_vmpressure_read(struct cgroup_subsys_state *css,
 
 	return vmpressure;
 }
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static u64 mem_cgroup_swappiness_read(struct cgroup_subsys_state *css,
 				      struct cftype *cft)
 {
@@ -3680,6 +3700,10 @@ static void mem_cgroup_threshold(struct mem_cgroup *memcg)
 		__mem_cgroup_threshold(memcg, false);
 		if (do_memsw_account())
 			__mem_cgroup_threshold(memcg, true);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		memcg = parent_mem_cgroup(memcg);
 	}
 }
@@ -4368,22 +4392,28 @@ static struct cftype mem_cgroup_legacy_files[] = {
 	{
 		.name = "pressure_level",
 	},
+<<<<<<< HEAD
 	{
 		.name = "vmpressure",
 		.read_u64 = mem_cgroup_vmpressure_read,
 	},
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_NUMA
 	{
 		.name = "numa_stat",
 		.seq_show = memcg_numa_stat_show,
 	},
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_MEMCG_HEIMDALL
 	{
 		.name = "force_shrink",
 		.write = mem_cgroup_force_shrink_write,
 	},
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	{
 		.name = "kmem.limit_in_bytes",
 		.private = MEMFILE_PRIVATE(_KMEM, RES_LIMIT),

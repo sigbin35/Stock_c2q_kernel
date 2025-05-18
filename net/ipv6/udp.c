@@ -54,7 +54,10 @@
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
 #include <trace/events/skb.h>
+<<<<<<< HEAD
 #include <trace/events/udp.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "udp_impl.h"
 
 static bool udp6_lib_exact_dif_match(struct net *net, struct sk_buff *skb)
@@ -427,9 +430,12 @@ try_again:
 						(struct sockaddr *)sin6);
 	}
 
+<<<<<<< HEAD
 	if (udp_sk(sk)->gro_enabled)
 		udp_cmsg_recv(msg, sk, skb);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (np->rxopt.all)
 		ip6_datagram_recv_common_ctl(sk, msg, skb);
 
@@ -539,11 +545,17 @@ static int __udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 		int is_udplite = IS_UDPLITE(sk);
 
 		/* Note that an ENOMEM error is charged twice */
+<<<<<<< HEAD
 		if (rc == -ENOMEM) {
 			UDP6_INC_STATS(sock_net(sk),
 					 UDP_MIB_RCVBUFERRORS, is_udplite);
 			trace_udpv6_fail_rcv_buf_errors(skb);
 		}
+=======
+		if (rc == -ENOMEM)
+			UDP6_INC_STATS(sock_net(sk),
+					 UDP_MIB_RCVBUFERRORS, is_udplite);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		UDP6_INC_STATS(sock_net(sk), UDP_MIB_INERRORS, is_udplite);
 		kfree_skb(skb);
 		return -1;
@@ -562,11 +574,19 @@ static __inline__ void udpv6_err(struct sk_buff *skb,
 static DEFINE_STATIC_KEY_FALSE(udpv6_encap_needed_key);
 void udpv6_encap_enable(void)
 {
+<<<<<<< HEAD
 	static_branch_inc(&udpv6_encap_needed_key);
 }
 EXPORT_SYMBOL(udpv6_encap_enable);
 
 static int udpv6_queue_rcv_one_skb(struct sock *sk, struct sk_buff *skb)
+=======
+	static_branch_enable(&udpv6_encap_needed_key);
+}
+EXPORT_SYMBOL(udpv6_encap_enable);
+
+static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct udp_sock *up = udp_sk(sk);
 	int is_udplite = IS_UDPLITE(sk);
@@ -649,6 +669,7 @@ drop:
 	return -1;
 }
 
+<<<<<<< HEAD
 static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 {
 	struct sk_buff *next, *segs;
@@ -671,6 +692,8 @@ static int udpv6_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static bool __udp_v6_is_mcast_sock(struct net *net, struct sock *sk,
 				   __be16 loc_port, const struct in6_addr *loc_addr,
 				   __be16 rmt_port, const struct in6_addr *rmt_addr,
@@ -1504,6 +1527,7 @@ void udpv6_destroy_sock(struct sock *sk)
 	udp_v6_flush_pending_frames(sk);
 	release_sock(sk);
 
+<<<<<<< HEAD
 	if (static_branch_unlikely(&udpv6_encap_needed_key)) {
 		if (up->encap_type) {
 			void (*encap_destroy)(struct sock *sk);
@@ -1513,6 +1537,13 @@ void udpv6_destroy_sock(struct sock *sk)
 		}
 		if (up->encap_enabled)
 			static_branch_dec(&udpv6_encap_needed_key);
+=======
+	if (static_branch_unlikely(&udpv6_encap_needed_key) && up->encap_type) {
+		void (*encap_destroy)(struct sock *sk);
+		encap_destroy = READ_ONCE(up->encap_destroy);
+		if (encap_destroy)
+			encap_destroy(sk);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	inet6_destroy_sock(sk);

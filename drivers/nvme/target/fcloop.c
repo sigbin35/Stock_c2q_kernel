@@ -825,7 +825,10 @@ fcloop_targetport_delete(struct nvmet_fc_target_port *targetport)
 #define FCLOOP_DMABOUND_4G		0xFFFFFFFF
 
 static struct nvme_fc_port_template fctemplate = {
+<<<<<<< HEAD
 	.module			= THIS_MODULE,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	.localport_delete	= fcloop_localport_delete,
 	.remoteport_delete	= fcloop_remoteport_delete,
 	.create_queue		= fcloop_create_queue,

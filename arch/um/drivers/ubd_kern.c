@@ -1574,7 +1574,13 @@ int io_thread(void *arg)
 		written = 0;
 
 		do {
+<<<<<<< HEAD
 			res = os_write_file(kernel_fd, ((char *) io_req_buffer) + written, n);
+=======
+			res = os_write_file(kernel_fd,
+					    ((char *) io_req_buffer) + written,
+					    n - written);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (res >= 0) {
 				written += res;
 			} else {

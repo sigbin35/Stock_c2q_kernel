@@ -2451,10 +2451,25 @@ static void vxlan_vs_add_dev(struct vxlan_sock *vs, struct vxlan_dev *vxlan,
 /* Setup stats when device is created */
 static int vxlan_init(struct net_device *dev)
 {
+<<<<<<< HEAD
+=======
+	struct vxlan_dev *vxlan = netdev_priv(dev);
+	int err;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	dev->tstats = netdev_alloc_pcpu_stats(struct pcpu_sw_netstats);
 	if (!dev->tstats)
 		return -ENOMEM;
 
+<<<<<<< HEAD
+=======
+	err = gro_cells_init(&vxlan->gro_cells, dev);
+	if (err) {
+		free_percpu(dev->tstats);
+		return err;
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -2712,8 +2727,11 @@ static void vxlan_setup(struct net_device *dev)
 
 	vxlan->dev = dev;
 
+<<<<<<< HEAD
 	gro_cells_init(&vxlan->gro_cells, dev);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	for (h = 0; h < FDB_HASH_SIZE; ++h)
 		INIT_HLIST_HEAD(&vxlan->fdb_head[h]);
 }

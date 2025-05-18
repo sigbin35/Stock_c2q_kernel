@@ -28,7 +28,10 @@
 #include <linux/of_irq.h>
 #include <linux/percpu.h>
 #include <linux/slab.h>
+<<<<<<< HEAD
 #include <linux/msm_rtb.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/irqchip.h>
 #include <linux/irqchip/arm-gic-common.h>
@@ -40,6 +43,7 @@
 #include <asm/smp_plat.h>
 #include <asm/virt.h>
 
+<<<<<<< HEAD
 #include <linux/syscore_ops.h>
 
 #include "irq-gic-common.h"
@@ -48,6 +52,10 @@
 #include <linux/wakeup_reason.h>
 #endif
 
+=======
+#include "irq-gic-common.h"
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct redist_region {
 	void __iomem		*redist_base;
 	phys_addr_t		phys_base;
@@ -106,7 +114,11 @@ static void gic_do_wait_for_rwp(void __iomem *base)
 {
 	u32 count = 1000000;	/* 1s! */
 
+<<<<<<< HEAD
 	while (readl_relaxed_no_log(base + GICD_CTLR) & GICD_CTLR_RWP) {
+=======
+	while (readl_relaxed(base + GICD_CTLR) & GICD_CTLR_RWP) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		count--;
 		if (!count) {
 			pr_err_ratelimited("RWP timeout, gone fishing\n");
@@ -187,8 +199,12 @@ static int gic_peek_irq(struct irq_data *d, u32 offset)
 	else
 		base = gic_data.dist_base;
 
+<<<<<<< HEAD
 	return !!(readl_relaxed_no_log
 		(base + offset + (gic_irq(d) / 32) * 4) & mask);
+=======
+	return !!(readl_relaxed(base + offset + (gic_irq(d) / 32) * 4) & mask);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void gic_poke_irq(struct irq_data *d, u32 offset)
@@ -340,6 +356,7 @@ static int gic_irq_set_vcpu_affinity(struct irq_data *d, void *vcpu)
 	return 0;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_PM
 
 static int gic_suspend(void)
@@ -407,6 +424,8 @@ arch_initcall(gic_init_sys);
 
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static u64 gic_mpidr_to_affinity(unsigned long mpidr)
 {
 	u64 aff;
@@ -429,7 +448,10 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 		if (likely(irqnr > 15 && irqnr < 1020) || irqnr >= 8192) {
 			int err;
 
+<<<<<<< HEAD
 			uncached_logk(LOGK_IRQ, (void *)(uintptr_t)irqnr);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (static_branch_likely(&supports_deactivate_key))
 				gic_write_eoir(irqnr);
 			else
@@ -448,7 +470,10 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
 			continue;
 		}
 		if (irqnr < 16) {
+<<<<<<< HEAD
 			uncached_logk(LOGK_IRQ, (void *)(uintptr_t)irqnr);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			gic_write_eoir(irqnr);
 			if (static_branch_likely(&supports_deactivate_key))
 				gic_write_dir(irqnr);
@@ -563,6 +588,13 @@ static int __gic_populate_rdist(struct redist_region *region, void __iomem *ptr)
 		gic_data_rdist_rd_base() = ptr;
 		gic_data_rdist()->phys_base = region->phys_base + offset;
 
+<<<<<<< HEAD
+=======
+		pr_info("CPU%d: found redistributor %lx region %d:%pa\n",
+			smp_processor_id(), mpidr,
+			(int)(region - gic_data.redist_regions),
+			&gic_data_rdist()->phys_base);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return 0;
 	}
 
@@ -747,8 +779,12 @@ static void gic_cpu_init(void)
 	gic_cpu_config(rbase, gic_redist_wait_for_rwp);
 
 	/* Give LPIs a spin */
+<<<<<<< HEAD
 	if (IS_ENABLED(CONFIG_ARM_GIC_V3_ITS) && gic_dist_supports_lpis() &&
 					!IS_ENABLED(CONFIG_ARM_GIC_V3_ACL))
+=======
+	if (IS_ENABLED(CONFIG_ARM_GIC_V3_ITS) && gic_dist_supports_lpis())
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		its_cpu_init();
 
 	/* initialise system registers */
@@ -902,9 +938,12 @@ static bool gic_dist_security_disabled(void)
 static int gic_cpu_pm_notifier(struct notifier_block *self,
 			       unsigned long cmd, void *v)
 {
+<<<<<<< HEAD
 	if (from_suspend)
 		return NOTIFY_OK;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (cmd == CPU_PM_EXIT) {
 		if (gic_dist_security_disabled())
 			gic_enable_redist(true);
@@ -1204,8 +1243,12 @@ static int __init gic_init_bases(void __iomem *dist_base,
 
 	gic_update_vlpi_properties();
 
+<<<<<<< HEAD
 	if (IS_ENABLED(CONFIG_ARM_GIC_V3_ITS) && gic_dist_supports_lpis() &&
 			!IS_ENABLED(CONFIG_ARM_GIC_V3_ACL))
+=======
+	if (IS_ENABLED(CONFIG_ARM_GIC_V3_ITS) && gic_dist_supports_lpis())
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		its_init(handle, &gic_data.rdists, gic_data.domain);
 
 	gic_smp_init();
@@ -1348,7 +1391,11 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)
 	gic_set_kvm_info(&gic_v3_kvm_info);
 }
 
+<<<<<<< HEAD
 static int __init gicv3_of_init(struct device_node *node, struct device_node *parent)
+=======
+static int __init gic_of_init(struct device_node *node, struct device_node *parent)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	void __iomem *dist_base;
 	struct redist_region *rdist_regs;
@@ -1416,7 +1463,11 @@ out_unmap_dist:
 	return err;
 }
 
+<<<<<<< HEAD
 IRQCHIP_DECLARE(gic_v3, "arm,gic-v3", gicv3_of_init);
+=======
+IRQCHIP_DECLARE(gic_v3, "arm,gic-v3", gic_of_init);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_ACPI
 static struct

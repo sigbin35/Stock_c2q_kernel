@@ -4,6 +4,10 @@
 
 menuconfig IIO
 	tristate "Industrial I/O support"
+<<<<<<< HEAD
+=======
+	select ANON_INODES
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  The industrial I/O subsystem provides a unified framework for
 	  drivers for many different types of embedded sensors using a

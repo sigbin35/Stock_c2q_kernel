@@ -14,7 +14,10 @@
 
 #include <linux/mm.h>
 #include <linux/cpu.h>
+<<<<<<< HEAD
 #include <linux/device.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/nmi.h>
 #include <linux/init.h>
 #include <linux/module.h>
@@ -173,7 +176,10 @@ static u64 __read_mostly sample_period;
 
 static DEFINE_PER_CPU(unsigned long, watchdog_touch_ts);
 static DEFINE_PER_CPU(struct hrtimer, watchdog_hrtimer);
+<<<<<<< HEAD
 static DEFINE_PER_CPU(unsigned int, watchdog_en);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static DEFINE_PER_CPU(bool, softlockup_touch_sync);
 static DEFINE_PER_CPU(bool, soft_watchdog_warn);
 static DEFINE_PER_CPU(unsigned long, hrtimer_interrupts);
@@ -473,20 +479,30 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
 	return HRTIMER_RESTART;
 }
 
+<<<<<<< HEAD
 void watchdog_enable(unsigned int cpu)
 {
 	struct hrtimer *hrtimer = this_cpu_ptr(&watchdog_hrtimer);
 	struct completion *done = this_cpu_ptr(&softlockup_completion);
 	unsigned int *enabled = this_cpu_ptr(&watchdog_en);
+=======
+static void watchdog_enable(unsigned int cpu)
+{
+	struct hrtimer *hrtimer = this_cpu_ptr(&watchdog_hrtimer);
+	struct completion *done = this_cpu_ptr(&softlockup_completion);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	WARN_ON_ONCE(cpu != smp_processor_id());
 
 	init_completion(done);
 	complete(done);
 
+<<<<<<< HEAD
 	if (*enabled)
 		return;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Start the timer first to prevent the NMI watchdog triggering
 	 * before the timer has a chance to fire.
@@ -501,6 +517,7 @@ void watchdog_enable(unsigned int cpu)
 	/* Enable the perf event */
 	if (watchdog_enabled & NMI_WATCHDOG_ENABLED)
 		watchdog_nmi_enable(cpu);
+<<<<<<< HEAD
 
 	/*
 	 * Need to ensure above operations are observed by other CPUs before
@@ -519,6 +536,15 @@ void watchdog_disable(unsigned int cpu)
 
 	if (!*enabled)
 		return;
+=======
+}
+
+static void watchdog_disable(unsigned int cpu)
+{
+	struct hrtimer *hrtimer = this_cpu_ptr(&watchdog_hrtimer);
+
+	WARN_ON_ONCE(cpu != smp_processor_id());
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/*
 	 * Disable the perf event first. That prevents that a large delay
@@ -527,6 +553,7 @@ void watchdog_disable(unsigned int cpu)
 	 */
 	watchdog_nmi_disable(cpu);
 	hrtimer_cancel(hrtimer);
+<<<<<<< HEAD
 	wait_for_completion(per_cpu_ptr(&softlockup_completion, cpu));
 
 	/*
@@ -539,6 +566,9 @@ void watchdog_disable(unsigned int cpu)
 bool watchdog_configured(unsigned int cpu)
 {
 	return *per_cpu_ptr(&watchdog_en, cpu);
+=======
+	wait_for_completion(this_cpu_ptr(&softlockup_completion));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int softlockup_stop_fn(void *data)

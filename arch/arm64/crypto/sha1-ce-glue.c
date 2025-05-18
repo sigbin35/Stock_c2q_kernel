@@ -29,6 +29,7 @@ struct sha1_ce_state {
 
 asmlinkage void sha1_ce_transform(struct sha1_ce_state *sst, u8 const *src,
 				  int blocks);
+<<<<<<< HEAD
 #ifdef CONFIG_CFI_CLANG
 static inline void __cfi_sha1_ce_transform(struct sha1_state *sst,
 					   u8 const *src, int blocks)
@@ -37,6 +38,8 @@ static inline void __cfi_sha1_ce_transform(struct sha1_state *sst,
 }
 #define sha1_ce_transform __cfi_sha1_ce_transform
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 const u32 sha1_ce_offsetof_count = offsetof(struct sha1_ce_state, sst.count);
 const u32 sha1_ce_offsetof_finalize = offsetof(struct sha1_ce_state, finalize);

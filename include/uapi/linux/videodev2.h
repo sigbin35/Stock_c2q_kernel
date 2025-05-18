@@ -70,7 +70,11 @@
  * Common stuff for both V4L1 and V4L2
  * Moved from videodev.h
  */
+<<<<<<< HEAD
 #define VIDEO_MAX_FRAME               64
+=======
+#define VIDEO_MAX_FRAME               32
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define VIDEO_MAX_PLANES               8
 
 /*
@@ -521,7 +525,10 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_RGB32   v4l2_fourcc('R', 'G', 'B', '4') /* 32  RGB-8-8-8-8   */
 #define V4L2_PIX_FMT_ARGB32  v4l2_fourcc('B', 'A', '2', '4') /* 32  ARGB-8-8-8-8  */
 #define V4L2_PIX_FMT_XRGB32  v4l2_fourcc('B', 'X', '2', '4') /* 32  XRGB-8-8-8-8  */
+<<<<<<< HEAD
 #define V4L2_PIX_FMT_RGBA8888_UBWC   v4l2_fourcc('Q', 'R', 'G', 'B')
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* Grey formats */
 #define V4L2_PIX_FMT_GREY    v4l2_fourcc('G', 'R', 'E', 'Y') /*  8  Greyscale     */
@@ -565,6 +572,7 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_NV24    v4l2_fourcc('N', 'V', '2', '4') /* 24  Y/CbCr 4:4:4  */
 #define V4L2_PIX_FMT_NV42    v4l2_fourcc('N', 'V', '4', '2') /* 24  Y/CrCb 4:4:4  */
 
+<<<<<<< HEAD
 /* NV12_512 8-bit Y/CbCr 4:2:0  */
 #define V4L2_PIX_FMT_NV12_512         v4l2_fourcc('Q', '5', '1', '2')
 
@@ -574,6 +582,8 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_NV12_TP10_UBWC   v4l2_fourcc('Q', '1', '2', 'A')
 #define V4L2_PIX_FMT_NV12_P010_UBWC   v4l2_fourcc('Q', '1', '2', 'B')
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* two non contiguous planes - one Y, one Cr + Cb interleaved  */
 #define V4L2_PIX_FMT_NV12M   v4l2_fourcc('N', 'M', '1', '2') /* 12  Y/CbCr 4:2:0  */
 #define V4L2_PIX_FMT_NV21M   v4l2_fourcc('N', 'M', '2', '1') /* 21  Y/CrCb 4:2:0  */
@@ -626,11 +636,14 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_SGBRG12 v4l2_fourcc('G', 'B', '1', '2') /* 12  GBGB.. RGRG.. */
 #define V4L2_PIX_FMT_SGRBG12 v4l2_fourcc('B', 'A', '1', '2') /* 12  GRGR.. BGBG.. */
 #define V4L2_PIX_FMT_SRGGB12 v4l2_fourcc('R', 'G', '1', '2') /* 12  RGRG.. GBGB.. */
+<<<<<<< HEAD
 #define V4L2_PIX_FMT_SBGGR10DPCM6 v4l2_fourcc('b', 'B', 'A', '6')
 #define V4L2_PIX_FMT_SGBRG10DPCM6 v4l2_fourcc('b', 'G', 'A', '6')
 #define V4L2_PIX_FMT_SGRBG10DPCM6 v4l2_fourcc('B', 'D', '1', '6')
 #define V4L2_PIX_FMT_SRGGB10DPCM6 v4l2_fourcc('b', 'R', 'A', '6')
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* 12bit raw bayer packed, 6 bytes for every 4 pixels */
 #define V4L2_PIX_FMT_SBGGR12P v4l2_fourcc('p', 'B', 'C', 'C')
 #define V4L2_PIX_FMT_SGBRG12P v4l2_fourcc('p', 'G', 'C', 'C')
@@ -646,10 +659,13 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_SGRBG16 v4l2_fourcc('G', 'R', '1', '6') /* 16  GRGR.. BGBG.. */
 #define V4L2_PIX_FMT_SRGGB16 v4l2_fourcc('R', 'G', '1', '6') /* 16  RGRG.. GBGB.. */
 
+<<<<<<< HEAD
 #define V4L2_PIX_FMT_SBGGRPLAIN16 v4l2_fourcc('B', 'G', '1', '6')
 #define V4L2_PIX_FMT_SGBRGPLAIN16 v4l2_fourcc('G', 'B', '1', '6')
 #define V4L2_PIX_FMT_SGRBGPLAIN16 v4l2_fourcc('G', 'R', '1', '6')
 #define V4L2_PIX_FMT_SRGGBPLAIN16 v4l2_fourcc('R', 'G', '1', '6')
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* HSV formats */
 #define V4L2_PIX_FMT_HSV24 v4l2_fourcc('H', 'S', 'V', '3')
 #define V4L2_PIX_FMT_HSV32 v4l2_fourcc('H', 'S', 'V', '4')
@@ -671,6 +687,7 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_VC1_ANNEX_L v4l2_fourcc('V', 'C', '1', 'L') /* SMPTE 421M Annex L compliant stream */
 #define V4L2_PIX_FMT_VP8      v4l2_fourcc('V', 'P', '8', '0') /* VP8 */
 #define V4L2_PIX_FMT_VP9      v4l2_fourcc('V', 'P', '9', '0') /* VP9 */
+<<<<<<< HEAD
 #define V4L2_PIX_FMT_DIVX_311  v4l2_fourcc('D', 'I', 'V', '3') /* DIVX311     */
 #define V4L2_PIX_FMT_DIVX      v4l2_fourcc('D', 'I', 'V', 'X') /* DIVX  */
 #define V4L2_PIX_FMT_HEVC     v4l2_fourcc('H', 'E', 'V', 'C') /* HEVC aka H.265 */
@@ -678,6 +695,10 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_FWHT     v4l2_fourcc('F', 'W', 'H', 'T') /* Fast Walsh Hadamard Transform (vicodec) */
 #define V4L2_PIX_FMT_TME      v4l2_fourcc('T', 'M', 'E', '0') /* TME stream */
 #define V4L2_PIX_FMT_CVP      v4l2_fourcc('C', 'V', 'P', '0') /* CVP stream */
+=======
+#define V4L2_PIX_FMT_HEVC     v4l2_fourcc('H', 'E', 'V', 'C') /* HEVC aka H.265 */
+#define V4L2_PIX_FMT_FWHT     v4l2_fourcc('F', 'W', 'H', 'T') /* Fast Walsh Hadamard Transform (vicodec) */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*  Vendor-specific formats   */
 #define V4L2_PIX_FMT_CPIA1    v4l2_fourcc('C', 'P', 'I', 'A') /* cpia1 YUV */
@@ -717,6 +738,7 @@ struct v4l2_pix_format {
 #define V4L2_PIX_FMT_IPU3_SGBRG10	v4l2_fourcc('i', 'p', '3', 'g') /* IPU3 packed 10-bit GBRG bayer */
 #define V4L2_PIX_FMT_IPU3_SGRBG10	v4l2_fourcc('i', 'p', '3', 'G') /* IPU3 packed 10-bit GRBG bayer */
 #define V4L2_PIX_FMT_IPU3_SRGGB10	v4l2_fourcc('i', 'p', '3', 'r') /* IPU3 packed 10-bit RGGB bayer */
+<<<<<<< HEAD
 #define V4L2_PIX_FMT_SDE_Y_CBCR_H2V2_P010_VENUS \
 	v4l2_fourcc('Q', 'P', '1', '0') /* Y/CbCr 4:2:0 P10 Venus*/
 
@@ -794,6 +816,8 @@ struct v4l2_pix_format {
 	v4l2_fourcc('P', '0', '1', '0') /* Y/CbCr 4:2:0 P10 */
 #define V4L2_PIX_FMT_SDE_Y_CBCR_H2V2_P010_VENUS \
 	v4l2_fourcc('Q', 'P', '1', '0') /* Y/CbCr 4:2:0 P10 Venus*/
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* SDR formats - used only for Software Defined Radio devices */
 #define V4L2_SDR_FMT_CU8          v4l2_fourcc('C', 'U', '0', '8') /* IQ u8 */
@@ -1089,6 +1113,7 @@ struct v4l2_buffer {
 #define V4L2_BUF_FLAG_TSTAMP_SRC_SOE		0x00010000
 /* mem2mem encoder/decoder */
 #define V4L2_BUF_FLAG_LAST			0x00100000
+<<<<<<< HEAD
 /* Vendor extensions */
 #define V4L2_BUF_FLAG_CODECCONFIG		0x00020000
 #define V4L2_BUF_FLAG_END_OF_SUBFRAME		0x00000080
@@ -1114,6 +1139,8 @@ struct v4l2_buffer {
 #define V4L2_QCOM_BUF_FLAG_EOS	V4L2_BUF_FLAG_EOS
 #define V4L2_QCOM_BUF_FLAG_READONLY V4L2_BUF_FLAG_READONLY
 #define V4L2_QCOM_BUF_FLAG_PERF_MODE	V4L2_BUF_FLAG_PERF_MODE
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * struct v4l2_exportbuffer - export of video buffer as DMABUF file descriptor
@@ -1975,6 +2002,10 @@ struct v4l2_audioout {
 /*
  *	M P E G   S E R V I C E S
  */
+<<<<<<< HEAD
+=======
+#if 1
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define V4L2_ENC_IDX_FRAME_I    (0)
 #define V4L2_ENC_IDX_FRAME_P    (1)
 #define V4L2_ENC_IDX_FRAME_B    (2)
@@ -2020,9 +2051,12 @@ struct v4l2_encoder_cmd {
 #define V4L2_DEC_CMD_STOP        (1)
 #define V4L2_DEC_CMD_PAUSE       (2)
 #define V4L2_DEC_CMD_RESUME      (3)
+<<<<<<< HEAD
 #define V4L2_CMD_FLUSH      (4)
 #define V4L2_CMD_SESSION_CONTINUE (5)
 #define V4L2_DEC_QCOM_CMD_RECONFIG_HINT  (6)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* Flags for V4L2_DEC_CMD_START */
 #define V4L2_DEC_CMD_START_MUTE_AUDIO	(1 << 0)
@@ -2034,6 +2068,7 @@ struct v4l2_encoder_cmd {
 #define V4L2_DEC_CMD_STOP_TO_BLACK	(1 << 0)
 #define V4L2_DEC_CMD_STOP_IMMEDIATELY	(1 << 1)
 
+<<<<<<< HEAD
 /* Flags for V4L2_CMD_FLUSH */
 #define V4L2_CMD_FLUSH_OUTPUT  (1 << 0)
 #define V4L2_CMD_FLUSH_CAPTURE (1 << 1)
@@ -2043,6 +2078,8 @@ struct v4l2_encoder_cmd {
 #define V4L2_QCOM_CMD_FLUSH_OUTPUT	V4L2_CMD_FLUSH_OUTPUT
 #define V4L2_QCOM_CMD_FLUSH_CAPTURE	V4L2_CMD_FLUSH_CAPTURE
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Play format requirements (returned by the driver): */
 
 /* The decoder has no special format requirements */
@@ -2075,6 +2112,10 @@ struct v4l2_decoder_cmd {
 		} raw;
 	};
 };
+<<<<<<< HEAD
+=======
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 
 /*
@@ -2321,6 +2362,7 @@ struct v4l2_streamparm {
 #define V4L2_EVENT_MOTION_DET			6
 #define V4L2_EVENT_PRIVATE_START		0x08000000
 
+<<<<<<< HEAD
 #define V4L2_EVENT_BITDEPTH_FLAG	0x1
 #define V4L2_EVENT_PICSTRUCT_FLAG	0x2
 #define V4L2_EVENT_COLOUR_SPACE_FLAG	0x4
@@ -2375,6 +2417,8 @@ struct v4l2_streamparm {
 #define V4L2_EVENT_MSM_CVP_UNREGISTER_BUFFER_DONE \
 		(V4L2_EVENT_MSM_CVP_START + 12)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Payload for V4L2_EVENT_VSYNC */
 struct v4l2_event_vsync {
 	/* Can be V4L2_FIELD_ANY, _NONE, _TOP or _BOTTOM */
@@ -2618,10 +2662,13 @@ struct v4l2_create_buffers {
 
 #define BASE_VIDIOC_PRIVATE	192		/* 192-255 are private */
 
+<<<<<<< HEAD
 /* (BASE_VIDIOC_PRIVATE + 0) is private ioctl code for video module */
 #define BASE_VIDIOC_PRIVATE_VIDEO	(BASE_VIDIOC_PRIVATE + 0)
 
 /* (BASE_VIDIOC_PRIVATE + 1) is private ioctl code for cvp module */
 #define BASE_VIDIOC_PRIVATE_CVP	(BASE_VIDIOC_PRIVATE + 1)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _UAPI__LINUX_VIDEODEV2_H */

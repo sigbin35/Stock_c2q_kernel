@@ -446,7 +446,10 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
 extern bool pm_save_wakeup_count(unsigned int count);
 extern void pm_wakep_autosleep_enabled(bool set);
 extern void pm_print_active_wakeup_sources(void);
+<<<<<<< HEAD
 extern void pm_get_active_wakeup_sources(char *pending_sources, size_t max);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 extern void lock_system_sleep(void);
 extern void unlock_system_sleep(void);
@@ -469,8 +472,11 @@ static inline bool pm_wakeup_pending(void) { return false; }
 static inline void pm_system_wakeup(void) {}
 static inline void pm_wakeup_clear(bool reset) {}
 static inline void pm_system_irq_wakeup(unsigned int irq_number) {}
+<<<<<<< HEAD
 static inline bool pm_get_wakeup_count(unsigned int *count, bool block) { return false; }
 static inline void pm_print_active_wakeup_sources(void) {}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline void lock_system_sleep(void) {}
 static inline void unlock_system_sleep(void) {}
@@ -540,10 +546,13 @@ static inline void page_key_read(unsigned long *pfn) {}
 static inline void page_key_memorize(unsigned long *pfn) {}
 static inline void page_key_write(void *address) {}
 
+<<<<<<< HEAD
 #ifdef CONFIG_SEC_PM_DEBUG
 int wakeup_sources_stats_active(void);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* !CONFIG_ARCH_SAVE_PAGE_KEYS */
 
 #endif /* _LINUX_SUSPEND_H */

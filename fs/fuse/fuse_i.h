@@ -27,6 +27,7 @@
 #include <linux/pid_namespace.h>
 #include <linux/refcount.h>
 #include <linux/user_namespace.h>
+<<<<<<< HEAD
 #include <linux/freezer.h>
 
 #ifdef CONFIG_FUSE_SUPPORT_STLOG
@@ -40,6 +41,11 @@
 
 /** Maximum of max_pages received in init_out */
 #define FUSE_MAX_MAX_PAGES 256
+=======
+
+/** Max number of pages that can be used in a single read request */
+#define FUSE_MAX_PAGES_PER_REQ 32
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /** Bias for fi->writectr, meaning new writepages must not be sent */
 #define FUSE_NOWRITE INT_MIN
@@ -128,8 +134,11 @@ enum {
 	FUSE_I_INIT_RDPLUS,
 	/** An operation changing file size is in progress  */
 	FUSE_I_SIZE_UNSTABLE,
+<<<<<<< HEAD
 	/** Can be filled in by open, to use direct I/O on this file. */
 	FUSE_I_ATTR_FORCE_SYNC,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 struct fuse_conn;
@@ -383,9 +392,12 @@ struct fuse_req {
 	/** Inode used in the request or NULL */
 	struct inode *inode;
 
+<<<<<<< HEAD
 	/** Path used for completing d_canonical_path */
 	struct path *canonical_path;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/** AIO control block */
 	struct fuse_io_priv *io;
 
@@ -494,9 +506,12 @@ struct fuse_conn {
 	/** Maximum write size */
 	unsigned max_write;
 
+<<<<<<< HEAD
 	/** Maxmum number of pages that can be used in a single request */
 	unsigned int max_pages;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/** Input queue */
 	struct fuse_iqueue iq;
 
@@ -1015,6 +1030,7 @@ struct posix_acl;
 struct posix_acl *fuse_get_acl(struct inode *inode, int type);
 int fuse_set_acl(struct inode *inode, struct posix_acl *acl, int type);
 
+<<<<<<< HEAD
 #ifdef CONFIG_FREEZER
 static inline void fuse_freezer_do_not_count(void)
 {
@@ -1059,4 +1075,6 @@ static inline void fuse_freezer_count(void) {}
 	__ret;									\
 })
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _FS_FUSE_I_H */

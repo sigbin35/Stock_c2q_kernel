@@ -27,6 +27,7 @@ config QCOM_HIDMA
 	  (user to kernel, kernel to kernel, etc.).  It only supports
 	  memcpy interface. The core is not intended for general
 	  purpose slave DMA.
+<<<<<<< HEAD
 
 config QCOM_GPI_DMA
         tristate "Qualcomm Technologies Inc GPI DMA support"
@@ -46,3 +47,5 @@ config QCOM_GPI_DMA_DEBUG
 	help
 	  Enable detailed logging for QCOM GPI driver. Extra logging will be
 	  helpful when debugging critical issues.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

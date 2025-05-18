@@ -1818,6 +1818,7 @@ config RTC_DRV_GOLDFISH
 	  Goldfish is a code name for the virtual platform developed by Google
 	  for Android emulation.
 
+<<<<<<< HEAD
 config RTC_AUTO_PWRON
 	bool "RTC Auto Power on PMICs"
 	default n
@@ -1832,4 +1833,6 @@ config RTC_AUTO_PWRON_PARAM
 	help
 	  Use parameter partition to save alarm time
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endif # RTC_CLASS

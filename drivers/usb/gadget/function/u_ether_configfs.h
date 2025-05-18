@@ -32,11 +32,14 @@
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		int result;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		result = gether_get_dev_addr(opts->net, page, PAGE_SIZE); \
 		mutex_unlock(&opts->lock);				\
@@ -50,11 +53,14 @@
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		int ret;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		if (opts->refcnt) {					\
 			mutex_unlock(&opts->lock);			\
@@ -77,11 +83,14 @@
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		int result;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		result = gether_get_host_addr(opts->net, page, PAGE_SIZE); \
 		mutex_unlock(&opts->lock);				\
@@ -95,11 +104,14 @@
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		int ret;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		if (opts->refcnt) {					\
 			mutex_unlock(&opts->lock);			\
@@ -122,11 +134,14 @@
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		unsigned qmult;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		qmult = gether_get_qmult(opts->net);			\
 		mutex_unlock(&opts->lock);				\
@@ -140,11 +155,14 @@
 		u8 val;							\
 		int ret;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		if (opts->refcnt) {					\
 			ret = -EBUSY;					\
@@ -171,11 +189,14 @@ out:									\
 		struct f_##_f_##_opts *opts = to_f_##_f_##_opts(item);	\
 		int ret;						\
 									\
+<<<<<<< HEAD
 		if (opts->bound == false) {		\
 			pr_err("Gadget function do not bind yet.\n");	\
 			return -ENODEV;			\
 		}							\
 									\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		mutex_lock(&opts->lock);				\
 		ret = gether_get_ifname(opts->net, page, PAGE_SIZE);	\
 		mutex_unlock(&opts->lock);				\
@@ -220,6 +241,7 @@ out:									\
 									\
 	CONFIGFS_ATTR(_f_##_opts_, _n_)
 
+<<<<<<< HEAD
 #define USB_ETHER_CONFIGFS_ITEM_ATTR_UL_MAX_PKT_PER_XFER(_f_)		\
 	static ssize_t							\
 		_f_##_opts_ul_max_pkt_per_xfer_show(struct config_item *item,\
@@ -261,4 +283,6 @@ out:									\
 									\
 	CONFIGFS_ATTR(_f_##_opts_, ul_max_pkt_per_xfer)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* __U_ETHER_CONFIGFS_H */

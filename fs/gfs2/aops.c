@@ -504,7 +504,11 @@ int stuffed_readpage(struct gfs2_inode *ip, struct page *page)
  * called by gfs2_readpage() once the required lock has been granted.
  */
 
+<<<<<<< HEAD
 static int __gfs2_readpage(struct file *file, struct page *page)
+=======
+static int __gfs2_readpage(void *file, struct page *page)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct gfs2_inode *ip = GFS2_I(page->mapping->host);
 	struct gfs2_sbd *sdp = GFS2_SB(page->mapping->host);

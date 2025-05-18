@@ -43,6 +43,49 @@ static bool use_pages(struct drm_gem_object *obj)
 	return !msm_obj->vram_node;
 }
 
+<<<<<<< HEAD
+=======
+/*
+ * Cache sync.. this is a bit over-complicated, to fit dma-mapping
+ * API.  Really GPU cache is out of scope here (handled on cmdstream)
+ * and all we need to do is invalidate newly allocated pages before
+ * mapping to CPU as uncached/writecombine.
+ *
+ * On top of this, we have the added headache, that depending on
+ * display generation, the display's iommu may be wired up to either
+ * the toplevel drm device (mdss), or to the mdp sub-node, meaning
+ * that here we either have dma-direct or iommu ops.
+ *
+ * Let this be a cautionary tail of abstraction gone wrong.
+ */
+
+static void sync_for_device(struct msm_gem_object *msm_obj)
+{
+	struct device *dev = msm_obj->base.dev->dev;
+
+	if (get_dma_ops(dev)) {
+		dma_sync_sg_for_device(dev, msm_obj->sgt->sgl,
+			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+	} else {
+		dma_map_sg(dev, msm_obj->sgt->sgl,
+			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+	}
+}
+
+static void sync_for_cpu(struct msm_gem_object *msm_obj)
+{
+	struct device *dev = msm_obj->base.dev->dev;
+
+	if (get_dma_ops(dev)) {
+		dma_sync_sg_for_cpu(dev, msm_obj->sgt->sgl,
+			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+	} else {
+		dma_unmap_sg(dev, msm_obj->sgt->sgl,
+			msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+	}
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* allocate pages from VRAM carveout, used when no IOMMU: */
 static struct page **get_pages_vram(struct drm_gem_object *obj, int npages)
 {
@@ -108,8 +151,12 @@ static struct page **get_pages(struct drm_gem_object *obj)
 		 * because display controller, GPU, etc. are not coherent:
 		 */
 		if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
+<<<<<<< HEAD
 			dma_map_sg(dev->dev, msm_obj->sgt->sgl,
 					msm_obj->sgt->nents, DMA_BIDIRECTIONAL);
+=======
+			sync_for_device(msm_obj);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return msm_obj->pages;
@@ -138,9 +185,13 @@ static void put_pages(struct drm_gem_object *obj)
 			 * GPU, etc. are not coherent:
 			 */
 			if (msm_obj->flags & (MSM_BO_WC|MSM_BO_UNCACHED))
+<<<<<<< HEAD
 				dma_unmap_sg(obj->dev->dev, msm_obj->sgt->sgl,
 					     msm_obj->sgt->nents,
 					     DMA_BIDIRECTIONAL);
+=======
+				sync_for_cpu(msm_obj);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 			sg_free_table(msm_obj->sgt);
 			kfree(msm_obj->sgt);
@@ -1007,16 +1058,24 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
 	msm_obj = to_msm_bo(obj);
 	mutex_lock(&msm_obj->lock);
 	msm_obj->sgt = sgt;
+<<<<<<< HEAD
 	msm_obj->pages = kvmalloc_array(npages, sizeof(struct page *),
 							GFP_KERNEL);
+=======
+	msm_obj->pages = kvmalloc_array(npages, sizeof(struct page *), GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!msm_obj->pages) {
 		mutex_unlock(&msm_obj->lock);
 		ret = -ENOMEM;
 		goto fail;
 	}
 
+<<<<<<< HEAD
 	ret = drm_prime_sg_to_page_addr_arrays(sgt, msm_obj->pages, NULL,
 						npages);
+=======
+	ret = drm_prime_sg_to_page_addr_arrays(sgt, msm_obj->pages, NULL, npages);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret) {
 		mutex_unlock(&msm_obj->lock);
 		goto fail;

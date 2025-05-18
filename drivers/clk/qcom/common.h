@@ -1,13 +1,20 @@
 /* SPDX-License-Identifier: GPL-2.0 */
+<<<<<<< HEAD
 /*
  * Copyright (c) 2014, 2017-2018, The Linux Foundation. All rights reserved.
  */
+=======
+/* Copyright (c) 2014, The Linux Foundation. All rights reserved. */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifndef __QCOM_CLK_COMMON_H__
 #define __QCOM_CLK_COMMON_H__
 
+<<<<<<< HEAD
 #include <linux/reset-controller.h>
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct platform_device;
 struct regmap_config;
 struct clk_regmap;
@@ -26,9 +33,13 @@ struct clk_hw;
 struct qcom_cc_desc {
 	const struct regmap_config *config;
 	struct clk_regmap **clks;
+<<<<<<< HEAD
 	struct clk_hw **hwclks;
 	size_t num_clks;
 	size_t num_hwclks;
+=======
+	size_t num_clks;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	const struct qcom_reset_map *resets;
 	size_t num_resets;
 	struct gdsc **gdscs;
@@ -45,12 +56,15 @@ struct parent_map {
 	u8 cfg;
 };
 
+<<<<<<< HEAD
 struct clk_dummy {
 	struct clk_hw hw;
 	struct reset_controller_dev reset;
 	unsigned long rrate;
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern const struct freq_tbl *qcom_find_freq(const struct freq_tbl *f,
 					     unsigned long rate);
 extern const struct freq_tbl *qcom_find_freq_floor(const struct freq_tbl *f,
@@ -71,6 +85,7 @@ extern int qcom_cc_really_probe(struct platform_device *pdev,
 				struct regmap *regmap);
 extern int qcom_cc_probe(struct platform_device *pdev,
 			 const struct qcom_cc_desc *desc);
+<<<<<<< HEAD
 extern const struct clk_ops clk_dummy_ops;
 
 extern void clk_debug_print_hw(struct clk_core *clk, struct seq_file *f);
@@ -89,4 +104,7 @@ extern void clk_debug_print_hw(struct clk_core *clk, struct seq_file *f);
 		else						\
 			pr_info(fmt, ##__VA_ARGS__);		\
 } while (0)
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

@@ -1354,6 +1354,7 @@ struct xt_counters *xt_counters_alloc(unsigned int counters)
 }
 EXPORT_SYMBOL(xt_counters_alloc);
 
+<<<<<<< HEAD
 struct xt_table_info
 *xt_table_get_private_protected(const struct xt_table *table)
 {
@@ -1362,6 +1363,8 @@ struct xt_table_info
 }
 EXPORT_SYMBOL(xt_table_get_private_protected);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct xt_table_info *
 xt_replace_table(struct xt_table *table,
 	      unsigned int num_counters,
@@ -1369,6 +1372,10 @@ xt_replace_table(struct xt_table *table,
 	      int *error)
 {
 	struct xt_table_info *private;
+<<<<<<< HEAD
+=======
+	unsigned int cpu;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int ret;
 
 	ret = xt_jumpstack_alloc(newinfo);
@@ -1378,19 +1385,59 @@ xt_replace_table(struct xt_table *table,
 	}
 
 	/* Do the substitution. */
+<<<<<<< HEAD
 	private = xt_table_get_private_protected(table);
+=======
+	local_bh_disable();
+	private = table->private;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Check inside lock: is the old number correct? */
 	if (num_counters != private->number) {
 		pr_debug("num_counters != table->private->number (%u/%u)\n",
 			 num_counters, private->number);
+<<<<<<< HEAD
+=======
+		local_bh_enable();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		*error = -EAGAIN;
 		return NULL;
 	}
 
 	newinfo->initial_entries = private->initial_entries;
+<<<<<<< HEAD
 	rcu_assign_pointer(table->private, newinfo);
 	synchronize_rcu();
+=======
+	/*
+	 * Ensure contents of newinfo are visible before assigning to
+	 * private.
+	 */
+	smp_wmb();
+	table->private = newinfo;
+
+	/* make sure all cpus see new ->private value */
+	smp_wmb();
+
+	/*
+	 * Even though table entries have now been swapped, other CPU's
+	 * may still be using the old entries...
+	 */
+	local_bh_enable();
+
+	/* ... so wait for even xt_recseq on all cpus */
+	for_each_possible_cpu(cpu) {
+		seqcount_t *s = &per_cpu(xt_recseq, cpu);
+		u32 seq = raw_read_seqcount(s);
+
+		if (seq & 1) {
+			do {
+				cond_resched();
+				cpu_relax();
+			} while (seq == raw_read_seqcount(s));
+		}
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_AUDIT
 	if (audit_enabled) {
@@ -1431,12 +1478,20 @@ struct xt_table *xt_register_table(struct net *net,
 	}
 
 	/* Simplifies replace_table code. */
+<<<<<<< HEAD
 	rcu_assign_pointer(table->private, bootstrap);
+=======
+	table->private = bootstrap;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!xt_replace_table(table, 0, newinfo, &ret))
 		goto unlock;
 
+<<<<<<< HEAD
 	private = xt_table_get_private_protected(table);
+=======
+	private = table->private;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	pr_debug("table->private->number = %u\n", private->number);
 
 	/* save number of initial entries */
@@ -1459,8 +1514,12 @@ void *xt_unregister_table(struct xt_table *table)
 	struct xt_table_info *private;
 
 	mutex_lock(&xt[table->af].mutex);
+<<<<<<< HEAD
 	private = xt_table_get_private_protected(table);
 	RCU_INIT_POINTER(table->private, NULL);
+=======
+	private = table->private;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	list_del(&table->list);
 	mutex_unlock(&xt[table->af].mutex);
 	kfree(table);

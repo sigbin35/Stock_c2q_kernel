@@ -13,7 +13,11 @@ struct ceph_crypto_key {
 	struct ceph_timespec created;
 	int len;
 	void *key;
+<<<<<<< HEAD
 	struct crypto_sync_skcipher *tfm;
+=======
+	struct crypto_skcipher *tfm;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 int ceph_crypto_key_clone(struct ceph_crypto_key *dst,

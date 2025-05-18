@@ -587,12 +587,23 @@ struct in_ifaddr *inet_ifa_byprefix(struct in_device *in_dev, __be32 prefix,
 	return NULL;
 }
 
+<<<<<<< HEAD
 static int ip_mc_config(struct sock *sk, bool join, const struct in_ifaddr *ifa)
 {
+=======
+static int ip_mc_autojoin_config(struct net *net, bool join,
+				 const struct in_ifaddr *ifa)
+{
+#if defined(CONFIG_IP_MULTICAST)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct ip_mreqn mreq = {
 		.imr_multiaddr.s_addr = ifa->ifa_address,
 		.imr_ifindex = ifa->ifa_dev->dev->ifindex,
 	};
+<<<<<<< HEAD
+=======
+	struct sock *sk = net->ipv4.mc_autojoin_sk;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int ret;
 
 	ASSERT_RTNL();
@@ -605,6 +616,12 @@ static int ip_mc_config(struct sock *sk, bool join, const struct in_ifaddr *ifa)
 	release_sock(sk);
 
 	return ret;
+<<<<<<< HEAD
+=======
+#else
+	return -EOPNOTSUPP;
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int inet_rtm_deladdr(struct sk_buff *skb, struct nlmsghdr *nlh,
@@ -646,7 +663,11 @@ static int inet_rtm_deladdr(struct sk_buff *skb, struct nlmsghdr *nlh,
 			continue;
 
 		if (ipv4_is_multicast(ifa->ifa_address))
+<<<<<<< HEAD
 			ip_mc_config(net->ipv4.mc_autojoin_sk, false, ifa);
+=======
+			ip_mc_autojoin_config(net, false, ifa);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__inet_del_ifa(in_dev, ifap, 1, nlh, NETLINK_CB(skb).portid);
 		return 0;
 	}
@@ -907,8 +928,12 @@ static int inet_rtm_newaddr(struct sk_buff *skb, struct nlmsghdr *nlh,
 		 */
 		set_ifa_lifetime(ifa, valid_lft, prefered_lft);
 		if (ifa->ifa_flags & IFA_F_MCAUTOJOIN) {
+<<<<<<< HEAD
 			int ret = ip_mc_config(net->ipv4.mc_autojoin_sk,
 					       true, ifa);
+=======
+			int ret = ip_mc_autojoin_config(net, true, ifa);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 			if (ret < 0) {
 				inet_free_ifa(ifa);
@@ -2313,8 +2338,11 @@ static struct devinet_sysctl_table {
 					      "route_localnet"),
 		DEVINET_SYSCTL_FLUSHING_ENTRY(DROP_UNICAST_IN_L2_MULTICAST,
 					      "drop_unicast_in_l2_multicast"),
+<<<<<<< HEAD
 		DEVINET_SYSCTL_RW_ENTRY(NF_IPV4_DEFRAG_SKIP,
 					"nf_ipv4_defrag_skip"),
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	},
 };
 

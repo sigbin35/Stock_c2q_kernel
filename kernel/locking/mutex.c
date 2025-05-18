@@ -28,10 +28,13 @@
 #include <linux/interrupt.h>
 #include <linux/debug_locks.h>
 #include <linux/osq_lock.h>
+<<<<<<< HEAD
 #include <linux/delay.h>
 #ifdef CONFIG_KPERFMON
 #include <linux/ologk.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_DEBUG_MUTEXES
 # include "mutex-debug.h"
@@ -48,6 +51,7 @@ __mutex_init(struct mutex *lock, const char *name, struct lock_class_key *key)
 #ifdef CONFIG_MUTEX_SPIN_ON_OWNER
 	osq_lock_init(&lock->osq);
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 	lock->ftt_dep_task = NULL;
 #endif
@@ -59,6 +63,10 @@ __mutex_init(struct mutex *lock, const char *name, struct lock_class_key *key)
 		lock->time = 0;
 	}
 #endif
+=======
+
+	debug_mutex_init(lock, name, key);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL(__mutex_init);
 
@@ -666,6 +674,7 @@ mutex_optimistic_spin(struct mutex *lock, struct ww_acquire_ctx *ww_ctx,
 		 * values at the cost of a few extra spins.
 		 */
 		cpu_relax();
+<<<<<<< HEAD
 
 		/*
 		 * On arm systems, we must slow down the waiter's repeated
@@ -677,6 +686,8 @@ mutex_optimistic_spin(struct mutex *lock, struct ww_acquire_ctx *ww_ctx,
 		 * take care to rate limit the waiters.
 		 */
 		udelay(1);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	if (!waiter)
@@ -730,6 +741,7 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
  */
 void __sched mutex_unlock(struct mutex *lock)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KPERFMON
 	unsigned long lock_jiffies = 0;
 
@@ -737,11 +749,14 @@ void __sched mutex_unlock(struct mutex *lock)
 		lock_jiffies = lock->time;
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifndef CONFIG_DEBUG_LOCK_ALLOC
 	if (__mutex_unlock_fast(lock))
 		return;
 #endif
 	__mutex_unlock_slowpath(lock, _RET_IP_);
+<<<<<<< HEAD
 #ifdef CONFIG_KPERFMON
 	if (lock != 0 && lock_jiffies > 0 && jiffies > lock_jiffies) {
 		unsigned long diff_jiffies = jiffies - lock_jiffies;
@@ -751,6 +766,8 @@ void __sched mutex_unlock(struct mutex *lock)
 		}
 	}
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL(mutex_unlock);
 
@@ -947,12 +964,15 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 
 	might_sleep();
 
+<<<<<<< HEAD
 #ifdef CONFIG_KPERFMON
 	if(lock != 0) {
 		lock->time = jiffies;
 	}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ww = container_of(lock, struct ww_mutex, base);
 	if (use_ww_ctx && ww_ctx) {
 		if (unlikely(ww_ctx == READ_ONCE(ww->ctx)))
@@ -996,6 +1016,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 	lock_contended(&lock->dep_map, ip);
 
 	if (!use_ww_ctx) {
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 		debug_mutex_add_waiter(lock, &waiter, current);
 		mutex_list_add(current, &waiter.list, &lock->wait_list, lock);
@@ -1006,6 +1027,11 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 		/* add waiting tasks to the end of the waitqueue (FIFO): */
 		__mutex_add_waiter(lock, &waiter, &lock->wait_list);
 #endif
+=======
+		/* add waiting tasks to the end of the waitqueue (FIFO): */
+		__mutex_add_waiter(lock, &waiter, &lock->wait_list);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_DEBUG_MUTEXES
 		waiter.ww_ctx = MUTEX_POISON_WW_CTX;
@@ -1051,9 +1077,12 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
 				goto err;
 		}
 
+<<<<<<< HEAD
 #ifdef CONFIG_FAST_TRACK
 		mutex_dynamic_ftt_enqueue(lock, current);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		spin_unlock(&lock->wait_lock);
 		schedule_preempt_disabled();
 
@@ -1285,11 +1314,14 @@ static noinline void __sched __mutex_unlock_slowpath(struct mutex *lock, unsigne
 
 	spin_lock(&lock->wait_lock);
 	debug_mutex_unlock(lock);
+<<<<<<< HEAD
 
 #ifdef CONFIG_FAST_TRACK
 	mutex_dynamic_ftt_dequeue(lock, current);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!list_empty(&lock->wait_list)) {
 		/* get the first entry from the wait-list: */
 		struct mutex_waiter *waiter =

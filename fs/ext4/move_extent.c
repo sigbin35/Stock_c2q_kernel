@@ -593,7 +593,12 @@ ext4_move_extents(struct file *o_filp, struct file *d_filp, __u64 orig_blk,
 		return -EOPNOTSUPP;
 	}
 
+<<<<<<< HEAD
 	if (IS_ENCRYPTED(orig_inode) || IS_ENCRYPTED(donor_inode)) {
+=======
+	if (ext4_encrypted_inode(orig_inode) ||
+	    ext4_encrypted_inode(donor_inode)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ext4_msg(orig_inode->i_sb, KERN_ERR,
 			 "Online defrag not supported for encrypted files");
 		return -EOPNOTSUPP;

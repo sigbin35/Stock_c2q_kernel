@@ -300,7 +300,11 @@ struct uart_state {
 	struct uart_port	*uart_port;
 };
 
+<<<<<<< HEAD
 #define UART_XMIT_SIZE	(PAGE_SIZE * 4)
+=======
+#define UART_XMIT_SIZE	PAGE_SIZE
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 
 /* number of characters left in xmit buffer before we ask for more */

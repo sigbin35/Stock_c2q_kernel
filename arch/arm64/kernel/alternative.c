@@ -145,7 +145,11 @@ static void clean_dcache_range_nopatch(u64 start, u64 end)
 	} while (cur += d_size, cur < end);
 }
 
+<<<<<<< HEAD
 static void __nocfi __apply_alternatives(void *alt_region, bool is_module)
+=======
+static void __apply_alternatives(void *alt_region, bool is_module)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct alt_instr *alt;
 	struct alt_region *region = alt_region;

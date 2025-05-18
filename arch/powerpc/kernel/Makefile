@@ -5,9 +5,12 @@
 
 CFLAGS_ptrace.o		+= -DUTS_MACHINE='"$(UTS_MACHINE)"'
 
+<<<<<<< HEAD
 # Avoid clang warnings around longjmp/setjmp declarations
 CFLAGS_crash.o += -ffreestanding
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 subdir-ccflags-$(CONFIG_PPC_WERROR) := -Werror
 
 ifdef CONFIG_PPC64

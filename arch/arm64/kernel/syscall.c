@@ -14,10 +14,13 @@
 #include <asm/thread_info.h>
 #include <asm/unistd.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 #include <linux/defex.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 long compat_arm_syscall(struct pt_regs *regs, int scno);
 long sys_ni_syscall(void);
 
@@ -26,11 +29,15 @@ static long do_ni_syscall(struct pt_regs *regs, int scno)
 #ifdef CONFIG_COMPAT
 	long ret;
 	if (is_compat_task()) {
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 		ret = defex_syscall_enter(scno, regs);
 		if (!ret)
 #endif /* CONFIG_SECURITY_DEFEX */
 			ret = compat_arm_syscall(regs, scno);
+=======
+		ret = compat_arm_syscall(regs, scno);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (ret != -ENOSYS)
 			return ret;
 	}
@@ -53,11 +60,15 @@ static void invoke_syscall(struct pt_regs *regs, unsigned int scno,
 	if (scno < sc_nr) {
 		syscall_fn_t syscall_fn;
 		syscall_fn = syscall_table[array_index_nospec(scno, sc_nr)];
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 		ret = defex_syscall_enter(scno, regs);
 		if (!ret)
 #endif /* CONFIG_SECURITY_DEFEX */
 			ret = __invoke_syscall(regs, syscall_fn);
+=======
+		ret = __invoke_syscall(regs, syscall_fn);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} else {
 		ret = do_ni_syscall(regs, scno);
 	}

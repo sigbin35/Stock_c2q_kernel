@@ -87,11 +87,14 @@ int ieee80211_channel_to_frequency(int chan, enum nl80211_band band)
 		else
 			return 5000 + chan * 5;
 		break;
+<<<<<<< HEAD
 	case NL80211_BAND_6GHZ:
 		/* see 802.11ax D4.1 27.3.22.2 */
 		if (chan <= 253)
 			return 5940 + chan * 5;
 		break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	case NL80211_BAND_60GHZ:
 		if (chan < 5)
 			return 56160 + chan * 2160;
@@ -112,11 +115,16 @@ int ieee80211_frequency_to_channel(int freq)
 		return (freq - 2407) / 5;
 	else if (freq >= 4910 && freq <= 4980)
 		return (freq - 4000) / 5;
+<<<<<<< HEAD
 	else if (freq < 5940)
 		return (freq - 5000) / 5;
 	else if (freq <= 45000) /* DMG band lower limit */
 		/* see 802.11ax D4.1 27.3.22.2 */
 		return (freq - 5940) / 5;
+=======
+	else if (freq <= 45000) /* DMG band lower limit */
+		return (freq - 5000) / 5;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	else if (freq >= 58320 && freq <= 64800)
 		return (freq - 56160) / 2160;
 	else
@@ -152,7 +160,10 @@ static void set_mandatory_flags_band(struct ieee80211_supported_band *sband)
 
 	switch (sband->band) {
 	case NL80211_BAND_5GHZ:
+<<<<<<< HEAD
 	case NL80211_BAND_6GHZ:
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		want = 3;
 		for (i = 0; i < sband->n_bitrates; i++) {
 			if (sband->bitrates[i].bitrate == 60 ||
@@ -227,12 +238,16 @@ int cfg80211_validate_key_settings(struct cfg80211_registered_device *rdev,
 				   struct key_params *params, int key_idx,
 				   bool pairwise, const u8 *mac_addr)
 {
+<<<<<<< HEAD
 	int max_key_idx = 5;
 
 	if (wiphy_ext_feature_isset(&rdev->wiphy,
 				    NL80211_EXT_FEATURE_BEACON_PROTECTION))
 		max_key_idx = 7;
 	if (key_idx > max_key_idx)
+=======
+	if (key_idx < 0 || key_idx > 5)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return -EINVAL;
 
 	if (!pairwise && mac_addr && !(rdev->wiphy.flags & WIPHY_FLAG_IBSS_RSN))
@@ -263,6 +278,11 @@ int cfg80211_validate_key_settings(struct cfg80211_registered_device *rdev,
 		/* Disallow BIP (group-only) cipher as pairwise cipher */
 		if (pairwise)
 			return -EINVAL;
+<<<<<<< HEAD
+=======
+		if (key_idx < 4)
+			return -EINVAL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		break;
 	case WLAN_CIPHER_SUITE_WEP40:
 	case WLAN_CIPHER_SUITE_WEP104:
@@ -785,7 +805,11 @@ unsigned int cfg80211_classify8021d(struct sk_buff *skb,
 }
 EXPORT_SYMBOL(cfg80211_classify8021d);
 
+<<<<<<< HEAD
 const struct element *ieee80211_bss_get_elem(struct cfg80211_bss *bss, u8 id)
+=======
+const u8 *ieee80211_bss_get_ie(struct cfg80211_bss *bss, u8 ie)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	const struct cfg80211_bss_ies *ies;
 
@@ -793,9 +817,15 @@ const struct element *ieee80211_bss_get_elem(struct cfg80211_bss *bss, u8 id)
 	if (!ies)
 		return NULL;
 
+<<<<<<< HEAD
 	return cfg80211_find_elem(id, ies->data, ies->len);
 }
 EXPORT_SYMBOL(ieee80211_bss_get_elem);
+=======
+	return cfg80211_find_ie(ie, ies->data, ies->len);
+}
+EXPORT_SYMBOL(ieee80211_bss_get_ie);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 void cfg80211_upload_connect_keys(struct wireless_dev *wdev)
 {
@@ -1022,7 +1052,11 @@ static u32 cfg80211_calculate_bitrate_ht(struct rate_info *rate)
 	return (bitrate + 50000) / 100000;
 }
 
+<<<<<<< HEAD
 static u32 cfg80211_calculate_bitrate_dmg(struct rate_info *rate)
+=======
+static u32 cfg80211_calculate_bitrate_60g(struct rate_info *rate)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	static const u32 __mcs2bitrate[] = {
 		/* control PHY */
@@ -1069,6 +1103,7 @@ static u32 cfg80211_calculate_bitrate_dmg(struct rate_info *rate)
 	return __mcs2bitrate[rate->mcs];
 }
 
+<<<<<<< HEAD
 static u32 cfg80211_calculate_bitrate_edmg(struct rate_info *rate)
 {
 	static const u32 __mcs2bitrate[] = {
@@ -1103,6 +1138,8 @@ static u32 cfg80211_calculate_bitrate_edmg(struct rate_info *rate)
 	return __mcs2bitrate[rate->mcs] * rate->n_bonded_ch;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static u32 cfg80211_calculate_bitrate_vht(struct rate_info *rate)
 {
 	static const u32 base[4][10] = {
@@ -1273,10 +1310,15 @@ u32 cfg80211_calculate_bitrate(struct rate_info *rate)
 {
 	if (rate->flags & RATE_INFO_FLAGS_MCS)
 		return cfg80211_calculate_bitrate_ht(rate);
+<<<<<<< HEAD
 	if (rate->flags & RATE_INFO_FLAGS_DMG)
 		return cfg80211_calculate_bitrate_dmg(rate);
 	if (rate->flags & RATE_INFO_FLAGS_EDMG)
 		return cfg80211_calculate_bitrate_edmg(rate);
+=======
+	if (rate->flags & RATE_INFO_FLAGS_60G)
+		return cfg80211_calculate_bitrate_60g(rate);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (rate->flags & RATE_INFO_FLAGS_VHT_MCS)
 		return cfg80211_calculate_bitrate_vht(rate);
 	if (rate->flags & RATE_INFO_FLAGS_HE_MCS)
@@ -1488,9 +1530,12 @@ bool ieee80211_operating_class_to_band(u8 operating_class,
 	case 128 ... 130:
 		*band = NL80211_BAND_5GHZ;
 		return true;
+<<<<<<< HEAD
 	case 131 ... 135:
 		*band = NL80211_BAND_6GHZ;
 		return true;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	case 81:
 	case 82:
 	case 83:

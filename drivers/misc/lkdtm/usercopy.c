@@ -304,22 +304,33 @@ void lkdtm_USERCOPY_KERNEL(void)
 		return;
 	}
 
+<<<<<<< HEAD
 	pr_info("attempting good copy_to_user from kernel rodata: %px\n",
 		test_text);
+=======
+	pr_info("attempting good copy_to_user from kernel rodata\n");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (copy_to_user((void __user *)user_addr, test_text,
 			 unconst + sizeof(test_text))) {
 		pr_warn("copy_to_user failed unexpectedly?!\n");
 		goto free_user;
 	}
 
+<<<<<<< HEAD
 	pr_info("attempting bad copy_to_user from kernel text: %px\n",
 		vm_mmap);
+=======
+	pr_info("attempting bad copy_to_user from kernel text\n");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (copy_to_user((void __user *)user_addr, vm_mmap,
 			 unconst + PAGE_SIZE)) {
 		pr_warn("copy_to_user failed, but lacked Oops\n");
 		goto free_user;
 	}
+<<<<<<< HEAD
 	pr_err("FAIL: survived bad copy_to_user()\n");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 free_user:
 	vm_munmap(user_addr, PAGE_SIZE);

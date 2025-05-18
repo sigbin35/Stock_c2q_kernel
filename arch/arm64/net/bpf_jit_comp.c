@@ -949,6 +949,7 @@ out:
 					   tmp : orig_prog);
 	return prog;
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_CFI_CLANG
 bool arch_bpf_jit_check_func(const struct bpf_prog *prog)
@@ -971,3 +972,5 @@ bool arch_bpf_jit_check_func(const struct bpf_prog *prog)
 	return (func >= MODULES_VADDR && func < MODULES_END);
 }
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

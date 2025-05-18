@@ -28,7 +28,11 @@ struct nlmsg_perm {
 	u32	perm;
 };
 
+<<<<<<< HEAD
 static struct nlmsg_perm nlmsg_route_perms[] =
+=======
+static const struct nlmsg_perm nlmsg_route_perms[] =
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	{ RTM_NEWLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
 	{ RTM_DELLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
@@ -206,6 +210,7 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
 
 	return err;
 }
+<<<<<<< HEAD
 
 static void nlmsg_set_perm_for_type(u32 perm, u16 type)
 {
@@ -246,3 +251,5 @@ void selinux_nlmsg_init(void)
 					RTM_GETNEIGHTBL);
 	}
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

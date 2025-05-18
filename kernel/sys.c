@@ -42,8 +42,11 @@
 #include <linux/syscore_ops.h>
 #include <linux/version.h>
 #include <linux/ctype.h>
+<<<<<<< HEAD
 #include <linux/mm.h>
 #include <linux/mempolicy.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <linux/compat.h>
 #include <linux/syscalls.h>
@@ -73,10 +76,13 @@
 #include <asm/io.h>
 #include <asm/unistd.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 #include <linux/defex.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "uid16.h"
 
 #ifndef SET_UNALIGN_CTL
@@ -127,12 +133,15 @@
 #ifndef SVE_GET_VL
 # define SVE_GET_VL()		(-EINVAL)
 #endif
+<<<<<<< HEAD
 #ifndef SET_TAGGED_ADDR_CTRL
 # define SET_TAGGED_ADDR_CTRL(a)	(-EINVAL)
 #endif
 #ifndef GET_TAGGED_ADDR_CTRL
 # define GET_TAGGED_ADDR_CTRL()		(-EINVAL)
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * this is where the system-wide overflow UID and GID are defined, for
@@ -817,11 +826,14 @@ long __sys_setfsuid(uid_t uid)
 	if (!uid_valid(kuid))
 		return old_fsuid;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 	if (task_defex_enforce(current, NULL, -__NR_setfsuid))
 		return old_fsuid;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	new = prepare_creds();
 	if (!new)
 		return old_fsuid;
@@ -866,11 +878,14 @@ long __sys_setfsgid(gid_t gid)
 	if (!gid_valid(kgid))
 		return old_fsgid;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 	if (task_defex_enforce(current, NULL, -__NR_setfsgid))
 		return old_fsgid;
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	new = prepare_creds();
 	if (!new)
 		return old_fsgid;
@@ -2280,6 +2295,7 @@ int __weak arch_prctl_spec_ctrl_set(struct task_struct *t, unsigned long which,
 	return -EINVAL;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_MMU
 static int prctl_update_vma_anon_name(struct vm_area_struct *vma,
 		struct vm_area_struct **prev,
@@ -2427,6 +2443,8 @@ static int prctl_set_vma(unsigned long opt, unsigned long start,
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
 		unsigned long, arg4, unsigned long, arg5)
 {
@@ -2645,6 +2663,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
 			return -EINVAL;
 		error = arch_prctl_spec_ctrl_set(me, arg2, arg3);
 		break;
+<<<<<<< HEAD
 	case PR_SET_VMA:
 		error = prctl_set_vma(arg2, arg3, arg4, arg5);
 		break;
@@ -2658,6 +2677,8 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
 			return -EINVAL;
 		error = GET_TAGGED_ADDR_CTRL();
 		break;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default:
 		error = -EINVAL;
 		break;

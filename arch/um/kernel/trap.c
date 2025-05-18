@@ -201,12 +201,15 @@ void segv_handler(int sig, struct siginfo *unused_si, struct uml_pt_regs *regs)
 	segv(*fi, UPT_IP(regs), UPT_IS_USER(regs), regs);
 }
 
+<<<<<<< HEAD
 static void segv_run_catcher(jmp_buf *catcher, void *fault_addr)
 {
 	current->thread.fault_addr = fault_addr;
 	UML_LONGJMP(catcher, 1);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * We give a *copy* of the faultinfo in the regs to segv.
  * This must be done, since nesting SEGVs could overwrite
@@ -225,6 +228,7 @@ unsigned long segv(struct faultinfo fi, unsigned long ip, int is_user,
 	if (!is_user && regs)
 		current->thread.segv_regs = container_of(regs, struct pt_regs, regs);
 
+<<<<<<< HEAD
 	catcher = current->thread.fault_catcher;
 	if (catcher && current->thread.is_running_test) {
 		/*
@@ -238,6 +242,9 @@ unsigned long segv(struct faultinfo fi, unsigned long ip, int is_user,
 		segv_run_catcher(catcher, (void *) address);
 	}
 	else if (!is_user && (address >= start_vm) && (address < end_vm)) {
+=======
+	if (!is_user && (address >= start_vm) && (address < end_vm)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		flush_tlb_kernel_vm();
 		goto out;
 	}
@@ -263,11 +270,22 @@ unsigned long segv(struct faultinfo fi, unsigned long ip, int is_user,
 		 */
 		address = 0;
 	}
+<<<<<<< HEAD
 	if (!err)
 		goto out;
 	else if (catcher != NULL) {
 		segv_run_catcher(catcher, (void *) address);
     }
+=======
+
+	catcher = current->thread.fault_catcher;
+	if (!err)
+		goto out;
+	else if (catcher != NULL) {
+		current->thread.fault_addr = (void *) address;
+		UML_LONGJMP(catcher, 1);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	else if (current->thread.fault_addr != NULL)
 		panic("fault_addr set but no fault catcher");
 	else if (!is_user && arch_fixup(ip, regs))

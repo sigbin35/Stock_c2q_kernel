@@ -15,6 +15,7 @@ cfg80211-y += mlme.o ibss.o sme.o chan.o ethtool.o mesh.o ap.o trace.o ocb.o
 cfg80211-$(CONFIG_OF) += of.o
 cfg80211-$(CONFIG_CFG80211_DEBUGFS) += debugfs.o
 cfg80211-$(CONFIG_CFG80211_WEXT) += wext-compat.o wext-sme.o
+<<<<<<< HEAD
 cfg80211-$(CONFIG_CFG80211_INTERNAL_REGDB) += regdb.o
 
 CFLAGS_trace.o := -I$(src)
@@ -25,6 +26,11 @@ $(obj)/regdb.c: $(src)/db.txt $(src)/genregdb.awk
 
 clean-files := regdb.c
 
+=======
+
+CFLAGS_trace.o := -I$(src)
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 cfg80211-$(CONFIG_CFG80211_USE_KERNEL_REGDB_KEYS) += shipped-certs.o
 ifneq ($(CONFIG_CFG80211_EXTRA_REGDB_KEYDIR),)
 cfg80211-y += extra-certs.o
@@ -63,3 +69,7 @@ $(obj)/extra-certs.c: $(CONFIG_CFG80211_EXTRA_REGDB_KEYDIR:"%"=%) \
 	      echo 'unsigned int extra_regdb_certs_len = sizeof(extra_regdb_certs);'; \
 	  ) > $@)
 
+<<<<<<< HEAD
+=======
+clean-files += shipped-certs.c extra-certs.c
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

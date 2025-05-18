@@ -8822,6 +8822,13 @@ static int bnxt_set_dflt_rings(struct bnxt *bp, bool sh)
 		bp->rx_nr_rings++;
 		bp->cp_nr_rings++;
 	}
+<<<<<<< HEAD
+=======
+	if (rc) {
+		bp->tx_nr_rings = 0;
+		bp->rx_nr_rings = 0;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return rc;
 }
 

@@ -128,7 +128,11 @@ struct clk_hw *clk_hw_register_gate(struct device *dev, const char *name,
 {
 	struct clk_gate *gate;
 	struct clk_hw *hw;
+<<<<<<< HEAD
 	struct clk_init_data init = {};
+=======
+	struct clk_init_data init;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int ret;
 
 	if (clk_gate_flags & CLK_GATE_HIWORD_MASK) {
@@ -158,7 +162,10 @@ struct clk_hw *clk_hw_register_gate(struct device *dev, const char *name,
 
 	hw = &gate->hw;
 	ret = clk_hw_register(dev, hw);
+<<<<<<< HEAD
 	hw->init = NULL;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret) {
 		kfree(gate);
 		hw = ERR_PTR(ret);

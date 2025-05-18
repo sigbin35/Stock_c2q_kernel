@@ -2313,17 +2313,23 @@ scsi_ioctl_reset(struct scsi_device *dev, int __user *arg)
 	struct scsi_cmnd *scmd;
 	struct Scsi_Host *shost = dev->host;
 	struct request *rq;
+<<<<<<< HEAD
 	const char *string;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned long flags;
 	int error = 0, rtn, val;
 
 	if (!capable(CAP_SYS_ADMIN) || !capable(CAP_SYS_RAWIO))
 		return -EACCES;
 
+<<<<<<< HEAD
 	string = shost->hostt->name;
 	if (!strcmp(string, "ufshcd"))
 		return -EACCES;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	error = get_user(val, arg);
 	if (error)
 		return error;

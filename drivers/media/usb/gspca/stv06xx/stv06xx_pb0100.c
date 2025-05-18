@@ -194,6 +194,13 @@ static int pb0100_start(struct sd *sd)
 	alt = usb_altnum_to_altsetting(intf, sd->gspca_dev.alt);
 	if (!alt)
 		return -ENODEV;
+<<<<<<< HEAD
+=======
+
+	if (alt->desc.bNumEndpoints < 1)
+		return -ENODEV;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	packet_size = le16_to_cpu(alt->endpoint[0].desc.wMaxPacketSize);
 
 	/* If we don't have enough bandwidth use a lower framerate */

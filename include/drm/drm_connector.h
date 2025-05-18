@@ -39,7 +39,10 @@ struct drm_encoder;
 struct drm_property;
 struct drm_property_blob;
 struct drm_printer;
+<<<<<<< HEAD
 struct drm_panel;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct edid;
 
 enum drm_connector_force {
@@ -206,6 +209,7 @@ enum drm_panel_orientation {
 	DRM_MODE_PANEL_ORIENTATION_RIGHT_UP,
 };
 
+<<<<<<< HEAD
 /*
  * This is a consolidated colorimetry list supported by HDMI and
  * DP protocol standard. The respective connectors will register
@@ -240,6 +244,8 @@ enum drm_panel_orientation {
 #define DRM_MODE_DP_COLORIMETRY_RGB_WIDE_GAMUT	16
 #define DRM_MODE_DP_COLORIMETRY_SCRGB			17
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * struct drm_display_info - runtime data about the connected sink
  *
@@ -484,6 +490,7 @@ struct drm_connector_state {
 	unsigned int content_protection;
 
 	/**
+<<<<<<< HEAD
 	 * @colorspace: State variable for Connector property to request
 	 * colorspace change on Sink. This is most commonly used to switch
 	 * to wider color gamuts like BT2020.
@@ -491,6 +498,8 @@ struct drm_connector_state {
 	u32 colorspace;
 
 	/**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	 * @writeback_job: Writeback job for writeback connectors
 	 *
 	 * Holds the framebuffer and out-fence for a writeback connector. As
@@ -958,12 +967,15 @@ struct drm_connector {
 	struct drm_property *content_protection_property;
 
 	/**
+<<<<<<< HEAD
 	 * @colorspace_property: Connector property to set the suitable
 	 * colorspace supported by the sink.
 	 */
 	struct drm_property *colorspace_property;
 
 	/**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	 * @path_blob_ptr:
 	 *
 	 * DRM blob property data for the DP MST path property. This should only
@@ -1055,6 +1067,7 @@ struct drm_connector {
 	/** @bad_edid_counter: track sinks that give us an EDID with invalid checksum */
 	unsigned bad_edid_counter;
 
+<<<<<<< HEAD
 	/*
 	 * @pt_scan_info: PT scan info obtained from the VCDB of EDID
 	 * @it_scan_info: IT scan info obtained from the VCDB of EDID
@@ -1103,6 +1116,8 @@ struct drm_connector {
 	bool supports_scramble;
 	int flags_3d;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/**
 	 * @edid_corrupt: Indicates whether the last read EDID was corrupt. Used
 	 * in Displayport compliance testing - Displayport Link CTS Core 1.2
@@ -1171,6 +1186,7 @@ struct drm_connector {
 	 * &drm_mode_config.connector_free_work.
 	 */
 	struct llist_node free_node;
+<<<<<<< HEAD
 	/**
 	 * @panel:
 	 *
@@ -1184,6 +1200,8 @@ struct drm_connector {
 	 * The calculated checksum value of first 127 bytes of associated EDID.
 	 */
 	u8 checksum;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define obj_to_connector(x) container_of(x, struct drm_connector, base)
@@ -1192,7 +1210,10 @@ int drm_connector_init(struct drm_device *dev,
 		       struct drm_connector *connector,
 		       const struct drm_connector_funcs *funcs,
 		       int connector_type);
+<<<<<<< HEAD
 void drm_connector_attach_edid_property(struct drm_connector *connector);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int drm_connector_register(struct drm_connector *connector);
 void drm_connector_unregister(struct drm_connector *connector);
 int drm_connector_attach_encoder(struct drm_connector *connector,
@@ -1295,7 +1316,10 @@ int drm_connector_attach_scaling_mode_property(struct drm_connector *connector,
 int drm_connector_attach_content_protection_property(
 		struct drm_connector *connector);
 int drm_mode_create_aspect_ratio_property(struct drm_device *dev);
+<<<<<<< HEAD
 int drm_mode_create_colorspace_property(struct drm_connector *connector);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int drm_mode_create_content_type_property(struct drm_device *dev);
 void drm_hdmi_avi_infoframe_content_type(struct hdmi_avi_infoframe *frame,
 					 const struct drm_connector_state *conn_state);

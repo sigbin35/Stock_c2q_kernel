@@ -186,6 +186,16 @@ nla_put_failure:
 	return -1;
 }
 
+<<<<<<< HEAD
+=======
+static int nft_fwd_validate(const struct nft_ctx *ctx,
+			    const struct nft_expr *expr,
+			    const struct nft_data **data)
+{
+	return nft_chain_validate_hooks(ctx->chain, (1 << NF_NETDEV_INGRESS));
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct nft_expr_type nft_fwd_netdev_type;
 static const struct nft_expr_ops nft_fwd_neigh_netdev_ops = {
 	.type		= &nft_fwd_netdev_type,
@@ -193,6 +203,10 @@ static const struct nft_expr_ops nft_fwd_neigh_netdev_ops = {
 	.eval		= nft_fwd_neigh_eval,
 	.init		= nft_fwd_neigh_init,
 	.dump		= nft_fwd_neigh_dump,
+<<<<<<< HEAD
+=======
+	.validate	= nft_fwd_validate,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static const struct nft_expr_ops nft_fwd_netdev_ops = {
@@ -201,6 +215,10 @@ static const struct nft_expr_ops nft_fwd_netdev_ops = {
 	.eval		= nft_fwd_netdev_eval,
 	.init		= nft_fwd_netdev_init,
 	.dump		= nft_fwd_netdev_dump,
+<<<<<<< HEAD
+=======
+	.validate	= nft_fwd_validate,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 static const struct nft_expr_ops *

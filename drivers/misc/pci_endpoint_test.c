@@ -104,6 +104,10 @@ struct pci_endpoint_test {
 	struct completion irq_raised;
 	int		last_irq;
 	int		num_irqs;
+<<<<<<< HEAD
+=======
+	int		irq_type;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* mutex to protect the ioctls */
 	struct mutex	mutex;
 	struct miscdevice miscdev;
@@ -163,6 +167,10 @@ static void pci_endpoint_test_free_irq_vectors(struct pci_endpoint_test *test)
 	struct pci_dev *pdev = test->pdev;
 
 	pci_free_irq_vectors(pdev);
+<<<<<<< HEAD
+=======
+	test->irq_type = IRQ_TYPE_UNDEFINED;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static bool pci_endpoint_test_alloc_irq_vectors(struct pci_endpoint_test *test,
@@ -197,6 +205,11 @@ static bool pci_endpoint_test_alloc_irq_vectors(struct pci_endpoint_test *test,
 		irq = 0;
 		res = false;
 	}
+<<<<<<< HEAD
+=======
+
+	test->irq_type = type;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	test->num_irqs = irq;
 
 	return res;
@@ -336,6 +349,10 @@ static bool pci_endpoint_test_copy(struct pci_endpoint_test *test, size_t size)
 	dma_addr_t orig_dst_phys_addr;
 	size_t offset;
 	size_t alignment = test->alignment;
+<<<<<<< HEAD
+=======
+	int irq_type = test->irq_type;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u32 src_crc32;
 	u32 dst_crc32;
 
@@ -432,6 +449,10 @@ static bool pci_endpoint_test_write(struct pci_endpoint_test *test, size_t size)
 	dma_addr_t orig_phys_addr;
 	size_t offset;
 	size_t alignment = test->alignment;
+<<<<<<< HEAD
+=======
+	int irq_type = test->irq_type;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u32 crc32;
 
 	if (size > SIZE_MAX - alignment)
@@ -500,6 +521,10 @@ static bool pci_endpoint_test_read(struct pci_endpoint_test *test, size_t size)
 	dma_addr_t orig_phys_addr;
 	size_t offset;
 	size_t alignment = test->alignment;
+<<<<<<< HEAD
+=======
+	int irq_type = test->irq_type;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u32 crc32;
 
 	if (size > SIZE_MAX - alignment)
@@ -561,7 +586,11 @@ static bool pci_endpoint_test_set_irq(struct pci_endpoint_test *test,
 		return false;
 	}
 
+<<<<<<< HEAD
 	if (irq_type == req_irq_type)
+=======
+	if (test->irq_type == req_irq_type)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return true;
 
 	pci_endpoint_test_release_irq(test);
@@ -573,12 +602,18 @@ static bool pci_endpoint_test_set_irq(struct pci_endpoint_test *test,
 	if (!pci_endpoint_test_request_irq(test))
 		goto err;
 
+<<<<<<< HEAD
 	irq_type = req_irq_type;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return true;
 
 err:
 	pci_endpoint_test_free_irq_vectors(test);
+<<<<<<< HEAD
 	irq_type = IRQ_TYPE_UNDEFINED;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return false;
 }
 
@@ -636,7 +671,11 @@ static int pci_endpoint_test_probe(struct pci_dev *pdev,
 {
 	int err;
 	int id;
+<<<<<<< HEAD
 	char name[20];
+=======
+	char name[24];
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	enum pci_barno bar;
 	void __iomem *base;
 	struct device *dev = &pdev->dev;
@@ -655,6 +694,10 @@ static int pci_endpoint_test_probe(struct pci_dev *pdev,
 	test->test_reg_bar = 0;
 	test->alignment = 0;
 	test->pdev = pdev;
+<<<<<<< HEAD
+=======
+	test->irq_type = IRQ_TYPE_UNDEFINED;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (no_msi)
 		irq_type = IRQ_TYPE_LEGACY;

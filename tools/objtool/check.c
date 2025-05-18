@@ -938,10 +938,14 @@ static struct rela *find_switch_table(struct objtool_file *file,
 	 * it.
 	 */
 	for (;
+<<<<<<< HEAD
 	     &insn->list != &file->insn_list &&
 	     insn->sec == func->sec &&
 	     insn->offset >= func->offset;
 
+=======
+	     &insn->list != &file->insn_list && insn->func && insn->func->pfunc == func;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	     insn = insn->first_jump_src ?: list_prev_entry(insn, list)) {
 
 		if (insn != orig_insn && insn->type == INSN_JUMP_DYNAMIC)

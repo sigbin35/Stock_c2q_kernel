@@ -2233,6 +2233,7 @@ int usb_hcd_get_frame_number (struct usb_device *udev)
 	return hcd->driver->get_frame_number (hcd);
 }
 
+<<<<<<< HEAD
 int usb_hcd_sec_event_ring_setup(struct usb_device *udev,
 	unsigned int intr_num)
 {
@@ -2299,6 +2300,10 @@ int usb_hcd_stop_endpoint(struct usb_device *udev,
 	return hcd->driver->stop_endpoint(hcd, udev, ep);
 }
 
+=======
+/*-------------------------------------------------------------------------*/
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef	CONFIG_PM
 
 int hcd_bus_suspend(struct usb_device *rhdev, pm_message_t msg)
@@ -2567,7 +2572,10 @@ void usb_hc_died (struct usb_hcd *hcd)
 	}
 	spin_unlock_irqrestore (&hcd_root_hub_lock, flags);
 	/* Make sure that the other roothub is also deallocated. */
+<<<<<<< HEAD
 	usb_atomic_notify_dead_bus(&hcd->self);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL (usb_hc_died);
 
@@ -3031,9 +3039,12 @@ void usb_remove_hcd(struct usb_hcd *hcd)
 	cancel_work_sync(&hcd->wakeup_work);
 #endif
 
+<<<<<<< HEAD
 	/* handle any pending hub events before XHCI stops */
 	usb_flush_hub_wq();
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mutex_lock(&usb_bus_idr_lock);
 	usb_disconnect(&rhdev);		/* Sets rhdev to NULL */
 	mutex_unlock(&usb_bus_idr_lock);

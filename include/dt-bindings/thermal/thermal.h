@@ -12,7 +12,10 @@
 
 /* On cooling devices upper and lower limits */
 #define THERMAL_NO_LIMIT		(~0)
+<<<<<<< HEAD
 #define THERMAL_MAX_LIMIT		(THERMAL_NO_LIMIT - 1)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif
 

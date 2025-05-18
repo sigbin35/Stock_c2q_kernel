@@ -1056,7 +1056,11 @@ static int __init vpa_debugfs_init(void)
 {
 	char name[16];
 	long i;
+<<<<<<< HEAD
 	static struct dentry *vpa_dir;
+=======
+	struct dentry *vpa_dir;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!firmware_has_feature(FW_FEATURE_SPLPAR))
 		return 0;

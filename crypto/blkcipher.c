@@ -29,10 +29,13 @@
 
 #include "internal.h"
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 #include "fips140.h"
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 enum {
 	BLKCIPHER_WALK_PHYS = 1 << 0,
 	BLKCIPHER_WALK_SLOW = 1 << 1,
@@ -107,11 +110,14 @@ int blkcipher_walk_done(struct blkcipher_desc *desc,
 	unsigned int n; /* bytes processed */
 	bool more;
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err()))
 		return (-EACCES);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (unlikely(err < 0))
 		goto finish;
 
@@ -330,11 +336,14 @@ EXPORT_SYMBOL_GPL(blkcipher_walk_phys);
 static int blkcipher_walk_first(struct blkcipher_desc *desc,
 				struct blkcipher_walk *walk)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err()))
 		return (-EACCES);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (WARN_ON_ONCE(in_irq()))
 		return -EDEADLK;
 
@@ -438,10 +447,13 @@ static int async_encrypt(struct ablkcipher_request *req)
 		.flags = req->base.flags,
 	};
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err()))
 		return (-EACCES);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return alg->encrypt(&desc, req->dst, req->src, req->nbytes);
 }
@@ -456,11 +468,14 @@ static int async_decrypt(struct ablkcipher_request *req)
 		.flags = req->base.flags,
 	};
 
+<<<<<<< HEAD
 #ifdef CONFIG_CRYPTO_FIPS /* FIPS_140_2 */
 	if (unlikely(in_fips_err()))
 		return (-EACCES);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return alg->decrypt(&desc, req->dst, req->src, req->nbytes);
 }
 

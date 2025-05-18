@@ -9,9 +9,12 @@
 #include <linux/rculist.h>
 #include <net/inetpeer.h>
 #include <net/tcp.h>
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	#include <net/mptcp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 void tcp_fastopen_init_key_once(struct net *net)
 {
@@ -222,10 +225,13 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 	struct tcp_sock *tp;
 	struct request_sock_queue *queue = &inet_csk(sk)->icsk_accept_queue;
 	struct sock *child;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	struct sock *meta_sk;
 	int ret;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	bool own_req;
 
 	req->num_retrans = 0;
@@ -265,10 +271,15 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 
 	refcount_set(&req->rsk_refcnt, 2);
 
+<<<<<<< HEAD
 #ifndef CONFIG_MPTCP
 	/* Now finish processing the fastopen child socket. */
 	tcp_init_transfer(child, BPF_SOCK_OPS_PASSIVE_ESTABLISHED_CB);
 #endif
+=======
+	/* Now finish processing the fastopen child socket. */
+	tcp_init_transfer(child, BPF_SOCK_OPS_PASSIVE_ESTABLISHED_CB);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	tp->rcv_nxt = TCP_SKB_CB(skb)->seq + 1;
 
@@ -276,6 +287,7 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 
 	tcp_rsk(req)->rcv_nxt = tp->rcv_nxt;
 	tp->rcv_wup = tp->rcv_nxt;
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	meta_sk = child;
 	ret = mptcp_check_req_fastopen(meta_sk, req);
@@ -290,6 +302,8 @@ static struct sock *tcp_fastopen_create_child(struct sock *sk,
 	/* Now finish processing the fastopen child socket. */
 	tcp_init_transfer(child, BPF_SOCK_OPS_PASSIVE_ESTABLISHED_CB);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* tcp_conn_request() is sending the SYNACK,
 	 * and queues the child into listener accept queue.
 	 */

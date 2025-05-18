@@ -140,6 +140,7 @@
 
 #include <trace/events/sock.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 #include <net/mptcp.h>
 #include <net/inet_common.h>
@@ -152,6 +153,10 @@
 #include <linux/pid.h>
 #include <net/ncm.h>
 // SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA }
+=======
+#include <net/tcp.h>
+#include <net/busy_poll.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static DEFINE_MUTEX(proto_list_mutex);
 static LIST_HEAD(proto_list);
@@ -415,6 +420,7 @@ int __sock_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 	struct sk_buff_head *list = &sk->sk_receive_queue;
 
 	if (atomic_read(&sk->sk_rmem_alloc) >= sk->sk_rcvbuf) {
+<<<<<<< HEAD
 		if (sk->sk_rcvbuf < sysctl_rmem_max) {
 			/* increase sk_rcvbuf twice */
 			sk->sk_rcvbuf = min(sk->sk_rcvbuf * 2, (int)sysctl_rmem_max);
@@ -424,6 +430,11 @@ int __sock_queue_rcv_skb(struct sock *sk, struct sk_buff *skb)
 			trace_sock_rcvqueue_full(sk, skb);
 			return -ENOMEM;
 		}
+=======
+		atomic_inc(&sk->sk_drops);
+		trace_sock_rcvqueue_full(sk, skb);
+		return -ENOMEM;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	if (!sk_rmem_schedule(sk, skb, skb->truesize)) {
@@ -634,6 +645,7 @@ out:
 	return ret;
 }
 
+<<<<<<< HEAD
 // SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA {
 /** The function sets the domain name associated with the socket. **/
 static int sock_set_domain_name(struct sock *sk, char __user *optval,
@@ -722,6 +734,8 @@ out:
 }
 
 // SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void sock_valbool_flag(struct sock *sk, int bit, int valbool)
 {
 	if (valbool)
@@ -771,6 +785,7 @@ int sock_setsockopt(struct socket *sock, int level, int optname,
 	if (optname == SO_BINDTODEVICE)
 		return sock_setbindtodevice(sk, optval, optlen);
 
+<<<<<<< HEAD
 	// SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA {
 	if (optname == SO_SET_DOMAIN_NAME)
 		return sock_set_domain_name(sk, optval, optlen);
@@ -779,6 +794,8 @@ int sock_setsockopt(struct socket *sock, int level, int optname,
 	if (optname == SO_SET_DNS_PID)
 		return sock_set_dns_pid(sk, optval, optlen);
 	// SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (optlen < sizeof(int))
 		return -EINVAL;
 
@@ -1524,6 +1541,7 @@ lenout:
  */
 static inline void sock_lock_init(struct sock *sk)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 	/* Reclassify the lock-class for subflows */
 	if (sk->sk_type == SOCK_STREAM && sk->sk_protocol == IPPROTO_TCP)
@@ -1541,6 +1559,8 @@ static inline void sock_lock_init(struct sock *sk)
 		}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (sk->sk_kern_sock)
 		sock_lock_init_class_and_name(
 			sk,
@@ -1589,6 +1609,7 @@ static struct sock *sk_prot_alloc(struct proto *prot, gfp_t priority,
 		sk = kmem_cache_alloc(slab, priority & ~__GFP_ZERO);
 		if (!sk)
 			return sk;
+<<<<<<< HEAD
 		if (want_init_on_alloc(priority))
 #ifdef CONFIG_MPTCP
 		{
@@ -1600,6 +1621,10 @@ static struct sock *sk_prot_alloc(struct proto *prot, gfp_t priority,
 #ifdef CONFIG_MPTCP
 	}
 #endif
+=======
+		if (priority & __GFP_ZERO)
+			sk_prot_clear_nulls(sk, prot->obj_size);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	} else
 		sk = kmalloc(prot->obj_size, priority);
 
@@ -1655,6 +1680,7 @@ struct sock *sk_alloc(struct net *net, int family, gfp_t priority,
 {
 	struct sock *sk;
 
+<<<<<<< HEAD
 	// SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA {
 	struct pid *pid_struct = NULL;
 	struct task_struct *task = NULL;
@@ -1711,6 +1737,11 @@ struct sock *sk_alloc(struct net *net, int family, gfp_t priority,
 			}
 		}
 		// SEC_PRODUCT_FEATURE_KNOX_SUPPORT_NPA }
+=======
+	sk = sk_prot_alloc(prot, priority | __GFP_ZERO, family);
+	if (sk) {
+		sk->sk_family = family;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		/*
 		 * See comment in struct sock definition to understand
 		 * why we need sk_prot_creator -acme
@@ -1880,9 +1911,12 @@ struct sock *sk_clone_lock(const struct sock *sk, const gfp_t priority)
 		atomic_set(&newsk->sk_zckey, 0);
 
 		sock_reset_flag(newsk, SOCK_DONE);
+<<<<<<< HEAD
 #ifdef CONFIG_MPTCP
 		sock_reset_flag(newsk, SOCK_MPTCP);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		/* sk->sk_memcg will be populated at accept() time */
 		newsk->sk_memcg = NULL;

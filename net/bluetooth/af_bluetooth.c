@@ -108,6 +108,7 @@ void bt_sock_unregister(int proto)
 }
 EXPORT_SYMBOL(bt_sock_unregister);
 
+<<<<<<< HEAD
 #ifdef CONFIG_PARANOID_NETWORK
 static inline int current_has_bt_admin(void)
 {
@@ -130,11 +131,14 @@ static inline int current_has_bt(void)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int bt_sock_create(struct net *net, struct socket *sock, int proto,
 			  int kern)
 {
 	int err;
 
+<<<<<<< HEAD
 	if (proto == BTPROTO_RFCOMM || proto == BTPROTO_SCO ||
 			proto == BTPROTO_L2CAP) {
 		if (!current_has_bt())
@@ -142,6 +146,8 @@ static int bt_sock_create(struct net *net, struct socket *sock, int proto,
 	} else if (!current_has_bt_admin())
 		return -EPERM;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (net != &init_net)
 		return -EAFNOSUPPORT;
 

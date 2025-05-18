@@ -24,11 +24,15 @@
 #ifndef _SELINUX_IB_PKEY_H
 #define _SELINUX_IB_PKEY_H
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_INFINIBAND
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void sel_ib_pkey_flush(void);
 
 int sel_ib_pkey_sid(u64 subnet_prefix, u16 pkey, u32 *sid);
 
+<<<<<<< HEAD
 #else
 
 static inline void sel_ib_pkey_flush(void) { }
@@ -40,4 +44,6 @@ static inline int sel_ib_pkey_sid(u64 subnet_prefix, u16 pkey, u32 *sid)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

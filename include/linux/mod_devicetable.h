@@ -299,7 +299,11 @@ struct pcmcia_device_id {
 #define INPUT_DEVICE_ID_LED_MAX		0x0f
 #define INPUT_DEVICE_ID_SND_MAX		0x07
 #define INPUT_DEVICE_ID_FF_MAX		0x7f
+<<<<<<< HEAD
 #define INPUT_DEVICE_ID_SW_MAX		0x20
+=======
+#define INPUT_DEVICE_ID_SW_MAX		0x0f
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define INPUT_DEVICE_ID_PROP_MAX	0x1f
 
 #define INPUT_DEVICE_ID_MATCH_BUS	1
@@ -448,6 +452,7 @@ struct pci_epf_device_id {
 	kernel_ulong_t driver_data;
 };
 
+<<<<<<< HEAD
 /* i3c */
 
 #define I3C_MATCH_DCR			0x1
@@ -465,6 +470,8 @@ struct i3c_device_id {
 	const void *data;
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* spi */
 
 #define SPI_NAME_SIZE	32
@@ -481,8 +488,16 @@ struct spi_device_id {
 #define SLIMBUS_MODULE_PREFIX	"slim:"
 
 struct slim_device_id {
+<<<<<<< HEAD
 	char name[SLIMBUS_NAME_SIZE];
 	kernel_ulong_t driver_data;     /* Data private to the driver */
+=======
+	__u16 manf_id, prod_code;
+	__u16 dev_index, instance;
+
+	/* Data private to the driver */
+	kernel_ulong_t driver_data;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define APR_NAME_SIZE	32
@@ -504,6 +519,7 @@ struct spmi_device_id {
 	kernel_ulong_t driver_data;	/* Data private to the driver */
 };
 
+<<<<<<< HEAD
 /* soundwire */
 
 #define SOUNDWIRE_NAME_SIZE	32
@@ -514,6 +530,8 @@ struct swr_device_id {
 	kernel_ulong_t driver_data;	/* Data private to the driver */
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* dmi */
 enum dmi_field {
 	DMI_NONE,
@@ -786,6 +804,7 @@ struct typec_device_id {
 	kernel_ulong_t driver_data;
 };
 
+<<<<<<< HEAD
 #define MHI_NAME_SIZE 32
 
 /**
@@ -799,4 +818,6 @@ struct mhi_device_id {
 	kernel_ulong_t driver_data;
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* LINUX_MOD_DEVICETABLE_H */

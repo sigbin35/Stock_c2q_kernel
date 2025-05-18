@@ -77,7 +77,10 @@
 };
 
 &fec {
+<<<<<<< HEAD
 	/delete-property/interrupts-extended;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	interrupts = <0 118 IRQ_TYPE_LEVEL_HIGH>,
 		     <0 119 IRQ_TYPE_LEVEL_HIGH>;
 };

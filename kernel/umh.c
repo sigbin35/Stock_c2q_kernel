@@ -30,10 +30,13 @@
 
 #include <trace/events/module.h>
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 #include <linux/defex.h>
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define CAP_BSET	(void *)1
 #define CAP_PI		(void *)2
 
@@ -550,12 +553,15 @@ int call_usermodehelper_exec(struct subprocess_info *sub_info, int wait)
 	if (strlen(sub_info->path) == 0)
 		goto out;
 
+<<<<<<< HEAD
 #ifdef CONFIG_SECURITY_DEFEX
 	if (task_defex_user_exec(sub_info->path)) {
 		goto out;
 	}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Set the completion pointer only if there is a waiter.
 	 * This makes it possible to use umh_complete to free

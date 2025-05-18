@@ -37,6 +37,7 @@
 
 #include <trace/events/kmem.h>
 
+<<<<<<< HEAD
 #include <linux/sec_debug.h>
 
 #include "internal.h"
@@ -56,6 +57,10 @@ do {							\
 #define check_cred_cache(s,r)   
 #endif
 
+=======
+#include "internal.h"
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Lock order:
  *   1. slab_mutex (Global Mutex)
@@ -266,6 +271,7 @@ static inline void *freelist_ptr(const struct kmem_cache *s, void *ptr,
 				 unsigned long ptr_addr)
 {
 #ifdef CONFIG_SLAB_FREELIST_HARDENED
+<<<<<<< HEAD
 	/*
 	 * When CONFIG_KASAN_SW_TAGS is enabled, ptr_addr might be tagged.
 	 * Normally, this doesn't cause any issues, as both set_freepointer()
@@ -278,6 +284,9 @@ static inline void *freelist_ptr(const struct kmem_cache *s, void *ptr,
 	 */
 	return (void *)((unsigned long)ptr ^ s->random ^
 			(unsigned long)kasan_reset_tag((void *)ptr_addr));
+=======
+	return (void *)((unsigned long)ptr ^ s->random ^ swab(ptr_addr));
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #else
 	return ptr;
 #endif
@@ -322,6 +331,7 @@ static inline void set_freepointer(struct kmem_cache *s, void *object, void *fp)
 	BUG_ON(object == fp); /* naive detection of double free or corruption */
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	if (rkp_cred_enable && s->name && 
 		(!strcmp(s->name, CRED_JAR_RO)|| !strcmp(s->name, TSEC_JAR) 
@@ -331,6 +341,8 @@ static inline void set_freepointer(struct kmem_cache *s, void *object, void *fp)
 	} else 
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	*(void **)freeptr_addr = freelist_ptr(s, fp, freeptr_addr);
 }
 
@@ -340,10 +352,22 @@ static inline void set_freepointer(struct kmem_cache *s, void *object, void *fp)
 		__p < (__addr) + (__objects) * (__s)->size; \
 		__p += (__s)->size)
 
+<<<<<<< HEAD
 /* Determine object index from a given position */
 static inline unsigned int slab_index(void *p, struct kmem_cache *s, void *addr)
 {
 	return (kasan_reset_tag(p) - addr) / s->size;
+=======
+#define for_each_object_idx(__p, __idx, __s, __addr, __objects) \
+	for (__p = fixup_red_left(__s, __addr), __idx = 1; \
+		__idx <= __objects; \
+		__p += (__s)->size, __idx++)
+
+/* Determine object index from a given position */
+static inline unsigned int slab_index(void *p, struct kmem_cache *s, void *addr)
+{
+	return (p - addr) / s->size;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline unsigned int order_objects(unsigned int order, unsigned int size)
@@ -477,10 +501,13 @@ static void get_map(struct kmem_cache *s, struct page *page, unsigned long *map)
 	void *p;
 	void *addr = page_address(page);
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, );
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	for (p = page->freelist; p; p = get_freepointer(s, p))
 		set_bit(slab_index(p, s, addr), map);
 }
@@ -543,7 +570,10 @@ static inline int check_valid_pointer(struct kmem_cache *s,
 		return 1;
 
 	base = page_address(page);
+<<<<<<< HEAD
 	object = kasan_reset_tag(object);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	object = restore_red_left(s, object);
 	if (object < base || object >= base + page->objects * s->size ||
 		(object - base) % s->size) {
@@ -579,9 +609,13 @@ static void set_track(struct kmem_cache *s, void *object,
 			enum track_item alloc, unsigned long addr)
 {
 	struct track *p = get_track(s, object, alloc);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, );
 #endif
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (addr) {
 #ifdef CONFIG_STACKTRACE
 		struct stack_trace trace;
@@ -726,6 +760,7 @@ static void print_trailer(struct kmem_cache *s, struct page *page, u8 *p)
 	dump_stack();
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_SLUB_DEBUG_PANIC_ON
 static void slab_panic(const char *cause)
 {
@@ -735,12 +770,17 @@ static void slab_panic(const char *cause)
 static inline void slab_panic(const char *cause) {}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void object_err(struct kmem_cache *s, struct page *page,
 			u8 *object, char *reason)
 {
 	slab_bug(s, "%s", reason);
 	print_trailer(s, page, object);
+<<<<<<< HEAD
 	slab_panic(reason);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static __printf(3, 4) void slab_err(struct kmem_cache *s, struct page *page,
@@ -755,16 +795,22 @@ static __printf(3, 4) void slab_err(struct kmem_cache *s, struct page *page,
 	slab_bug(s, "%s", buf);
 	print_page_info(page);
 	dump_stack();
+<<<<<<< HEAD
 	slab_panic("slab error");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void init_object(struct kmem_cache *s, void *object, u8 val)
 {
 	u8 *p = object;
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, );
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (s->flags & SLAB_RED_ZONE)
 		memset(p - s->red_left_pad, val, s->red_left_pad);
 
@@ -780,7 +826,10 @@ static void init_object(struct kmem_cache *s, void *object, u8 val)
 static void restore_bytes(struct kmem_cache *s, char *message, u8 data,
 						void *from, void *to)
 {
+<<<<<<< HEAD
 	slab_panic("object poison overwritten");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	slab_fix(s, "Restoring 0x%p-0x%p=0x%x\n", from, to - 1, data);
 	memset(from, data, to - from);
 }
@@ -793,9 +842,12 @@ static int check_bytes_and_report(struct kmem_cache *s, struct page *page,
 	u8 *end;
 
 	metadata_access_enable();
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s,1);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	fault = memchr_inv(start, value, bytes);
 	metadata_access_disable();
 	if (!fault)
@@ -886,9 +938,12 @@ static int slab_pad_check(struct kmem_cache *s, struct page *page)
 	if (!(s->flags & SLAB_POISON))
 		return 1;
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, 1);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	start = page_address(page);
 	length = PAGE_SIZE << compound_order(page);
 	end = start + length;
@@ -979,6 +1034,7 @@ static int check_slab(struct kmem_cache *s, struct page *page)
 		return 0;
 	}
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	/*
 	 * Skip this function for now
@@ -988,6 +1044,8 @@ static int check_slab(struct kmem_cache *s, struct page *page)
 		|| !strcmp(s->name, VFSMNT_JAR))) 
 		return 1;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	maxobj = order_objects(compound_order(page), s->size);
 	if (page->objects > maxobj) {
 		slab_err(s, page, "objects %u > max %u",
@@ -1016,9 +1074,12 @@ static int on_freelist(struct kmem_cache *s, struct page *page, void *search)
 	int max_objects;
 
 	fp = page->freelist;
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, 0);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	while (fp && nr <= page->objects) {
 		if (fp == search)
 			return 1;
@@ -1084,9 +1145,12 @@ static void trace(struct kmem_cache *s, struct page *page, void *object,
 static void add_full(struct kmem_cache *s,
 	struct kmem_cache_node *n, struct page *page)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, );
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!(s->flags & SLAB_STORE_USER))
 		return;
 
@@ -1096,9 +1160,12 @@ static void add_full(struct kmem_cache *s,
 
 static void remove_full(struct kmem_cache *s, struct kmem_cache_node *n, struct page *page)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, );
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!(s->flags & SLAB_STORE_USER))
 		return;
 
@@ -1153,6 +1220,7 @@ static void setup_object_debug(struct kmem_cache *s, struct page *page,
 	init_tracking(s, object);
 }
 
+<<<<<<< HEAD
 static void setup_page_debug(struct kmem_cache *s, void *addr, int order)
 {
 	if (!(s->flags & SLAB_POISON))
@@ -1163,13 +1231,18 @@ static void setup_page_debug(struct kmem_cache *s, void *addr, int order)
 	metadata_access_disable();
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline int alloc_consistency_checks(struct kmem_cache *s,
 					struct page *page,
 					void *object, unsigned long addr)
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, 0);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!check_slab(s, page))
 		return 0;
 
@@ -1257,9 +1330,12 @@ static noinline int free_debug_processing(
 	int cnt = 0;
 	unsigned long uninitialized_var(flags);
 	int ret = 0;
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	check_cred_cache(s, 0);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	spin_lock_irqsave(&n->list_lock, flags);
 	slab_lock(page);
@@ -1365,15 +1441,19 @@ check_slabs:
 	if (*str == ',')
 		slub_debug_slabs = str + 1;
 out:
+<<<<<<< HEAD
 	if ((static_branch_unlikely(&init_on_alloc) ||
 	     static_branch_unlikely(&init_on_free)) &&
 	    (slub_debug & SLAB_POISON))
 		pr_info("mem auto-init: SLAB_POISON will take precedence over init_on_alloc/init_on_free\n");
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 1;
 }
 
 __setup("slub_debug", setup_slub_debug);
 
+<<<<<<< HEAD
 static const char *exclusion_list[] = {
 	"zspage",
 	"zs_handle",
@@ -1397,10 +1477,13 @@ static int is_kmem_cache_excluded(const char *str)
 	return excluded;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 slab_flags_t kmem_cache_flags(unsigned int object_size,
 	slab_flags_t flags, const char *name,
 	void (*ctor)(void *))
 {
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	if (name && 
 		(!strcmp(name, CRED_JAR_RO) 
@@ -1408,23 +1491,33 @@ slab_flags_t kmem_cache_flags(unsigned int object_size,
 		|| !strcmp(name, VFSMNT_JAR)))
 		return flags;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Enable debugging if selected on the kernel commandline.
 	 */
 	if (slub_debug && (!slub_debug_slabs || (name &&
+<<<<<<< HEAD
 		!strncmp(slub_debug_slabs, name, strlen(slub_debug_slabs))))) {
 		flags |= slub_debug;
 		if (name && is_kmem_cache_excluded(name))
 			flags &= ~SLAB_STORE_USER;
 	}
+=======
+		!strncmp(slub_debug_slabs, name, strlen(slub_debug_slabs)))))
+		flags |= slub_debug;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return flags;
 }
 #else /* !CONFIG_SLUB_DEBUG */
 static inline void setup_object_debug(struct kmem_cache *s,
 			struct page *page, void *object) {}
+<<<<<<< HEAD
 static inline void setup_page_debug(struct kmem_cache *s,
 			void *addr, int order) {}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static inline int alloc_debug_processing(struct kmem_cache *s,
 	struct page *page, void *object, unsigned long addr) { return 0; }
@@ -1467,11 +1560,18 @@ static inline void dec_slabs_node(struct kmem_cache *s, int node,
  * Hooks for other subsystems that check memory allocations. In a typical
  * production configuration these hooks all should produce no code at all.
  */
+<<<<<<< HEAD
 static inline void *kmalloc_large_node_hook(void *ptr, size_t size, gfp_t flags)
 {
 	ptr = kasan_kmalloc_large(ptr, size, flags);
 	kmemleak_alloc(ptr, size, 1, flags);
 	return ptr;
+=======
+static inline void kmalloc_large_node_hook(void *ptr, size_t size, gfp_t flags)
+{
+	kmemleak_alloc(ptr, size, 1, flags);
+	kasan_kmalloc_large(ptr, size, flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static __always_inline void kfree_hook(void *x)
@@ -1508,11 +1608,25 @@ static __always_inline bool slab_free_hook(struct kmem_cache *s, void *x)
 static inline bool slab_free_freelist_hook(struct kmem_cache *s,
 					   void **head, void **tail)
 {
+<<<<<<< HEAD
+=======
+/*
+ * Compiler cannot detect this function can be removed if slab_free_hook()
+ * evaluates to nothing.  Thus, catch all relevant config debug options here.
+ */
+#if defined(CONFIG_LOCKDEP)	||		\
+	defined(CONFIG_DEBUG_KMEMLEAK) ||	\
+	defined(CONFIG_DEBUG_OBJECTS_FREE) ||	\
+	defined(CONFIG_KASAN)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	void *object;
 	void *next = *head;
 	void *old_tail = *tail ? *tail : *head;
+<<<<<<< HEAD
 	int rsize;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Head and tail of the reconstructed freelist */
 	*head = NULL;
@@ -1521,6 +1635,7 @@ static inline bool slab_free_freelist_hook(struct kmem_cache *s,
 	do {
 		object = next;
 		next = get_freepointer(s, object);
+<<<<<<< HEAD
 
 		if (slab_want_init_on_free(s)) {
 			/*
@@ -1534,6 +1649,8 @@ static inline bool slab_free_freelist_hook(struct kmem_cache *s,
 			       s->size - s->inuse - rsize);
 
 		}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		/* If object's reuse doesn't have to be delayed */
 		if (!slab_free_hook(s, object)) {
 			/* Move object to the new freelist */
@@ -1548,6 +1665,7 @@ static inline bool slab_free_freelist_hook(struct kmem_cache *s,
 		*tail = NULL;
 
 	return *head != NULL;
+<<<<<<< HEAD
 }
 
 static void *setup_object(struct kmem_cache *s, struct page *page,
@@ -1555,12 +1673,27 @@ static void *setup_object(struct kmem_cache *s, struct page *page,
 {
 	setup_object_debug(s, page, object);
 	object = kasan_init_slab_obj(s, object);
+=======
+#else
+	return true;
+#endif
+}
+
+static void setup_object(struct kmem_cache *s, struct page *page,
+				void *object)
+{
+	setup_object_debug(s, page, object);
+	kasan_init_slab_obj(s, object);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (unlikely(s->ctor)) {
 		kasan_unpoison_object_data(s, object);
 		s->ctor(object);
 		kasan_poison_object_data(s, object);
 	}
+<<<<<<< HEAD
 	return object;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*
@@ -1613,6 +1746,7 @@ static int init_cache_random_seq(struct kmem_cache *s)
 	return 0;
 }
 
+<<<<<<< HEAD
 /* re-initialize the random sequence cache */
 static int reinit_cache_random_seq(struct kmem_cache *s)
 {
@@ -1632,6 +1766,8 @@ static int reinit_cache_random_seq(struct kmem_cache *s)
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Initialize each random sequence freelist per cache */
 static void __init init_freelist_randomization(void)
 {
@@ -1687,6 +1823,7 @@ static bool shuffle_freelist(struct kmem_cache *s, struct page *page)
 	/* First entry is used as the base of the freelist */
 	cur = next_freelist_entry(s, page, &pos, start, page_limit,
 				freelist_count);
+<<<<<<< HEAD
 	cur = setup_object(s, page, cur);
 	page->freelist = cur;
 
@@ -1697,6 +1834,18 @@ static bool shuffle_freelist(struct kmem_cache *s, struct page *page)
 		set_freepointer(s, cur, next);
 		cur = next;
 	}
+=======
+	page->freelist = cur;
+
+	for (idx = 1; idx < page->objects; idx++) {
+		setup_object(s, page, cur);
+		next = next_freelist_entry(s, page, &pos, start, page_limit,
+			freelist_count);
+		set_freepointer(s, cur, next);
+		cur = next;
+	}
+	setup_object(s, page, cur);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	set_freepointer(s, cur, NULL);
 
 	return true;
@@ -1706,10 +1855,13 @@ static inline int init_cache_random_seq(struct kmem_cache *s)
 {
 	return 0;
 }
+<<<<<<< HEAD
 static inline int reinit_cache_random_seq(struct kmem_cache *s)
 {
 	return 0;
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void init_freelist_randomization(void) { }
 static inline bool shuffle_freelist(struct kmem_cache *s, struct page *page)
 {
@@ -1721,11 +1873,16 @@ static struct page *allocate_slab(struct kmem_cache *s, gfp_t flags, int node)
 {
 	struct page *page;
 	struct kmem_cache_order_objects oo = s->oo;
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	void *virt_page = NULL;
 #endif
 	gfp_t alloc_gfp;
 	void *start, *p, *next;
+=======
+	gfp_t alloc_gfp;
+	void *start, *p;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int idx, order;
 	bool shuffle;
 
@@ -1743,6 +1900,7 @@ static struct page *allocate_slab(struct kmem_cache *s, gfp_t flags, int node)
 	alloc_gfp = (flags | __GFP_NOWARN | __GFP_NORETRY) & ~__GFP_NOFAIL;
 	if ((alloc_gfp & __GFP_DIRECT_RECLAIM) && oo_order(oo) > oo_order(s->min))
 		alloc_gfp = (alloc_gfp | __GFP_NOMEMALLOC) & ~(__GFP_RECLAIM|__GFP_NOFAIL);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	if (s->name && 
 		(!strcmp(s->name, CRED_JAR_RO) ||  
@@ -1758,6 +1916,8 @@ static struct page *allocate_slab(struct kmem_cache *s, gfp_t flags, int node)
 	} else {
 def_alloc:
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	page = alloc_slab_page(s, alloc_gfp, node, oo);
 	if (unlikely(!page)) {
@@ -1772,9 +1932,12 @@ def_alloc:
 			goto out;
 		stat(s, ORDER_FALLBACK);
 	}
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	} 
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	page->objects = oo_objects(oo);
 
@@ -1784,6 +1947,7 @@ def_alloc:
 	if (page_is_pfmemalloc(page))
 		SetPageSlabPfmemalloc(page);
 
+<<<<<<< HEAD
 	kasan_poison_slab(page);
 
 	start = page_address(page);
@@ -1823,10 +1987,19 @@ def_alloc:
 #endif
 	}
 #endif
+=======
+	start = page_address(page);
+
+	if (unlikely(s->flags & SLAB_POISON))
+		memset(start, POISON_INUSE, PAGE_SIZE << order);
+
+	kasan_poison_slab(page);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	shuffle = shuffle_freelist(s, page);
 
 	if (!shuffle) {
+<<<<<<< HEAD
 		start = fixup_red_left(s, start);
 		start = setup_object(s, page, start);
 		page->freelist = start;
@@ -1841,6 +2014,17 @@ def_alloc:
 #ifdef CONFIG_KDP_DMAP
 	dmap_prot((u64)page_to_phys(page),(u64)compound_order(page),1);
 #endif
+=======
+		for_each_object_idx(p, idx, s, start, page->objects) {
+			setup_object(s, page, p);
+			if (likely(idx < page->objects))
+				set_freepointer(s, p, p + s->size);
+			else
+				set_freepointer(s, p, NULL);
+		}
+		page->freelist = fixup_red_left(s, start);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	page->inuse = page->objects;
 	page->frozen = 1;
@@ -1875,6 +2059,7 @@ static struct page *new_slab(struct kmem_cache *s, gfp_t flags, int node)
 		flags & (GFP_RECLAIM_MASK | GFP_CONSTRAINT_MASK), node);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 int rkp_from_vfsmnt_cache(unsigned long addr)
 {
@@ -1926,15 +2111,20 @@ void free_ro_pages(struct kmem_cache *s,struct page *page, int order)
 }
 #endif /*CONFIG_KDP_CRED*/
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void __free_slab(struct kmem_cache *s, struct page *page)
 {
 	int order = compound_order(page);
 	int pages = 1 << order;
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_DMAP
 	dmap_prot((u64)page_to_phys(page),(u64)compound_order(page),0);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (s->flags & SLAB_CONSISTENCY_CHECKS) {
 		void *p;
 
@@ -1955,6 +2145,7 @@ static void __free_slab(struct kmem_cache *s, struct page *page)
 	page->mapping = NULL;
 	if (current->reclaim_state)
 		current->reclaim_state->reclaimed_slab += pages;
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	/* We free the protected pages here. */
 	if (s->name && (!strcmp(s->name, CRED_JAR_RO) 
@@ -1966,6 +2157,9 @@ static void __free_slab(struct kmem_cache *s, struct page *page)
 #endif
 	memcg_uncharge_slab(page, order, s);
 	kasan_alloc_pages(page, order);
+=======
+	memcg_uncharge_slab(page, order, s);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	__free_pages(page, order);
 }
 
@@ -2847,7 +3041,10 @@ load_freelist:
 	 */
 	VM_BUG_ON(!c->page->frozen);
 	c->freelist = get_freepointer(s, freelist);
+<<<<<<< HEAD
 	sec_slub_debug_panic_on_fp_corrupted(s, freelist, c->freelist);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	c->tid = next_tid(c->tid);
 	return freelist;
 
@@ -2906,6 +3103,7 @@ static void *__slab_alloc(struct kmem_cache *s, gfp_t gfpflags, int node,
 }
 
 /*
+<<<<<<< HEAD
  * If the object has been wiped upon free, make sure it's fully initialized by
  * zeroing out freelist pointer.
  */
@@ -2917,6 +3115,8 @@ static __always_inline void maybe_wipe_obj_freeptr(struct kmem_cache *s,
 }
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Inlined fastpath so that allocation functions (kmalloc, kmem_cache_alloc)
  * have the fastpath folded into their functions. So no function call
  * overhead for requests that can be satisfied on the fastpath.
@@ -3005,9 +3205,13 @@ redo:
 		stat(s, ALLOC_FASTPATH);
 	}
 
+<<<<<<< HEAD
 	maybe_wipe_obj_freeptr(s, object);
 
 	if (unlikely(slab_want_init_on_alloc(gfpflags, s)) && object)
+=======
+	if (unlikely(gfpflags & __GFP_ZERO) && object)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		memset(object, 0, s->object_size);
 
 	slab_post_alloc_hook(s, gfpflags, 1, &object);
@@ -3037,7 +3241,11 @@ void *kmem_cache_alloc_trace(struct kmem_cache *s, gfp_t gfpflags, size_t size)
 {
 	void *ret = slab_alloc(s, gfpflags, _RET_IP_);
 	trace_kmalloc(_RET_IP_, ret, size, s->size, gfpflags);
+<<<<<<< HEAD
 	ret = kasan_kmalloc(s, ret, size, gfpflags);
+=======
+	kasan_kmalloc(s, ret, size, gfpflags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ret;
 }
 EXPORT_SYMBOL(kmem_cache_alloc_trace);
@@ -3065,7 +3273,11 @@ void *kmem_cache_alloc_node_trace(struct kmem_cache *s,
 	trace_kmalloc_node(_RET_IP_, ret,
 			   size, s->size, gfpflags, node);
 
+<<<<<<< HEAD
 	ret = kasan_kmalloc(s, ret, size, gfpflags);
+=======
+	kasan_kmalloc(s, ret, size, gfpflags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ret;
 }
 EXPORT_SYMBOL(kmem_cache_alloc_node_trace);
@@ -3232,8 +3444,11 @@ redo:
 	/* Same with comment on barrier() in slab_alloc_node() */
 	barrier();
 
+<<<<<<< HEAD
 	sec_slub_debug_save_free_track(s, tail_obj);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (likely(page == c->page)) {
 		void **freelist = READ_ONCE(c->freelist);
 
@@ -3265,7 +3480,11 @@ static __always_inline void slab_free(struct kmem_cache *s, struct page *page,
 		do_slab_free(s, page, head, tail, cnt, addr);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_KASAN_GENERIC
+=======
+#ifdef CONFIG_KASAN
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void ___cache_free(struct kmem_cache *cache, void *x, unsigned long addr)
 {
 	do_slab_free(cache, virt_to_head_page(x), x, NULL, 1, addr);
@@ -3433,19 +3652,29 @@ int kmem_cache_alloc_bulk(struct kmem_cache *s, gfp_t flags, size_t size,
 				goto error;
 
 			c = this_cpu_ptr(s->cpu_slab);
+<<<<<<< HEAD
 			maybe_wipe_obj_freeptr(s, p[i]);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			continue; /* goto for-loop */
 		}
 		c->freelist = get_freepointer(s, object);
 		p[i] = object;
+<<<<<<< HEAD
 		maybe_wipe_obj_freeptr(s, p[i]);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	c->tid = next_tid(c->tid);
 	local_irq_enable();
 
 	/* Clear memory outside IRQ disabled fastpath loop */
+<<<<<<< HEAD
 	if (unlikely(slab_want_init_on_alloc(flags, s))) {
+=======
+	if (unlikely(flags & __GFP_ZERO)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		int j;
 
 		for (j = 0; j < i; j++)
@@ -3649,16 +3878,28 @@ static void early_kmem_cache_node_alloc(int node)
 
 	n = page->freelist;
 	BUG_ON(!n);
+<<<<<<< HEAD
 #ifdef CONFIG_SLUB_DEBUG
 	init_object(kmem_cache_node, n, SLUB_RED_ACTIVE);
 	init_tracking(kmem_cache_node, n);
 #endif
 	n = kasan_kmalloc(kmem_cache_node, n, sizeof(struct kmem_cache_node),
 		      GFP_KERNEL);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	page->freelist = get_freepointer(kmem_cache_node, n);
 	page->inuse = 1;
 	page->frozen = 0;
 	kmem_cache_node->node[node] = n;
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_SLUB_DEBUG
+	init_object(kmem_cache_node, n, SLUB_RED_ACTIVE);
+	init_tracking(kmem_cache_node, n);
+#endif
+	kasan_kmalloc(kmem_cache_node, n, sizeof(struct kmem_cache_node),
+		      GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	init_kmem_cache_node(n);
 	inc_slabs_node(kmem_cache_node, node, page->objects);
 
@@ -4074,7 +4315,11 @@ void *__kmalloc(size_t size, gfp_t flags)
 
 	trace_kmalloc(_RET_IP_, ret, size, s->size, flags);
 
+<<<<<<< HEAD
 	ret = kasan_kmalloc(s, ret, size, flags);
+=======
+	kasan_kmalloc(s, ret, size, flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -4091,7 +4336,12 @@ static void *kmalloc_large_node(size_t size, gfp_t flags, int node)
 	if (page)
 		ptr = page_address(page);
 
+<<<<<<< HEAD
 	return kmalloc_large_node_hook(ptr, size, flags);
+=======
+	kmalloc_large_node_hook(ptr, size, flags);
+	return ptr;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 void *__kmalloc_node(size_t size, gfp_t flags, int node)
@@ -4118,7 +4368,11 @@ void *__kmalloc_node(size_t size, gfp_t flags, int node)
 
 	trace_kmalloc_node(_RET_IP_, ret, size, s->size, flags, node);
 
+<<<<<<< HEAD
 	ret = kasan_kmalloc(s, ret, size, flags);
+=======
+	kasan_kmalloc(s, ret, size, flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -4141,8 +4395,11 @@ void __check_heap_object(const void *ptr, unsigned long n, struct page *page,
 	unsigned int offset;
 	size_t object_size;
 
+<<<<<<< HEAD
 	ptr = kasan_reset_tag(ptr);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Find object and usable object size. */
 	s = page->slab_cache;
 
@@ -4227,7 +4484,10 @@ void kfree(const void *x)
 	if (unlikely(!PageSlab(page))) {
 		BUG_ON(!PageCompound(page));
 		kfree_hook(object);
+<<<<<<< HEAD
 		kasan_alloc_pages(page, compound_order(page));
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		__free_pages(page, compound_order(page));
 		return;
 	}
@@ -4494,11 +4754,17 @@ static struct kmem_cache * __init bootstrap(struct kmem_cache *static_cache)
 			p->slab_cache = s;
 
 #ifdef CONFIG_SLUB_DEBUG
+<<<<<<< HEAD
 #ifndef CONFIG_KDP_CRED
 		list_for_each_entry(p, &n->full, lru)
 			p->slab_cache = s;
 #endif
 #endif
+=======
+		list_for_each_entry(p, &n->full, lru)
+			p->slab_cache = s;
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	slab_init_memcg_params(s);
 	list_add(&s->list, &slab_caches);
@@ -4987,7 +5253,10 @@ static int list_locations(struct kmem_cache *s, char *buf,
 static void __init resiliency_test(void)
 {
 	u8 *p;
+<<<<<<< HEAD
 	int type = KMALLOC_NORMAL;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	BUILD_BUG_ON(KMALLOC_MIN_SIZE > 16 || KMALLOC_SHIFT_HIGH < 10);
 
@@ -5000,7 +5269,11 @@ static void __init resiliency_test(void)
 	pr_err("\n1. kmalloc-16: Clobber Redzone/next pointer 0x12->0x%p\n\n",
 	       p + 16);
 
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][4]);
+=======
+	validate_slab_cache(kmalloc_caches[4]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Hmmm... The next two are dangerous */
 	p = kzalloc(32, GFP_KERNEL);
@@ -5009,33 +5282,53 @@ static void __init resiliency_test(void)
 	       p);
 	pr_err("If allocated object is overwritten then not detectable\n\n");
 
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][5]);
+=======
+	validate_slab_cache(kmalloc_caches[5]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	p = kzalloc(64, GFP_KERNEL);
 	p += 64 + (get_cycles() & 0xff) * sizeof(void *);
 	*p = 0x56;
 	pr_err("\n3. kmalloc-64: corrupting random byte 0x56->0x%p\n",
 	       p);
 	pr_err("If allocated object is overwritten then not detectable\n\n");
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][6]);
+=======
+	validate_slab_cache(kmalloc_caches[6]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	pr_err("\nB. Corruption after free\n");
 	p = kzalloc(128, GFP_KERNEL);
 	kfree(p);
 	*p = 0x78;
 	pr_err("1. kmalloc-128: Clobber first word 0x78->0x%p\n\n", p);
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][7]);
+=======
+	validate_slab_cache(kmalloc_caches[7]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	p = kzalloc(256, GFP_KERNEL);
 	kfree(p);
 	p[50] = 0x9a;
 	pr_err("\n2. kmalloc-256: Clobber 50th byte 0x9a->0x%p\n\n", p);
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][8]);
+=======
+	validate_slab_cache(kmalloc_caches[8]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	p = kzalloc(512, GFP_KERNEL);
 	kfree(p);
 	p[512] = 0xab;
 	pr_err("\n3. kmalloc-512: Clobber redzone 0xab->0x%p\n\n", p);
+<<<<<<< HEAD
 	validate_slab_cache(kmalloc_caches[type][9]);
+=======
+	validate_slab_cache(kmalloc_caches[9]);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 #else
 #ifdef CONFIG_SYSFS
@@ -5249,7 +5542,10 @@ static ssize_t order_store(struct kmem_cache *s,
 		return -EINVAL;
 
 	calculate_sizes(s, order);
+<<<<<<< HEAD
 	reinit_cache_random_seq(s);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return length;
 }
 
@@ -5487,7 +5783,10 @@ static ssize_t red_zone_store(struct kmem_cache *s,
 		s->flags |= SLAB_RED_ZONE;
 	}
 	calculate_sizes(s, -1);
+<<<<<<< HEAD
 	reinit_cache_random_seq(s);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return length;
 }
 SLAB_ATTR(red_zone);
@@ -5508,7 +5807,10 @@ static ssize_t poison_store(struct kmem_cache *s,
 		s->flags |= SLAB_POISON;
 	}
 	calculate_sizes(s, -1);
+<<<<<<< HEAD
 	reinit_cache_random_seq(s);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return length;
 }
 SLAB_ATTR(poison);
@@ -5530,7 +5832,10 @@ static ssize_t store_user_store(struct kmem_cache *s,
 		s->flags |= SLAB_STORE_USER;
 	}
 	calculate_sizes(s, -1);
+<<<<<<< HEAD
 	reinit_cache_random_seq(s);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return length;
 }
 SLAB_ATTR(store_user);

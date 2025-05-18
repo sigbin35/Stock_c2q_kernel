@@ -279,11 +279,15 @@ int __scsi_execute(struct scsi_device *sdev, const unsigned char *cmd,
 	rq->cmd_len = COMMAND_SIZE(cmd[0]);
 	memcpy(rq->cmd, cmd, rq->cmd_len);
 	rq->retries = retries;
+<<<<<<< HEAD
 	if (likely(!sdev->timeout_override))
 		req->timeout = timeout;
 	else
 		req->timeout = sdev->timeout_override;
 
+=======
+	req->timeout = timeout;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	req->cmd_flags |= flags;
 	req->rq_flags |= rq_flags | RQF_QUIET;
 
@@ -1517,6 +1521,7 @@ static void scsi_unprep_fn(struct request_queue *q, struct request *req)
 	scsi_uninit_cmd(blk_mq_rq_to_pdu(req));
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_TURBO_WRITE
 static void scsi_tw_try_on_fn(struct request_queue *q)
 {
@@ -1559,6 +1564,8 @@ void scsi_alloc_tw(struct scsi_device *sdev)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * scsi_dev_queue_ready: if we can send requests to sdev, return 1 else
  * return 0.
@@ -2514,6 +2521,7 @@ void scsi_unblock_requests(struct Scsi_Host *shost)
 }
 EXPORT_SYMBOL(scsi_unblock_requests);
 
+<<<<<<< HEAD
 /*
  * Function:    scsi_set_cmd_timeout_override()
  *
@@ -2541,6 +2549,8 @@ void scsi_set_cmd_timeout_override(struct scsi_device *sdev,
 }
 EXPORT_SYMBOL(scsi_set_cmd_timeout_override);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int __init scsi_init_queue(void)
 {
 	scsi_sdb_cache = kmem_cache_create("scsi_data_buffer",

@@ -1070,12 +1070,19 @@ static int mlx5_ib_query_device(struct ib_device *ibdev,
 		if (MLX5_CAP_ETH(mdev, tunnel_stateless_gre))
 			resp.tunnel_offloads_caps |=
 				MLX5_IB_TUNNELED_OFFLOADS_GRE;
+<<<<<<< HEAD
 		if (MLX5_CAP_GEN(mdev, flex_parser_protocols) &
 		    MLX5_FLEX_PROTO_CW_MPLS_GRE)
 			resp.tunnel_offloads_caps |=
 				MLX5_IB_TUNNELED_OFFLOADS_MPLS_GRE;
 		if (MLX5_CAP_GEN(mdev, flex_parser_protocols) &
 		    MLX5_FLEX_PROTO_CW_MPLS_UDP)
+=======
+		if (MLX5_CAP_ETH(mdev, tunnel_stateless_mpls_over_gre))
+			resp.tunnel_offloads_caps |=
+				MLX5_IB_TUNNELED_OFFLOADS_MPLS_GRE;
+		if (MLX5_CAP_ETH(mdev, tunnel_stateless_mpls_over_udp))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			resp.tunnel_offloads_caps |=
 				MLX5_IB_TUNNELED_OFFLOADS_MPLS_UDP;
 	}

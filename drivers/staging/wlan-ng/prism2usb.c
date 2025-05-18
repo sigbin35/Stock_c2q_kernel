@@ -180,6 +180,10 @@ static void prism2sta_disconnect_usb(struct usb_interface *interface)
 
 		cancel_work_sync(&hw->link_bh);
 		cancel_work_sync(&hw->commsqual_bh);
+<<<<<<< HEAD
+=======
+		cancel_work_sync(&hw->usb_work);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		/* Now we complete any outstanding commands
 		 * and tell everyone who is waiting for their

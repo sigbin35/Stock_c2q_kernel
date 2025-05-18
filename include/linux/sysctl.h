@@ -63,6 +63,7 @@ extern int proc_doulongvec_ms_jiffies_minmax(struct ctl_table *table, int,
 				      void __user *, size_t *, loff_t *);
 extern int proc_do_large_bitmap(struct ctl_table *, int,
 				void __user *, size_t *, loff_t *);
+<<<<<<< HEAD
 extern int proc_douintvec_capacity(struct ctl_table *table, int write,
 				   void __user *buffer, size_t *lenp,
 				   loff_t *ppos);
@@ -70,6 +71,8 @@ extern int proc_douintvec_capacity(struct ctl_table *table, int write,
 extern int proc_douintvec_ravg_window(struct ctl_table *table, int write,
 				      void __user *buffer, size_t *lenp,
 				      loff_t *ppos);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Register a set of sysctl names by calling register_sysctl_table

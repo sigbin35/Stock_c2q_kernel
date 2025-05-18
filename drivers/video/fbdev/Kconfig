@@ -2222,6 +2222,7 @@ config FB_PRE_INIT_FB
 	  Select this option if display contents should be inherited as set by
 	  the bootloader.
 
+<<<<<<< HEAD
 config FB_MSM
 	tristate "MSM Framebuffer support"
 	depends on FB && ARCH_QCOM
@@ -2235,6 +2236,8 @@ config FB_MSM
 	 a way for users to display graphics
 	 on connected display panels.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config FB_MX3
 	tristate "MX3 Framebuffer support"
 	depends on FB && MX3_IPU
@@ -2352,4 +2355,7 @@ config FB_SM712
 source "drivers/video/fbdev/omap/Kconfig"
 source "drivers/video/fbdev/omap2/Kconfig"
 source "drivers/video/fbdev/mmp/Kconfig"
+<<<<<<< HEAD
 source "drivers/video/fbdev/msm/Kconfig"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

@@ -35,11 +35,19 @@
 #include <trace/events/tcp.h>
 #include <trace/events/fib.h>
 #include <trace/events/qdisc.h>
+<<<<<<< HEAD
+=======
+#if IS_ENABLED(CONFIG_BRIDGE)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <trace/events/bridge.h>
 EXPORT_TRACEPOINT_SYMBOL_GPL(br_fdb_add);
 EXPORT_TRACEPOINT_SYMBOL_GPL(br_fdb_external_learn_add);
 EXPORT_TRACEPOINT_SYMBOL_GPL(fdb_delete);
 EXPORT_TRACEPOINT_SYMBOL_GPL(br_fdb_update);
+<<<<<<< HEAD
+=======
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 EXPORT_TRACEPOINT_SYMBOL_GPL(kfree_skb);
 

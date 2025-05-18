@@ -1729,7 +1729,12 @@ netdev_tx_t ieee80211_subif_start_xmit(struct sk_buff *skb,
 				       struct net_device *dev);
 void __ieee80211_subif_start_xmit(struct sk_buff *skb,
 				  struct net_device *dev,
+<<<<<<< HEAD
 				  u32 info_flags);
+=======
+				  u32 info_flags,
+				  u32 ctrl_flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void ieee80211_purge_tx_queue(struct ieee80211_hw *hw,
 			      struct sk_buff_head *skbs);
 struct sk_buff *

@@ -70,8 +70,12 @@
 	};
 
 	pmu {
+<<<<<<< HEAD
 		compatible = "arm,cortex-a53-pmu",
 			     "arm,armv8-pmuv3";
+=======
+		compatible = "arm,cortex-a53-pmu";
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
 			     <GIC_SPI 141 IRQ_TYPE_LEVEL_HIGH>,
 			     <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>,

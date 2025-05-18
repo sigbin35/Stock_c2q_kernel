@@ -295,7 +295,10 @@ void irq_domain_update_bus_token(struct irq_domain *domain,
 
 	mutex_unlock(&irq_domain_mutex);
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(irq_domain_update_bus_token);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * irq_domain_add_simple() - Register an irq_domain and optionally map a range of irqs
@@ -1243,7 +1246,10 @@ void irq_domain_free_irqs_top(struct irq_domain *domain, unsigned int virq,
 	}
 	irq_domain_free_irqs_common(domain, virq, nr_irqs);
 }
+<<<<<<< HEAD
 EXPORT_SYMBOL_GPL(irq_domain_free_irqs_top);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static void irq_domain_free_irqs_hierarchy(struct irq_domain *domain,
 					   unsigned int irq_base,
@@ -1257,6 +1263,14 @@ int irq_domain_alloc_irqs_hierarchy(struct irq_domain *domain,
 				    unsigned int irq_base,
 				    unsigned int nr_irqs, void *arg)
 {
+<<<<<<< HEAD
+=======
+	if (!domain->ops->alloc) {
+		pr_debug("domain->ops->alloc() is NULL\n");
+		return -ENOSYS;
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return domain->ops->alloc(domain, irq_base, nr_irqs, arg);
 }
 
@@ -1294,11 +1308,14 @@ int __irq_domain_alloc_irqs(struct irq_domain *domain, int irq_base,
 			return -EINVAL;
 	}
 
+<<<<<<< HEAD
 	if (!domain->ops->alloc) {
 		pr_debug("domain->ops->alloc() is NULL\n");
 		return -ENOSYS;
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (realloc && irq_base >= 0) {
 		virq = irq_base;
 	} else {

@@ -491,6 +491,7 @@ struct inode *proc_get_inode(struct super_block *sb, struct proc_dir_entry *de)
 	return inode;
 }
 
+<<<<<<< HEAD
 int proc_fill_super(struct super_block *s)
 {
 	struct inode *root_inode;
@@ -498,6 +499,19 @@ int proc_fill_super(struct super_block *s)
 
 	/* User space would break if executables or devices appear on proc */
 	s->s_iflags |= SB_I_USERNS_VISIBLE | SB_I_NODEV;
+=======
+int proc_fill_super(struct super_block *s, void *data, int silent)
+{
+	struct pid_namespace *ns = get_pid_ns(s->s_fs_info);
+	struct inode *root_inode;
+	int ret;
+
+	if (!proc_parse_options(data, ns))
+		return -EINVAL;
+
+	/* User space would break if executables or devices appear on proc */
+	s->s_iflags |= SB_I_USERNS_VISIBLE | SB_I_NOEXEC | SB_I_NODEV;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	s->s_flags |= SB_NODIRATIME | SB_NOSUID | SB_NOEXEC;
 	s->s_blocksize = 1024;
 	s->s_blocksize_bits = 10;
@@ -512,9 +526,12 @@ int proc_fill_super(struct super_block *s)
 	 */
 	s->s_stack_depth = FILESYSTEM_MAX_STACK_DEPTH;
 	
+<<<<<<< HEAD
 	/* procfs dentries and inodes don't require IO to create */
 	s->s_shrink.seeks = 0;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	pde_get(&proc_root);
 	root_inode = proc_get_inode(s, &proc_root);
 	if (!root_inode) {

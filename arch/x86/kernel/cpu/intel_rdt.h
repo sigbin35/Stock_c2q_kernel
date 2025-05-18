@@ -567,5 +567,9 @@ void cqm_setup_limbo_handler(struct rdt_domain *dom, unsigned long delay_ms);
 void cqm_handle_limbo(struct work_struct *work);
 bool has_busy_rmid(struct rdt_resource *r, struct rdt_domain *d);
 void __check_limbo(struct rdt_domain *d, bool force_free);
+<<<<<<< HEAD
+=======
+void rdt_domain_reconfigure_cdp(struct rdt_resource *r);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif /* _ASM_X86_INTEL_RDT_H */

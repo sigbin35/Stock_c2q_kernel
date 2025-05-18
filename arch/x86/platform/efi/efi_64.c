@@ -833,7 +833,11 @@ efi_thunk_set_variable(efi_char16_t *name, efi_guid_t *vendor,
 	phys_vendor = virt_to_phys_or_null(vnd);
 	phys_data = virt_to_phys_or_null_size(data, data_size);
 
+<<<<<<< HEAD
 	if (!phys_name || !phys_data)
+=======
+	if (!phys_name || (data && !phys_data))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		status = EFI_INVALID_PARAMETER;
 	else
 		status = efi_thunk(set_variable, phys_name, phys_vendor,
@@ -864,7 +868,11 @@ efi_thunk_set_variable_nonblocking(efi_char16_t *name, efi_guid_t *vendor,
 	phys_vendor = virt_to_phys_or_null(vnd);
 	phys_data = virt_to_phys_or_null_size(data, data_size);
 
+<<<<<<< HEAD
 	if (!phys_name || !phys_data)
+=======
+	if (!phys_name || (data && !phys_data))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		status = EFI_INVALID_PARAMETER;
 	else
 		status = efi_thunk(set_variable, phys_name, phys_vendor,

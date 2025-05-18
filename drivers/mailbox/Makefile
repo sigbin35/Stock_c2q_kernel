@@ -44,5 +44,8 @@ obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
 obj-$(CONFIG_STM32_IPCC) 	+= stm32-ipcc.o
 
 obj-$(CONFIG_MTK_CMDQ_MBOX)	+= mtk-cmdq-mailbox.o
+<<<<<<< HEAD
 
 obj-$(CONFIG_MSM_QMP)   += msm_qmp.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

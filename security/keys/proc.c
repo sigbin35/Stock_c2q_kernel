@@ -144,6 +144,11 @@ static void *proc_keys_next(struct seq_file *p, void *v, loff_t *_pos)
 	n = key_serial_next(p, v);
 	if (n)
 		*_pos = key_node_serial(n);
+<<<<<<< HEAD
+=======
+	else
+		(*_pos)++;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return n;
 }
 

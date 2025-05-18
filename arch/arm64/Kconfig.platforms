@@ -143,6 +143,7 @@ config ARCH_QCOM
 	bool "Qualcomm Platforms"
 	select GPIOLIB
 	select PINCTRL
+<<<<<<< HEAD
 	select SOC_BUS
 	select MFD_CORE
 	select SND_SOC_COMPRESS
@@ -200,6 +201,11 @@ config ARCH_SDM660
 	  This enables support for the SDM660 chipset. If you do not
 	  wish to build a kernel that runs on this chipset, say 'N' here.
 
+=======
+	help
+	  This enables support for the ARMv8 based Qualcomm chipsets.
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config ARCH_REALTEK
 	bool "Realtek Platforms"
 	help

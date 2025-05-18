@@ -1,9 +1,19 @@
+<<<<<<< HEAD
 // SPDX-License-Identifier: GPL-2.0
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * fs/f2fs/node.h
  *
  * Copyright (c) 2012 Samsung Electronics Co., Ltd.
  *             http://www.samsung.com/
+<<<<<<< HEAD
+=======
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  */
 /* start node id of a node block dedicated to the given node id */
 #define	START_NID(nid) (((nid) / NAT_ENTRY_PER_BLOCK) * NAT_ENTRY_PER_BLOCK)
@@ -123,13 +133,21 @@ static inline void raw_nat_from_node_info(struct f2fs_nat_entry *raw_ne,
 
 static inline bool excess_dirty_nats(struct f2fs_sb_info *sbi)
 {
+<<<<<<< HEAD
 	return NM_I(sbi)->nat_cnt[DIRTY_NAT] >= NM_I(sbi)->max_nid *
+=======
+	return NM_I(sbi)->dirty_nat_cnt >= NM_I(sbi)->max_nid *
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					NM_I(sbi)->dirty_nats_ratio / 100;
 }
 
 static inline bool excess_cached_nats(struct f2fs_sb_info *sbi)
 {
+<<<<<<< HEAD
 	return NM_I(sbi)->nat_cnt[TOTAL_NAT] >= DEF_NAT_CACHE_THRESHOLD;
+=======
+	return NM_I(sbi)->nat_cnt >= DEF_NAT_CACHE_THRESHOLD;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline bool excess_dirty_nodes(struct f2fs_sb_info *sbi)
@@ -361,7 +379,11 @@ static inline int set_nid(struct page *p, int off, nid_t nid, bool i)
 {
 	struct f2fs_node *rn = F2FS_NODE(p);
 
+<<<<<<< HEAD
 	f2fs_wait_on_page_writeback(p, NODE, true, true);
+=======
+	f2fs_wait_on_page_writeback(p, NODE, true);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (i)
 		rn->i.i_nid[off - NODE_DIR1_BLOCK] = cpu_to_le32(nid);

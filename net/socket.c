@@ -115,8 +115,11 @@ unsigned int sysctl_net_busy_poll __read_mostly;
 
 static ssize_t sock_read_iter(struct kiocb *iocb, struct iov_iter *to);
 static ssize_t sock_write_iter(struct kiocb *iocb, struct iov_iter *from);
+<<<<<<< HEAD
 static BLOCKING_NOTIFIER_HEAD(sockev_notifier_list);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int sock_mmap(struct file *file, struct vm_area_struct *vma);
 
 static int sock_close(struct inode *inode, struct file *file);
@@ -165,6 +168,7 @@ static DEFINE_SPINLOCK(net_family_lock);
 static const struct net_proto_family __rcu *net_families[NPROTO] __read_mostly;
 
 /*
+<<<<<<< HEAD
  * Socket Event framework helpers
  */
 static void sockev_notify(unsigned long event, struct socket *sk)
@@ -173,6 +177,8 @@ static void sockev_notify(unsigned long event, struct socket *sk)
 }
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Support routines.
  * Move socket addresses back and forth across the kernel/user
  * divide and look after the messy bits.
@@ -1357,9 +1363,12 @@ int __sys_socket(int family, int type, int protocol)
 	if (retval < 0)
 		return retval;
 
+<<<<<<< HEAD
 	if (retval == 0)
 		sockev_notify(SOCKEV_SOCKET, sock);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return sock_map_fd(sock, flags & (O_CLOEXEC | O_NONBLOCK));
 }
 
@@ -1496,8 +1505,11 @@ int __sys_bind(int fd, struct sockaddr __user *umyaddr, int addrlen)
 						      (struct sockaddr *)
 						      &address, addrlen);
 		}
+<<<<<<< HEAD
 		if (!err)
 			sockev_notify(SOCKEV_BIND, sock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		fput_light(sock->file, fput_needed);
 	}
 	return err;
@@ -1530,8 +1542,11 @@ int __sys_listen(int fd, int backlog)
 		if (!err)
 			err = sock->ops->listen(sock, backlog);
 
+<<<<<<< HEAD
 		if (!err)
 			sockev_notify(SOCKEV_LISTEN, sock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		fput_light(sock->file, fput_needed);
 	}
 	return err;
@@ -1624,8 +1639,12 @@ int __sys_accept4(int fd, struct sockaddr __user *upeer_sockaddr,
 
 	fd_install(newfd, newfile);
 	err = newfd;
+<<<<<<< HEAD
 	if (!err)
 		sockev_notify(SOCKEV_ACCEPT, sock);
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out_put:
 	fput_light(sock->file, fput_needed);
 out:
@@ -1680,8 +1699,11 @@ int __sys_connect(int fd, struct sockaddr __user *uservaddr, int addrlen)
 
 	err = sock->ops->connect(sock, (struct sockaddr *)&address, addrlen,
 				 sock->file->f_flags);
+<<<<<<< HEAD
 	if (!err)
 		sockev_notify(SOCKEV_CONNECT, sock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out_put:
 	fput_light(sock->file, fput_needed);
 out:
@@ -1980,7 +2002,10 @@ int __sys_shutdown(int fd, int how)
 
 	sock = sockfd_lookup_light(fd, &err, &fput_needed);
 	if (sock != NULL) {
+<<<<<<< HEAD
 		sockev_notify(SOCKEV_SHUTDOWN, sock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		err = security_socket_shutdown(sock, how);
 		if (!err)
 			err = sock->ops->shutdown(sock, how);
@@ -3464,6 +3489,7 @@ u32 kernel_sock_ip_overhead(struct sock *sk)
 	}
 }
 EXPORT_SYMBOL(kernel_sock_ip_overhead);
+<<<<<<< HEAD
 int sockev_register_notify(struct notifier_block *nb)
 {
 	return blocking_notifier_chain_register(&sockev_notifier_list, nb);
@@ -3475,3 +3501,5 @@ int sockev_unregister_notify(struct notifier_block *nb)
 	return blocking_notifier_chain_unregister(&sockev_notifier_list, nb);
 }
 EXPORT_SYMBOL(sockev_unregister_notify);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

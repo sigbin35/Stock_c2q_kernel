@@ -87,9 +87,12 @@ struct regmap {
 
 	struct list_head debugfs_off_cache;
 	struct mutex cache_lock;
+<<<<<<< HEAD
 
 	unsigned int dump_address;
 	unsigned int dump_count;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 
 	unsigned int max_register;

@@ -99,7 +99,11 @@ static int smp_spin_table_cpu_prepare(unsigned int cpu)
 	 * boot-loader's endianess before jumping. This is mandated by
 	 * the boot protocol.
 	 */
+<<<<<<< HEAD
 	writeq_relaxed(__pa_function(secondary_holding_pen), release_addr);
+=======
+	writeq_relaxed(__pa_symbol(secondary_holding_pen), release_addr);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	__flush_dcache_area((__force void *)release_addr,
 			    sizeof(*release_addr));
 

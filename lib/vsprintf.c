@@ -1371,7 +1371,11 @@ char *pointer_string(char *buf, char *end, const void *ptr,
 	return number(buf, end, (unsigned long int)ptr, spec);
 }
 
+<<<<<<< HEAD
 int kptr_restrict __read_mostly = 4;
+=======
+int kptr_restrict __read_mostly;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static noinline_for_stack
 char *restricted_pointer(char *buf, char *end, const void *ptr,
@@ -1708,12 +1712,32 @@ static int __init initialize_ptr_random(void)
 }
 early_initcall(initialize_ptr_random);
 
+<<<<<<< HEAD
 static inline int __ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
 {
 	unsigned long hashval;
 
 	if (static_branch_unlikely(&not_filled_random_ptr_key))
 		return -EAGAIN;
+=======
+/* Maps a pointer to a 32 bit unique identifier. */
+static char *ptr_to_id(char *buf, char *end, void *ptr, struct printf_spec spec)
+{
+	const char *str = sizeof(ptr) == 8 ? "(____ptrval____)" : "(ptrval)";
+	unsigned long hashval;
+
+	/* When debugging early boot use non-cryptographically secure hash. */
+	if (unlikely(debug_boot_weak_hash)) {
+		hashval = hash_long((unsigned long)ptr, 32);
+		return pointer_string(buf, end, (const void *)hashval, spec);
+	}
+
+	if (static_branch_unlikely(&not_filled_random_ptr_key)) {
+		spec.field_width = 2 * sizeof(ptr);
+		/* string length must be less than default_width */
+		return string(buf, end, str, spec);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_64BIT
 	hashval = (unsigned long)siphash_1u64((u64)ptr, &ptr_key);
@@ -1725,6 +1749,7 @@ static inline int __ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
 #else
 	hashval = (unsigned long)siphash_1u32((u32)ptr, &ptr_key);
 #endif
+<<<<<<< HEAD
 	*hashval_out = hashval;
 	return 0;
 }
@@ -1754,6 +1779,8 @@ static char *ptr_to_id(char *buf, char *end, void *ptr, struct printf_spec spec)
 		return string(buf, end, str, spec);
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return pointer_string(buf, end, (const void *)hashval, spec);
 }
 
@@ -1958,8 +1985,12 @@ char *pointer(const char *fmt, char *buf, char *end, void *ptr,
 			return buf;
 		}
 	case 'K':
+<<<<<<< HEAD
 		if (!kptr_restrict ||
 		    IS_ENABLED(CONFIG_DEBUG_CONSOLE_UNHASHED_POINTERS))
+=======
+		if (!kptr_restrict)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			break;
 		return restricted_pointer(buf, end, ptr, spec);
 	case 'N':
@@ -1991,9 +2022,12 @@ char *pointer(const char *fmt, char *buf, char *end, void *ptr,
 		return pointer_string(buf, end, ptr, spec);
 	}
 
+<<<<<<< HEAD
 	if (IS_ENABLED(CONFIG_DEBUG_CONSOLE_UNHASHED_POINTERS))
 		return pointer_string(buf, end, ptr, spec);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* default is to _not_ leak addresses, hash before printing */
 	return ptr_to_id(buf, end, ptr, spec);
 }

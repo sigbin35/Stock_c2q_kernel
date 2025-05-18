@@ -1087,6 +1087,7 @@ void __cfg80211_disconnected(struct net_device *dev, const u8 *ie,
 	 * Delete all the keys ... pairwise keys can't really
 	 * exist any more anyway, but default keys might.
 	 */
+<<<<<<< HEAD
 	if (rdev->ops->del_key) {
 		int max_key_idx = 5;
 
@@ -1097,6 +1098,11 @@ void __cfg80211_disconnected(struct net_device *dev, const u8 *ie,
 		for (i = 0; i <= max_key_idx; i++)
 			rdev_del_key(rdev, dev, i, false, NULL);
 	}
+=======
+	if (rdev->ops->del_key)
+		for (i = 0; i < 6; i++)
+			rdev_del_key(rdev, dev, i, false, NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	rdev_set_qos_map(rdev, dev, NULL);
 

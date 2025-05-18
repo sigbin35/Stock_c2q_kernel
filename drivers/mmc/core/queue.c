@@ -10,7 +10,10 @@
 #include <linux/slab.h>
 #include <linux/module.h>
 #include <linux/blkdev.h>
+<<<<<<< HEAD
 #include <linux/backing-dev.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/freezer.h>
 #include <linux/kthread.h>
 #include <linux/scatterlist.h>
@@ -104,14 +107,18 @@ static enum blk_eh_timer_return mmc_cqe_timed_out(struct request *req)
 	enum mmc_issue_type issue_type = mmc_issue_type(mq, req);
 	bool recovery_needed = false;
 
+<<<<<<< HEAD
 	mmc_log_string(host,
 			"Request timed out! Active reqs: %d Req: %p Tag: %d\n",
 			mmc_cqe_qcnt(mq), req, req->tag);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	switch (issue_type) {
 	case MMC_ISSUE_ASYNC:
 	case MMC_ISSUE_DCMD:
 		if (host->cqe_ops->cqe_timeout(host, mrq, &recovery_needed)) {
 			if (recovery_needed)
+<<<<<<< HEAD
 				mmc_cqe_recovery_notifier(mrq);
 			return BLK_EH_RESET_TIMER;
 		}
@@ -123,6 +130,13 @@ static enum blk_eh_timer_return mmc_cqe_timed_out(struct request *req)
 				"Timeout even before req reaching LDD,completing the req. Active reqs: %d Req: %p Tag: %d\n",
 				mmc_cqe_qcnt(mq), req, req->tag);
 		/* The request has gone already */
+=======
+				__mmc_cqe_recovery_notifier(mq);
+			return BLK_EH_RESET_TIMER;
+		}
+		/* No timeout (XXX: huh? comment doesn't make much sense) */
+		blk_mq_complete_request(req);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return BLK_EH_DONE;
 	default:
 		/* Timeout is handled by mmc core */
@@ -140,6 +154,7 @@ static enum blk_eh_timer_return mmc_mq_timed_out(struct request *req,
 
 	spin_lock_irqsave(q->queue_lock, flags);
 
+<<<<<<< HEAD
 	if (mq->recovery_needed || !mq->use_cqe) {
 		ret = BLK_EH_RESET_TIMER;
 		spin_unlock_irqrestore(q->queue_lock, flags);
@@ -147,6 +162,14 @@ static enum blk_eh_timer_return mmc_mq_timed_out(struct request *req,
 		spin_unlock_irqrestore(q->queue_lock, flags);
 		ret = mmc_cqe_timed_out(req);
 	}
+=======
+	if (mq->recovery_needed || !mq->use_cqe)
+		ret = BLK_EH_RESET_TIMER;
+	else
+		ret = mmc_cqe_timed_out(req);
+
+	spin_unlock_irqrestore(q->queue_lock, flags);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return ret;
 }
@@ -217,11 +240,16 @@ static int __mmc_init_request(struct mmc_queue *mq, struct request *req,
 			      gfp_t gfp)
 {
 	struct mmc_queue_req *mq_rq = req_to_mmc_queue_req(req);
+<<<<<<< HEAD
 	struct mmc_host *host;
 
 	if (!mq)
 		return -ENODEV;
 	host = mq->card->host;
+=======
+	struct mmc_card *card = mq->card;
+	struct mmc_host *host = card->host;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	mq_rq->sg = mmc_alloc_sg(host->max_segs, gfp);
 	if (!mq_rq->sg)
@@ -305,7 +333,10 @@ static blk_status_t mmc_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
 	mq->busy = true;
 
 	mq->in_flight[issue_type] += 1;
+<<<<<<< HEAD
 	atomic_inc(&host->active_reqs);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	get_card = (mmc_tot_in_flight(mq) == 1);
 	cqe_retune_ok = (mmc_cqe_qcnt(mq) == 1);
 
@@ -345,7 +376,10 @@ static blk_status_t mmc_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
 
 		spin_lock_irq(q->queue_lock);
 		mq->in_flight[issue_type] -= 1;
+<<<<<<< HEAD
 		atomic_dec(&host->active_reqs);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (mmc_tot_in_flight(mq) == 0)
 			put_card = true;
 		mq->busy = false;
@@ -386,9 +420,12 @@ static void mmc_setup_queue(struct mmc_queue *mq, struct mmc_card *card)
 		min(host->max_blk_count, host->max_req_size / 512));
 	blk_queue_max_segments(mq->queue, host->max_segs);
 
+<<<<<<< HEAD
 	if (host->ops->init)
 		host->ops->init(host);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (mmc_card_mmc(card))
 		block_size = card->ext_csd.data_sector_size;
 
@@ -399,6 +436,7 @@ static void mmc_setup_queue(struct mmc_queue *mq, struct mmc_card *card)
 	INIT_WORK(&mq->recovery_work, mmc_mq_recovery_handler);
 	INIT_WORK(&mq->complete_work, mmc_blk_mq_complete_work);
 
+<<<<<<< HEAD
 	if (mmc_card_sd(card)) {
 		/* decrease max # of requests to 32. The goal of this tuning is
 		 * reducing the time for draining elevator when elevator_switch
@@ -427,6 +465,11 @@ static void mmc_setup_queue(struct mmc_queue *mq, struct mmc_card *card)
 
 	if (host->cqe_ops && host->cqe_ops->cqe_crypto_update_queue)
 		host->cqe_ops->cqe_crypto_update_queue(host, mq->queue);
+=======
+	mutex_init(&mq->complete_lock);
+
+	init_waitqueue_head(&mq->wait);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int mmc_mq_init_queue(struct mmc_queue *mq, int q_depth,
@@ -537,12 +580,15 @@ void mmc_cleanup_queue(struct mmc_queue *mq)
 {
 	struct request_queue *q = mq->queue;
 
+<<<<<<< HEAD
 #ifdef CONFIG_LARGE_DIRTY_BUFFER
 	/* Restore bdi min/max ratio before device removal */
 	bdi_set_min_ratio(q->backing_dev_info, 0);
 	bdi_set_max_ratio(q->backing_dev_info, 100);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * The legacy code handled the possibility of being suspended,
 	 * so do that here too.
@@ -550,8 +596,12 @@ void mmc_cleanup_queue(struct mmc_queue *mq)
 	if (blk_queue_quiesced(q))
 		blk_mq_unquiesce_queue(q);
 
+<<<<<<< HEAD
 	if (likely(!blk_queue_dead(q)))
 		blk_cleanup_queue(q);
+=======
+	blk_cleanup_queue(q);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	blk_mq_free_tag_set(&mq->tag_set);
 
 	/*

@@ -1450,6 +1450,7 @@ static void __init map_lowmem(void)
 	struct memblock_region *reg;
 	phys_addr_t kernel_x_start = round_down(__pa(KERNEL_START), SECTION_SIZE);
 	phys_addr_t kernel_x_end = round_up(__pa(__init_end), SECTION_SIZE);
+<<<<<<< HEAD
 	struct static_vm *svm;
 	phys_addr_t start;
 	phys_addr_t end;
@@ -1465,6 +1466,14 @@ static void __init map_lowmem(void)
 		start = reg->base;
 		end = start + reg->size;
 		nr++;
+=======
+
+	/* Map all the lowmem memory banks. */
+	for_each_memblock(memory, reg) {
+		phys_addr_t start = reg->base;
+		phys_addr_t end = start + reg->size;
+		struct map_desc map;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		if (memblock_is_nomap(reg))
 			continue;
@@ -1516,6 +1525,7 @@ static void __init map_lowmem(void)
 			}
 		}
 	}
+<<<<<<< HEAD
 	svm = early_alloc_aligned(sizeof(*svm) * nr, __alignof__(*svm));
 
 	for_each_memblock(memory, reg) {
@@ -1544,6 +1554,8 @@ static void __init map_lowmem(void)
 		add_static_vm_early(svm++);
 		mark_vmalloc_reserved_area(vm->addr, vm->size);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 #ifdef CONFIG_ARM_PV_FIXUP
@@ -1642,6 +1654,7 @@ static void __init early_paging_init(const struct machine_desc *mdesc)
 
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_FORCE_PAGES
 /*
  * remap a PMD into pages
@@ -1755,6 +1768,8 @@ static void __init remap_pages(void)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void __init early_fixmap_shutdown(void)
 {
 	int i;
@@ -1797,7 +1812,10 @@ void __init paging_init(const struct machine_desc *mdesc)
 	memblock_set_current_limit(arm_lowmem_limit);
 	dma_contiguous_remap();
 	early_fixmap_shutdown();
+<<<<<<< HEAD
 	remap_pages();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	devicemaps_init(mdesc);
 	kmap_init();
 	tcm_init();

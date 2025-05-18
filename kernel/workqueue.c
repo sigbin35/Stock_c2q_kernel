@@ -49,6 +49,7 @@
 #include <linux/uaccess.h>
 #include <linux/sched/isolation.h>
 #include <linux/nmi.h>
+<<<<<<< HEAD
 #include <linux/bug.h>
 #include <linux/delay.h>
 
@@ -56,6 +57,11 @@
 
 #include <linux/sec_debug.h>
 
+=======
+
+#include "workqueue_internal.h"
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 enum {
 	/*
 	 * worker_pool flags
@@ -914,6 +920,7 @@ struct task_struct *wq_worker_sleeping(struct task_struct *task)
 }
 
 /**
+<<<<<<< HEAD
  * wq_worker_last_func - retrieve worker's last work function
  *
  * Determine the last function a worker executed. This is called from
@@ -944,6 +951,8 @@ work_func_t wq_worker_last_func(struct task_struct *task)
 }
 
 /**
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * worker_set_flags - set worker flags and adjust nr_running accordingly
  * @worker: self
  * @flags: flags to set
@@ -1308,12 +1317,15 @@ fail:
 	if (work_is_canceling(work))
 		return -ENOENT;
 	cpu_relax();
+<<<<<<< HEAD
 	/*
 	 * The queueing is in progress in another context. If we keep
 	 * taking the pool->lock in a busy loop, the other context may
 	 * never get the lock. Give 1 usec delay to avoid this contention.
 	 */
 	udelay(1);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return -EAGAIN;
 }
 
@@ -1550,9 +1562,13 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
 	struct work_struct *work = &dwork->work;
 
 	WARN_ON_ONCE(!wq);
+<<<<<<< HEAD
 #ifndef CONFIG_CFI
 	WARN_ON_ONCE(timer->function != delayed_work_timer_fn);
 #endif
+=======
+	WARN_ON_ONCE(timer->function != delayed_work_timer_fn);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	WARN_ON_ONCE(timer_pending(timer));
 	WARN_ON_ONCE(!list_empty(&work->entry));
 
@@ -2194,9 +2210,12 @@ __acquires(&pool->lock)
 	 */
 	lockdep_invariant_state(true);
 	trace_workqueue_execute_start(work);
+<<<<<<< HEAD
 
 	sec_debug_sched_msg(NULL, worker->current_func);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	worker->current_func(work);
 	/*
 	 * While we must be careful to not use "work" after this, the trace
@@ -2231,9 +2250,12 @@ __acquires(&pool->lock)
 	if (unlikely(cpu_intensive))
 		worker_clr_flags(worker, WORKER_CPU_INTENSIVE);
 
+<<<<<<< HEAD
 	/* tag the worker for identification in schedule() */
 	worker->last_func = worker->current_func;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* we're done with it, release */
 	hash_del(&worker->hentry);
 	worker->current_work = NULL;

@@ -718,14 +718,22 @@ static const struct dmi_system_id axp288_fuel_gauge_blacklist[] = {
 	{
 		/* Intel Cherry Trail Compute Stick, Windows version */
 		.matches = {
+<<<<<<< HEAD
 			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
+=======
+			DMI_MATCH(DMI_SYS_VENDOR, "Intel"),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			DMI_MATCH(DMI_PRODUCT_NAME, "STK1AW32SC"),
 		},
 	},
 	{
 		/* Intel Cherry Trail Compute Stick, version without an OS */
 		.matches = {
+<<<<<<< HEAD
 			DMI_MATCH(DMI_SYS_VENDOR, "Intel Corporation"),
+=======
+			DMI_MATCH(DMI_SYS_VENDOR, "Intel"),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			DMI_MATCH(DMI_PRODUCT_NAME, "STK1A32SC"),
 		},
 	},

@@ -52,10 +52,13 @@ static int ip_ping_group_range_max[] = { GID_T_MAX, GID_T_MAX };
 static int comp_sack_nr_max = 255;
 static u32 u32_max_div_HZ = UINT_MAX / HZ;
 static int one_day_secs = 24 * 3600;
+<<<<<<< HEAD
 static int tcp_delack_seg_min = TCP_DELACK_MIN;
 static int tcp_delack_seg_max = 60;
 static int tcp_use_userconfig_min;
 static int tcp_use_userconfig_max = 1;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* obsolete */
 static int sysctl_tcp_low_latency __read_mostly;
@@ -556,6 +559,7 @@ static struct ctl_table ipv4_table[] = {
 		.mode		= 0644,
 		.proc_handler	= proc_doulongvec_minmax,
 	},
+<<<<<<< HEAD
 	{
 		.procname	= "tcp_delack_seg",
 		.data		= &sysctl_tcp_delack_seg,
@@ -575,6 +579,8 @@ static struct ctl_table ipv4_table[] = {
 		.extra2		= &tcp_use_userconfig_max,
 	},
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	{ }
 };
 
@@ -694,6 +700,7 @@ static struct ctl_table ipv4_net_table[] = {
 		.proc_handler	= proc_do_large_bitmap,
 	},
 	{
+<<<<<<< HEAD
 		.procname       = "reserved_port_bind",
 		.data           = &sysctl_reserved_port_bind,
 		.maxlen         = sizeof(int),
@@ -701,6 +708,8 @@ static struct ctl_table ipv4_net_table[] = {
 		.proc_handler   = proc_dointvec
 	},
 	{
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		.procname	= "ip_no_pmtu_disc",
 		.data		= &init_net.ipv4.sysctl_ip_no_pmtu_disc,
 		.maxlen		= sizeof(int),

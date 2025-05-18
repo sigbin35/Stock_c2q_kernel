@@ -221,7 +221,11 @@ alternative_endif
 
 .macro user_alt, label, oldinstr, newinstr, cond
 9999:	alternative_insn "\oldinstr", "\newinstr", \cond
+<<<<<<< HEAD
 	_ASM_EXTABLE 9999b, \label
+=======
+	_asm_extable 9999b, \label
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 .endm
 
 /*

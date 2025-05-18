@@ -649,6 +649,7 @@ void usb_release_quirk_list(void)
 	quirk_list = NULL;
 	mutex_unlock(&quirk_mutex);
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_USB_INTERFACE_LPM_LIST
 static const struct usb_device_id usb_interface_list_lpm[] = {
@@ -678,3 +679,5 @@ int usb_detect_interface_lpm(struct usb_device *udev)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

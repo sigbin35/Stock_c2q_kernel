@@ -85,6 +85,7 @@
 			   ARM_SMCCC_SMC_32,				\
 			   0, 0x7fff)
 
+<<<<<<< HEAD
 #define ARM_SMCCC_ARCH_WORKAROUND_3					\
 	ARM_SMCCC_CALL_VAL(ARM_SMCCC_FAST_CALL,				\
 			   ARM_SMCCC_SMC_32,				\
@@ -92,6 +93,8 @@
 
 #define SMCCC_ARCH_WORKAROUND_RET_UNAFFECTED	1
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifndef __ASSEMBLY__
 
 #include <linux/linkage.h>

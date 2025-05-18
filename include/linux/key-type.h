@@ -125,7 +125,11 @@ struct key_type {
 	 *   much is copied into the buffer
 	 * - shouldn't do the copy if the buffer is NULL
 	 */
+<<<<<<< HEAD
 	long (*read)(const struct key *key, char __user *buffer, size_t buflen);
+=======
+	long (*read)(const struct key *key, char *buffer, size_t buflen);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* handle request_key() for this type instead of invoking
 	 * /sbin/request-key (optional)

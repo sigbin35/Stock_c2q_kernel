@@ -94,7 +94,11 @@ enum afs_edit_dir_reason {
 	EM(afs_call_trace_free,			"FREE ") \
 	EM(afs_call_trace_put,			"PUT  ") \
 	EM(afs_call_trace_wake,			"WAKE ") \
+<<<<<<< HEAD
 	E_(afs_call_trace_work,			"WORK ")
+=======
+	E_(afs_call_trace_work,			"QUEUE")
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define afs_fs_operations \
 	EM(afs_FS_FetchData,			"FS.FetchData") \

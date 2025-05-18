@@ -25,8 +25,11 @@
 #include <linux/wait.h>
 #include <linux/pr.h>
 #include <linux/refcount.h>
+<<<<<<< HEAD
 #include <linux/blk-crypto.h>
 #include <linux/keyslot-manager.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define DM_MSG_PREFIX "core"
 
@@ -1317,10 +1320,16 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
 
 	__bio_clone_fast(clone, bio);
 
+<<<<<<< HEAD
 	bio_crypt_clone(clone, bio, GFP_NOIO);
 
 	if (unlikely(bio_integrity(bio) != NULL)) {
 		int r;
+=======
+	if (unlikely(bio_integrity(bio) != NULL)) {
+		int r;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
 			     !dm_target_passes_integrity(tio->ti->type))) {
 			DMWARN("%s: the target %s doesn't support integrity data.",
@@ -1826,8 +1835,11 @@ static void dm_init_normal_md_queue(struct mapped_device *md)
 	md->queue->backing_dev_info->congested_fn = dm_any_congested;
 }
 
+<<<<<<< HEAD
 static void dm_destroy_inline_encryption(struct request_queue *q);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void cleanup_mapped_device(struct mapped_device *md)
 {
 	if (md->wq)
@@ -1851,10 +1863,15 @@ static void cleanup_mapped_device(struct mapped_device *md)
 		put_disk(md->disk);
 	}
 
+<<<<<<< HEAD
 	if (md->queue) {
 		dm_destroy_inline_encryption(md->queue);
 		blk_cleanup_queue(md->queue);
 	}
+=======
+	if (md->queue)
+		blk_cleanup_queue(md->queue);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	cleanup_srcu_struct(&md->io_barrier);
 
@@ -2227,6 +2244,7 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
 }
 EXPORT_SYMBOL_GPL(dm_get_queue_limits);
 
+<<<<<<< HEAD
 #ifdef CONFIG_BLK_INLINE_ENCRYPTION
 struct dm_keyslot_evict_args {
 	const struct blk_crypto_key *key;
@@ -2387,6 +2405,8 @@ static inline void dm_destroy_inline_encryption(struct request_queue *q)
 }
 #endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Setup the DM device's queue based on md's type
  */
@@ -2430,6 +2450,7 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
 		DMERR("Cannot calculate initial queue limits");
 		return r;
 	}
+<<<<<<< HEAD
 
 	r = dm_init_inline_encryption(md);
 	if (r) {
@@ -2437,6 +2458,8 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
 		return r;
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	dm_table_set_restrictions(t, md->queue, &limits);
 	blk_register_queue(md->disk);
 

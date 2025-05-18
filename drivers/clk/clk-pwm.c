@@ -56,7 +56,11 @@ static const struct clk_ops clk_pwm_ops = {
 static int clk_pwm_probe(struct platform_device *pdev)
 {
 	struct device_node *node = pdev->dev.of_node;
+<<<<<<< HEAD
 	struct clk_init_data init = {};
+=======
+	struct clk_init_data init;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct clk_pwm *clk_pwm;
 	struct pwm_device *pwm;
 	struct pwm_args pargs;

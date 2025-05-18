@@ -710,7 +710,11 @@ static void edge_interrupt_callback(struct urb *urb)
 		/* grab the txcredits for the ports if available */
 		position = 2;
 		portNumber = 0;
+<<<<<<< HEAD
 		while ((position < length) &&
+=======
+		while ((position < length - 1) &&
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				(portNumber < edge_serial->serial->num_ports)) {
 			txCredits = data[position] | (data[position+1] << 8);
 			if (txCredits) {

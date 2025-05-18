@@ -7,7 +7,15 @@
 #endif
 
 #ifdef CONFIG_KASAN
+<<<<<<< HEAD
 #define KASAN_STACK_ORDER 1
+=======
+#ifdef CONFIG_KASAN_EXTRA
+#define KASAN_STACK_ORDER 2
+#else
+#define KASAN_STACK_ORDER 1
+#endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #else
 #define KASAN_STACK_ORDER 0
 #endif

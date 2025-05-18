@@ -208,7 +208,10 @@ static int dbg_check_name(const struct ubifs_info *c,
 	return 0;
 }
 
+<<<<<<< HEAD
 static void ubifs_set_d_ops(struct inode *dir, struct dentry *dentry);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
 				   unsigned int flags)
 {
@@ -221,10 +224,18 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
 
 	dbg_gen("'%pd' in dir ino %lu", dentry, dir->i_ino);
 
+<<<<<<< HEAD
 	err = fscrypt_prepare_lookup(dir, dentry, &nm);
 	ubifs_set_d_ops(dir, dentry);
 	if (err == -ENOENT)
 		return d_splice_alias(NULL, dentry);
+=======
+	err = fscrypt_prepare_lookup(dir, dentry, flags);
+	if (err)
+		return ERR_PTR(err);
+
+	err = fscrypt_setup_filename(dir, &dentry->d_name, 1, &nm);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (err)
 		return ERR_PTR(err);
 
@@ -239,7 +250,13 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
 		goto done;
 	}
 
+<<<<<<< HEAD
 	if (fname_name(&nm) == NULL) {
+=======
+	if (nm.hash) {
+		ubifs_assert(c, fname_len(&nm) == 0);
+		ubifs_assert(c, fname_name(&nm) == NULL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (nm.hash & ~UBIFS_S_KEY_HASH_MASK)
 			goto done; /* ENOENT */
 		dent_key_init_hash(c, &key, dir->i_ino, nm.hash);
@@ -526,7 +543,11 @@ static int ubifs_readdir(struct file *file, struct dir_context *ctx)
 
 	if (encrypted) {
 		err = fscrypt_get_encryption_info(dir);
+<<<<<<< HEAD
 		if (err)
+=======
+		if (err && err != -ENOKEY)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			return err;
 
 		err = fscrypt_fname_alloc_buffer(dir, UBIFS_MAX_NLEN, &fstr);
@@ -1670,6 +1691,7 @@ const struct file_operations ubifs_dir_operations = {
 	.compat_ioctl   = ubifs_compat_ioctl,
 #endif
 };
+<<<<<<< HEAD
 
 #ifdef CONFIG_FS_ENCRYPTION
 static const struct dentry_operations ubifs_encrypted_dentry_ops = {
@@ -1686,3 +1708,5 @@ static void ubifs_set_d_ops(struct inode *dir, struct dentry *dentry)
 	}
 #endif
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

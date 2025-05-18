@@ -556,12 +556,16 @@ static int corsair_probe(struct hid_device *dev, const struct hid_device_id *id)
 	int ret;
 	unsigned long quirks = id->driver_data;
 	struct corsair_drvdata *drvdata;
+<<<<<<< HEAD
 	struct usb_interface *usbif;
 
 	if (!hid_is_usb(dev))
 		return -EINVAL;
 
 	usbif = to_usb_interface(dev->dev.parent);
+=======
+	struct usb_interface *usbif = to_usb_interface(dev->dev.parent);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	drvdata = devm_kzalloc(&dev->dev, sizeof(struct corsair_drvdata),
 			       GFP_KERNEL);

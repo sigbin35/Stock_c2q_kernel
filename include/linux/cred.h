@@ -20,9 +20,12 @@
 #include <linux/uidgid.h>
 #include <linux/sched.h>
 #include <linux/sched/user.h>
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 #include <linux/kdp.h>
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct cred;
 struct inode;
@@ -93,6 +96,7 @@ static inline int groups_search(const struct group_info *group_info, kgid_t grp)
 }
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 struct ro_rcu_head {
 	/* RCU deletion */
@@ -120,6 +124,8 @@ original cred by below function.
 #define GET_REFLECTED_CRED(cred) 	((struct cred *)get_rocred_rcu(cred)->reflected_cred)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * The security context of a task
  *
@@ -185,6 +191,7 @@ struct cred {
 		int non_rcu;			/* Can we skip RCU deletion? */
 		struct rcu_head	rcu;		/* RCU deletion hook */
 	};
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	atomic_t *use_cnt;
 	struct task_struct *bp_task;
@@ -223,6 +230,10 @@ do {						\
 } while(0)
 #endif /*CONFIG_KDP_CRED*/
 
+=======
+} __randomize_layout;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void __put_cred(struct cred *);
 extern void exit_creds(struct task_struct *);
 extern int copy_creds(struct task_struct *, unsigned long);
@@ -233,10 +244,13 @@ extern struct cred *prepare_exec_creds(void);
 extern int commit_creds(struct cred *);
 extern void abort_creds(struct cred *);
 extern const struct cred *override_creds(const struct cred *);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 extern unsigned int rkp_get_task_sec_size(void);
 unsigned int rkp_get_offset_bp_cred(void);
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void revert_creds(const struct cred *);
 extern struct cred *prepare_kernel_cred(struct task_struct *);
 extern int change_create_files_as(struct cred *, struct inode *);
@@ -299,15 +313,21 @@ static inline bool cap_ambient_invariant_ok(const struct cred *cred)
  * Get a reference on the specified set of new credentials.  The caller must
  * release the reference.
  */
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 struct cred *get_new_cred(struct cred *cred);
 #else
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline struct cred *get_new_cred(struct cred *cred)
 {
 	atomic_inc(&cred->usage);
 	return cred;
 }
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * get_cred - Get a reference on a set of credentials
@@ -326,11 +346,14 @@ static inline const struct cred *get_cred(const struct cred *cred)
 {
 	struct cred *nonconst_cred = (struct cred *) cred;
 	validate_creds(cred);
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 	if (rkp_ro_page((unsigned long)nonconst_cred))
 		get_rocred_rcu(nonconst_cred)->non_rcu = 0;
 	else
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	nonconst_cred->non_rcu = 0;
 	return get_new_cred(nonconst_cred);
 }
@@ -346,9 +369,12 @@ static inline const struct cred *get_cred(const struct cred *cred)
  * on task_struct are attached by const pointers to prevent accidental
  * alteration of otherwise immutable credential sets.
  */
+<<<<<<< HEAD
 #ifdef CONFIG_KDP_CRED
 void put_cred(const struct cred *_cred);
 #else
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void put_cred(const struct cred *_cred)
 {
 	struct cred *cred = (struct cred *) _cred;
@@ -357,7 +383,10 @@ static inline void put_cred(const struct cred *_cred)
 	if (atomic_dec_and_test(&(cred)->usage))
 		__put_cred(cred);
 }
+<<<<<<< HEAD
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /**
  * current_cred - Access the current task's subjective credentials

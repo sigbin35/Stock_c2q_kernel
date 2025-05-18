@@ -52,7 +52,11 @@
 
 #define MSG_NOT_RESP                    0xFFFF
 
+<<<<<<< HEAD
 #define MGMT_MSG_TIMEOUT                1000
+=======
+#define MGMT_MSG_TIMEOUT                5000
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define mgmt_to_pfhwdev(pf_mgmt)        \
 		container_of(pf_mgmt, struct hinic_pfhwdev, pf_to_mgmt)
@@ -276,7 +280,12 @@ static int msg_to_mgmt_sync(struct hinic_pf_to_mgmt *pf_to_mgmt,
 		goto unlock_sync_msg;
 	}
 
+<<<<<<< HEAD
 	if (!wait_for_completion_timeout(recv_done, MGMT_MSG_TIMEOUT)) {
+=======
+	if (!wait_for_completion_timeout(recv_done,
+					 msecs_to_jiffies(MGMT_MSG_TIMEOUT))) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		dev_err(&pdev->dev, "MGMT timeout, MSG id = %d\n", msg_id);
 		err = -ETIMEDOUT;
 		goto unlock_sync_msg;

@@ -81,7 +81,10 @@ struct mtd_info *lpddr_cmdset(struct map_info *map)
 	shared = kmalloc_array(lpddr->numchips, sizeof(struct flchip_shared),
 						GFP_KERNEL);
 	if (!shared) {
+<<<<<<< HEAD
 		kfree(lpddr);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		kfree(mtd);
 		return NULL;
 	}

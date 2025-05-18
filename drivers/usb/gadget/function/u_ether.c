@@ -67,7 +67,10 @@ struct eth_dev {
 	unsigned		qmult;
 
 	unsigned		header_len;
+<<<<<<< HEAD
 	unsigned int		ul_max_pkts_per_xfer;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sk_buff		*(*wrap)(struct gether *, struct sk_buff *skb);
 	int			(*unwrap)(struct gether *,
 						struct sk_buff *skb,
@@ -214,14 +217,20 @@ rx_submit(struct eth_dev *dev, struct usb_request *req, gfp_t gfp_flags)
 		size -= size % out->maxpacket;
 	}
 
+<<<<<<< HEAD
 	if (dev->ul_max_pkts_per_xfer)
 		size *= dev->ul_max_pkts_per_xfer;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (dev->port_usb->is_fixed)
 		size = max_t(size_t, size, dev->port_usb->fixed_out_len);
 	spin_unlock_irqrestore(&dev->lock, flags);
 
+<<<<<<< HEAD
 	DBG(dev, "%s: size: %zd\n", __func__, size);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	skb = __netdev_alloc_skb(dev->net, size + NET_IP_ALIGN, gfp_flags);
 	if (skb == NULL) {
 		DBG(dev, "no rx skb\n");
@@ -290,6 +299,7 @@ static void rx_complete(struct usb_ep *ep, struct usb_request *req)
 			if (status < 0
 					|| ETH_HLEN > skb2->len
 					|| skb2->len > GETHER_MAX_ETH_FRAME_LEN) {
+<<<<<<< HEAD
 #ifdef CONFIG_USB_NCM_SUPPORT_MTU_CHANGE
 				/*
 			 	* Need to revisit net->mtu  does not include header size incase of changed MTU
@@ -320,6 +330,14 @@ static void rx_complete(struct usb_ep *ep, struct usb_request *req)
 #ifdef CONFIG_USB_NCM_SUPPORT_MTU_CHANGE
 process_frame:
 #endif
+=======
+				dev->net->stats.rx_errors++;
+				dev->net->stats.rx_length_errors++;
+				DBG(dev, "rx length %d\n", skb2->len);
+				dev_kfree_skb_any(skb2);
+				goto next_frame;
+			}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			skb2->protocol = eth_type_trans(skb2, dev->net);
 			dev->net->stats.rx_packets++;
 			dev->net->stats.rx_bytes += skb2->len;
@@ -576,6 +594,7 @@ static netdev_tx_t eth_start_xmit(struct sk_buff *skb,
 		if (dev->port_usb)
 			skb = dev->wrap(dev->port_usb, skb);
 		spin_unlock_irqrestore(&dev->lock, flags);
+<<<<<<< HEAD
 	}
 	if (!skb) {
 		/* Multi frame CDC protocols may store the frame for
@@ -585,6 +604,17 @@ static netdev_tx_t eth_start_xmit(struct sk_buff *skb,
 				dev->port_usb->supports_multi_frame)
 			goto multiframe;
 		goto drop;
+=======
+		if (!skb) {
+			/* Multi frame CDC protocols may store the frame for
+			 * later which is not a dropped frame.
+			 */
+			if (dev->port_usb &&
+					dev->port_usb->supports_multi_frame)
+				goto multiframe;
+			goto drop;
+		}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	length = skb->len;
@@ -613,11 +643,15 @@ static netdev_tx_t eth_start_xmit(struct sk_buff *skb,
 	retval = usb_ep_queue(in, req, GFP_ATOMIC);
 	switch (retval) {
 	default:
+<<<<<<< HEAD
 #ifndef CONFIG_USB_NCM_SUPPORT_MTU_CHANGE
 		DBG(dev, "tx queue err %d\n", retval);
 #else
 		INFO(dev, "usb:%s tx queue err %d\n", __func__, retval);
 #endif
+=======
+		DBG(dev, "tx queue err %d\n", retval);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		break;
 	case 0:
 		netif_trans_update(net);
@@ -955,7 +989,11 @@ int gether_get_dev_addr(struct net_device *net, char *dev_addr, int len)
 
 	dev = netdev_priv(net);
 	ret = get_ether_addr_str(dev->dev_mac, dev_addr, len);
+<<<<<<< HEAD
 	if (ret + 1 < len && ret > 0) {
+=======
+	if (ret + 1 < len) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		dev_addr[ret++] = '\n';
 		dev_addr[ret] = '\0';
 	}
@@ -984,7 +1022,11 @@ int gether_get_host_addr(struct net_device *net, char *host_addr, int len)
 
 	dev = netdev_priv(net);
 	ret = get_ether_addr_str(dev->host_mac, host_addr, len);
+<<<<<<< HEAD
 	if (ret + 1 < len && ret > 0) {
+=======
+	if (ret + 1 < len) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		host_addr[ret++] = '\n';
 		host_addr[ret] = '\0';
 	}
@@ -1045,6 +1087,7 @@ int gether_get_ifname(struct net_device *net, char *name, int len)
 }
 EXPORT_SYMBOL_GPL(gether_get_ifname);
 
+<<<<<<< HEAD
 unsigned int gether_get_ul_max_pkts_per_xfer(struct net_device *net)
 {
 	struct eth_dev *dev;
@@ -1065,6 +1108,8 @@ int gether_set_ul_max_pkts_per_xfer(struct net_device *net, unsigned int max)
 }
 EXPORT_SYMBOL(gether_set_ul_max_pkts_per_xfer);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * gether_cleanup - remove Ethernet-over-USB device
  * Context: may sleep
@@ -1134,8 +1179,11 @@ struct net_device *gether_connect(struct gether *link)
 		dev->header_len = link->header_len;
 		dev->unwrap = link->unwrap;
 		dev->wrap = link->wrap;
+<<<<<<< HEAD
 		if (!dev->ul_max_pkts_per_xfer)
 			dev->ul_max_pkts_per_xfer = link->ul_max_pkts_per_xfer;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 		spin_lock(&dev->lock);
 		dev->port_usb = link;

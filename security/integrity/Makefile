@@ -14,5 +14,8 @@ subdir-$(CONFIG_IMA)			+= ima
 obj-$(CONFIG_IMA)			+= ima/
 subdir-$(CONFIG_EVM)			+= evm
 obj-$(CONFIG_EVM)			+= evm/
+<<<<<<< HEAD
 
 subdir-ccflags-y += -Wformat
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

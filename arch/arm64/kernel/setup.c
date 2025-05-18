@@ -69,12 +69,15 @@ static struct resource *standard_resources;
 
 phys_addr_t __fdt_pointer __initdata;
 
+<<<<<<< HEAD
 unsigned int boot_reason;
 EXPORT_SYMBOL(boot_reason);
 
 unsigned int cold_boot;
 EXPORT_SYMBOL(cold_boot);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Standard memory resources
  */
@@ -189,6 +192,7 @@ static void __init smp_build_mpidr_hash(void)
 
 static void __init setup_machine_fdt(phys_addr_t dt_phys)
 {
+<<<<<<< HEAD
 	int size;
 	void *dt_virt = fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL);
 	const char *name;
@@ -196,6 +200,11 @@ static void __init setup_machine_fdt(phys_addr_t dt_phys)
 	if (dt_virt)
 		memblock_reserve(dt_phys, size);
 
+=======
+	void *dt_virt = fixmap_remap_fdt(dt_phys);
+	const char *name;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!dt_virt || !early_init_dt_scan(dt_virt)) {
 		pr_crit("\n"
 			"Error: invalid device tree blob at physical address %pa (virtual address 0x%p)\n"
@@ -207,9 +216,12 @@ static void __init setup_machine_fdt(phys_addr_t dt_phys)
 			cpu_relax();
 	}
 
+<<<<<<< HEAD
 	/* Early fixups are done, map the FDT as read-only now */
 	fixmap_remap_fdt(dt_phys, &size, PAGE_KERNEL_RO);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	name = of_flat_dt_get_machine_name();
 	if (!name)
 		return;
@@ -292,8 +304,11 @@ arch_initcall(reserve_memblock_reserved_regions);
 
 u64 __cpu_logical_map[NR_CPUS] = { [0 ... NR_CPUS-1] = INVALID_HWID };
 
+<<<<<<< HEAD
 void __init __weak init_random_pool(void) { }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void __init setup_arch(char **cmdline_p)
 {
 	init_mm.start_code = (unsigned long) _text;
@@ -308,11 +323,14 @@ void __init setup_arch(char **cmdline_p)
 
 	setup_machine_fdt(__fdt_pointer);
 
+<<<<<<< HEAD
 	/*
 	 * Initialise the static keys early as they may be enabled by the
 	 * cpufeature code and early parameters.
 	 */
 	jump_label_init();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	parse_early_param();
 
 	/*
@@ -359,9 +377,12 @@ void __init setup_arch(char **cmdline_p)
 	smp_init_cpus();
 	smp_build_mpidr_hash();
 
+<<<<<<< HEAD
 	/* Init percpu seeds for random tags after cpus are set up. */
 	kasan_init_tags();
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_ARM64_SW_TTBR0_PAN
 	/*
 	 * Make sure init_thread_info.ttbr0 always generates translation
@@ -384,8 +405,11 @@ void __init setup_arch(char **cmdline_p)
 			"This indicates a broken bootloader or old kernel\n",
 			boot_args[1], boot_args[2], boot_args[3]);
 	}
+<<<<<<< HEAD
 
 	init_random_pool();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int __init topology_init(void)
@@ -403,7 +427,11 @@ static int __init topology_init(void)
 
 	return 0;
 }
+<<<<<<< HEAD
 postcore_initcall(topology_init);
+=======
+subsys_initcall(topology_init);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * Dump out kernel offset information on panic.

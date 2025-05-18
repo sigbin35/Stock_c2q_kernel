@@ -68,10 +68,13 @@ jiffies = jiffies_64;
 #define TRAMP_TEXT
 #endif
 
+<<<<<<< HEAD
 #define RTIC_BSS					\
 	. = ALIGN(PAGE_SIZE);				\
 	KEEP(*(.bss.rtic));			\
 	. = ALIGN(PAGE_SIZE);				\
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * The size of the PE/COFF section that covers the kernel image, which
  * runs from stext to _edata, must be a round multiple of the PE/COFF
@@ -188,6 +191,7 @@ SECTIONS
 	__rela_offset	= ABSOLUTE(ADDR(.rela.dyn) - KIMAGE_VADDR);
 	__rela_size	= SIZEOF(.rela.dyn);
 
+<<<<<<< HEAD
 #ifdef CONFIG_RELR
 	.relr.dyn : ALIGN(8) {
 		*(.relr.dyn)
@@ -197,6 +201,8 @@ SECTIONS
 	__relr_size	= SIZEOF(.relr.dyn);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	. = ALIGN(SEGMENT_ALIGN);
 	__initdata_end = .;
 	__init_end = .;
@@ -205,10 +211,13 @@ SECTIONS
 	_sdata = .;
 	RW_DATA_SECTION(L1_CACHE_BYTES, PAGE_SIZE, THREAD_ALIGN)
 
+<<<<<<< HEAD
 	.test_modules : {
 		KUNIT_TEST_MODULES
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Data written with the MMU off but read with the MMU on requires
 	 * cache lines to be invalidated, discarding up to a Cache Writeback
@@ -234,7 +243,10 @@ SECTIONS
 	BSS_SECTION(0, 0, 0)
 
 	. = ALIGN(PAGE_SIZE);
+<<<<<<< HEAD
 #ifndef CONFIG_UH_RKP
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	idmap_pg_dir = .;
 	. += IDMAP_DIR_SIZE;
 
@@ -250,17 +262,24 @@ SECTIONS
 	swapper_pg_dir = .;
 	. += SWAPPER_DIR_SIZE;
 	swapper_pg_end = .;
+<<<<<<< HEAD
 #endif
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	__pecoff_data_size = ABSOLUTE(. - __initdata_begin);
 	_end = .;
 
 	STABS_DEBUG
 
 	HEAD_SYMBOLS
+<<<<<<< HEAD
 
 	.bss : {			/* bss segment		*/
          RTIC_BSS
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*
@@ -276,7 +295,11 @@ ASSERT(__hibernate_exit_text_end - (__hibernate_exit_text_start & ~(SZ_4K - 1))
 	<= SZ_4K, "Hibernate exit text too big or misaligned")
 #endif
 #ifdef CONFIG_UNMAP_KERNEL_AT_EL0
+<<<<<<< HEAD
 ASSERT((__entry_tramp_text_end - __entry_tramp_text_start) <= 3*PAGE_SIZE,
+=======
+ASSERT((__entry_tramp_text_end - __entry_tramp_text_start) == PAGE_SIZE,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	"Entry trampoline text too big")
 #endif
 /*

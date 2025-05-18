@@ -510,6 +510,12 @@ static int flexcop_usb_init(struct flexcop_usb *fc_usb)
 		return ret;
 	}
 
+<<<<<<< HEAD
+=======
+	if (fc_usb->uintf->cur_altsetting->desc.bNumEndpoints < 1)
+		return -ENODEV;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	switch (fc_usb->udev->speed) {
 	case USB_SPEED_LOW:
 		err("cannot handle USB speed because it is too slow.");
@@ -543,9 +549,12 @@ static int flexcop_usb_probe(struct usb_interface *intf,
 	struct flexcop_device *fc = NULL;
 	int ret;
 
+<<<<<<< HEAD
 	if (intf->cur_altsetting->desc.bNumEndpoints < 1)
 		return -ENODEV;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if ((fc = flexcop_device_kmalloc(sizeof(struct flexcop_usb))) == NULL) {
 		err("out of memory\n");
 		return -ENOMEM;

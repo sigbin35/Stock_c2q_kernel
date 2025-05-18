@@ -35,7 +35,10 @@
 #include <linux/memblock.h>
 #include <linux/bootmem.h>
 #include <linux/compaction.h>
+<<<<<<< HEAD
 #include <linux/device.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/rmap.h>
 
 #include <asm/tlbflush.h>
@@ -49,7 +52,11 @@
  * and restore_online_page_callback() for generic callback restore.
  */
 
+<<<<<<< HEAD
 static int generic_online_page(struct page *page);
+=======
+static void generic_online_page(struct page *page);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static online_page_callback_t online_page_callback = generic_online_page;
 static DEFINE_MUTEX(online_page_callback_lock);
@@ -66,11 +73,15 @@ void put_online_mems(void)
 	percpu_up_read(&mem_hotplug_lock);
 }
 
+<<<<<<< HEAD
 #ifndef CONFIG_MEMORY_HOTPLUG_MOVABLE_NODE
 bool movable_node_enabled = false;
 #else
 bool movable_node_enabled = true;
 #endif
+=======
+bool movable_node_enabled = false;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifndef CONFIG_MEMORY_HOTPLUG_DEFAULT_ONLINE
 bool memhp_auto_online;
@@ -588,11 +599,16 @@ void __online_page_free(struct page *page)
 }
 EXPORT_SYMBOL_GPL(__online_page_free);
 
+<<<<<<< HEAD
 static int generic_online_page(struct page *page)
+=======
+static void generic_online_page(struct page *page)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	__online_page_set_limits(page);
 	__online_page_increment_counters(page);
 	__online_page_free(page);
+<<<<<<< HEAD
 	return 0;
 }
 
@@ -641,16 +657,35 @@ static void  __free_pages_memory(unsigned long start,
 	}
 
 	*(unsigned long *)arg = onlined_pages;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int online_pages_range(unsigned long start_pfn, unsigned long nr_pages,
 			void *arg)
 {
+<<<<<<< HEAD
 	if (PageReserved(pfn_to_page(start_pfn)))
 		__free_pages_memory(start_pfn, nr_pages, arg);
 
 	online_mem_sections(start_pfn, start_pfn + nr_pages);
 
+=======
+	unsigned long i;
+	unsigned long onlined_pages = *(unsigned long *)arg;
+	struct page *page;
+
+	if (PageReserved(pfn_to_page(start_pfn)))
+		for (i = 0; i < nr_pages; i++) {
+			page = pfn_to_page(start_pfn + i);
+			(*online_page_callback)(page);
+			onlined_pages++;
+		}
+
+	online_mem_sections(start_pfn, start_pfn + nr_pages);
+
+	*(unsigned long *)arg = onlined_pages;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return 0;
 }
 
@@ -914,7 +949,12 @@ int __ref online_pages(unsigned long pfn, unsigned long nr_pages, int online_typ
 		node_states_set_node(nid, &arg);
 		if (need_zonelists_rebuild)
 			build_all_zonelists(NULL);
+<<<<<<< HEAD
 		zone_pcp_update(zone);
+=======
+		else
+			zone_pcp_update(zone);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	init_per_zone_wmark_min();
@@ -1064,6 +1104,7 @@ int try_online_node(int nid)
 	return ret;
 }
 
+<<<<<<< HEAD
 static int online_memory_one_block(struct memory_block *mem, void *arg)
 {
 	bool *onlined_block = (bool *)arg;
@@ -1093,6 +1134,8 @@ bool try_online_one_block(int nid)
 	return onlined_block;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int check_hotplug_memory_range(u64 start, u64 size)
 {
 	unsigned long block_sz = memory_block_size_bytes();
@@ -1442,9 +1485,13 @@ do_migrate_range(unsigned long start_pfn, unsigned long end_pfn)
 			if (WARN_ON(PageLRU(page)))
 				isolate_lru_page(page);
 			if (page_mapped(page))
+<<<<<<< HEAD
 				try_to_unmap(page,
 					TTU_IGNORE_MLOCK | TTU_IGNORE_ACCESS,
 					NULL);
+=======
+				try_to_unmap(page, TTU_IGNORE_MLOCK | TTU_IGNORE_ACCESS);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			continue;
 		}
 

@@ -61,12 +61,17 @@ static int ch_input_mapping(struct hid_device *hdev, struct hid_input *hi,
 static __u8 *ch_switch12_report_fixup(struct hid_device *hdev, __u8 *rdesc,
 		unsigned int *rsize)
 {
+<<<<<<< HEAD
 	struct usb_interface *intf;
 
 	if (!hid_is_usb(hdev))
 		return rdesc;
 
 	intf = to_usb_interface(hdev->dev.parent);
+=======
+	struct usb_interface *intf = to_usb_interface(hdev->dev.parent);
+	
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (intf->cur_altsetting->desc.bInterfaceNumber == 1) {
 		/* Change usage maximum and logical maximum from 0x7fff to
 		 * 0x2fff, so they don't exceed HID_MAX_USAGES */

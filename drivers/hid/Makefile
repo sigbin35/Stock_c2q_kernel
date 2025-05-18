@@ -69,7 +69,10 @@ obj-$(CONFIG_HID_MAYFLASH)	+= hid-mf.o
 obj-$(CONFIG_HID_MICROSOFT)	+= hid-microsoft.o
 obj-$(CONFIG_HID_MONTEREY)	+= hid-monterey.o
 obj-$(CONFIG_HID_MULTITOUCH)	+= hid-multitouch.o
+<<<<<<< HEAD
 obj-$(CONFIG_HID_NINTENDO)	+= hid-nintendo.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_HID_NTI)			+= hid-nti.o
 obj-$(CONFIG_HID_NTRIG)		+= hid-ntrig.o
 obj-$(CONFIG_HID_ORTEK)		+= hid-ortek.o
@@ -87,7 +90,10 @@ hid-picolcd-$(CONFIG_HID_PICOLCD_CIR)	+= hid-picolcd_cir.o
 hid-picolcd-$(CONFIG_DEBUG_FS)		+= hid-picolcd_debugfs.o
 
 obj-$(CONFIG_HID_PLANTRONICS)	+= hid-plantronics.o
+<<<<<<< HEAD
 obj-$(CONFIG_HID_PLAYSTATION)	+= hid-playstation.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_HID_PRIMAX)	+= hid-primax.o
 obj-$(CONFIG_HID_REDRAGON)	+= hid-redragon.o
 obj-$(CONFIG_HID_RETRODE)	+= hid-retrode.o
@@ -130,5 +136,8 @@ obj-$(CONFIG_USB_KBD)		+= usbhid/
 obj-$(CONFIG_I2C_HID)		+= i2c-hid/
 
 obj-$(CONFIG_INTEL_ISH_HID)	+= intel-ish-hid/
+<<<<<<< HEAD
 
 obj-$(CONFIG_HID_QVR)		+= hid-qvr.o hid-trace.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

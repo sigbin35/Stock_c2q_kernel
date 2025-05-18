@@ -525,7 +525,11 @@ static void of_gpiochip_init_valid_mask(struct gpio_chip *chip)
 					   i, &start);
 		of_property_read_u32_index(np, "gpio-reserved-ranges",
 					   i + 1, &count);
+<<<<<<< HEAD
 		if (start >= chip->ngpio || start + count - 1 >= chip->ngpio)
+=======
+		if (start >= chip->ngpio || start + count >= chip->ngpio)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			continue;
 
 		bitmap_clear(chip->valid_mask, start, count);

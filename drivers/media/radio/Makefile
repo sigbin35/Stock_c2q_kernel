@@ -34,7 +34,10 @@ obj-$(CONFIG_RADIO_WL1273) += radio-wl1273.o
 obj-$(CONFIG_RADIO_WL128X) += wl128x/
 obj-$(CONFIG_RADIO_TEA575X) += tea575x.o
 obj-$(CONFIG_USB_RAREMONO) += radio-raremono.o
+<<<<<<< HEAD
 obj-$(CONFIG_I2C_RTC6226_QCA) += rtc6226/
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 shark2-objs := radio-shark2.o radio-tea5777.o
 

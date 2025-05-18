@@ -528,7 +528,11 @@ static long hugetlbfs_punch_hole(struct inode *inode, loff_t offset, loff_t len)
 		inode_lock(inode);
 
 		/* protected by i_mutex */
+<<<<<<< HEAD
 		if (info->seals & (F_SEAL_WRITE | F_SEAL_FUTURE_WRITE)) {
+=======
+		if (info->seals & F_SEAL_WRITE) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			inode_unlock(inode);
 			return -EPERM;
 		}

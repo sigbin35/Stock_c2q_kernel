@@ -386,7 +386,11 @@ static ssize_t mode_store(struct device *dev,
 
 	/* bit[12], Low-power state behavior override bit */
 	if ((config->mode & ETM_MODE_LPOVERRIDE) &&
+<<<<<<< HEAD
 	    (drvdata->lpoverride == true) && !drvdata->tupwr_disable)
+=======
+	    (drvdata->lpoverride == true))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		config->eventctrl1 |= BIT(12);
 	else
 		config->eventctrl1 &= ~BIT(12);
@@ -2096,6 +2100,7 @@ static u32 etmv4_cross_read(const struct device *dev, u32 offset)
 	coresight_simple_func(struct etmv4_drvdata, etmv4_cross_read,	\
 			      name, offset)
 
+<<<<<<< HEAD
 coresight_etm4x_cross_read(trcpdcr, TRCPDCR);
 coresight_etm4x_cross_read(trcpdsr, TRCPDSR);
 coresight_etm4x_cross_read(trclsr, TRCLSR);
@@ -2106,6 +2111,18 @@ coresight_etm4x_cross_read(trcpidr0, TRCPIDR0);
 coresight_etm4x_cross_read(trcpidr1, TRCPIDR1);
 coresight_etm4x_cross_read(trcpidr2, TRCPIDR2);
 coresight_etm4x_cross_read(trcpidr3, TRCPIDR3);
+=======
+coresight_etm4x_reg(trcpdcr, TRCPDCR);
+coresight_etm4x_reg(trcpdsr, TRCPDSR);
+coresight_etm4x_reg(trclsr, TRCLSR);
+coresight_etm4x_reg(trcauthstatus, TRCAUTHSTATUS);
+coresight_etm4x_reg(trcdevid, TRCDEVID);
+coresight_etm4x_reg(trcdevtype, TRCDEVTYPE);
+coresight_etm4x_reg(trcpidr0, TRCPIDR0);
+coresight_etm4x_reg(trcpidr1, TRCPIDR1);
+coresight_etm4x_reg(trcpidr2, TRCPIDR2);
+coresight_etm4x_reg(trcpidr3, TRCPIDR3);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 coresight_etm4x_cross_read(trcoslsr, TRCOSLSR);
 coresight_etm4x_cross_read(trcconfig, TRCCONFIGR);
 coresight_etm4x_cross_read(trctraceid, TRCTRACEIDR);

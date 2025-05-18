@@ -352,7 +352,11 @@
 
 #define DTE_GCR3_VAL_A(x)	(((x) >> 12) & 0x00007ULL)
 #define DTE_GCR3_VAL_B(x)	(((x) >> 15) & 0x0ffffULL)
+<<<<<<< HEAD
 #define DTE_GCR3_VAL_C(x)	(((x) >> 31) & 0xfffffULL)
+=======
+#define DTE_GCR3_VAL_C(x)	(((x) >> 31) & 0x1fffffULL)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define DTE_GCR3_INDEX_A	0
 #define DTE_GCR3_INDEX_B	1

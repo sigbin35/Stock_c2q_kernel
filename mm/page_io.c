@@ -22,7 +22,10 @@
 #include <linux/writeback.h>
 #include <linux/frontswap.h>
 #include <linux/blkdev.h>
+<<<<<<< HEAD
 #include <linux/psi.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/uio.h>
 #include <linux/sched/task.h>
 #include <asm/pgtable.h>
@@ -64,12 +67,18 @@ void end_swap_bio_write(struct bio *bio)
 		 * Also clear PG_reclaim to avoid rotate_reclaimable_page()
 		 */
 		set_page_dirty(page);
+<<<<<<< HEAD
 #ifndef CONFIG_ZRAM
 		pr_alert_ratelimited("Write-error on swap-device (%u:%u:%llu)\n",
 			 MAJOR(bio_dev(bio)),
 			 MINOR(bio_dev(bio)),
 			 (unsigned long long)bio->bi_iter.bi_sector);
 #endif
+=======
+		pr_alert("Write-error on swap-device (%u:%u:%llu)\n",
+			 MAJOR(bio_dev(bio)), MINOR(bio_dev(bio)),
+			 (unsigned long long)bio->bi_iter.bi_sector);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ClearPageReclaim(page);
 	}
 	end_page_writeback(page);
@@ -360,11 +369,15 @@ int swap_readpage(struct page *page, bool synchronous)
 	struct swap_info_struct *sis = page_swap_info(page);
 	blk_qc_t qc;
 	struct gendisk *disk;
+<<<<<<< HEAD
 	unsigned long pflags;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	VM_BUG_ON_PAGE(!PageSwapCache(page) && !synchronous, page);
 	VM_BUG_ON_PAGE(!PageLocked(page), page);
 	VM_BUG_ON_PAGE(PageUptodate(page), page);
+<<<<<<< HEAD
 
 	/*
 	 * Count submission time as memory stall. When the device is congested,
@@ -373,6 +386,8 @@ int swap_readpage(struct page *page, bool synchronous)
 	 */
 	psi_memstall_enter(&pflags);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (frontswap_load(page) == 0) {
 		SetPageUptodate(page);
 		unlock_page(page);
@@ -386,7 +401,11 @@ int swap_readpage(struct page *page, bool synchronous)
 		ret = mapping->a_ops->readpage(swap_file, page);
 		if (!ret)
 			count_vm_event(PSWPIN);
+<<<<<<< HEAD
 		goto out;
+=======
+		return ret;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	ret = bdev_read_page(sis->bdev, swap_page_sector(page), page);
@@ -397,7 +416,11 @@ int swap_readpage(struct page *page, bool synchronous)
 		}
 
 		count_vm_event(PSWPIN);
+<<<<<<< HEAD
 		goto out;
+=======
+		return 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	ret = 0;
@@ -430,7 +453,10 @@ int swap_readpage(struct page *page, bool synchronous)
 	bio_put(bio);
 
 out:
+<<<<<<< HEAD
 	psi_memstall_leave(&pflags);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ret;
 }
 

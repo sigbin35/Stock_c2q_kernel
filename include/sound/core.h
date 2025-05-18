@@ -134,9 +134,12 @@ struct snd_card {
 	const struct attribute_group *dev_groups[4]; /* assigned sysfs attr */
 	bool registered;		/* card_dev is registered? */
 	wait_queue_head_t remove_sleep;
+<<<<<<< HEAD
 	int offline;			/* if this sound card is offline */
 	unsigned long offline_change;
 	wait_queue_head_t offline_poll_wait;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #ifdef CONFIG_PM
 	unsigned int power_state;	/* power state */
@@ -239,10 +242,13 @@ int snd_card_locked(int card);
 extern int (*snd_mixer_oss_notify_callback)(struct snd_card *card, int cmd);
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_USB_AUDIO_ENHANCED_DETECT_TIME
 int get_next_snd_card_number(struct module *module);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 int snd_card_new(struct device *parent, int idx, const char *xid,
 		 struct module *module, int extra_size,
 		 struct snd_card **card_ret);
@@ -260,8 +266,11 @@ int snd_component_add(struct snd_card *card, const char *component);
 int snd_card_file_add(struct snd_card *card, struct file *file);
 int snd_card_file_remove(struct snd_card *card, struct file *file);
 #define snd_card_unref(card)	put_device(&(card)->card_dev)
+<<<<<<< HEAD
 void snd_card_change_online_state(struct snd_card *card, int online);
 bool snd_card_is_online_state(struct snd_card *card);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define snd_card_set_dev(card, devptr) ((card)->dev = (devptr))
 

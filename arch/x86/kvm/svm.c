@@ -1917,6 +1917,13 @@ static void __unregister_enc_region_locked(struct kvm *kvm,
 static struct kvm *svm_vm_alloc(void)
 {
 	struct kvm_svm *kvm_svm = vzalloc(sizeof(struct kvm_svm));
+<<<<<<< HEAD
+=======
+
+	if (!kvm_svm)
+		return NULL;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return &kvm_svm->kvm;
 }
 

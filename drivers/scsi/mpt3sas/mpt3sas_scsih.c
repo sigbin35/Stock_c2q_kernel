@@ -9841,8 +9841,13 @@ static void scsih_remove(struct pci_dev *pdev)
 
 	ioc->remove_host = 1;
 
+<<<<<<< HEAD
 	mpt3sas_wait_for_commands_to_complete(ioc);
 	_scsih_flush_running_cmds(ioc);
+=======
+	if (!pci_device_is_present(pdev))
+		_scsih_flush_running_cmds(ioc);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	_scsih_fw_event_cleanup_queue(ioc);
 
@@ -9919,8 +9924,13 @@ scsih_shutdown(struct pci_dev *pdev)
 
 	ioc->remove_host = 1;
 
+<<<<<<< HEAD
 	mpt3sas_wait_for_commands_to_complete(ioc);
 	_scsih_flush_running_cmds(ioc);
+=======
+	if (!pci_device_is_present(pdev))
+		_scsih_flush_running_cmds(ioc);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	_scsih_fw_event_cleanup_queue(ioc);
 

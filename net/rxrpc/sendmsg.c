@@ -62,8 +62,13 @@ static int rxrpc_wait_for_tx_window_nonintr(struct rxrpc_sock *rx,
 
 	rtt = READ_ONCE(call->peer->rtt);
 	rtt2 = nsecs_to_jiffies64(rtt) * 2;
+<<<<<<< HEAD
 	if (rtt2 < 1)
 		rtt2 = 1;
+=======
+	if (rtt2 < 2)
+		rtt2 = 2;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	timeout = rtt2;
 	tx_start = READ_ONCE(call->tx_hard_ack);

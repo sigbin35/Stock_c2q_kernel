@@ -150,7 +150,12 @@ static struct stack_record *depot_alloc_stack(unsigned long *entries, int size,
 	return stack;
 }
 
+<<<<<<< HEAD
 #define STACK_HASH_SIZE (1L << CONFIG_STACK_HASH_ORDER_SHIFT)
+=======
+#define STACK_HASH_ORDER 20
+#define STACK_HASH_SIZE (1L << STACK_HASH_ORDER)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #define STACK_HASH_MASK (STACK_HASH_SIZE - 1)
 #define STACK_HASH_SEED 0x9747b28c
 

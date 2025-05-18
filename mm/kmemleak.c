@@ -226,6 +226,7 @@ static unsigned long jiffies_min_age;
 static unsigned long jiffies_last_scan;
 /* delay between automatic memory scannings */
 static signed long jiffies_scan_wait;
+<<<<<<< HEAD
 
 /*
  * Enables or disables the task stacks scanning.
@@ -240,6 +241,10 @@ static int kmemleak_stack_scan;
 static int kmemleak_stack_scan = 1;
 #endif
 
+=======
+/* enables or disables the task stacks scanning */
+static int kmemleak_stack_scan = 1;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* protects the memory scanning, parameters and debug/kmemleak file access */
 static DEFINE_MUTEX(scan_mutex);
 /* setting kmemleak=on, will set this var, skipping the disable */

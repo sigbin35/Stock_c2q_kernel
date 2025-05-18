@@ -57,9 +57,12 @@ config ARM64
 	select ARCH_USE_QUEUED_RWLOCKS
 	select ARCH_USE_QUEUED_SPINLOCKS
 	select ARCH_SUPPORTS_MEMORY_FAILURE
+<<<<<<< HEAD
 	select ARCH_SUPPORTS_LTO_CLANG
 	select ARCH_SUPPORTS_THINLTO
 	select ARCH_SUPPORTS_SHADOW_CALL_STACK if CC_HAVE_SHADOW_CALL_STACK
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select ARCH_SUPPORTS_ATOMIC_RMW
 	select ARCH_SUPPORTS_INT128 if GCC_VERSION >= 50000 || CC_IS_CLANG
 	select ARCH_SUPPORTS_NUMA_BALANCING
@@ -109,11 +112,18 @@ config ARM64
 	select HAVE_ARCH_HUGE_VMAP
 	select HAVE_ARCH_JUMP_LABEL
 	select HAVE_ARCH_KASAN if !(ARM64_16K_PAGES && ARM64_VA_BITS_48)
+<<<<<<< HEAD
 	select HAVE_ARCH_KASAN_SW_TAGS if HAVE_ARCH_KASAN
 	select HAVE_ARCH_KGDB
 	select HAVE_ARCH_MMAP_RND_BITS
 	select HAVE_ARCH_MMAP_RND_COMPAT_BITS if COMPAT
 	select HAVE_ARCH_PREL32_RELOCATIONS if !LTO_CLANG
+=======
+	select HAVE_ARCH_KGDB
+	select HAVE_ARCH_MMAP_RND_BITS
+	select HAVE_ARCH_MMAP_RND_COMPAT_BITS if COMPAT
+	select HAVE_ARCH_PREL32_RELOCATIONS
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select HAVE_ARCH_SECCOMP_FILTER
 	select HAVE_ARCH_STACKLEAK
 	select HAVE_ARCH_THREAD_STRUCT_WHITELIST
@@ -133,7 +143,11 @@ config ARM64
 	select HAVE_EFFICIENT_UNALIGNED_ACCESS
 	select HAVE_FTRACE_MCOUNT_RECORD
 	select HAVE_FUNCTION_TRACER
+<<<<<<< HEAD
 	select HAVE_FUNCTION_GRAPH_TRACER if !SHADOW_CALL_STACK
+=======
+	select HAVE_FUNCTION_GRAPH_TRACER
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select HAVE_GCC_PLUGINS
 	select HAVE_GENERIC_DMA_COHERENT
 	select HAVE_HW_BREAKPOINT if PERF_EVENTS
@@ -171,7 +185,10 @@ config ARM64
 	select SWIOTLB
 	select SYSCTL_EXCEPTION_TRACE
 	select THREAD_INFO_IN_TASK
+<<<<<<< HEAD
 	select ARCH_SUPPORTS_SPECULATIVE_PAGE_FAULT
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  ARM 64-bit (AArch64) Linux support.
 
@@ -266,6 +283,7 @@ config HAVE_GENERIC_GUP
 config SMP
 	def_bool y
 
+<<<<<<< HEAD
 config HOTPLUG_SIZE_BITS
 	int "Memory hotplug block size(29 => 512MB 30 => 1GB)"
 	depends on SPARSEMEM
@@ -277,6 +295,8 @@ config HOTPLUG_SIZE_BITS
 	 of 2.
 	 If unsure, stick with default value.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config KERNEL_MODE_NEON
 	def_bool y
 
@@ -298,7 +318,10 @@ config ARCH_SUPPORTS_UPROBES
 config ARCH_PROC_KCORE_TEXT
 	def_bool y
 
+<<<<<<< HEAD
 source "arch/arm64/Kconfig.projects"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 source "arch/arm64/Kconfig.platforms"
 
 menu "Bus support"
@@ -498,6 +521,7 @@ config ARM64_ERRATUM_1024718
 
 	  If unsure, say Y.
 
+<<<<<<< HEAD
 config ARM64_ERRATUM_1188873
 	bool "Cortex-A76: MRC read following MRRC read of specific Generic Timer in AArch32 might give incorrect result"
 	default y
@@ -510,6 +534,8 @@ config ARM64_ERRATUM_1188873
 
 	  If unsure, say Y.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config ARM64_ERRATUM_1463225
 	bool "Cortex-A76: Software Step might prevent interrupt recognition"
 	default y
@@ -528,6 +554,7 @@ config ARM64_ERRATUM_1463225
 
 	  If unsure, say Y.
 
+<<<<<<< HEAD
 config ARM64_ERRATUM_1542418
 	bool "Cortex-A77: The core might fetch a stale instuction, violating the ordering of instruction fetches"
 	default y
@@ -544,6 +571,8 @@ config ARM64_ERRATUM_1542418
 
 	  If unsure, say Y.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config CAVIUM_ERRATUM_22375
 	bool "Cavium erratum 22375, 24313"
 	default y
@@ -793,6 +822,7 @@ config HOTPLUG_CPU
 	  Say Y here to experiment with turning CPUs off and on.  CPUs
 	  can be controlled through /sys/devices/system/cpu.
 
+<<<<<<< HEAD
 config ARCH_ENABLE_MEMORY_HOTPLUG
     depends on !NUMA
 	def_bool y
@@ -812,6 +842,8 @@ config ARCH_NR_GPIO
 
 	  If unsure, leave the default value.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Common NUMA Features
 config NUMA
 	bool "Numa Memory Allocation and Scheduler Support"
@@ -885,6 +917,7 @@ config ARCH_WANT_HUGE_PMD_SHARE
 config ARCH_HAS_CACHE_LINE_SIZE
 	def_bool y
 
+<<<<<<< HEAD
 config ARM64_DMA_USE_IOMMU
 	bool "ARM64 DMA iommu integration"
 	select ARM_HAS_SG_CHAIN
@@ -924,6 +957,8 @@ config ARCH_MEMORY_PROBE
 config CC_HAVE_SHADOW_CALL_STACK
 	def_bool $(cc-option, -fsanitize=shadow-call-stack -ffixed-x18)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config SECCOMP
 	bool "Enable seccomp to safely compute untrusted bytecode"
 	---help---
@@ -989,6 +1024,7 @@ config XEN
 	help
 	  Say Y if you want to run Linux in a Virtual Machine on Xen on ARM64.
 
+<<<<<<< HEAD
 config OKL4_GUEST
 	bool "OKL4 Hypervisor guest support"
 	depends on ARM64 && OF
@@ -996,6 +1032,8 @@ config OKL4_GUEST
 	help
 	  Say Y if you want to run Linux as a guest of the OKL4 hypervisor
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config FORCE_MAX_ZONEORDER
 	int
 	default "14" if (ARM64_64K_PAGES && TRANSPARENT_HUGEPAGE)
@@ -1033,6 +1071,10 @@ config UNMAP_KERNEL_AT_EL0
 
 config HARDEN_BRANCH_PREDICTOR
 	bool "Harden the branch predictor against aliasing attacks" if EXPERT
+<<<<<<< HEAD
+=======
+	default y
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  Speculation attacks against some high-performance processors rely on
 	  being able to manipulate the branch predictor for a victim context by
@@ -1065,12 +1107,17 @@ config HARDEN_EL2_VECTORS
 
 config ARM64_SSBD
 	bool "Speculative Store Bypass Disable" if EXPERT
+<<<<<<< HEAD
+=======
+	default y
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  This enables mitigation of the bypassing of previous stores
 	  by speculative loads.
 
 	  If unsure, say Y.
 
+<<<<<<< HEAD
 config PRINT_VMEMLAYOUT
 	bool "Enable debug option to print kernel virtual memory layout"
 	help
@@ -1098,6 +1145,8 @@ config MITIGATE_SPECTRE_BRANCH_HISTORY
 	  When taking an exception from user-space, a sequence of branches
 	  or a firmware call overwrites the branch history.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 menuconfig ARMV8_DEPRECATED
 	bool "Emulate deprecated/obsolete ARMv8 instructions"
 	depends on COMPAT
@@ -1174,6 +1223,7 @@ config ARM64_SW_TTBR0_PAN
 	  zeroed area and reserved ASID. The user access routines
 	  restore the valid TTBR0_EL1 temporarily.
 
+<<<<<<< HEAD
 config UH
 	bool "Enable micro hypervisor feature of Samsung"
 	depends on !SEC_FACTORY
@@ -1300,6 +1350,8 @@ config CFP_TEST
 
 endmenu
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 menu "ARMv8.1 architectural features"
 
 config ARM64_HW_AFDBM
@@ -1335,6 +1387,10 @@ config ARM64_PAN
 
 config ARM64_LSE_ATOMICS
 	bool "Atomic instructions"
+<<<<<<< HEAD
+=======
+	default y
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  As part of the Large System Extensions, ARMv8.1 introduces new
 	  atomic instructions that are designed specifically to scale in
@@ -1455,7 +1511,10 @@ config ARM64_MODULE_PLTS
 
 config RELOCATABLE
 	bool
+<<<<<<< HEAD
 	select ARCH_HAS_RELR
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  This builds the kernel as a Position Independent Executable (PIE),
 	  which retains all relocation metadata required to relocate the
@@ -1520,6 +1579,7 @@ config CMDLINE
 	  entering them here. As a minimum, you should specify the the
 	  root device (e.g. root=/dev/nfs).
 
+<<<<<<< HEAD
 choice
 	prompt "Kernel command line type" if CMDLINE != ""
 	default CMDLINE_FROM_BOOTLOADER
@@ -1537,6 +1597,8 @@ config CMDLINE_EXTEND
 	  The command-line arguments provided by the boot loader will be
 	  appended to the default kernel command string.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config CMDLINE_FORCE
 	bool "Always use the default kernel command string"
 	help
@@ -1544,7 +1606,10 @@ config CMDLINE_FORCE
 	  loader passes other arguments to the kernel.
 	  This is useful if you cannot or don't want to change the
 	  command-line options your boot loader passes to the kernel.
+<<<<<<< HEAD
 endchoice
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 config EFI_STUB
 	bool
@@ -1579,6 +1644,7 @@ config DMI
 	  However, even with this option, the resultant kernel should
 	  continue to boot on existing non-UEFI platforms.
 
+<<<<<<< HEAD
 config BUILD_ARM64_APPENDED_DTB_IMAGE
 	bool "Build a concatenated Image.gz/dtb by default"
 	depends on OF
@@ -1655,6 +1721,8 @@ config BUILD_ARM64_DT_OVERLAY
 	  This option enables support for DT overlay compilation.
 	  Enabling this option sets required flags to add DT
 	  overlay in the compilation.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endmenu
 
 config COMPAT

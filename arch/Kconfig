@@ -475,6 +475,7 @@ config STACKPROTECTOR_STRONG
 	  about 20% of all kernel functions, which increases the kernel code
 	  size by about 2%.
 
+<<<<<<< HEAD
 config LTO
 	def_bool n
 
@@ -587,6 +588,8 @@ config SHADOW_CALL_STACK_VMAP
 	  provides better stack exhaustion protection, but increases per-thread
 	  memory consumption as a full page is allocated for each shadow stack.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config HAVE_ARCH_WITHIN_STACK_FRAMES
 	bool
 	help
@@ -975,6 +978,7 @@ config HAVE_ARCH_PREL32_RELOCATIONS
 	  architectures, and don't require runtime relocation on relocatable
 	  kernels.
 
+<<<<<<< HEAD
 config PANIC_ON_REFCOUNT_ERROR
 	bool "Kernel panic on refcount error detection"
 	depends on REFCOUNT_FULL
@@ -998,6 +1002,8 @@ config RELR
 	  well as compatible NM and OBJCOPY utilities (llvm-nm and llvm-objcopy
 	  are compatible).
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 source "kernel/gcov/Kconfig"
 
 source "scripts/gcc-plugins/Kconfig"

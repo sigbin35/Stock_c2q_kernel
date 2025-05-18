@@ -266,9 +266,12 @@ static inline int plist_node_empty(const struct plist_node *node)
 #define plist_next(pos) \
 	list_next_entry(pos, node_list)
 
+<<<<<<< HEAD
 #define plist_next_entry(pos, type, member)   \
 	container_of(plist_next(pos), type, member)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * plist_prev - get the prev entry in list
  * @pos:	the type * to cursor

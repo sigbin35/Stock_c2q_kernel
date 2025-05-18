@@ -312,6 +312,7 @@ extern "C" {
  */
 #define DRM_FORMAT_MOD_QCOM_COMPRESSED	fourcc_mod_code(QCOM, 1)
 
+<<<<<<< HEAD
 /*
  * QTI DX Format
  *
@@ -336,6 +337,8 @@ extern "C" {
  */
 #define DRM_FORMAT_MOD_QCOM_TILE	fourcc_mod_code(QCOM, 0x8)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Vivante framebuffer modifiers */
 
 /*

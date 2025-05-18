@@ -147,8 +147,11 @@ struct us_data {
 	/* hacks for READ CAPACITY bug handling */
 	int			use_last_sector_hacks;
 	int			last_sector_retries;
+<<<<<<< HEAD
 
 	int is_mu_lock;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /* Convert between us_data and the corresponding Scsi_Host */

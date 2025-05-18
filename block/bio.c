@@ -29,7 +29,10 @@
 #include <linux/workqueue.h>
 #include <linux/cgroup.h>
 #include <linux/blk-cgroup.h>
+<<<<<<< HEAD
 #include <linux/blk-crypto.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <trace/events/block.h>
 #include "blk.h"
@@ -246,8 +249,11 @@ fallback:
 void bio_uninit(struct bio *bio)
 {
 	bio_disassociate_task(bio);
+<<<<<<< HEAD
 
 	bio_crypt_free_ctx(bio);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL(bio_uninit);
 
@@ -635,12 +641,24 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
 
 	__bio_clone_fast(b, bio);
 
+<<<<<<< HEAD
 	bio_crypt_clone(b, bio, gfp_mask);
 
 	if (bio_integrity(bio) &&
 	    bio_integrity_clone(b, bio, gfp_mask) < 0) {
 		bio_put(b);
 		return NULL;
+=======
+	if (bio_integrity(bio)) {
+		int ret;
+
+		ret = bio_integrity_clone(b, bio, gfp_mask);
+
+		if (ret < 0) {
+			bio_put(b);
+			return NULL;
+		}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	return b;
@@ -803,9 +821,12 @@ void __bio_add_page(struct bio *bio, struct page *page,
 
 	bio->bi_iter.bi_size += len;
 	bio->bi_vcnt++;
+<<<<<<< HEAD
 
 	if (!bio_flagged(bio, BIO_WORKINGSET) && unlikely(PageWorkingset(page)))
 		bio_set_flag(bio, BIO_WORKINGSET);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL(__bio_add_page);
 
@@ -953,7 +974,10 @@ void bio_advance(struct bio *bio, unsigned bytes)
 	if (bio_integrity(bio))
 		bio_integrity_advance(bio, bytes);
 
+<<<<<<< HEAD
 	bio_crypt_advance(bio, bytes);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	bio_advance_iter(bio, &bio->bi_iter, bytes);
 }
 EXPORT_SYMBOL(bio_advance);
@@ -1752,10 +1776,13 @@ void bio_endio(struct bio *bio)
 again:
 	if (!bio_remaining_done(bio))
 		return;
+<<<<<<< HEAD
 
 	if (!blk_crypto_endio(bio))
 		return;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!bio_integrity_endio(bio))
 		return;
 

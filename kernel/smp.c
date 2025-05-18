@@ -19,7 +19,10 @@
 #include <linux/sched.h>
 #include <linux/sched/idle.h>
 #include <linux/hypervisor.h>
+<<<<<<< HEAD
 #include <linux/suspend.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include "smpboot.h"
 
@@ -39,9 +42,12 @@ static DEFINE_PER_CPU_SHARED_ALIGNED(struct call_function_data, cfd_data);
 static DEFINE_PER_CPU_SHARED_ALIGNED(struct llist_head, call_single_queue);
 
 static void flush_smp_call_function_queue(bool warn_cpu_offline);
+<<<<<<< HEAD
 /* CPU mask indicating which CPUs to bring online during smp_init() */
 static bool have_boot_cpu_mask;
 static cpumask_var_t boot_cpu_mask;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int smpcfd_prepare_cpu(unsigned int cpu)
 {
@@ -553,6 +559,7 @@ static int __init maxcpus(char *str)
 
 early_param("maxcpus", maxcpus);
 
+<<<<<<< HEAD
 static int __init boot_cpus(char *str)
 {
 	alloc_bootmem_cpumask_var(&boot_cpu_mask);
@@ -566,6 +573,8 @@ static int __init boot_cpus(char *str)
 
 early_param("boot_cpus", boot_cpus);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Setup number of possible processor ids */
 unsigned int nr_cpu_ids __read_mostly = NR_CPUS;
 EXPORT_SYMBOL(nr_cpu_ids);
@@ -576,6 +585,7 @@ void __init setup_nr_cpu_ids(void)
 	nr_cpu_ids = find_last_bit(cpumask_bits(cpu_possible_mask),NR_CPUS) + 1;
 }
 
+<<<<<<< HEAD
 static inline bool boot_cpu(int cpu)
 {
 	if (!have_boot_cpu_mask)
@@ -590,6 +600,8 @@ static inline void free_boot_cpu_mask(void)
 		free_bootmem_cpumask_var(boot_cpu_mask);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* Called by boot processor to activate the rest. */
 void __init smp_init(void)
 {
@@ -605,10 +617,16 @@ void __init smp_init(void)
 	for_each_present_cpu(cpu) {
 		if (num_online_cpus() >= setup_max_cpus)
 			break;
+<<<<<<< HEAD
 		if (!cpu_online(cpu) && boot_cpu(cpu))
 			cpu_up(cpu);
 	}
 	free_boot_cpu_mask();
+=======
+		if (!cpu_online(cpu))
+			cpu_up(cpu);
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	num_nodes = num_online_nodes();
 	num_cpus  = num_online_cpus();
@@ -770,9 +788,14 @@ void wake_up_all_idle_cpus(void)
 	for_each_online_cpu(cpu) {
 		if (cpu == smp_processor_id())
 			continue;
+<<<<<<< HEAD
 		if (s2idle_state == S2IDLE_STATE_ENTER ||
 		    !cpu_isolated(cpu))
 			wake_up_if_idle(cpu);
+=======
+
+		wake_up_if_idle(cpu);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	preempt_enable();
 }

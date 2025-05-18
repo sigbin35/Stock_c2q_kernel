@@ -16,12 +16,16 @@
 #include <linux/exportfs.h>
 #include <linux/writeback.h>
 #include <linux/buffer_head.h> /* sync_mapping_buffers */
+<<<<<<< HEAD
 #include <linux/unicode.h>
 #include <linux/fscrypt.h>
 
 #ifdef CONFIG_FSCRYPT_SDP
 #include "crypto/fscrypt_private.h"
 #endif
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/uaccess.h>
 
 #include "internal.h"
@@ -807,7 +811,11 @@ int simple_attr_open(struct inode *inode, struct file *file,
 {
 	struct simple_attr *attr;
 
+<<<<<<< HEAD
 	attr = kmalloc(sizeof(*attr), GFP_KERNEL);
+=======
+	attr = kzalloc(sizeof(*attr), GFP_KERNEL);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!attr)
 		return -ENOMEM;
 
@@ -847,9 +855,17 @@ ssize_t simple_attr_read(struct file *file, char __user *buf,
 	if (ret)
 		return ret;
 
+<<<<<<< HEAD
 	if (*ppos) {		/* continued read */
 		size = strlen(attr->get_buf);
 	} else {		/* first read */
+=======
+	if (*ppos && attr->get_buf[0]) {
+		/* continued read */
+		size = strlen(attr->get_buf);
+	} else {
+		/* first read */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		u64 val;
 		ret = attr->get(attr->data, &val);
 		if (ret)
@@ -1263,6 +1279,7 @@ bool is_empty_dir_inode(struct inode *inode)
 	return (inode->i_fop == &empty_dir_operations) &&
 		(inode->i_op == &empty_dir_inode_operations);
 }
+<<<<<<< HEAD
 
 #ifdef CONFIG_FSCRYPT_SDP
 static int fscrypt_sdp_d_delete(const struct dentry *dentry)
@@ -1398,3 +1415,5 @@ void generic_set_encrypted_ci_d_ops(struct inode *dir, struct dentry *dentry)
 #endif
 }
 EXPORT_SYMBOL(generic_set_encrypted_ci_d_ops);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

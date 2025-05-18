@@ -34,7 +34,10 @@
 struct wake_q_head {
 	struct wake_q_node *first;
 	struct wake_q_node **lastp;
+<<<<<<< HEAD
 	int count;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define WAKE_Q_TAIL ((struct wake_q_node *) 0x01)
@@ -46,7 +49,10 @@ static inline void wake_q_init(struct wake_q_head *head)
 {
 	head->first = WAKE_Q_TAIL;
 	head->lastp = &head->first;
+<<<<<<< HEAD
 	head->count = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 extern void wake_q_add(struct wake_q_head *head,

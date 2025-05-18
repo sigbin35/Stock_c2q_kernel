@@ -55,10 +55,13 @@
 
   SECURITY_INIT
 
+<<<<<<< HEAD
   .test_modules : {
 	KUNIT_TEST_MODULES
   }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
   .exitcall : {
 	__exitcall_begin = .;
 	*(.exitcall.exit)

@@ -79,7 +79,11 @@ static int show_diag_stat(struct seq_file *m, void *v)
 
 static void *show_diag_stat_start(struct seq_file *m, loff_t *pos)
 {
+<<<<<<< HEAD
 	return *pos <= nr_cpu_ids ? (void *)((unsigned long) *pos + 1) : NULL;
+=======
+	return *pos <= NR_DIAG_STAT ? (void *)((unsigned long) *pos + 1) : NULL;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void *show_diag_stat_next(struct seq_file *m, void *v, loff_t *pos)

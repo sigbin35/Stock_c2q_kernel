@@ -227,7 +227,11 @@ struct xt_table {
 	unsigned int valid_hooks;
 
 	/* Man behind the curtain... */
+<<<<<<< HEAD
 	struct xt_table_info __rcu *private;
+=======
+	struct xt_table_info *private;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Set this to THIS_MODULE if you are a module, otherwise NULL */
 	struct module *me;
@@ -449,9 +453,12 @@ xt_get_per_cpu_counter(struct xt_counters *cnt, unsigned int cpu)
 
 struct nf_hook_ops *xt_hook_ops_alloc(const struct xt_table *, nf_hookfn *);
 
+<<<<<<< HEAD
 struct xt_table_info
 *xt_table_get_private_protected(const struct xt_table *table);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_COMPAT
 #include <net/compat.h>
 

@@ -33,7 +33,10 @@ struct udphdr {
 #define UDP_NO_CHECK6_TX 101	/* Disable sending checksum for UDP6X */
 #define UDP_NO_CHECK6_RX 102	/* Disable accpeting checksum for UDP6 */
 #define UDP_SEGMENT	103	/* Set GSO segmentation size */
+<<<<<<< HEAD
 #define UDP_GRO		104	/* This socket can receive UDP GRO packets */
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /* UDP encapsulation types */
 #define UDP_ENCAP_ESPINUDP_NON_IKE	1 /* draft-ietf-ipsec-nat-t-ike-00/01 */

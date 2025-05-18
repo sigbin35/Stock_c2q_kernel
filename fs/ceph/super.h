@@ -86,7 +86,11 @@ struct ceph_mount_options {
 
 	char *snapdir_name;   /* default ".snap" */
 	char *mds_namespace;  /* default NULL */
+<<<<<<< HEAD
 	char *server_path;    /* default  "/" */
+=======
+	char *server_path;    /* default NULL (means "/") */
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	char *fscache_uniq;   /* default NULL */
 };
 

@@ -20,6 +20,10 @@ config KVM
 	depends on HAVE_KVM
 	select EXPORT_UASM
 	select PREEMPT_NOTIFIERS
+<<<<<<< HEAD
+=======
+	select ANON_INODES
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select KVM_GENERIC_DIRTYLOG_READ_PROTECT
 	select HAVE_KVM_VCPU_ASYNC_IOCTL
 	select KVM_MMIO

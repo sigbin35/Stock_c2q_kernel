@@ -29,6 +29,7 @@
 #define NETLINK_RDMA		20
 #define NETLINK_CRYPTO		21	/* Crypto layer */
 #define NETLINK_SMC		22	/* SMC monitoring */
+<<<<<<< HEAD
 #define NETLINK_SOCKEV		23	/* Socket Administrative Events */
 #define NETLINK_INET_DIAG	NETLINK_SOCK_DIAG
 
@@ -37,6 +38,12 @@
 #endif
 
 #define MAX_LINKS 32
+=======
+
+#define NETLINK_INET_DIAG	NETLINK_SOCK_DIAG
+
+#define MAX_LINKS 32		
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct sockaddr_nl {
 	__kernel_sa_family_t	nl_family;	/* AF_NETLINK	*/

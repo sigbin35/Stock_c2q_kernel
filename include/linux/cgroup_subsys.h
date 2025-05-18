@@ -21,10 +21,13 @@ SUBSYS(cpu)
 SUBSYS(cpuacct)
 #endif
 
+<<<<<<< HEAD
 #if IS_ENABLED(CONFIG_SCHED_TUNE)
 SUBSYS(schedtune)
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #if IS_ENABLED(CONFIG_BLK_CGROUP)
 SUBSYS(io)
 #endif

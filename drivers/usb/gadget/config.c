@@ -194,6 +194,7 @@ EXPORT_SYMBOL_GPL(usb_assign_descriptors);
 void usb_free_all_descriptors(struct usb_function *f)
 {
 	usb_free_descriptors(f->fs_descriptors);
+<<<<<<< HEAD
 	f->fs_descriptors = NULL;
 	usb_free_descriptors(f->hs_descriptors);
 	f->hs_descriptors = NULL;
@@ -201,6 +202,11 @@ void usb_free_all_descriptors(struct usb_function *f)
 	f->ss_descriptors = NULL;
 	usb_free_descriptors(f->ssp_descriptors);
 	f->ssp_descriptors = NULL;
+=======
+	usb_free_descriptors(f->hs_descriptors);
+	usb_free_descriptors(f->ss_descriptors);
+	usb_free_descriptors(f->ssp_descriptors);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 EXPORT_SYMBOL_GPL(usb_free_all_descriptors);
 

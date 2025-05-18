@@ -31,7 +31,10 @@
 #include <linux/sched/signal.h>
 #include <linux/interval_tree_generic.h>
 #include <linux/nospec.h>
+<<<<<<< HEAD
 #include <linux/kcov.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include "vhost.h"
 
@@ -360,9 +363,13 @@ static int vhost_worker(void *data)
 		llist_for_each_entry_safe(work, work_next, node, node) {
 			clear_bit(VHOST_WORK_QUEUED, &work->flags);
 			__set_current_state(TASK_RUNNING);
+<<<<<<< HEAD
 			kcov_remote_start_common(dev->kcov_handle);
 			work->fn(work);
 			kcov_remote_stop();
+=======
+			work->fn(work);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			if (need_resched())
 				schedule();
 		}
@@ -525,7 +532,10 @@ long vhost_dev_set_owner(struct vhost_dev *dev)
 
 	/* No owner, become one */
 	dev->mm = get_task_mm(current);
+<<<<<<< HEAD
 	dev->kcov_handle = kcov_common_handle();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	worker = kthread_create(vhost_worker, dev, "vhost-%d", current->pid);
 	if (IS_ERR(worker)) {
 		err = PTR_ERR(worker);
@@ -551,7 +561,10 @@ err_worker:
 	if (dev->mm)
 		mmput(dev->mm);
 	dev->mm = NULL;
+<<<<<<< HEAD
 	dev->kcov_handle = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 err_mm:
 	return err;
 }
@@ -663,7 +676,10 @@ void vhost_dev_cleanup(struct vhost_dev *dev)
 	if (dev->worker) {
 		kthread_stop(dev->worker);
 		dev->worker = NULL;
+<<<<<<< HEAD
 		dev->kcov_handle = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	if (dev->mm)
 		mmput(dev->mm);

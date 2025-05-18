@@ -85,6 +85,14 @@ void clear_selection(void)
 	}
 }
 
+<<<<<<< HEAD
+=======
+bool vc_is_sel(struct vc_data *vc)
+{
+	return vc == sel_cons;
+}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * User settable table: what characters are to be considered alphabetic?
  * 128 bits. Locked by the console lock.

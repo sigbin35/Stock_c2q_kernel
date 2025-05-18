@@ -31,7 +31,10 @@
 #include <linux/irq.h>
 
 #include <linux/atomic.h>
+<<<<<<< HEAD
 #include <asm/arch_timer.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <asm/cacheflush.h>
 #include <asm/exception.h>
 #include <asm/unistd.h>
@@ -737,6 +740,7 @@ late_initcall(arm_mrc_hook_init);
 
 #endif
 
+<<<<<<< HEAD
 static int get_timer_count_trap(struct pt_regs *regs, unsigned int instr)
 {
 	u64 cval;
@@ -808,6 +812,8 @@ void get_timer_freq_hook_init(void)
 }
 EXPORT_SYMBOL(get_timer_freq_hook_init);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * A data abort trap was taken, but we did not handle the instruction.
  * Try to abort the user program, or panic if it was the kernel.

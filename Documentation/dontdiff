@@ -177,7 +177,10 @@ mkprep
 mkregtable
 mktables
 mktree
+<<<<<<< HEAD
 mkutf8data
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 modpost
 modules.builtin
 modules.order
@@ -256,7 +259,10 @@ vsyscall_32.lds
 wanxlfw.inc
 uImage
 unifdef
+<<<<<<< HEAD
 utf8data.h
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 wakeup.bin
 wakeup.elf
 wakeup.lds

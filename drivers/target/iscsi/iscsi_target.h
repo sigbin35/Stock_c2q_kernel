@@ -43,7 +43,10 @@ extern int iscsi_target_rx_thread(void *);
 extern int iscsit_close_connection(struct iscsi_conn *);
 extern int iscsit_close_session(struct iscsi_session *);
 extern void iscsit_fail_session(struct iscsi_session *);
+<<<<<<< HEAD
 extern int iscsit_free_session(struct iscsi_session *);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 extern void iscsit_stop_session(struct iscsi_session *, int, int);
 extern int iscsit_release_sessions_for_tpg(struct iscsi_portal_group *, int);
 

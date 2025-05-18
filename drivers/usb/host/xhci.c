@@ -81,6 +81,7 @@ int xhci_handshake(void __iomem *ptr, u32 mask, u32 done, int usec)
 	return ret;
 }
 
+<<<<<<< HEAD
 int xhci_handshake_check_state(struct xhci_hcd *xhci,
 		void __iomem *ptr, u32 mask, u32 done, int usec)
 {
@@ -102,6 +103,8 @@ int xhci_handshake_check_state(struct xhci_hcd *xhci,
 	return -ETIMEDOUT;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Disable interrupts and begin the xHCI halting process.
  */
@@ -136,7 +139,11 @@ int xhci_halt(struct xhci_hcd *xhci)
 	xhci_quiesce(xhci);
 
 	ret = xhci_handshake(&xhci->op_regs->status,
+<<<<<<< HEAD
 			STS_HALT, STS_HALT, 2 * XHCI_MAX_HALT_USEC);
+=======
+			STS_HALT, STS_HALT, XHCI_MAX_HALT_USEC);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret) {
 		xhci_warn(xhci, "Host halt failed, %d\n", ret);
 		return ret;
@@ -153,6 +160,7 @@ int xhci_start(struct xhci_hcd *xhci)
 {
 	u32 temp;
 	int ret;
+<<<<<<< HEAD
 	struct usb_hcd *hcd = xhci_to_hcd(xhci);
 
 	/*
@@ -160,6 +168,9 @@ int xhci_start(struct xhci_hcd *xhci)
 	 * change event in halt state, as soon as xhci_start clears halt bit
 	 */
 	disable_irq(hcd->irq);
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	temp = readl(&xhci->op_regs->command);
 	temp |= (CMD_RUN);
 	xhci_dbg_trace(xhci, trace_xhci_dbg_init, "// Turn on HC, cmd = 0x%x.",
@@ -180,8 +191,11 @@ int xhci_start(struct xhci_hcd *xhci)
 		/* clear state flags. Including dying, halted or removing */
 		xhci->xhc_state = 0;
 
+<<<<<<< HEAD
 	enable_irq(hcd->irq);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return ret;
 }
 
@@ -225,8 +239,13 @@ int xhci_reset(struct xhci_hcd *xhci)
 	if (xhci->quirks & XHCI_INTEL_HOST)
 		udelay(1000);
 
+<<<<<<< HEAD
 	ret = xhci_handshake_check_state(xhci, &xhci->op_regs->command,
 			CMD_RESET, 0, 1000 * 1000);
+=======
+	ret = xhci_handshake(&xhci->op_regs->command,
+			CMD_RESET, 0, 10 * 1000 * 1000);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (ret)
 		return ret;
 
@@ -240,7 +259,11 @@ int xhci_reset(struct xhci_hcd *xhci)
 	 * than status until the "Controller Not Ready" flag is cleared.
 	 */
 	ret = xhci_handshake(&xhci->op_regs->status,
+<<<<<<< HEAD
 			STS_CNR, 0, 1000 * 1000);
+=======
+			STS_CNR, 0, 10 * 1000 * 1000);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	for (i = 0; i < 2; i++) {
 		xhci->bus_state[i].port_c_suspend = 0;
@@ -1034,12 +1057,15 @@ int xhci_suspend(struct xhci_hcd *xhci, bool do_wakeup)
 	if (xhci_handshake(&xhci->op_regs->status,
 		      STS_HALT, STS_HALT, delay)) {
 		xhci_warn(xhci, "WARN: xHC CMD_RUN timeout\n");
+<<<<<<< HEAD
 		/* Set the HW_ACCESSIBLE so that any pending interrupts are
 		 * served.
 		 */
 		set_bit(HCD_FLAG_HW_ACCESSIBLE, &hcd->flags);
 		set_bit(HCD_FLAG_HW_ACCESSIBLE, &xhci->shared_hcd->flags);
 		xhci_hc_died(xhci);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		spin_unlock_irq(&xhci->lock);
 		return -ETIMEDOUT;
 	}
@@ -1182,8 +1208,15 @@ int xhci_resume(struct xhci_hcd *xhci, bool hibernated)
 		xhci_dbg(xhci, "Stop HCD\n");
 		xhci_halt(xhci);
 		xhci_zero_64b_regs(xhci);
+<<<<<<< HEAD
 		xhci_reset(xhci);
 		spin_unlock_irq(&xhci->lock);
+=======
+		retval = xhci_reset(xhci);
+		spin_unlock_irq(&xhci->lock);
+		if (retval)
+			return retval;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		xhci_cleanup_msix(xhci);
 
 		xhci_dbg(xhci, "// Disabling event ring interrupts\n");
@@ -5218,6 +5251,7 @@ int xhci_gen_setup(struct usb_hcd *hcd, xhci_get_quirks_t get_quirks)
 }
 EXPORT_SYMBOL_GPL(xhci_gen_setup);
 
+<<<<<<< HEAD
 static phys_addr_t xhci_get_sec_event_ring_phys_addr(struct usb_hcd *hcd,
 	unsigned int intr_num, dma_addr_t *dma)
 {
@@ -5365,6 +5399,8 @@ free_cmd:
 
 
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct hc_driver xhci_hc_driver = {
 	.description =		"xhci-hcd",
 	.product_desc =		"xHCI Host Controller",
@@ -5425,12 +5461,15 @@ static const struct hc_driver xhci_hc_driver = {
 	.enable_usb3_lpm_timeout =	xhci_enable_usb3_lpm_timeout,
 	.disable_usb3_lpm_timeout =	xhci_disable_usb3_lpm_timeout,
 	.find_raw_port_number =	xhci_find_raw_port_number,
+<<<<<<< HEAD
 	.sec_event_ring_setup =		xhci_sec_event_ring_setup,
 	.sec_event_ring_cleanup =	xhci_sec_event_ring_cleanup,
 	.get_sec_event_ring_phys_addr =	xhci_get_sec_event_ring_phys_addr,
 	.get_xfer_ring_phys_addr =	xhci_get_xfer_ring_phys_addr,
 	.get_core_id =			xhci_get_core_id,
 	.stop_endpoint =		xhci_stop_endpoint,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 void xhci_init_driver(struct hc_driver *drv,

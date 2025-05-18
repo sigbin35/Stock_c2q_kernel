@@ -583,7 +583,11 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
 
 	if (!xent) {
 		dent->ch.node_type = UBIFS_DENT_NODE;
+<<<<<<< HEAD
 		if (fname_name(nm) == NULL)
+=======
+		if (nm->hash)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			dent_key_init_hash(c, &dent_key, dir->i_ino, nm->hash);
 		else
 			dent_key_init(c, &dent_key, dir->i_ino, nm);
@@ -630,7 +634,11 @@ int ubifs_jnl_update(struct ubifs_info *c, const struct inode *dir,
 	kfree(dent);
 
 	if (deletion) {
+<<<<<<< HEAD
 		if (fname_name(nm) == NULL)
+=======
+		if (nm->hash)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			err = ubifs_tnc_remove_dh(c, &dent_key, nm->minor_hash);
 		else
 			err = ubifs_tnc_remove_nm(c, &dent_key, nm);

@@ -41,6 +41,7 @@ config WIL6210_TRACING
 
 	  If unsure, say Y to make it easier to debug problems.
 
+<<<<<<< HEAD
 config WIL6210_PLATFORM_MSM
 	bool "wil6210 MSM platform specific support"
 	depends on WIL6210
@@ -53,6 +54,8 @@ config WIL6210_PLATFORM_MSM
 
 	  If unsure, say N.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config WIL6210_DEBUGFS
 	bool "wil6210 debugfs support"
 	depends on WIL6210
@@ -64,6 +67,7 @@ config WIL6210_DEBUGFS
 	  option if you are interested in debugging the driver.
 
 	  If unsure, say Y to make it easier to debug problems.
+<<<<<<< HEAD
 
 config WIL6210_WRITE_IOCTL
 	bool "wil6210 write ioctl to the device"
@@ -84,3 +88,5 @@ config WIL6210_IPA
 	help
 	  Say Y here to enable wil6210 driver support for data path
 	  IPA offload
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

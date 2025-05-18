@@ -541,6 +541,7 @@ static void enable_irqs(struct cal_ctx *ctx)
 
 static void disable_irqs(struct cal_ctx *ctx)
 {
+<<<<<<< HEAD
 	/* Disable IRQ_WDMA_END 0/1 */
 	reg_write_field(ctx->dev,
 			CAL_HL_IRQENABLE_CLR(2),
@@ -551,6 +552,18 @@ static void disable_irqs(struct cal_ctx *ctx)
 			CAL_HL_IRQENABLE_CLR(3),
 			CAL_HL_IRQ_CLEAR,
 			CAL_HL_IRQ_MASK(ctx->csi2_port));
+=======
+	u32 val;
+
+	/* Disable IRQ_WDMA_END 0/1 */
+	val = 0;
+	set_field(&val, CAL_HL_IRQ_CLEAR, CAL_HL_IRQ_MASK(ctx->csi2_port));
+	reg_write(ctx->dev, CAL_HL_IRQENABLE_CLR(2), val);
+	/* Disable IRQ_WDMA_START 0/1 */
+	val = 0;
+	set_field(&val, CAL_HL_IRQ_CLEAR, CAL_HL_IRQ_MASK(ctx->csi2_port));
+	reg_write(ctx->dev, CAL_HL_IRQENABLE_CLR(3), val);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Todo: Add VC_IRQ and CSI2_COMPLEXIO_IRQ handling */
 	reg_write(ctx->dev, CAL_CSI2_VC_IRQENABLE(1), 0);
 }

@@ -18,5 +18,8 @@ obj-$(CONFIG_GENERIC_SCHED_CLOCK)		+= sched_clock.o
 obj-$(CONFIG_TICK_ONESHOT)			+= tick-oneshot.o tick-sched.o
 obj-$(CONFIG_DEBUG_FS)				+= timekeeping_debug.o
 obj-$(CONFIG_TEST_UDELAY)			+= test_udelay.o
+<<<<<<< HEAD
 
 subdir-ccflags-y += -Wformat
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

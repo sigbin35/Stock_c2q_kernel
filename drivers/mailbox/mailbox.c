@@ -53,7 +53,11 @@ static int add_to_rbuf(struct mbox_chan *chan, void *mssg)
 	return idx;
 }
 
+<<<<<<< HEAD
 static int __msg_submit(struct mbox_chan *chan)
+=======
+static void msg_submit(struct mbox_chan *chan)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	unsigned count, idx;
 	unsigned long flags;
@@ -85,6 +89,7 @@ static int __msg_submit(struct mbox_chan *chan)
 exit:
 	spin_unlock_irqrestore(&chan->lock, flags);
 
+<<<<<<< HEAD
 	return err;
 }
 
@@ -103,6 +108,8 @@ static void msg_submit(struct mbox_chan *chan)
 		err = __msg_submit(chan);
 	} while (err == -EAGAIN);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!err && (chan->txdone_method & TXDONE_BY_POLL))
 		/* kick start the timer immediately to avoid delays */
 		hrtimer_start(&chan->mbox->poll_hrt, 0, HRTIMER_MODE_REL);

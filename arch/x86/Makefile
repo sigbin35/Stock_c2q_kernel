@@ -215,11 +215,14 @@ ifdef CONFIG_X86_64
 KBUILD_LDFLAGS += $(call ld-option, -z max-page-size=0x200000)
 endif
 
+<<<<<<< HEAD
 ifdef CONFIG_LTO_CLANG
 KBUILD_LDFLAGS	+= -plugin-opt=-code-model=kernel \
 		   -plugin-opt=-stack-alignment=$(if $(CONFIG_X86_32),4,8)
 endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 # Speed up the build
 KBUILD_CFLAGS += -pipe
 # Workaround for a gcc prelease that unfortunately was shipped in a suse release
@@ -311,6 +314,13 @@ vdso_install:
 
 archprepare: checkbin
 checkbin:
+<<<<<<< HEAD
+=======
+ifndef CONFIG_CC_HAS_ASM_GOTO
+	@echo Compiler lacks asm-goto support.
+	@exit 1
+endif
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 ifdef CONFIG_RETPOLINE
 ifeq ($(RETPOLINE_CFLAGS),)
 	@echo "You are building kernel with non-retpoline compiler." >&2

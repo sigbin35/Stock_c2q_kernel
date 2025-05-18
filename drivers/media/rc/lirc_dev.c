@@ -29,7 +29,11 @@
 #include "rc-core-priv.h"
 #include <uapi/linux/lirc.h>
 
+<<<<<<< HEAD
 #define LIRCBUF_SIZE	256
+=======
+#define LIRCBUF_SIZE	1024
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static dev_t lirc_base_dev;
 

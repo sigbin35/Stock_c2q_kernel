@@ -1457,6 +1457,12 @@ static int ath9k_config(struct ieee80211_hw *hw, u32 changed)
 		ath_chanctx_set_channel(sc, ctx, &hw->conf.chandef);
 	}
 
+<<<<<<< HEAD
+=======
+	if (changed & IEEE80211_CONF_CHANGE_POWER)
+		ath9k_set_txpower(sc, NULL);
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mutex_unlock(&sc->mutex);
 	ath9k_ps_restore(sc);
 

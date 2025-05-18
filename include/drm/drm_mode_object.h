@@ -60,7 +60,11 @@ struct drm_mode_object {
 	void (*free_cb)(struct kref *kref);
 };
 
+<<<<<<< HEAD
 #define DRM_OBJECT_MAX_PROPERTY 64
+=======
+#define DRM_OBJECT_MAX_PROPERTY 24
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * struct drm_object_properties - property tracking for &drm_mode_object
  */

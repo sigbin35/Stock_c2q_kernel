@@ -125,12 +125,20 @@
 &fman0 {
 	ethernet@e4000 {
 		phy-handle = <&rgmii_phy1>;
+<<<<<<< HEAD
 		phy-connection-type = "rgmii";
+=======
+		phy-connection-type = "rgmii-id";
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	};
 
 	ethernet@e6000 {
 		phy-handle = <&rgmii_phy2>;
+<<<<<<< HEAD
 		phy-connection-type = "rgmii";
+=======
+		phy-connection-type = "rgmii-id";
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	};
 
 	ethernet@e8000 {

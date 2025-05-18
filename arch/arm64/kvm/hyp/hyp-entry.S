@@ -111,10 +111,13 @@ el1_hvc_guest:
 	/* ARM_SMCCC_ARCH_WORKAROUND_2 handling */
 	eor	w1, w1, #(ARM_SMCCC_ARCH_WORKAROUND_1 ^ \
 			  ARM_SMCCC_ARCH_WORKAROUND_2)
+<<<<<<< HEAD
 	cbz	w1, wa_epilogue
 
 	eor	w1, w1, #(ARM_SMCCC_ARCH_WORKAROUND_2 ^ \
 			  ARM_SMCCC_ARCH_WORKAROUND_3)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	cbnz	w1, el1_trap
 
 #ifdef CONFIG_ARM64_SSBD
@@ -319,6 +322,7 @@ ENTRY(__smccc_workaround_1_smc_start)
 	ldp	x0, x1, [sp, #(8 * 2)]
 	add	sp, sp, #(8 * 4)
 ENTRY(__smccc_workaround_1_smc_end)
+<<<<<<< HEAD
 
 ENTRY(__smccc_workaround_3_smc_start)
 	esb
@@ -379,4 +383,6 @@ ENTRY(__spectre_bhb_clearbhb_start)
 	clearbhb
 	isb
 ENTRY(__spectre_bhb_clearbhb_end)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif

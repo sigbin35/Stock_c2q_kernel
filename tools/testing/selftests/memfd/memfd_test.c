@@ -54,6 +54,7 @@ static int mfd_assert_new(const char *name, loff_t sz, unsigned int flags)
 	return fd;
 }
 
+<<<<<<< HEAD
 static int mfd_assert_reopen_fd(int fd_in)
 {
 	int r, fd;
@@ -70,6 +71,8 @@ static int mfd_assert_reopen_fd(int fd_in)
 	return fd;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void mfd_fail_new(const char *name, unsigned int flags)
 {
 	int r;
@@ -271,6 +274,7 @@ static void mfd_assert_read(int fd)
 	munmap(p, mfd_def_size);
 }
 
+<<<<<<< HEAD
 /* Test that PROT_READ + MAP_SHARED mappings work. */
 static void mfd_assert_read_shared(int fd)
 {
@@ -290,6 +294,8 @@ static void mfd_assert_read_shared(int fd)
 	munmap(p, mfd_def_size);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void mfd_assert_write(int fd)
 {
 	ssize_t l;
@@ -728,6 +734,7 @@ static void test_seal_write(void)
 }
 
 /*
+<<<<<<< HEAD
  * Test SEAL_FUTURE_WRITE
  * Test whether SEAL_FUTURE_WRITE actually prevents modifications.
  */
@@ -766,6 +773,8 @@ static void test_seal_future_write(void)
 }
 
 /*
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * Test SEAL_SHRINK
  * Test whether SEAL_SHRINK actually prevents shrinking
  */
@@ -1018,7 +1027,10 @@ int main(int argc, char **argv)
 	test_basic();
 
 	test_seal_write();
+<<<<<<< HEAD
 	test_seal_future_write();
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	test_seal_shrink();
 	test_seal_grow();
 	test_seal_resize();

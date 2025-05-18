@@ -563,11 +563,17 @@ static int bts_event_init(struct perf_event *event)
 	 * Note that the default paranoia setting permits unprivileged
 	 * users to profile the kernel.
 	 */
+<<<<<<< HEAD
 	if (event->attr.exclude_kernel) {
 		ret = perf_allow_kernel(&event->attr);
 		if (ret)
 			return ret;
 	}
+=======
+	if (event->attr.exclude_kernel && perf_paranoid_kernel() &&
+	    !capable(CAP_SYS_ADMIN))
+		return -EACCES;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (x86_add_exclusive(x86_lbr_exclusive_bts))
 		return -EBUSY;

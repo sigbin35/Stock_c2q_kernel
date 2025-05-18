@@ -239,7 +239,11 @@ static int hash_accept(struct socket *sock, struct socket *newsock, int flags,
 	struct alg_sock *ask = alg_sk(sk);
 	struct hash_ctx *ctx = ask->private;
 	struct ahash_request *req = &ctx->req;
+<<<<<<< HEAD
 	char state[HASH_MAX_STATESIZE];
+=======
+	char state[crypto_ahash_statesize(crypto_ahash_reqtfm(req)) ? : 1];
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct sock *sk2;
 	struct alg_sock *ask2;
 	struct hash_ctx *ctx2;

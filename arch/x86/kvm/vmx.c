@@ -2156,6 +2156,7 @@ static void vmcs_load(struct vmcs *vmcs)
 }
 
 #ifdef CONFIG_KEXEC_CORE
+<<<<<<< HEAD
 /*
  * This bitmap is used to indicate whether the vmclear
  * operation is enabled on all cpus. All disabled by
@@ -2178,21 +2179,29 @@ static inline int crash_local_vmclear_enabled(int cpu)
 	return cpumask_test_cpu(cpu, &crash_vmclear_enabled_bitmap);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void crash_vmclear_local_loaded_vmcss(void)
 {
 	int cpu = raw_smp_processor_id();
 	struct loaded_vmcs *v;
 
+<<<<<<< HEAD
 	if (!crash_local_vmclear_enabled(cpu))
 		return;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	list_for_each_entry(v, &per_cpu(loaded_vmcss_on_cpu, cpu),
 			    loaded_vmcss_on_cpu_link)
 		vmcs_clear(v->vmcs);
 }
+<<<<<<< HEAD
 #else
 static inline void crash_enable_local_vmclear(int cpu) { }
 static inline void crash_disable_local_vmclear(int cpu) { }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* CONFIG_KEXEC_CORE */
 
 static void __loaded_vmcs_clear(void *arg)
@@ -2204,6 +2213,7 @@ static void __loaded_vmcs_clear(void *arg)
 		return; /* vcpu migration can race with cpu offline */
 	if (per_cpu(current_vmcs, cpu) == loaded_vmcs->vmcs)
 		per_cpu(current_vmcs, cpu) = NULL;
+<<<<<<< HEAD
 	crash_disable_local_vmclear(cpu);
 	list_del(&loaded_vmcs->loaded_vmcss_on_cpu_link);
 
@@ -2217,6 +2227,26 @@ static void __loaded_vmcs_clear(void *arg)
 
 	loaded_vmcs_init(loaded_vmcs);
 	crash_enable_local_vmclear(cpu);
+=======
+
+	vmcs_clear(loaded_vmcs->vmcs);
+	if (loaded_vmcs->shadow_vmcs && loaded_vmcs->launched)
+		vmcs_clear(loaded_vmcs->shadow_vmcs);
+
+	list_del(&loaded_vmcs->loaded_vmcss_on_cpu_link);
+
+	/*
+	 * Ensure all writes to loaded_vmcs, including deleting it from its
+	 * current percpu list, complete before setting loaded_vmcs->vcpu to
+	 * -1, otherwise a different cpu can see vcpu == -1 first and add
+	 * loaded_vmcs to its percpu list before it's deleted from this cpu's
+	 * list. Pairs with the smp_rmb() in vmx_vcpu_load_vmcs().
+	 */
+	smp_wmb();
+
+	loaded_vmcs->cpu = -1;
+	loaded_vmcs->launched = 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void loaded_vmcs_clear(struct loaded_vmcs *loaded_vmcs)
@@ -3067,18 +3097,30 @@ static void vmx_vcpu_load(struct kvm_vcpu *vcpu, int cpu)
 	if (!already_loaded) {
 		loaded_vmcs_clear(vmx->loaded_vmcs);
 		local_irq_disable();
+<<<<<<< HEAD
 		crash_disable_local_vmclear(cpu);
 
 		/*
 		 * Read loaded_vmcs->cpu should be before fetching
 		 * loaded_vmcs->loaded_vmcss_on_cpu_link.
 		 * See the comments in __loaded_vmcs_clear().
+=======
+
+		/*
+		 * Ensure loaded_vmcs->cpu is read before adding loaded_vmcs to
+		 * this cpu's percpu list, otherwise it may not yet be deleted
+		 * from its previous cpu's percpu list.  Pairs with the
+		 * smb_wmb() in __loaded_vmcs_clear().
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		 */
 		smp_rmb();
 
 		list_add(&vmx->loaded_vmcs->loaded_vmcss_on_cpu_link,
 			 &per_cpu(loaded_vmcss_on_cpu, cpu));
+<<<<<<< HEAD
 		crash_enable_local_vmclear(cpu);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		local_irq_enable();
 	}
 
@@ -4422,6 +4464,7 @@ static int hardware_enable(void)
 	    !hv_get_vp_assist_page(cpu))
 		return -EFAULT;
 
+<<<<<<< HEAD
 	INIT_LIST_HEAD(&per_cpu(loaded_vmcss_on_cpu, cpu));
 	INIT_LIST_HEAD(&per_cpu(blocked_vcpu_on_cpu, cpu));
 	spin_lock_init(&per_cpu(blocked_vcpu_on_cpu_lock, cpu));
@@ -4437,6 +4480,8 @@ static int hardware_enable(void)
 	 */
 	crash_enable_local_vmclear(cpu);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	rdmsrl(MSR_IA32_FEATURE_CONTROL, old);
 
 	test_bits = FEATURE_CONTROL_LOCKED;
@@ -6954,8 +6999,18 @@ static int vmx_nmi_allowed(struct kvm_vcpu *vcpu)
 
 static int vmx_interrupt_allowed(struct kvm_vcpu *vcpu)
 {
+<<<<<<< HEAD
 	return (!to_vmx(vcpu)->nested.nested_run_pending &&
 		vmcs_readl(GUEST_RFLAGS) & X86_EFLAGS_IF) &&
+=======
+	if (to_vmx(vcpu)->nested.nested_run_pending)
+		return false;
+
+	if (is_guest_mode(vcpu) && nested_exit_on_intr(vcpu))
+		return true;
+
+	return (vmcs_readl(GUEST_RFLAGS) & X86_EFLAGS_IF) &&
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		!(vmcs_read32(GUEST_INTERRUPTIBILITY_INFO) &
 			(GUEST_INTR_STATE_STI | GUEST_INTR_STATE_MOV_SS));
 }
@@ -11016,6 +11071,13 @@ STACK_FRAME_NON_STANDARD(vmx_vcpu_run);
 static struct kvm *vmx_vm_alloc(void)
 {
 	struct kvm_vmx *kvm_vmx = vzalloc(sizeof(struct kvm_vmx));
+<<<<<<< HEAD
+=======
+
+	if (!kvm_vmx)
+		return NULL;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return &kvm_vmx->kvm;
 }
 
@@ -12990,7 +13052,11 @@ static void vmcs12_save_pending_event(struct kvm_vcpu *vcpu,
 	}
 }
 
+<<<<<<< HEAD
 static int vmx_check_nested_events(struct kvm_vcpu *vcpu, bool external_intr)
+=======
+static int vmx_check_nested_events(struct kvm_vcpu *vcpu)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	struct vcpu_vmx *vmx = to_vmx(vcpu);
 	unsigned long exit_qual;
@@ -13028,8 +13094,12 @@ static int vmx_check_nested_events(struct kvm_vcpu *vcpu, bool external_intr)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	if ((kvm_cpu_has_interrupt(vcpu) || external_intr) &&
 	    nested_exit_on_intr(vcpu)) {
+=======
+	if (kvm_cpu_has_interrupt(vcpu) && nested_exit_on_intr(vcpu)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (block_nested_events)
 			return -EBUSY;
 		nested_vmx_vmexit(vcpu, EXIT_REASON_EXTERNAL_INTERRUPT, 0, 0);
@@ -13607,6 +13677,7 @@ static void nested_vmx_vmexit(struct kvm_vcpu *vcpu, u32 exit_reason,
 	vcpu->arch.mp_state = KVM_MP_STATE_RUNNABLE;
 
 	if (likely(!vmx->fail)) {
+<<<<<<< HEAD
 		/*
 		 * TODO: SDM says that with acknowledge interrupt on
 		 * exit, bit 31 of the VM-exit interrupt information
@@ -13618,6 +13689,10 @@ static void nested_vmx_vmexit(struct kvm_vcpu *vcpu, u32 exit_reason,
 		if (nested_exit_intr_ack_set(vcpu) &&
 		    exit_reason == EXIT_REASON_EXTERNAL_INTERRUPT &&
 		    kvm_cpu_has_interrupt(vcpu)) {
+=======
+		if (exit_reason == EXIT_REASON_EXTERNAL_INTERRUPT &&
+		    nested_exit_intr_ack_set(vcpu)) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			int irq = kvm_cpu_get_interrupt(vcpu);
 			WARN_ON(irq < 0);
 			vmcs12->vm_exit_intr_info = irq |
@@ -14590,7 +14665,11 @@ module_exit(vmx_exit);
 
 static int __init vmx_init(void)
 {
+<<<<<<< HEAD
 	int r;
+=======
+	int r, cpu;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #if IS_ENABLED(CONFIG_HYPERV)
 	/*
@@ -14641,6 +14720,15 @@ static int __init vmx_init(void)
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	for_each_possible_cpu(cpu) {
+		INIT_LIST_HEAD(&per_cpu(loaded_vmcss_on_cpu, cpu));
+		INIT_LIST_HEAD(&per_cpu(blocked_vcpu_on_cpu, cpu));
+		spin_lock_init(&per_cpu(blocked_vcpu_on_cpu_lock, cpu));
+	}
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_KEXEC_CORE
 	rcu_assign_pointer(crash_vmclear_loaded_vmcss,
 			   crash_vmclear_local_loaded_vmcss);

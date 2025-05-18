@@ -315,7 +315,11 @@ static int vti6_rcv(struct sk_buff *skb)
 
 		if (!xfrm6_policy_check(NULL, XFRM_POLICY_IN, skb)) {
 			rcu_read_unlock();
+<<<<<<< HEAD
 			return 0;
+=======
+			goto discard;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		}
 
 		ipv6h = ipv6_hdr(skb);
@@ -454,6 +458,7 @@ vti6_xmit(struct sk_buff *skb, struct net_device *dev, struct flowi *fl)
 	int mtu;
 
 	if (!dst) {
+<<<<<<< HEAD
 		fl->u.ip6.flowi6_oif = dev->ifindex;
 		fl->u.ip6.flowi6_flags |= FLOWI_FLAG_ANYSRC;
 		dst = ip6_route_output(dev_net(dev), NULL, &fl->u.ip6);
@@ -463,6 +468,35 @@ vti6_xmit(struct sk_buff *skb, struct net_device *dev, struct flowi *fl)
 			goto tx_err_link_failure;
 		}
 		skb_dst_set(skb, dst);
+=======
+		switch (skb->protocol) {
+		case htons(ETH_P_IP): {
+			struct rtable *rt;
+
+			fl->u.ip4.flowi4_oif = dev->ifindex;
+			fl->u.ip4.flowi4_flags |= FLOWI_FLAG_ANYSRC;
+			rt = __ip_route_output_key(dev_net(dev), &fl->u.ip4);
+			if (IS_ERR(rt))
+				goto tx_err_link_failure;
+			dst = &rt->dst;
+			skb_dst_set(skb, dst);
+			break;
+		}
+		case htons(ETH_P_IPV6):
+			fl->u.ip6.flowi6_oif = dev->ifindex;
+			fl->u.ip6.flowi6_flags |= FLOWI_FLAG_ANYSRC;
+			dst = ip6_route_output(dev_net(dev), NULL, &fl->u.ip6);
+			if (dst->error) {
+				dst_release(dst);
+				dst = NULL;
+				goto tx_err_link_failure;
+			}
+			skb_dst_set(skb, dst);
+			break;
+		default:
+			goto tx_err_link_failure;
+		}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 
 	dst_hold(dst);

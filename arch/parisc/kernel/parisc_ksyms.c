@@ -138,6 +138,15 @@ extern void $$dyncall(void);
 EXPORT_SYMBOL($$dyncall);
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef CONFIG_DISCONTIGMEM
+#include <asm/mmzone.h>
+EXPORT_SYMBOL(node_data);
+EXPORT_SYMBOL(pfnnid_map);
+#endif
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_FUNCTION_TRACER
 extern void _mcount(void);
 EXPORT_SYMBOL(_mcount);

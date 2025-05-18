@@ -9,19 +9,27 @@
 #include <linux/slab.h>
 #include <linux/export.h>
 #include <linux/namei.h>
+<<<<<<< HEAD
 #include <linux/sched/xacct.h>
+=======
+#include <linux/sched.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/writeback.h>
 #include <linux/syscalls.h>
 #include <linux/linkage.h>
 #include <linux/pagemap.h>
 #include <linux/quotaops.h>
 #include <linux/backing-dev.h>
+<<<<<<< HEAD
 #include <linux/version.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "internal.h"
 
 #define VALID_FLAGS (SYNC_FILE_RANGE_WAIT_BEFORE|SYNC_FILE_RANGE_WRITE| \
 			SYNC_FILE_RANGE_WAIT_AFTER)
 
+<<<<<<< HEAD
 static unsigned long fsync_time_cnt[4];
 
 static inline int sec_sys_sync(void) {
@@ -283,6 +291,8 @@ int intr_sync(int *sync_ret)
 }
 #endif /* CONFIG_INTERRUPTIBLE_SYNC */
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Do the filesystem syncing work. For simple filesystems
  * writeback_inodes_sb(sb) just dirties buffers with inodes so we have to
@@ -474,6 +484,7 @@ int vfs_fsync(struct file *file, int datasync)
 }
 EXPORT_SYMBOL(vfs_fsync);
 
+<<<<<<< HEAD
 unsigned long read_fsync_time_cnt(int idx)
 {
 	return fsync_time_cnt[idx];
@@ -496,17 +507,25 @@ static void inc_fsync_time_cnt(unsigned long end, unsigned long start)
 		fsync_time_cnt[3]++;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int do_fsync(unsigned int fd, int datasync)
 {
 	struct fd f = fdget(fd);
 	int ret = -EBADF;
+<<<<<<< HEAD
 	unsigned long stamp = jiffies;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (f.file) {
 		ret = vfs_fsync(f.file, datasync);
 		fdput(f);
+<<<<<<< HEAD
 		inc_syscfs(current);
 		inc_fsync_time_cnt(jiffies, stamp);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return ret;
 }

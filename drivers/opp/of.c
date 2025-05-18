@@ -20,7 +20,10 @@
 #include <linux/pm_domain.h>
 #include <linux/slab.h>
 #include <linux/export.h>
+<<<<<<< HEAD
 #include <linux/energy_model.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include "opp.h"
 
@@ -791,6 +794,7 @@ struct device_node *dev_pm_opp_get_of_node(struct dev_pm_opp *opp)
 	return of_node_get(opp->np);
 }
 EXPORT_SYMBOL_GPL(dev_pm_opp_get_of_node);
+<<<<<<< HEAD
 
 /**
  * of_dev_pm_opp_get_cpu_power() - Estimates the power of a CPU
@@ -949,3 +953,5 @@ void dev_pm_opp_of_register_em(struct cpumask *cpus)
 	em_register_perf_domain(cpus, nr_opp, &em_cb);
 }
 EXPORT_SYMBOL_GPL(dev_pm_opp_of_register_em);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

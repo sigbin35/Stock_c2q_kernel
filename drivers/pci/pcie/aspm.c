@@ -747,9 +747,15 @@ static void pcie_config_aspm_l1ss(struct pcie_link_state *link, u32 state)
 
 	/* Enable what we need to enable */
 	pci_clear_and_set_dword(parent, up_cap_ptr + PCI_L1SS_CTL1,
+<<<<<<< HEAD
 				PCI_L1SS_CAP_L1_PM_SS, val);
 	pci_clear_and_set_dword(child, dw_cap_ptr + PCI_L1SS_CTL1,
 				PCI_L1SS_CAP_L1_PM_SS, val);
+=======
+				PCI_L1SS_CTL1_L1SS_MASK, val);
+	pci_clear_and_set_dword(child, dw_cap_ptr + PCI_L1SS_CTL1,
+				PCI_L1SS_CTL1_L1SS_MASK, val);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void pcie_config_aspm_dev(struct pci_dev *pdev, u32 val)

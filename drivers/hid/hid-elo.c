@@ -230,9 +230,12 @@ static int elo_probe(struct hid_device *hdev, const struct hid_device_id *id)
 	struct elo_priv *priv;
 	int ret;
 
+<<<<<<< HEAD
 	if (!hid_is_usb(hdev))
 		return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	priv = kzalloc(sizeof(*priv), GFP_KERNEL);
 	if (!priv)
 		return -ENOMEM;

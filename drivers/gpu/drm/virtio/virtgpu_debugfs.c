@@ -28,6 +28,7 @@
 
 #include "virtgpu_drv.h"
 
+<<<<<<< HEAD
 static void virtio_add_bool(struct seq_file *m, const char *name,
 				    bool value)
 {
@@ -52,6 +53,8 @@ static int virtio_gpu_features(struct seq_file *m, void *data)
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static int
 virtio_gpu_debugfs_irq_info(struct seq_file *m, void *data)
 {
@@ -65,8 +68,12 @@ virtio_gpu_debugfs_irq_info(struct seq_file *m, void *data)
 }
 
 static struct drm_info_list virtio_gpu_debugfs_list[] = {
+<<<<<<< HEAD
 	{ "virtio-gpu-features", virtio_gpu_features },
 	{ "virtio-gpu-irq-fence", virtio_gpu_debugfs_irq_info, 0, NULL },
+=======
+	{ "irq_fence", virtio_gpu_debugfs_irq_info, 0, NULL },
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 #define VIRTIO_GPU_DEBUGFS_ENTRIES ARRAY_SIZE(virtio_gpu_debugfs_list)

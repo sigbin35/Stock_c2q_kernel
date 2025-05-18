@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config DRM_MSM
 	tristate "MSM DRM"
 	depends on DRM
@@ -11,11 +15,18 @@ config DRM_MSM
 	select SHMEM
 	select TMPFS
 	select QCOM_SCM
+<<<<<<< HEAD
 	select QCOM_COMMAND_DB if ARCH_QCOM
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	select WANT_DEV_COREDUMP
 	select SND_SOC_HDMI_CODEC if SND_SOC
 	select SYNC_FILE
 	select PM_OPP
+<<<<<<< HEAD
+=======
+	default y
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	help
 	  DRM/KMS driver for MSM/snapdragon.
 
@@ -101,4 +112,7 @@ config DRM_MSM_DSI_10NM_PHY
 	default y
 	help
 	  Choose this option if DSI PHY on SDM845 is used on the platform.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

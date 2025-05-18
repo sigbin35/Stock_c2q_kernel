@@ -50,7 +50,11 @@ struct firmware_cache {
 	struct list_head head;
 	int state;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * Names of firmware images which have been cached successfully
 	 * will be added into the below list so that device uncache
@@ -185,7 +189,10 @@ static struct fw_priv *__allocate_fw_priv(const char *fw_name,
 	fw_priv->data = dbuf;
 	fw_priv->allocated_size = size;
 	fw_state_init(fw_priv);
+<<<<<<< HEAD
 	INIT_LIST_HEAD(&fw_priv->list);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_FW_LOADER_USER_HELPER
 	INIT_LIST_HEAD(&fw_priv->pending_list);
 #endif
@@ -250,10 +257,13 @@ static void __free_fw_priv(struct kref *ref)
 		 (unsigned int)fw_priv->size);
 
 	list_del(&fw_priv->list);
+<<<<<<< HEAD
 #ifdef CONFIG_FW_LOADER_USER_HELPER
 	list_del(&fw_priv->pending_list);
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	spin_unlock(&fwc->lock);
 
 #ifdef CONFIG_FW_LOADER_USER_HELPER
@@ -287,9 +297,12 @@ static const char * const fw_path[] = {
 	"/lib/firmware/updates",
 	"/lib/firmware/" UTS_RELEASE,
 	"/lib/firmware"
+<<<<<<< HEAD
 #ifdef CONFIG_SUPPORT_SSC_SPU
 	,"/spu/sensorhub"
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /*
@@ -380,7 +393,11 @@ static void fw_set_page_data(struct fw_priv *fw_priv, struct firmware *fw)
 		 (unsigned int)fw_priv->size);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void fw_name_devm_release(struct device *dev, void *res)
 {
 	struct fw_name_devm *fwn = res;
@@ -595,8 +612,13 @@ _request_firmware(const struct firmware **firmware_p, const char *name,
 	ret = fw_get_filesystem_firmware(device, fw->priv);
 	if (ret) {
 		if (!(opt_flags & FW_OPT_NO_WARN))
+<<<<<<< HEAD
 			dev_dbg(device,
 				 "Firmware %s was not found in kernel paths. rc:%d\n",
+=======
+			dev_warn(device,
+				 "Direct firmware load for %s failed with error %d\n",
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				 name, ret);
 		ret = firmware_fallback_sysfs(fw, name, device, opt_flags, ret);
 	} else
@@ -864,7 +886,11 @@ request_firmware_nowait(
 }
 EXPORT_SYMBOL(request_firmware_nowait);
 
+<<<<<<< HEAD
 #ifdef CONFIG_FW_CACHE
+=======
+#ifdef CONFIG_PM_SLEEP
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static ASYNC_DOMAIN_EXCLUSIVE(fw_cache_domain);
 
 /**

@@ -11,7 +11,10 @@
 
 #include "dm-verity-fec.h"
 #include <linux/math64.h>
+<<<<<<< HEAD
 #include <linux/sysfs.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define DM_MSG_PREFIX	"verity-fec"
 
@@ -176,11 +179,17 @@ error:
 	if (r < 0 && neras)
 		DMERR_LIMIT("%s: FEC %llu: failed to correct: %d",
 			    v->data_dev->name, (unsigned long long)rsb, r);
+<<<<<<< HEAD
 	else if (r > 0) {
 		DMWARN_LIMIT("%s: FEC %llu: corrected %d errors",
 			     v->data_dev->name, (unsigned long long)rsb, r);
 		atomic_add_unless(&v->fec->corrected, 1, INT_MAX);
 	}
+=======
+	else if (r > 0)
+		DMWARN_LIMIT("%s: FEC %llu: corrected %d errors",
+			     v->data_dev->name, (unsigned long long)rsb, r);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return r;
 }
@@ -215,15 +224,22 @@ static int fec_read_bufs(struct dm_verity *v, struct dm_verity_io *io,
 	struct dm_verity_fec_io *fio = fec_io(io);
 	u64 block, ileaved;
 	u8 *bbuf, *rs_block;
+<<<<<<< HEAD
 	u8 want_digest[HASH_MAX_DIGESTSIZE];
+=======
+	u8 want_digest[v->digest_size];
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned n, k;
 
 	if (neras)
 		*neras = 0;
 
+<<<<<<< HEAD
 	if (WARN_ON(v->digest_size > sizeof(want_digest)))
 		return -EINVAL;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * read each of the rsn data blocks that are part of the RS block, and
 	 * interleave contents to available bufs
@@ -441,6 +457,12 @@ int verity_fec_decode(struct dm_verity *v, struct dm_verity_io *io,
 
 	fio->level++;
 
+<<<<<<< HEAD
+=======
+	if (type == DM_VERITY_BLOCK_TYPE_METADATA)
+		block += v->data_blocks;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * For RS(M, N), the continuous FEC data is divided into blocks of N
 	 * bytes. Since block size may not be divisible by N, the last block
@@ -548,7 +570,10 @@ unsigned verity_fec_status_table(struct dm_verity *v, unsigned sz,
 void verity_fec_dtr(struct dm_verity *v)
 {
 	struct dm_verity_fec *f = v->fec;
+<<<<<<< HEAD
 	struct kobject *kobj = &f->kobj_holder.kobj;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	if (!verity_fec_is_enabled(v))
 		goto out;
@@ -556,6 +581,10 @@ void verity_fec_dtr(struct dm_verity *v)
 	mempool_exit(&f->rs_pool);
 	mempool_exit(&f->prealloc_pool);
 	mempool_exit(&f->extra_pool);
+<<<<<<< HEAD
+=======
+	mempool_exit(&f->output_pool);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	kmem_cache_destroy(f->cache);
 
 	if (f->data_bufio)
@@ -565,12 +594,15 @@ void verity_fec_dtr(struct dm_verity *v)
 
 	if (f->dev)
 		dm_put_device(v->ti, f->dev);
+<<<<<<< HEAD
 
 	if (kobj->state_initialized) {
 		kobject_put(kobj);
 		wait_for_completion(dm_get_completion_from_kobject(kobj));
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 out:
 	kfree(f);
 	v->fec = NULL;
@@ -659,6 +691,7 @@ int verity_fec_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
 	return 0;
 }
 
+<<<<<<< HEAD
 static ssize_t corrected_show(struct kobject *kobj, struct kobj_attribute *attr,
 			      char *buf)
 {
@@ -681,6 +714,8 @@ static struct kobj_type fec_ktype = {
 	.release = dm_kobject_release
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Allocate dm_verity_fec for v->fec. Must be called before verity_fec_ctr.
  */
@@ -704,10 +739,15 @@ int verity_fec_ctr_alloc(struct dm_verity *v)
  */
 int verity_fec_ctr(struct dm_verity *v)
 {
+<<<<<<< HEAD
 	int r;
 	struct dm_verity_fec *f = v->fec;
 	struct dm_target *ti = v->ti;
 	struct mapped_device *md = dm_table_get_md(ti->table);
+=======
+	struct dm_verity_fec *f = v->fec;
+	struct dm_target *ti = v->ti;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u64 hash_blocks;
 	int ret;
 
@@ -716,6 +756,7 @@ int verity_fec_ctr(struct dm_verity *v)
 		return 0;
 	}
 
+<<<<<<< HEAD
 	/* Create a kobject and sysfs attributes */
 	init_completion(&f->kobj_holder.completion);
 
@@ -726,6 +767,8 @@ int verity_fec_ctr(struct dm_verity *v)
 		return r;
 	}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/*
 	 * FEC is computed over data blocks, possible metadata, and
 	 * hash blocks. In other words, FEC covers total of fec_blocks

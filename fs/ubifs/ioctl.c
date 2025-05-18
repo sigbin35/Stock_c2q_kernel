@@ -194,7 +194,11 @@ long ubifs_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		return err;
 	}
 	case FS_IOC_SET_ENCRYPTION_POLICY: {
+<<<<<<< HEAD
 #ifdef CONFIG_FS_ENCRYPTION
+=======
+#ifdef CONFIG_UBIFS_FS_ENCRYPTION
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		struct ubifs_info *c = inode->i_sb->s_fs_info;
 
 		err = ubifs_enable_encryption(c);
@@ -207,13 +211,18 @@ long ubifs_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 #endif
 	}
 	case FS_IOC_GET_ENCRYPTION_POLICY: {
+<<<<<<< HEAD
 #ifdef CONFIG_FS_ENCRYPTION
+=======
+#ifdef CONFIG_UBIFS_FS_ENCRYPTION
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return fscrypt_ioctl_get_policy(file, (void __user *)arg);
 #else
 		return -EOPNOTSUPP;
 #endif
 	}
 
+<<<<<<< HEAD
 	case FS_IOC_GET_ENCRYPTION_POLICY_EX:
 		return fscrypt_ioctl_get_policy_ex(file, (void __user *)arg);
 
@@ -232,6 +241,8 @@ long ubifs_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 	case FS_IOC_GET_ENCRYPTION_NONCE:
 		return fscrypt_ioctl_get_nonce(file, (void __user *)arg);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	default:
 		return -ENOTTY;
 	}
@@ -249,12 +260,15 @@ long ubifs_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
 		break;
 	case FS_IOC_SET_ENCRYPTION_POLICY:
 	case FS_IOC_GET_ENCRYPTION_POLICY:
+<<<<<<< HEAD
 	case FS_IOC_GET_ENCRYPTION_POLICY_EX:
 	case FS_IOC_ADD_ENCRYPTION_KEY:
 	case FS_IOC_REMOVE_ENCRYPTION_KEY:
 	case FS_IOC_REMOVE_ENCRYPTION_KEY_ALL_USERS:
 	case FS_IOC_GET_ENCRYPTION_KEY_STATUS:
 	case FS_IOC_GET_ENCRYPTION_NONCE:
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		break;
 	default:
 		return -ENOIOCTLCMD;

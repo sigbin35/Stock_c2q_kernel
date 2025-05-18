@@ -122,7 +122,11 @@ unsigned char snd_usb_parse_datainterval(struct snd_usb_audio *chip,
 	case USB_SPEED_SUPER:
 	case USB_SPEED_SUPER_PLUS:
 		if (get_endpoint(alts, 0)->bInterval >= 1 &&
+<<<<<<< HEAD
 		    get_endpoint(alts, 0)->bInterval <= 16)
+=======
+		    get_endpoint(alts, 0)->bInterval <= 4)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			return get_endpoint(alts, 0)->bInterval - 1;
 		break;
 	default:

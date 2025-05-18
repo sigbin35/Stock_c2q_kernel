@@ -113,7 +113,11 @@ static u64 suspend_start;
 
 #ifdef CONFIG_CLOCKSOURCE_WATCHDOG
 static void clocksource_watchdog_work(struct work_struct *work);
+<<<<<<< HEAD
 static void clocksource_select(bool force);
+=======
+static void clocksource_select(void);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static LIST_HEAD(watchdog_list);
 static struct clocksource *watchdog;
@@ -725,12 +729,20 @@ static inline void clocksource_update_max_deferment(struct clocksource *cs)
 
 #ifndef CONFIG_ARCH_USES_GETTIMEOFFSET
 
+<<<<<<< HEAD
 static struct clocksource *clocksource_find_best(bool oneshot, bool skipcur,
 						bool force)
 {
 	struct clocksource *cs;
 
 	if ((!finished_booting && !force) || list_empty(&clocksource_list))
+=======
+static struct clocksource *clocksource_find_best(bool oneshot, bool skipcur)
+{
+	struct clocksource *cs;
+
+	if (!finished_booting || list_empty(&clocksource_list))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		return NULL;
 
 	/*
@@ -748,13 +760,21 @@ static struct clocksource *clocksource_find_best(bool oneshot, bool skipcur,
 	return NULL;
 }
 
+<<<<<<< HEAD
 static void __clocksource_select(bool skipcur, bool force)
+=======
+static void __clocksource_select(bool skipcur)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	bool oneshot = tick_oneshot_mode_active();
 	struct clocksource *best, *cs;
 
 	/* Find the best suitable clocksource */
+<<<<<<< HEAD
 	best = clocksource_find_best(oneshot, skipcur, force);
+=======
+	best = clocksource_find_best(oneshot, skipcur);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (!best)
 		return;
 
@@ -807,23 +827,38 @@ found:
  * Select the clocksource with the best rating, or the clocksource,
  * which is selected by userspace override.
  */
+<<<<<<< HEAD
 static void clocksource_select(bool force)
 {
 	return __clocksource_select(false, force);
+=======
+static void clocksource_select(void)
+{
+	__clocksource_select(false);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static void clocksource_select_fallback(void)
 {
+<<<<<<< HEAD
 	__clocksource_select(true, false);
 }
 
 #else /* !CONFIG_ARCH_USES_GETTIMEOFFSET */
 
 static inline void clocksource_select(bool force) { }
+=======
+	__clocksource_select(true);
+}
+
+#else /* !CONFIG_ARCH_USES_GETTIMEOFFSET */
+static inline void clocksource_select(void) { }
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static inline void clocksource_select_fallback(void) { }
 
 #endif
 
+<<<<<<< HEAD
 /**
  * clocksource_select_force - Force re-selection of the best clocksource
  *				among registered clocksources
@@ -841,6 +876,8 @@ void clocksource_select_force(void)
 	mutex_unlock(&clocksource_mutex);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * clocksource_done_booting - Called near the end of core bootup
  *
@@ -857,7 +894,11 @@ static int __init clocksource_done_booting(void)
 	 * Run the watchdog first to eliminate unstable clock sources
 	 */
 	__clocksource_watchdog_kthread();
+<<<<<<< HEAD
 	clocksource_select(false);
+=======
+	clocksource_select();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	mutex_unlock(&clocksource_mutex);
 	return 0;
 }
@@ -948,7 +989,10 @@ void __clocksource_update_freq_scale(struct clocksource *cs, u32 scale, u32 freq
 }
 EXPORT_SYMBOL_GPL(__clocksource_update_freq_scale);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /**
  * __clocksource_register_scale - Used to install new clocksources
  * @cs:		clocksource to be registered
@@ -975,7 +1019,11 @@ int __clocksource_register_scale(struct clocksource *cs, u32 scale, u32 freq)
 	clocksource_enqueue_watchdog(cs);
 	clocksource_watchdog_unlock(&flags);
 
+<<<<<<< HEAD
 	clocksource_select(false);
+=======
+	clocksource_select();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	clocksource_select_watchdog(false);
 	__clocksource_suspend_select(cs);
 	mutex_unlock(&clocksource_mutex);
@@ -1004,7 +1052,11 @@ void clocksource_change_rating(struct clocksource *cs, int rating)
 	__clocksource_change_rating(cs, rating);
 	clocksource_watchdog_unlock(&flags);
 
+<<<<<<< HEAD
 	clocksource_select(false);
+=======
+	clocksource_select();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	clocksource_select_watchdog(false);
 	clocksource_suspend_select(false);
 	mutex_unlock(&clocksource_mutex);
@@ -1124,7 +1176,11 @@ static ssize_t current_clocksource_store(struct device *dev,
 
 	ret = sysfs_get_uname(buf, override_name, count);
 	if (ret >= 0)
+<<<<<<< HEAD
 		clocksource_select(false);
+=======
+		clocksource_select();
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	mutex_unlock(&clocksource_mutex);
 

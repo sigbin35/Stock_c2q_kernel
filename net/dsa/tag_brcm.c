@@ -141,6 +141,11 @@ static struct sk_buff *brcm_tag_rcv_ll(struct sk_buff *skb,
 	/* Remove Broadcom tag and update checksum */
 	skb_pull_rcsum(skb, BRCM_TAG_LEN);
 
+<<<<<<< HEAD
+=======
+	skb->offload_fwd_mark = 1;
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return skb;
 }
 

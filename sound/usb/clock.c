@@ -291,6 +291,7 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
 			return -EINVAL;
 		}
 
+<<<<<<< HEAD
 		if ((size_t)&selector->baCSourceID[ret - 1] >=
 				(size_t)(chip->ctrl_intf->extra + chip->ctrl_intf->extralen)) {
 			usb_audio_err(chip,
@@ -299,6 +300,8 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
 			return -EINVAL;
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		cur = ret;
 		ret = __uac_clock_find_source(chip, fmt,
 					      selector->baCSourceID[ret - 1],
@@ -313,6 +316,7 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
 			if (i == cur)
 				continue;
 
+<<<<<<< HEAD
 			if ((size_t)&selector->baCSourceID[i - 1] >=
 					(size_t)(chip->ctrl_intf->extra + chip->ctrl_intf->extralen)) {
 				usb_audio_err(chip,
@@ -321,6 +325,8 @@ static int __uac_clock_find_source(struct snd_usb_audio *chip,
 				break;
 			}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			ret = __uac_clock_find_source(chip, fmt,
 						      selector->baCSourceID[i - 1],
 						      visited, true);
@@ -401,6 +407,7 @@ static int __uac3_clock_find_source(struct snd_usb_audio *chip,
 			return -EINVAL;
 		}
 
+<<<<<<< HEAD
 		if ((size_t)&selector->baCSourceID[ret - 1] >=
 				(size_t)(chip->ctrl_intf->extra + chip->ctrl_intf->extralen)) {
 			usb_audio_err(chip,
@@ -409,6 +416,8 @@ static int __uac3_clock_find_source(struct snd_usb_audio *chip,
 			return -EINVAL;
 		}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		cur = ret;
 		ret = __uac3_clock_find_source(chip, fmt,
 					       selector->baCSourceID[ret - 1],
@@ -423,6 +432,7 @@ static int __uac3_clock_find_source(struct snd_usb_audio *chip,
 			if (i == cur)
 				continue;
 
+<<<<<<< HEAD
 			if ((size_t)&selector->baCSourceID[i - 1] >=
 					(size_t)(chip->ctrl_intf->extra + chip->ctrl_intf->extralen)) {
 				usb_audio_err(chip,
@@ -431,6 +441,8 @@ static int __uac3_clock_find_source(struct snd_usb_audio *chip,
 				break;
 			}
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 			ret = __uac3_clock_find_source(chip, fmt,
 						       selector->baCSourceID[i - 1],
 						       visited, true);

@@ -10,6 +10,10 @@ obj-$(CONFIG_BNX2) += bnx2.o
 obj-$(CONFIG_CNIC) += cnic.o
 obj-$(CONFIG_BNX2X) += bnx2x/
 obj-$(CONFIG_SB1250_MAC) += sb1250-mac.o
+<<<<<<< HEAD
+=======
+obj-$(CONFIG_TIGON3) += tg3.o
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_BGMAC) += bgmac.o
 obj-$(CONFIG_BGMAC_BCMA) += bgmac-bcma.o bgmac-bcma-mdio.o
 obj-$(CONFIG_BGMAC_PLATFORM) += bgmac-platform.o

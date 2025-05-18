@@ -466,12 +466,16 @@ struct sock_fprog_kern {
 	struct sock_filter	*filter;
 };
 
+<<<<<<< HEAD
 #define BPF_BINARY_HEADER_MAGIC	0x05de0e82
 
 struct bpf_binary_header {
 #ifdef CONFIG_CFI_CLANG
 	u32 magic;
 #endif
+=======
+struct bpf_binary_header {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	u32 pages;
 	/* Some arches need word alignment for their instructions */
 	u8 image[] __aligned(4);
@@ -511,6 +515,7 @@ struct sk_filter {
 	struct bpf_prog	*prog;
 };
 
+<<<<<<< HEAD
 #if IS_ENABLED(CONFIG_BPF_JIT) && IS_ENABLED(CONFIG_CFI_CLANG)
 /*
  * With JIT, the kernel makes an indirect call to dynamically generated
@@ -567,6 +572,9 @@ static inline void bpf_jit_set_header_magic(struct bpf_binary_header *hdr)
 #endif
 
 #define BPF_PROG_RUN(filter, ctx)  bpf_call_func(filter, ctx)
+=======
+#define BPF_PROG_RUN(filter, ctx)  (*(filter)->bpf_func)(ctx, (filter)->insnsi)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #define BPF_SKB_CB_LEN QDISC_CB_PRIV_LEN
 

@@ -65,6 +65,7 @@ static __u8 *holtek_mouse_report_fixup(struct hid_device *hdev, __u8 *rdesc,
 	return rdesc;
 }
 
+<<<<<<< HEAD
 static int holtek_mouse_probe(struct hid_device *hdev,
 			      const struct hid_device_id *id)
 {
@@ -73,6 +74,8 @@ static int holtek_mouse_probe(struct hid_device *hdev,
 	return 0;
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct hid_device_id holtek_mouse_devices[] = {
 	{ HID_USB_DEVICE(USB_VENDOR_ID_HOLTEK_ALT,
 			USB_DEVICE_ID_HOLTEK_ALT_MOUSE_A067) },
@@ -94,7 +97,10 @@ static struct hid_driver holtek_mouse_driver = {
 	.name = "holtek_mouse",
 	.id_table = holtek_mouse_devices,
 	.report_fixup = holtek_mouse_report_fixup,
+<<<<<<< HEAD
 	.probe = holtek_mouse_probe,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 module_hid_driver(holtek_mouse_driver);

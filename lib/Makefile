@@ -31,7 +31,11 @@ endif
 lib-y := ctype.o string.o vsprintf.o cmdline.o \
 	 rbtree.o radix-tree.o timerqueue.o\
 	 idr.o int_sqrt.o extable.o \
+<<<<<<< HEAD
 	 sha1.o chacha.o irq_regs.o argv_split.o \
+=======
+	 sha1.o chacha20.o irq_regs.o argv_split.o \
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	 flex_proportions.o ratelimit.o show_mem.o \
 	 is_single_threaded.o plist.o decompress.o kobject_uevent.o \
 	 earlycpio.o seq_buf.o siphash.o dec_and_lock.o \
@@ -44,7 +48,10 @@ lib-$(CONFIG_SMP) += cpumask.o
 lib-y	+= kobject.o klist.o
 obj-y	+= lockref.o
 
+<<<<<<< HEAD
 KASAN_SANITIZE_find_bit.o := n
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-y += bcd.o div64.o sort.o parser.o debug_locks.o random32.o \
 	 bust_spinlocks.o kasprintf.o bitmap.o scatterlist.o \
 	 gcd.o lcm.o list_sort.o uuid.o flex_array.o iov_iter.o clz_ctz.o \
@@ -83,11 +90,14 @@ obj-$(CONFIG_TEST_UUID) += test_uuid.o
 obj-$(CONFIG_TEST_PARMAN) += test_parman.o
 obj-$(CONFIG_TEST_KMOD) += test_kmod.o
 obj-$(CONFIG_TEST_DEBUG_VIRTUAL) += test_debug_virtual.o
+<<<<<<< HEAD
 obj-$(CONFIG_TEST_MEMCAT_P) += test_memcat_p.o
 obj-$(CONFIG_TEST_OBJAGG) += test_objagg.o
 CFLAGS_test_stackinit.o += $(call cc-disable-warning, switch-unreachable)
 obj-$(CONFIG_TEST_STACKINIT) += test_stackinit.o
 obj-$(CONFIG_TEST_MEMINIT) += test_meminit.o
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 ifeq ($(CONFIG_DEBUG_KOBJECT),y)
 CFLAGS_kobject.o += -DDEBUG
@@ -277,7 +287,11 @@ obj-$(CONFIG_UBSAN) += ubsan.o
 UBSAN_SANITIZE_ubsan.o := n
 
 obj-$(CONFIG_SBITMAP) += sbitmap.o
+<<<<<<< HEAD
 obj-$(CONFIG_FFSI) += ffsi.o
+=======
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 obj-$(CONFIG_PARMAN) += parman.o
 
 # GCC library routines

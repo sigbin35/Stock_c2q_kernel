@@ -482,6 +482,7 @@ config BLK_DEV_RSXX
 	  module will be called rsxx.
 
 endif # BLK_DEV
+<<<<<<< HEAD
 
 config VSERVICES_BLOCK_SERVER
 	tristate "Virtual Services block server"
@@ -502,3 +503,5 @@ config VSERVICES_BLOCK_CLIENT
 	  Select this option if you want support for client side Virtual
 	  Services block devices. The virtual block devices are typically
 	  named /dev/vblock0, /dev/vblock1, etc.
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

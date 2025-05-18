@@ -26,7 +26,10 @@
 #include <linux/interrupt.h>
 #include <linux/io.h>
 #include <linux/io-64-nonatomic-hi-lo.h>
+<<<<<<< HEAD
 #include <linux/io-pgtable.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include <linux/iommu.h>
 #include <linux/iopoll.h>
 #include <linux/kconfig.h>
@@ -43,6 +46,10 @@
 #include <linux/slab.h>
 #include <linux/spinlock.h>
 
+<<<<<<< HEAD
+=======
+#include "io-pgtable.h"
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #include "arm-smmu-regs.h"
 
 #define SMMU_INTR_SEL_NS     0x2000

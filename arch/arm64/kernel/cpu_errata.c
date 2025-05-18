@@ -23,9 +23,13 @@
 #include <asm/cpu.h>
 #include <asm/cputype.h>
 #include <asm/cpufeature.h>
+<<<<<<< HEAD
 #include <asm/mmu_context.h>
 #include <asm/smp_plat.h>
 #include <asm/vectors.h>
+=======
+#include <asm/smp_plat.h>
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static bool __maybe_unused
 is_affected_midr_range(const struct arm64_cpu_capabilities *entry, int scope)
@@ -99,6 +103,7 @@ DEFINE_PER_CPU_READ_MOSTLY(struct bp_hardening_data, bp_hardening_data);
 #ifdef CONFIG_KVM_INDIRECT_VECTORS
 extern char __smccc_workaround_1_smc_start[];
 extern char __smccc_workaround_1_smc_end[];
+<<<<<<< HEAD
 extern char __smccc_workaround_3_smc_start[];
 extern char __smccc_workaround_3_smc_end[];
 extern char __spectre_bhb_loop_k8_start[];
@@ -109,6 +114,8 @@ extern char __spectre_bhb_loop_k32_start[];
 extern char __spectre_bhb_loop_k32_end[];
 extern char __spectre_bhb_clearbhb_start[];
 extern char __spectre_bhb_clearbhb_end[];
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static void __copy_hyp_vect_bpi(int slot, const char *hyp_vecs_start,
 				const char *hyp_vecs_end)
@@ -122,11 +129,18 @@ static void __copy_hyp_vect_bpi(int slot, const char *hyp_vecs_start,
 	__flush_icache_range((uintptr_t)dst, (uintptr_t)dst + SZ_2K);
 }
 
+<<<<<<< HEAD
 static DEFINE_SPINLOCK(bp_lock);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static void install_bp_hardening_cb(bp_hardening_cb_t fn,
 				    const char *hyp_vecs_start,
 				    const char *hyp_vecs_end)
 {
+<<<<<<< HEAD
+=======
+	static DEFINE_SPINLOCK(bp_lock);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	int cpu, slot = -1;
 
 	spin_lock(&bp_lock);
@@ -145,7 +159,10 @@ static void install_bp_hardening_cb(bp_hardening_cb_t fn,
 
 	__this_cpu_write(bp_hardening_data.hyp_vectors_slot, slot);
 	__this_cpu_write(bp_hardening_data.fn, fn);
+<<<<<<< HEAD
 	__this_cpu_write(bp_hardening_data.template_start, hyp_vecs_start);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	spin_unlock(&bp_lock);
 }
 #else
@@ -656,6 +673,7 @@ needs_tx2_tvm_workaround(const struct arm64_cpu_capabilities *entry,
 	return false;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_ARM64_ERRATUM_1542418
 static void run_workaround_1542418_asid_rollover(const struct arm64_cpu_capabilities *c)
 {
@@ -668,6 +686,8 @@ static void run_workaround_1542418_asid_rollover(const struct arm64_cpu_capabili
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_HARDEN_EL2_VECTORS
 
 static const struct midr_range arm64_harden_el2_vectors[] = {
@@ -678,6 +698,7 @@ static const struct midr_range arm64_harden_el2_vectors[] = {
 
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_ARM64_ERRATUM_858921
 
 static const struct midr_range arm64_workaround_858921_cpus[] = {
@@ -714,6 +735,8 @@ static const struct midr_range arm64_workaround_845719_cpus[] = {
 
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 const struct arm64_cpu_capabilities arm64_errata[] = {
 #if	defined(CONFIG_ARM64_ERRATUM_826319) || \
 	defined(CONFIG_ARM64_ERRATUM_827319) || \
@@ -766,9 +789,16 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 #endif
 #ifdef CONFIG_ARM64_ERRATUM_845719
 	{
+<<<<<<< HEAD
 		.desc = "ARM erratum 845719",
 		.capability = ARM64_WORKAROUND_845719,
 		ERRATA_MIDR_RANGE_LIST(arm64_workaround_845719_cpus),
+=======
+	/* Cortex-A53 r0p[01234] */
+		.desc = "ARM erratum 845719",
+		.capability = ARM64_WORKAROUND_845719,
+		ERRATA_MIDR_REV_RANGE(MIDR_CORTEX_A53, 0, 0, 4),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	},
 #endif
 #ifdef CONFIG_CAVIUM_ERRATUM_23154
@@ -854,9 +884,16 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 #endif
 #ifdef CONFIG_ARM64_ERRATUM_858921
 	{
+<<<<<<< HEAD
 		.desc = "ARM erratum 858921",
 		.capability = ARM64_WORKAROUND_858921,
 		ERRATA_MIDR_RANGE_LIST(arm64_workaround_858921_cpus),
+=======
+	/* Cortex-A73 all versions */
+		.desc = "ARM erratum 858921",
+		.capability = ARM64_WORKAROUND_858921,
+		ERRATA_MIDR_ALL_VERSIONS(MIDR_CORTEX_A73),
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	},
 #endif
 	{
@@ -878,6 +915,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		.matches = has_ssbd_mitigation,
 		.midr_range_list = arm64_ssb_cpus,
 	},
+<<<<<<< HEAD
 	{
 		.desc = "Spectre-BHB",
 		.capability = ARM64_SPECTRE_BHB,
@@ -892,6 +930,8 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		ERRATA_MIDR_RANGE_LIST(arm64_workaround_1188873_cpus),
 	},
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #ifdef CONFIG_ARM64_ERRATUM_1463225
 	{
 		.desc = "ARM erratum 1463225",
@@ -908,6 +948,7 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		.matches = needs_tx2_tvm_workaround,
 	},
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_ARM64_ERRATUM_1542418
 	{
 		.desc = "ARM erratum 1542418",
@@ -916,6 +957,8 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		.cpu_enable = run_workaround_1542418_asid_rollover,
 	},
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	{
 	}
 };
@@ -926,6 +969,7 @@ ssize_t cpu_show_spectre_v1(struct device *dev, struct device_attribute *attr,
 	return sprintf(buf, "Mitigation: __user pointer sanitization\n");
 }
 
+<<<<<<< HEAD
 static const char *get_bhb_affected_string(enum mitigation_state bhb_state)
 {
 	switch (bhb_state) {
@@ -959,6 +1003,16 @@ ssize_t cpu_show_spectre_v2(struct device *dev, struct device_attribute *attr,
 
 	if (__hardenbp_enab)
 		return sprintf(buf, "Mitigation: %s%s\n", v2_str, bhb_str);
+=======
+ssize_t cpu_show_spectre_v2(struct device *dev, struct device_attribute *attr,
+		char *buf)
+{
+	if (__spectrev2_safe)
+		return sprintf(buf, "Not affected\n");
+
+	if (__hardenbp_enab)
+		return sprintf(buf, "Mitigation: Branch predictor hardening\n");
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return sprintf(buf, "Vulnerable\n");
 }
@@ -979,6 +1033,7 @@ ssize_t cpu_show_spec_store_bypass(struct device *dev,
 
 	return sprintf(buf, "Vulnerable\n");
 }
+<<<<<<< HEAD
 
 /*
  * We try to ensure that the mitigation state can never change as the result of
@@ -1309,3 +1364,5 @@ void __init spectre_bhb_patch_loop_iter(struct alt_instr *alt,
 					 AARCH64_INSN_MOVEWIDE_ZERO);
 	*updptr++ = cpu_to_le32(insn);
 }
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

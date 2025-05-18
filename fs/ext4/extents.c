@@ -434,6 +434,7 @@ static int ext4_valid_extent_entries(struct inode *inode,
 	return 1;
 }
 
+<<<<<<< HEAD
 /* for debugging if ext4_extent is not valid */
 static void
 ext4_ext_show_eh(struct inode *inode, struct ext4_extent_header *eh)
@@ -479,6 +480,11 @@ ext4_ext_show_eh(struct inode *inode, struct ext4_extent_header *eh)
 static int __ext4_ext_check(const char *function, unsigned int line,
 			    struct inode *inode, struct ext4_extent_header *eh,
 			    int depth, ext4_fsblk_t pblk, struct buffer_head *bh)
+=======
+static int __ext4_ext_check(const char *function, unsigned int line,
+			    struct inode *inode, struct ext4_extent_header *eh,
+			    int depth, ext4_fsblk_t pblk)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	const char *error_msg;
 	int max = 0, err = -EFSCORRUPTED;
@@ -522,6 +528,7 @@ static int __ext4_ext_check(const char *function, unsigned int line,
 	return 0;
 
 corrupted:
+<<<<<<< HEAD
 	if (bh) {
 		printk(KERN_ERR "Print invalid extent bh: %s\n", error_msg);
 		print_bh(inode->i_sb, bh, 0, EXT4_BLOCK_SIZE(inode->i_sb));
@@ -529,6 +536,8 @@ corrupted:
 		printk(KERN_ERR "Print invalid extent entries\n");
 		ext4_ext_show_eh(inode, eh);
 	}
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ext4_error_inode(inode, function, line, 0,
 			 "pblk %llu bad header/extent: %s - magic %x, "
 			 "entries %u, max %u(%u), depth %u(%u)",
@@ -540,7 +549,11 @@ corrupted:
 }
 
 #define ext4_ext_check(inode, eh, depth, pblk)			\
+<<<<<<< HEAD
 	__ext4_ext_check(__func__, __LINE__, (inode), (eh), (depth), (pblk), (NULL))
+=======
+	__ext4_ext_check(__func__, __LINE__, (inode), (eh), (depth), (pblk))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int ext4_ext_check_inode(struct inode *inode)
 {
@@ -571,7 +584,11 @@ __read_extent_tree_block(const char *function, unsigned int line,
 	    (inode->i_ino !=
 	     le32_to_cpu(EXT4_SB(inode->i_sb)->s_es->s_journal_inum))) {
 		err = __ext4_ext_check(function, line, inode,
+<<<<<<< HEAD
 				       ext_block_hdr(bh), depth, pblk, bh);
+=======
+				       ext_block_hdr(bh), depth, pblk);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		if (err)
 			goto errout;
 	}
@@ -906,7 +923,10 @@ int ext4_ext_tree_init(handle_t *handle, struct inode *inode)
 	eh->eh_entries = 0;
 	eh->eh_magic = EXT4_EXT_MAGIC;
 	eh->eh_max = cpu_to_le16(ext4_ext_space_root(inode, 0));
+<<<<<<< HEAD
 	eh->eh_generation = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	ext4_mark_inode_dirty(handle, inode);
 	return 0;
 }
@@ -1161,7 +1181,10 @@ static int ext4_ext_split(handle_t *handle, struct inode *inode,
 	neh->eh_max = cpu_to_le16(ext4_ext_space_block(inode, 0));
 	neh->eh_magic = EXT4_EXT_MAGIC;
 	neh->eh_depth = 0;
+<<<<<<< HEAD
 	neh->eh_generation = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* move remainder of path[depth] to the new leaf */
 	if (unlikely(path[depth].p_hdr->eh_entries !=
@@ -1239,7 +1262,10 @@ static int ext4_ext_split(handle_t *handle, struct inode *inode,
 		neh->eh_magic = EXT4_EXT_MAGIC;
 		neh->eh_max = cpu_to_le16(ext4_ext_space_block_idx(inode, 0));
 		neh->eh_depth = cpu_to_le16(depth - i);
+<<<<<<< HEAD
 		neh->eh_generation = 0;
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		fidx = EXT_FIRST_INDEX(neh);
 		fidx->ei_block = border;
 		ext4_idx_store_pblock(fidx, oldblock);
@@ -3490,8 +3516,13 @@ static int ext4_ext_convert_to_initialized(handle_t *handle,
 		(unsigned long long)map->m_lblk, map_len);
 
 	sbi = EXT4_SB(inode->i_sb);
+<<<<<<< HEAD
 	eof_block = (inode->i_size + inode->i_sb->s_blocksize - 1) >>
 		inode->i_sb->s_blocksize_bits;
+=======
+	eof_block = (EXT4_I(inode)->i_disksize + inode->i_sb->s_blocksize - 1)
+			>> inode->i_sb->s_blocksize_bits;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (eof_block < map->m_lblk + map_len)
 		eof_block = map->m_lblk + map_len;
 
@@ -3638,7 +3669,11 @@ static int ext4_ext_convert_to_initialized(handle_t *handle,
 		max_zeroout = sbi->s_extent_max_zeroout_kb >>
 			(inode->i_sb->s_blocksize_bits - 10);
 
+<<<<<<< HEAD
 	if (IS_ENCRYPTED(inode))
+=======
+	if (ext4_encrypted_inode(inode))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		max_zeroout = 0;
 
 	/*
@@ -3746,8 +3781,13 @@ static int ext4_split_convert_extents(handle_t *handle,
 		  __func__, inode->i_ino,
 		  (unsigned long long)map->m_lblk, map->m_len);
 
+<<<<<<< HEAD
 	eof_block = (inode->i_size + inode->i_sb->s_blocksize - 1) >>
 		inode->i_sb->s_blocksize_bits;
+=======
+	eof_block = (EXT4_I(inode)->i_disksize + inode->i_sb->s_blocksize - 1)
+			>> inode->i_sb->s_blocksize_bits;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (eof_block < map->m_lblk + map->m_len)
 		eof_block = map->m_lblk + map->m_len;
 	/*
@@ -4988,7 +5028,11 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
 	 * leave it disabled for encrypted inodes for now.  This is a
 	 * bug we should fix....
 	 */
+<<<<<<< HEAD
 	if (IS_ENCRYPTED(inode) &&
+=======
+	if (ext4_encrypted_inode(inode) &&
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	    (mode & (FALLOC_FL_COLLAPSE_RANGE | FALLOC_FL_INSERT_RANGE |
 		     FALLOC_FL_ZERO_RANGE)))
 		return -EOPNOTSUPP;

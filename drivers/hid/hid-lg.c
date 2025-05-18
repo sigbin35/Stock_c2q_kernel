@@ -714,18 +714,26 @@ static int lg_raw_event(struct hid_device *hdev, struct hid_report *report,
 
 static int lg_probe(struct hid_device *hdev, const struct hid_device_id *id)
 {
+<<<<<<< HEAD
 	struct usb_interface *iface;
 	__u8 iface_num;
+=======
+	struct usb_interface *iface = to_usb_interface(hdev->dev.parent);
+	__u8 iface_num = iface->cur_altsetting->desc.bInterfaceNumber;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	unsigned int connect_mask = HID_CONNECT_DEFAULT;
 	struct lg_drv_data *drv_data;
 	int ret;
 
+<<<<<<< HEAD
 	if (!hid_is_usb(hdev))
 		return -EINVAL;
 
 	iface = to_usb_interface(hdev->dev.parent);
 	iface_num = iface->cur_altsetting->desc.bInterfaceNumber;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* G29 only work with the 1st interface */
 	if ((hdev->product == USB_DEVICE_ID_LOGITECH_G29_WHEEL) &&
 	    (iface_num != 0)) {

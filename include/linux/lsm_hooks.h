@@ -1211,11 +1211,16 @@
  *
  * @binder_set_context_mgr:
  *	Check whether @mgr is allowed to be the binder context manager.
+<<<<<<< HEAD
  *	@mgr contains the struct cred for the current binder process.
+=======
+ *	@mgr contains the task_struct for the task being registered.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *	Return 0 if permission is granted.
  * @binder_transaction:
  *	Check whether @from is allowed to invoke a binder transaction call
  *	to @to.
+<<<<<<< HEAD
  *	@from contains the struct cred for the sending process.
  *	@to contains the struct cred for the receiving process.
  * @binder_transfer_binder:
@@ -1227,6 +1232,19 @@
  *	@from contains the struct cred for the sending process.
  *	@file contains the struct file being transferred.
  *	@to contains the struct cred for the receiving process.
+=======
+ *	@from contains the task_struct for the sending task.
+ *	@to contains the task_struct for the receiving task.
+ * @binder_transfer_binder:
+ *	Check whether @from is allowed to transfer a binder reference to @to.
+ *	@from contains the task_struct for the sending task.
+ *	@to contains the task_struct for the receiving task.
+ * @binder_transfer_file:
+ *	Check whether @from is allowed to transfer @file to @to.
+ *	@from contains the task_struct for the sending task.
+ *	@file contains the struct file being transferred.
+ *	@to contains the task_struct for the receiving task.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  *
  * @ptrace_access_check:
  *	Check permission before allowing the current process to trace the
@@ -1428,6 +1446,7 @@
  *
  */
 union security_list_options {
+<<<<<<< HEAD
 	int (*binder_set_context_mgr)(const struct cred *mgr);
 	int (*binder_transaction)(const struct cred *from,
 					const struct cred *to);
@@ -1435,6 +1454,15 @@ union security_list_options {
 					const struct cred *to);
 	int (*binder_transfer_file)(const struct cred *from,
 					const struct cred *to,
+=======
+	int (*binder_set_context_mgr)(struct task_struct *mgr);
+	int (*binder_transaction)(struct task_struct *from,
+					struct task_struct *to);
+	int (*binder_transfer_binder)(struct task_struct *from,
+					struct task_struct *to);
+	int (*binder_transfer_file)(struct task_struct *from,
+					struct task_struct *to,
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 					struct file *file);
 
 	int (*ptrace_access_check)(struct task_struct *child,
@@ -1779,6 +1807,7 @@ union security_list_options {
 	int (*bpf_prog_alloc_security)(struct bpf_prog_aux *aux);
 	void (*bpf_prog_free_security)(struct bpf_prog_aux *aux);
 #endif /* CONFIG_BPF_SYSCALL */
+<<<<<<< HEAD
 #ifdef CONFIG_PERF_EVENTS
 	int (*perf_event_open)(struct perf_event_attr *attr, int type);
 	int (*perf_event_alloc)(struct perf_event *event);
@@ -1787,6 +1816,8 @@ union security_list_options {
 	int (*perf_event_write)(struct perf_event *event);
 
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 struct security_hook_heads {
@@ -2021,6 +2052,7 @@ struct security_hook_heads {
 	struct hlist_head bpf_prog_alloc_security;
 	struct hlist_head bpf_prog_free_security;
 #endif /* CONFIG_BPF_SYSCALL */
+<<<<<<< HEAD
 #ifdef CONFIG_PERF_EVENTS
 	struct hlist_head perf_event_open;
 	struct hlist_head perf_event_alloc;
@@ -2028,6 +2060,8 @@ struct security_hook_heads {
 	struct hlist_head perf_event_read;
 	struct hlist_head perf_event_write;
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 } __randomize_layout;
 
 /*

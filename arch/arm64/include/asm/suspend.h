@@ -2,6 +2,7 @@
 #ifndef __ASM_SUSPEND_H
 #define __ASM_SUSPEND_H
 
+<<<<<<< HEAD
 #define NR_CTX_REGS 13
 
 /*
@@ -12,6 +13,10 @@
 #else
 #define NR_CALLEE_SAVED_REGS 12
 #endif
+=======
+#define NR_CTX_REGS 12
+#define NR_CALLEE_SAVED_REGS 12
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 /*
  * struct cpu_suspend_ctx must be 16-byte aligned since it is allocated on

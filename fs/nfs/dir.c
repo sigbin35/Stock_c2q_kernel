@@ -676,9 +676,14 @@ out:
  * We only need to convert from xdr once so future lookups are much simpler
  */
 static
+<<<<<<< HEAD
 int nfs_readdir_filler(void *data, struct page* page)
 {
 	nfs_readdir_descriptor_t *desc = data;
+=======
+int nfs_readdir_filler(nfs_readdir_descriptor_t *desc, struct page* page)
+{
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	struct inode	*inode = file_inode(desc->file);
 	int ret;
 
@@ -709,8 +714,13 @@ void cache_page_release(nfs_readdir_descriptor_t *desc)
 static
 struct page *get_cache_page(nfs_readdir_descriptor_t *desc)
 {
+<<<<<<< HEAD
 	return read_cache_page(desc->file->f_mapping, desc->page_index,
 			nfs_readdir_filler, desc);
+=======
+	return read_cache_page(desc->file->f_mapping,
+			desc->page_index, (filler_t *)nfs_readdir_filler, desc);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*

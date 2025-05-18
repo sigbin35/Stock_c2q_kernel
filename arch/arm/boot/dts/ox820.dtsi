@@ -239,8 +239,13 @@
 					reg = <0 0x200>;
 					interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
 					#interrupt-cells = <1>;
+<<<<<<< HEAD
 					valid-mask = <0xFFFFFFFF>;
 					clear-mask = <0>;
+=======
+					valid-mask = <0xffffffff>;
+					clear-mask = <0xffffffff>;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 				};
 
 				timer0: timer@200 {

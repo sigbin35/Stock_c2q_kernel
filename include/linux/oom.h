@@ -38,12 +38,15 @@ struct oom_control {
 	 */
 	const int order;
 
+<<<<<<< HEAD
 	/*
 	 * Only kill positive adj tasks. Used to behave more like Android's
 	 * lowmemorykiller.
 	 */
 	const bool only_positive_adj;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	/* Used by oom implementation, do not set */
 	unsigned long totalpages;
 	struct task_struct *chosen;
@@ -105,7 +108,11 @@ bool __oom_reap_task_mm(struct mm_struct *mm);
 
 extern unsigned long oom_badness(struct task_struct *p,
 		struct mem_cgroup *memcg, const nodemask_t *nodemask,
+<<<<<<< HEAD
 		unsigned long totalpages, bool only_positive_adj);
+=======
+		unsigned long totalpages);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 extern bool out_of_memory(struct oom_control *oc);
 
@@ -119,6 +126,7 @@ extern void oom_killer_enable(void);
 
 extern struct task_struct *find_lock_task_mm(struct task_struct *p);
 
+<<<<<<< HEAD
 extern void dump_tasks(struct mem_cgroup *memcg,
 		       const nodemask_t *nodemask);
 
@@ -137,10 +145,13 @@ static inline void ulmk_watchdog_fn(struct timer_list *t) {}
 static inline void ulmk_watchdog_pet(struct timer_list *t) {}
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* sysctls */
 extern int sysctl_oom_dump_tasks;
 extern int sysctl_oom_kill_allocating_task;
 extern int sysctl_panic_on_oom;
+<<<<<<< HEAD
 extern int sysctl_reap_mem_on_sigkill;
 
 extern atomic64_t last_oom_jiffies;
@@ -149,4 +160,6 @@ extern atomic64_t last_oom_jiffies;
 extern void add_to_oom_reaper(struct task_struct *p);
 extern void check_panic_on_foreground_kill(struct task_struct *p);
 #define ULMK_MAGIC "lmkd"
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif /* _INCLUDE_LINUX_OOM_H */

@@ -1340,6 +1340,7 @@ config I2C_OPAL
 	  This driver can also be built as a module. If so, the module will be
 	  called as i2c-opal.
 
+<<<<<<< HEAD
 config I2C_MSM_V2
 	tristate "I2C_MSM_V2"
 	depends on ARCH_QCOM
@@ -1351,6 +1352,8 @@ config I2C_MSM_V2
 	  This driver can also be built as a module.  If so, the module
 	  will be called i2c-msm-v2.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config I2C_ZX2967
 	tristate "ZTE ZX2967 I2C support"
 	depends on ARCH_ZX

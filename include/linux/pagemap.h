@@ -29,9 +29,12 @@ enum mapping_flags {
 	AS_EXITING	= 4, 	/* final truncate in progress */
 	/* writeback related tags are not used */
 	AS_NO_WRITEBACK_TAGS = 5,
+<<<<<<< HEAD
 #if defined(CONFIG_SDP)
 	AS_SENSITIVE = __GFP_BITS_SHIFT + 5, /* Group of sensitive pages to be cleaned up */
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /**
@@ -121,6 +124,7 @@ static inline void mapping_set_gfp_mask(struct address_space *m, gfp_t mask)
 	m->gfp_mask = mask;
 }
 
+<<<<<<< HEAD
 #if defined(CONFIG_SDP)
 static inline void mapping_set_sensitive(struct address_space *mapping)
 {
@@ -140,6 +144,8 @@ static inline int mapping_sensitive(struct address_space *mapping)
 }
 #endif
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 void release_pages(struct page **pages, int nr);
 
 /*
@@ -274,7 +280,10 @@ pgoff_t page_cache_prev_hole(struct address_space *mapping,
 #define FGP_WRITE		0x00000008
 #define FGP_NOFS		0x00000010
 #define FGP_NOWAIT		0x00000020
+<<<<<<< HEAD
 #define FGP_FOR_MMAP		0x00000040
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 struct page *pagecache_get_page(struct address_space *mapping, pgoff_t offset,
 		int fgp_flags, gfp_t cache_gfp_mask);
@@ -421,7 +430,12 @@ extern int read_cache_pages(struct address_space *mapping,
 static inline struct page *read_mapping_page(struct address_space *mapping,
 				pgoff_t index, void *data)
 {
+<<<<<<< HEAD
 	return read_cache_page(mapping, index, NULL, data);
+=======
+	filler_t *filler = (filler_t *)mapping->a_ops->readpage;
+	return read_cache_page(mapping, index, filler, data);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 /*
@@ -478,8 +492,13 @@ static inline pgoff_t linear_page_index(struct vm_area_struct *vma,
 	pgoff_t pgoff;
 	if (unlikely(is_vm_hugetlb_page(vma)))
 		return linear_hugepage_index(vma, address);
+<<<<<<< HEAD
 	pgoff = (address - READ_ONCE(vma->vm_start)) >> PAGE_SHIFT;
 	pgoff += READ_ONCE(vma->vm_pgoff);
+=======
+	pgoff = (address - vma->vm_start) >> PAGE_SHIFT;
+	pgoff += vma->vm_pgoff;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	return pgoff;
 }
 
@@ -559,8 +578,11 @@ static inline int wait_on_page_locked_killable(struct page *page)
 	return wait_on_page_bit_killable(compound_head(page), PG_locked);
 }
 
+<<<<<<< HEAD
 extern void put_and_wait_on_page_locked(struct page *page);
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* 
  * Wait for a page to complete writeback
  */

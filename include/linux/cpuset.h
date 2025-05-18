@@ -40,14 +40,24 @@ static inline bool cpusets_enabled(void)
 
 static inline void cpuset_inc(void)
 {
+<<<<<<< HEAD
 	static_branch_inc_cpuslocked(&cpusets_pre_enable_key);
 	static_branch_inc_cpuslocked(&cpusets_enabled_key);
+=======
+	static_branch_inc(&cpusets_pre_enable_key);
+	static_branch_inc(&cpusets_enabled_key);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static inline void cpuset_dec(void)
 {
+<<<<<<< HEAD
 	static_branch_dec_cpuslocked(&cpusets_enabled_key);
 	static_branch_dec_cpuslocked(&cpusets_pre_enable_key);
+=======
+	static_branch_dec(&cpusets_enabled_key);
+	static_branch_dec(&cpusets_pre_enable_key);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 extern int cpuset_init(void);

@@ -741,6 +741,7 @@ void ext4_mb_generate_buddy(struct super_block *sb,
 	grp->bb_fragments = fragments;
 
 	if (free != grp->bb_free) {
+<<<<<<< HEAD
 		struct ext4_group_desc *desc;
 		ext4_fsblk_t bitmap_blk;
 
@@ -748,6 +749,8 @@ void ext4_mb_generate_buddy(struct super_block *sb,
 		bitmap_blk = ext4_block_bitmap(sb, desc);
 
 		print_block_data(sb, bitmap_blk, bitmap, 0, EXT4_BLOCK_SIZE(sb));
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ext4_grp_locked_error(sb, group, 0, 0,
 				      "block bitmap and bg descriptor "
 				      "inconsistent: %u vs %u free clusters",
@@ -1452,6 +1455,7 @@ static void mb_free_blocks(struct inode *inode, struct ext4_buddy *e4b,
 
 	if (unlikely(block != -1)) {
 		struct ext4_sb_info *sbi = EXT4_SB(sb);
+<<<<<<< HEAD
 		struct ext4_group_desc *desc;
 		ext4_fsblk_t blocknr, bitmap_blk;
 
@@ -1468,6 +1472,18 @@ static void mb_free_blocks(struct inode *inode, struct ext4_buddy *e4b,
 				inode ? inode->i_ino : 0, blocknr,
 				"freeing already freed block "
 				"(bit %u); block bitmap corrupt.", block);
+=======
+		ext4_fsblk_t blocknr;
+
+		blocknr = ext4_group_first_block_no(sb, e4b->bd_group);
+		blocknr += EXT4_C2B(sbi, block);
+		ext4_grp_locked_error(sb, e4b->bd_group,
+				      inode ? inode->i_ino : 0,
+				      blocknr,
+				      "freeing already freed block "
+				      "(bit %u); block bitmap corrupt.",
+				      block);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		ext4_mark_group_bitmap_corrupted(sb, e4b->bd_group,
 				EXT4_GROUP_INFO_BBITMAP_CORRUPT);
 		mb_regenerate_buddy(e4b);
@@ -2352,6 +2368,7 @@ const struct seq_operations ext4_mb_seq_groups_ops = {
 	.show   = ext4_mb_seq_groups_show,
 };
 
+<<<<<<< HEAD
 ssize_t ext4_mb_freefrag_show(struct ext4_sb_info *sbi, char *buf)
 {
 #define EXT4_FREEFRAG_COLUMN 14 /* sb->s_blocksize_bits + 2 */
@@ -2401,6 +2418,8 @@ out:
 	return strlen(buf);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static struct kmem_cache *get_groupinfo_cache(int blocksize_bits)
 {
 	int cache_index = blocksize_bits - EXT4_MIN_BLOCK_LOG_SIZE;

@@ -856,6 +856,7 @@ config TOUCHSCREEN_WM97XX_ZYLONITE
 	  To compile this driver as a module, choose M here: the
 	  module will be called zylonite-wm97xx.
 
+<<<<<<< HEAD
 config SECURE_TOUCH_SYNAPTICS_DSX
 	bool "Secure Touch"
 	depends on TOUCHSCREEN_SYNAPTICS_DSX_I2C
@@ -867,6 +868,8 @@ config SECURE_TOUCH_SYNAPTICS_DSX
 	  To compile the supported driver with Secure Touch enabled,
 	  choose M here.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config TOUCHSCREEN_USB_COMPOSITE
 	tristate "USB Touchscreen Driver"
 	depends on USB_ARCH_HAS_HCD
@@ -1310,6 +1313,7 @@ config TOUCHSCREEN_ROHM_BU21023
 	  To compile this driver as a module, choose M here: the
 	  module will be called bu21023_ts.
 
+<<<<<<< HEAD
 config TOUCHSCREEN_ST
 	tristate "STMicroelectronics Touchscreen Driver"
 	depends on I2C
@@ -1369,4 +1373,6 @@ source "drivers/input/touchscreen/focaltech_touch/Kconfig"
 
 source "drivers/input/touchscreen/nt36xxx/Kconfig"
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endif

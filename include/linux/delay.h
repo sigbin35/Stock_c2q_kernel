@@ -39,6 +39,7 @@ extern unsigned long loops_per_jiffy;
 #define MAX_UDELAY_MS	5
 #endif
 
+<<<<<<< HEAD
 #define MAX_MDELAY	1000
 
 #if !defined(CONFIG_SAMSUNG_PRODUCT_SHIP) && defined(CONFIG_SEC_DEBUG_SUMMARY)
@@ -72,6 +73,12 @@ extern unsigned long sec_delay_check;
         } \
     })
 #endif
+=======
+#ifndef mdelay
+#define mdelay(n) (\
+	(__builtin_constant_p(n) && (n)<=MAX_UDELAY_MS) ? udelay((n)*1000) : \
+	({unsigned long __ms=(n); while (__ms--) udelay(1000);}))
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif
 
 #ifndef ndelay

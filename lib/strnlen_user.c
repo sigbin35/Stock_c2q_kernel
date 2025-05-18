@@ -2,7 +2,10 @@
 #include <linux/kernel.h>
 #include <linux/export.h>
 #include <linux/uaccess.h>
+<<<<<<< HEAD
 #include <linux/mm.h>
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #include <asm/word-at-a-time.h>
 
@@ -110,16 +113,27 @@ long strnlen_user(const char __user *str, long count)
 		return 0;
 
 	max_addr = user_addr_max();
+<<<<<<< HEAD
 	src_addr = (unsigned long)untagged_addr(str);
+=======
+	src_addr = (unsigned long)str;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	if (likely(src_addr < max_addr)) {
 		unsigned long max = max_addr - src_addr;
 		long retval;
 
+<<<<<<< HEAD
 		if (user_access_begin(VERIFY_READ, str, max)) {
 			retval = do_strnlen_user(str, count, max);
 			user_access_end();
 			return retval;
 		}
+=======
+		user_access_begin();
+		retval = do_strnlen_user(str, count, max);
+		user_access_end();
+		return retval;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	}
 	return 0;
 }

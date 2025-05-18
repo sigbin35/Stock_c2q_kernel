@@ -10,7 +10,10 @@ lkdtm-$(CONFIG_LKDTM)		+= rodata_objcopy.o
 lkdtm-$(CONFIG_LKDTM)		+= usercopy.o
 
 KCOV_INSTRUMENT_rodata.o	:= n
+<<<<<<< HEAD
 CFLAGS_rodata.o			+= $(DISABLE_LTO)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 OBJCOPYFLAGS :=
 OBJCOPYFLAGS_rodata_objcopy.o	:= \

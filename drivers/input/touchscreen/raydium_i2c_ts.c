@@ -441,7 +441,11 @@ static int raydium_i2c_write_object(struct i2c_client *client,
 	return 0;
 }
 
+<<<<<<< HEAD
 static bool raydium_i2c_boot_trigger(struct i2c_client *client)
+=======
+static int raydium_i2c_boot_trigger(struct i2c_client *client)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	static const u8 cmd[7][6] = {
 		{ 0x08, 0x0C, 0x09, 0x00, 0x50, 0xD7 },
@@ -466,10 +470,17 @@ static bool raydium_i2c_boot_trigger(struct i2c_client *client)
 		}
 	}
 
+<<<<<<< HEAD
 	return false;
 }
 
 static bool raydium_i2c_fw_trigger(struct i2c_client *client)
+=======
+	return 0;
+}
+
+static int raydium_i2c_fw_trigger(struct i2c_client *client)
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 {
 	static const u8 cmd[5][11] = {
 		{ 0, 0x09, 0x71, 0x0C, 0x09, 0x00, 0x50, 0xD7, 0, 0, 0 },
@@ -492,7 +503,11 @@ static bool raydium_i2c_fw_trigger(struct i2c_client *client)
 		}
 	}
 
+<<<<<<< HEAD
 	return false;
+=======
+	return 0;
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 }
 
 static int raydium_i2c_check_path(struct i2c_client *client)

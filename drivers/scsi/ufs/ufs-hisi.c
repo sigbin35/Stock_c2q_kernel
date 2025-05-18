@@ -540,6 +540,7 @@ static int ufs_hisi_init_common(struct ufs_hba *hba)
 	if (!host)
 		return -ENOMEM;
 
+<<<<<<< HEAD
 	/*
 	 * Inline crypto is currently broken with ufs-hisi because the keyslots
 	 * overlap with the vendor-specific SYS CTRL registers -- and even if
@@ -548,6 +549,8 @@ static int ufs_hisi_init_common(struct ufs_hba *hba)
 	 */
 	hba->quirks |= UFSHCD_QUIRK_BROKEN_CRYPTO;
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	host->hba = hba;
 	ufshcd_set_variant(hba, host);
 

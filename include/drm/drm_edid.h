@@ -221,6 +221,7 @@ struct detailed_timing {
 				    DRM_EDID_YCBCR420_DC_36 | \
 				    DRM_EDID_YCBCR420_DC_30)
 
+<<<<<<< HEAD
 #define DRM_EDID_CLRMETRY_xvYCC_601   (1 << 0)
 #define DRM_EDID_CLRMETRY_xvYCC_709   (1 << 1)
 #define DRM_EDID_CLRMETRY_sYCC_601    (1 << 2)
@@ -231,6 +232,8 @@ struct detailed_timing {
 #define DRM_EDID_CLRMETRY_BT2020_RGB  (1 << 7)
 #define DRM_EDID_CLRMETRY_DCI_P3      (1 << 15)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /* ELD Header Block */
 #define DRM_ELD_HEADER_BLOCK_SIZE	4
 
@@ -289,11 +292,14 @@ struct detailed_timing {
 
 #define DRM_ELD_CEA_SAD(mnl, sad)	(20 + (mnl) + 3 * (sad))
 
+<<<<<<< HEAD
 /* HDMI 2.0 */
 #define DRM_EDID_3D_INDEPENDENT_VIEW	(1 << 2)
 #define DRM_EDID_3D_DUAL_VIEW		(1 << 1)
 #define DRM_EDID_3D_OSD_DISPARITY	(1 << 0)
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 struct edid {
 	u8 header[8];
 	/* Vendor & product info */

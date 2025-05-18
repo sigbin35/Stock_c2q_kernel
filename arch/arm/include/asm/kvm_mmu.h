@@ -366,11 +366,14 @@ static inline int hyp_map_aux_data(void)
 
 #define kvm_phys_to_vttbr(addr)		(addr)
 
+<<<<<<< HEAD
 static inline void kvm_workaround_1542418_vmid_rollover(void)
 {
 	/* not affected */
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 #endif	/* !__ASSEMBLY__ */
 
 #endif /* __ARM_KVM_MMU_H__ */

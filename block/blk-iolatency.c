@@ -141,7 +141,11 @@ struct iolatency_grp {
 #define BLKIOLATENCY_MAX_WIN_SIZE NSEC_PER_SEC
 /*
  * These are the constants used to fake the fixed-point moving average
+<<<<<<< HEAD
  * calculation just like load average.  The call to calc_load() folds
+=======
+ * calculation just like load average.  The call to CALC_LOAD folds
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
  * (FIXED_1 (2048) - exp_factor) * new_sample into lat_avg.  The sampling
  * window size is bucketed to try to approximately calculate average
  * latency such that 1/exp (decay rate) is [1 min, 2.5 min) when windows
@@ -505,7 +509,11 @@ static void iolatency_check_latencies(struct iolatency_grp *iolat, u64 now)
 	lat_info = &parent->child_lat;
 
 	/*
+<<<<<<< HEAD
 	 * calc_load() takes in a number stored in fixed point representation.
+=======
+	 * CALC_LOAD takes in a number stored in fixed point representation.
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	 * Because we are using this for IO time in ns, the values stored
 	 * are significantly larger than the FIXED_1 denominator (2048).
 	 * Therefore, rounding errors in the calculation are negligible and
@@ -514,9 +522,13 @@ static void iolatency_check_latencies(struct iolatency_grp *iolat, u64 now)
 	exp_idx = min_t(int, BLKIOLATENCY_NR_EXP_FACTORS - 1,
 			div64_u64(iolat->cur_win_nsec,
 				  BLKIOLATENCY_EXP_BUCKET_SIZE));
+<<<<<<< HEAD
 	iolat->lat_avg = calc_load(iolat->lat_avg,
 				   iolatency_exp_factors[exp_idx],
 				   stat.mean);
+=======
+	CALC_LOAD(iolat->lat_avg, iolatency_exp_factors[exp_idx], stat.mean);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	/* Everything is ok and we don't need to adjust the scale. */
 	if (stat.mean <= iolat->min_lat_nsec &&

@@ -183,6 +183,7 @@ static struct attribute_group crash_note_cpu_attr_group = {
 };
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_HOTPLUG_CPU
 
 static ssize_t isolate_show(struct device *dev,
@@ -264,14 +265,19 @@ static struct attribute_group sched_cpu_attr_group = {
 	.attrs = sched_cpu_attrs,
 };
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 static const struct attribute_group *common_cpu_attr_groups[] = {
 #ifdef CONFIG_KEXEC
 	&crash_note_cpu_attr_group,
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_HOTPLUG_CPU
 	&cpu_isolated_attr_group,
 #endif
 	&sched_cpu_attr_group,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NULL
 };
 
@@ -279,10 +285,13 @@ static const struct attribute_group *hotplugable_cpu_attr_groups[] = {
 #ifdef CONFIG_KEXEC
 	&crash_note_cpu_attr_group,
 #endif
+<<<<<<< HEAD
 #ifdef CONFIG_HOTPLUG_CPU
 	&cpu_isolated_attr_group,
 #endif
 	&sched_cpu_attr_group,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	NULL
 };
 
@@ -312,7 +321,10 @@ static struct cpu_attr cpu_attrs[] = {
 	_CPU_ATTR(online, &__cpu_online_mask),
 	_CPU_ATTR(possible, &__cpu_possible_mask),
 	_CPU_ATTR(present, &__cpu_present_mask),
+<<<<<<< HEAD
 	_CPU_ATTR(core_ctl_isolated, &__cpu_isolated_mask),
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 };
 
 /*
@@ -517,7 +529,10 @@ __cpu_device_create(struct device *parent, void *drvdata,
 	dev->parent = parent;
 	dev->groups = groups;
 	dev->release = device_create_release;
+<<<<<<< HEAD
 	device_set_pm_not_required(dev);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	dev_set_drvdata(dev, drvdata);
 
 	retval = kobject_set_name_vargs(&dev->kobj, fmt, args);
@@ -561,7 +576,10 @@ static struct attribute *cpu_root_attrs[] = {
 	&cpu_attrs[0].attr.attr,
 	&cpu_attrs[1].attr.attr,
 	&cpu_attrs[2].attr.attr,
+<<<<<<< HEAD
 	&cpu_attrs[3].attr.attr,
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	&dev_attr_kernel_max.attr,
 	&dev_attr_offline.attr,
 	&dev_attr_isolated.attr,

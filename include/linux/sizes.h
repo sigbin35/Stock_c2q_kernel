@@ -47,6 +47,9 @@
 #define SZ_2G				0x80000000
 
 #define SZ_4G				_AC(0x100000000, ULL)
+<<<<<<< HEAD
 #define SZ_8G				_AC(0x200000000, ULL)
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 #endif /* __LINUX_SIZES_H__ */

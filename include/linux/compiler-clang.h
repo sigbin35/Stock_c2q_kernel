@@ -15,6 +15,7 @@
 /* all clang versions usable with the kernel support KASAN ABI version 5 */
 #define KASAN_ABI_VERSION 5
 
+<<<<<<< HEAD
 /* __no_sanitize_address has been already defined compiler-gcc.h */
 #undef __no_sanitize_address
 
@@ -27,6 +28,15 @@
 #define __no_sanitize_address
 #endif
 
+=======
+/* emulate gcc's __SANITIZE_ADDRESS__ flag */
+#if __has_feature(address_sanitizer)
+#define __SANITIZE_ADDRESS__
+#endif
+
+#define __no_sanitize_address __attribute__((no_sanitize("address")))
+
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * Not all versions of clang implement the the type-generic versions
  * of the builtin overflow checkers. Fortunately, clang implements
@@ -48,6 +58,7 @@
 #define __must_be_array(a) BUILD_BUG_ON_ZERO(__same_type((a), &(a)[0]))
 #define __assume_aligned(a, ...)	\
 	__attribute__((__assume_aligned__(a, ## __VA_ARGS__)))
+<<<<<<< HEAD
 
 #ifdef CONFIG_CFI_CLANG
 #define __nocfi		__attribute__((no_sanitize("cfi")))
@@ -65,3 +76,5 @@
 #else
 # define __noscs
 #endif
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701

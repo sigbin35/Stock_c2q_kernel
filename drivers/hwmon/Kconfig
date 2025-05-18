@@ -1949,6 +1949,7 @@ config SENSORS_ATK0110
 
 endif # ACPI
 
+<<<<<<< HEAD
 config SENSORS_SEC_THERMISTOR
     tristate "SEC Thermistor support"
     depends on EXYNOS_ADC || QCOM_VADC_COMMON
@@ -1958,4 +1959,6 @@ config SENSORS_SEC_THERMISTOR
       interpretation. The driver uses s3c adc driver and needs
       adc-temperature mapping table for conversion.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 endif # HWMON

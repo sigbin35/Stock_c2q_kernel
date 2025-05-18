@@ -111,8 +111,15 @@ static int imx_rngc_self_test(struct imx_rngc *rngc)
 		return -ETIMEDOUT;
 	}
 
+<<<<<<< HEAD
 	if (rngc->err_reg != 0)
 		return -EIO;
+=======
+	if (rngc->err_reg != 0) {
+		imx_rngc_irq_mask_clear(rngc);
+		return -EIO;
+	}
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 	return 0;
 }

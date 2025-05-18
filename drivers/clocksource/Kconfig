@@ -366,6 +366,7 @@ config ARM64_ERRATUM_858921
 	  The workaround will be dynamically enabled when an affected
 	  core is detected.
 
+<<<<<<< HEAD
 config ARM_ERRATUM_858921
 	bool "Workaround for Cortex-A73(AArch32) erratum 858921"
 	default y
@@ -376,6 +377,8 @@ config ARM_ERRATUM_858921
 	  The workaround will be dynamically enabled when an affected
 	  core is detected.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config SUN50I_ERRATUM_UNKNOWN1
 	bool "Workaround for Allwinner A64 erratum UNKNOWN1"
 	default y
@@ -386,6 +389,7 @@ config SUN50I_ERRATUM_UNKNOWN1
 	  the Allwinner A64 SoC. The workaround will only be active if the
 	  allwinner,erratum-unknown1 property is found in the timer node.
 
+<<<<<<< HEAD
 config ARM_ARCH_TIMER_VCT_ACCESS
 	bool "Support for ARM architected timer virtual counter access in userspace"
 	default n
@@ -394,6 +398,8 @@ config ARM_ARCH_TIMER_VCT_ACCESS
 	  This option enables support for reading the ARM architected timer's
 	  virtual counter in userspace.
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 config ARM_GLOBAL_TIMER
 	bool "Support for the ARM global timer" if COMPILE_TEST
 	select TIMER_OF if OF

@@ -44,8 +44,12 @@ ssize_t led_trigger_store(struct device *dev, struct device_attribute *attr,
 		goto unlock;
 	}
 
+<<<<<<< HEAD
 	if (sysfs_streq(buf, "none") &&
 			!(led_cdev->flags & LED_KEEP_TRIGGER)) {
+=======
+	if (sysfs_streq(buf, "none")) {
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 		led_trigger_remove(led_cdev);
 		goto unlock;
 	}

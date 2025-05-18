@@ -202,6 +202,7 @@ void device_unblock_probing(void)
 	driver_deferred_probe_trigger();
 }
 
+<<<<<<< HEAD
 static void enable_trigger_defer_cycle(void)
 {
 	driver_deferred_probe_enable = true;
@@ -213,6 +214,8 @@ static void enable_trigger_defer_cycle(void)
 	flush_work(&deferred_probe_work);
 }
 
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 /*
  * deferred_devs_show() - Show the devices in the deferred probe pending list.
  */
@@ -281,6 +284,7 @@ static DECLARE_DELAYED_WORK(deferred_probe_timeout_work, deferred_probe_timeout_
  *
  * We don't want to get in the way when the bulk of drivers are getting probed.
  * Instead, this initcall makes sure that deferred probing is delayed until
+<<<<<<< HEAD
  * all the registered initcall functions at a particular level are completed.
  * This function is invoked at every *_initcall_sync level.
  */
@@ -302,6 +306,19 @@ static int deferred_probe_enable_fn(void)
 
 	/* Enable deferred probing for all time */
 	enable_trigger_defer_cycle();
+=======
+ * late_initcall time.
+ */
+static int deferred_probe_initcall(void)
+{
+	deferred_devices = debugfs_create_file("devices_deferred", 0444, NULL,
+					       NULL, &deferred_devs_fops);
+
+	driver_deferred_probe_enable = true;
+	driver_deferred_probe_trigger();
+	/* Sort as many dependencies as possible before exiting initcalls */
+	flush_work(&deferred_probe_work);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	initcalls_done = true;
 
 	/*
@@ -317,7 +334,11 @@ static int deferred_probe_enable_fn(void)
 	}
 	return 0;
 }
+<<<<<<< HEAD
 late_initcall(deferred_probe_enable_fn);
+=======
+late_initcall(deferred_probe_initcall);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 static void __exit deferred_probe_exit(void)
 {

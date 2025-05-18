@@ -1070,7 +1070,11 @@ struct kvm_x86_ops {
 	bool (*xsaves_supported)(void);
 	bool (*umip_emulated)(void);
 
+<<<<<<< HEAD
 	int (*check_nested_events)(struct kvm_vcpu *vcpu, bool external_intr);
+=======
+	int (*check_nested_events)(struct kvm_vcpu *vcpu);
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 	void (*request_immediate_exit)(struct kvm_vcpu *vcpu);
 
 	void (*sched_in)(struct kvm_vcpu *kvm, int cpu);

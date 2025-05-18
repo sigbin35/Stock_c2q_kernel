@@ -44,7 +44,10 @@ extern void show_pte(unsigned long addr);
 extern void __show_regs(struct pt_regs *);
 
 extern void (*arm_pm_restart)(enum reboot_mode reboot_mode, const char *cmd);
+<<<<<<< HEAD
 extern char* (*arch_read_hardware_id)(void);
+=======
+>>>>>>> 28f2451f44307f2f6bfd76930441de946d53c701
 
 int handle_guest_sea(phys_addr_t addr, unsigned int esr);
 
